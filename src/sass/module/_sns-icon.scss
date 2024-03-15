@@ -1,0 +1,15 @@
+@use "global" as *;
+
+.sns-icon__items {
+  display: flex;
+  gap: rem(20);
+}
+.sns-icon__item {
+  color: $white;
+  font-size: rem(22);
+
+  a {
+    display: block;
+    height: inherit;
+  }
+}

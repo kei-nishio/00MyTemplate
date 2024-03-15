@@ -1,0 +1,97 @@
+@use "global" as *;
+
+.button-border {
+  display: inline-block;
+  position: relative;
+  padding-bottom: rem(12);
+  padding-left: rem(24);
+  padding-right: rem(40);
+  padding-top: rem(12);
+  border: 1px solid $cNavy02;
+  border-radius: rem(4);
+  color: $cNavy02;
+  text-transform: uppercase;
+}
+.button-border::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: rem(24);
+  transform: rotate(-45deg);
+  transform-origin: left top;
+  width: rem(6);
+  height: rem(6);
+  border-right: 1px solid $cNavy02;
+  border-bottom: 1px solid $cNavy02;
+  transition: transform 0.3s;
+}
+.button-border:hover::before {
+  transform: translateX(rem(5)) rotate(-45deg);
+}
+
+// modifier
+.button-border.button-border--reverse {
+  padding-left: rem(40);
+  padding-right: rem(24);
+  &::before {
+    right: initial;
+    left: rem(24);
+    transform: rotate(135deg);
+  }
+  &:hover::before {
+    transform: translateX(rem(-5)) rotate(135deg);
+  }
+}
+
+// modifier
+.button-border.button-border--wide {
+  padding-left: rem(86);
+  padding-right: rem(101);
+  &::before {
+    right: rem(86);
+  }
+}
+.button-border.button-border--reverse.button-border--wide {
+  padding-left: rem(101);
+  padding-right: rem(86);
+  &::before {
+    left: rem(86);
+  }
+}
+
+// modifier
+.button-border.button-border--pc-white {
+  @include mq {
+    border: 1px solid $white;
+    color: $white;
+  }
+
+  &::before {
+    @include mq {
+      border-right: 1px solid $white;
+      border-bottom: 1px solid $white;
+    }
+  }
+}
+
+// modifier
+.button-border.button-border--navy-wide {
+  width: 100%;
+  max-width: rem(275);
+  padding-left: rem(101);
+  padding-right: rem(86);
+  background-color: $cNavy;
+  color: $white;
+  text-align: center;
+  @include mq {
+    max-width: rem(460);
+    padding-bottom: rem(20);
+    padding-top: rem(20);
+  }
+
+  &::before {
+    left: calc(50% - rem(50));
+    border-right: 1px solid $white;
+    border-bottom: 1px solid $white;
+  }
+}

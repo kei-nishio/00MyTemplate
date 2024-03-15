@@ -1,0 +1,152 @@
+<!-- ! 確認画面の遷移は案件に合わせて選択すること -->
+
+<!-- * Form Contact Start -->
+<div class="contact-form">
+  <dl class="contact-form__list">
+    <!-- * Company -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-company">
+          会社名
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [text* your-company id:f-company placeholder "例）株式会社○○"]
+        <p class="contact-form__example">例）株式会社○○</p>
+      </dd>
+    </div>
+    <!-- * Name -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-name">
+          ご担当者名
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [text* your-name id:f-name placeholder "例）田中太郎"]
+        <p class="contact-form__example">例）田中太郎</p>
+      </dd>
+    </div>
+    <!-- * URL -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-url">
+          URL
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [url* your-url id:f-url placeholder "例）https://www.hogehoge.com"]
+        <p class="contact-form__example">例）https://www.hogehoge.com</p>
+      </dd>
+    </div>
+    <!-- * Telephone -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-tel">
+          電話番号
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [tel* your-tel id:f-tel placeholder "例）000-0000-0000"]
+        <p class="contact-form__example">例）000-0000-0000</p>
+      </dd>
+    </div>
+    <!-- * E-mail -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-mail">
+          メールアドレス
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [email* your-email id:f-mail placeholder "例）hoge@hogehoge.com"]
+        <p class="contact-form__example">例）hoge@hogehoge.com</p>
+      </dd>
+    </div>
+    <!-- * Select -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-select">
+          お問い合わせの種類（セレクト）
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [select* your-select id:f-select first_as_label "選択してください" "セレクト1" "セレクト2" "セレクト3"]
+      </dd>
+    </div>
+    <!-- * Checkbox -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-checkbox">
+          お問い合わせの種類（チェックボックス）
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [checkbox* your-checkbox id:f-checkbox use_label_element "チェックボックス1" "チェックボックス2" "チェックボックス3"]
+      </dd>
+    </div>
+    <!-- * Radio -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-radio">
+          お問い合わせの種類（ラジオボタン）
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [radio your-radio id:f-radio use_label_element default:1 "ラジオ1" "ラジオ2" "ラジオ3"]
+      </dd>
+    </div>
+    <!-- * Textarea -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-textarea">
+          お問い合わせ内容
+          <sup class="contact-form__required">*</sup>
+          <span class="contact-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [textarea* your-message id:f-textarea]
+      </dd>
+    </div>
+  </dl>
+  <!-- * Acceptance -->
+  <div class="contact-form__policy">
+    <div class="contact-form__description">
+      [acceptance your-acceptance]
+      <a href="/privacy-policy/" target="_blank" rel="noreferrer noopener">
+        「個人情報の取り扱いについて」(プライバシーポリシー)
+      </a>
+      同意する
+      <sup>*</sup>
+      [/acceptance]
+    </div>
+  </div>
+
+  <!-- * Submit -->
+  <div class="contact-form__submit">
+    [submit class:button-submit "送信する"]
+  </div>
+  <!-- * To Confirm -->
+  <div class="contact-form__submit">
+    [submit class:button-submit "確認画面へ"]
+    [multistep your-multistep01 first_step "/contact/confirm/"]
+  </div>
+</div>
+<!-- * Form Contact End -->

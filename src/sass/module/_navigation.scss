@@ -1,0 +1,33 @@
+@use "global" as *;
+
+.navigation__items {
+  width: 100%;
+  @include mq {
+    width: initial;
+  }
+}
+.navigation__item {
+  padding-top: rem(12);
+  padding-bottom: rem(12);
+  font-family: $second-font-family;
+  font-size: rem(14);
+  text-transform: uppercase;
+  border-bottom: 1px solid $cNavy;
+  color: $white;
+  @include mq {
+    font-size: rem(16);
+    padding-top: rem(10);
+    padding-bottom: rem(10);
+  }
+}
+.navigation__item:first-of-type {
+  border-top: 1px solid $cNavy;
+}
+
+// modifier
+.navigation.navigation--no-border {
+  .navigation__item {
+    border-bottom: none;
+    border-top: none;
+  }
+}

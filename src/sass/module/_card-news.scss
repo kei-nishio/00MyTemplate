@@ -1,0 +1,42 @@
+@use "global" as *;
+
+.card-news {
+  width: 100%;
+}
+.card-news__meta {
+  display: flex;
+  align-items: center;
+  gap: rem(12);
+  @include mq {
+    gap: rem(29);
+  }
+}
+.card-news__title {
+  display: inline-block;
+  position: relative;
+  margin-top: rem(20);
+  color: $black;
+  font-weight: $medium;
+  font-size: rem(14);
+  line-height: 2;
+  @include mq {
+    -webkit-line-clamp: 1;
+    font-size: rem(16);
+    line-height: initial;
+  }
+}
+.card-news__title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: scale(0, 1);
+  transform-origin: left top;
+  width: 100%;
+  height: rem(1);
+  background-color: $black;
+  transition: transform 0.3s;
+}
+.card-news:hover .card-news__title::after {
+  transform: scale(1, 1);
+}

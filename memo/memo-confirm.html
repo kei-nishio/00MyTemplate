@@ -1,0 +1,126 @@
+<!-- * Form Contact Start -->
+<div class="confirm-form">
+  <dl class="confirm-form__list">
+    <!-- * Company -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          会社名
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">
+        [multiform your-company id:f-company]
+        <p class="confirm-form__example">例）株式会社○○</p>
+      </dd>
+    </div>
+    <!-- * Name -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          ご担当者名
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">
+        [multiform your-name id:f-name]
+        <p class="confirm-form__example">例）田中太郎</p>
+      </dd>
+    </div>
+    <!-- * URL -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          URL
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">
+        [multiform your-url id:f-url]
+        <p class="confirm-form__example">例）https://www.hogehoge.com</p>
+      </dd>
+    </div>
+    <!-- * Telephone -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          電話番号
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">
+        [multiform your-tel id:f-tel]
+        <p class="confirm-form__example">例）000-0000-0000</p>
+      </dd>
+    </div>
+    <!-- * E-mail -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          メールアドレス
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">
+        [multiform your-email id:f-mail]
+        <p class="confirm-form__example">例）hoge@hogehoge.com</p>
+      </dd>
+    </div>
+    <!-- * Select -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          お問い合わせの種類（セレクト）
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">[multiform your-select id:f-select]</dd>
+    </div>
+    <!-- * Checkbox -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          お問い合わせの種類（チェックボックス）
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">[multiform your-checkbox id:f-checkbox]</dd>
+    </div>
+    <!-- * Radio -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          お問い合わせの種類（ラジオボタン）
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">[multiform your-radio id:f-radio]</dd>
+    </div>
+    <!-- * Textarea -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">
+        <label>
+          お問い合わせ内容
+          <sup class="confirm-form__required">*</sup>
+          <span class="confirm-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="confirm-form__description">[multiform your-message id:f-textarea]</dd>
+    </div>
+  </dl>
+  <!-- * Previous -->
+  <div class="confirm-form__previous">[previous class:button-submit "戻る"]</div>
+  <!-- * Submit -->
+  <div class="confirm-form__submit">
+    [submit class:button-submit "送信する"] [multistep your-multistep02 last_step send_email "/contact/confirm/thanks/"]
+  </div>
+</div>
+<!-- * Form Contact End -->
