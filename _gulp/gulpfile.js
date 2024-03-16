@@ -20,6 +20,7 @@ const changed = require("gulp-changed"); // 変更されたファイルのみを
 const del = require("del"); // ファイルやディレクトリを削除するためのモジュール
 const webp = require("gulp-webp"); //webp変換
 const rename = require("gulp-rename"); //ファイル名変更
+const through2 = require("through2"); // gulpの処理を通す
 
 const browsers = ["last 2 versions", "> 5%", "ie = 11", "not ie <= 10", "ios >= 8", "and_chr >= 5", "Android >= 5"];
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
@@ -83,7 +84,8 @@ const phpCopy = () => {
         .pipe(dest(destWpLocalPath.php))
     );
   } else {
-    return undefined; // falseの場合は何も実行せず、undefinedを返す
+    // return undefined; // falseの場合は何も実行せず、undefinedを返す
+    return src(".").pipe(dest("."));
   }
 };
 
@@ -133,8 +135,8 @@ const cssSass = () => {
       .pipe(sourcemaps.write("./"))
       // コンパイル済みのCSSファイルを出力先に保存
       .pipe(dest(destPath.css))
-      .pipe(wpMode ? dest(destWpPath.css) : through())
-      .pipe(wpMode ? dest(destWpLocalPath.css) : through())
+      .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
       // Sassコンパイルが完了したことを通知
       .pipe(
         notify({
@@ -177,13 +179,13 @@ const imgImagemin = () => {
         )
       )
       .pipe(dest(destPath.img))
-      .pipe(wpMode ? dest(destWpPath.img) : through())
-      .pipe(wpMode ? dest(destWpLocalPath.img) : through())
+      .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj())
       .pipe(webp()) //webpに変換
       // 圧縮済みの画像ファイルを出力先に保存
       .pipe(dest(destPath.img))
-      .pipe(wpMode ? dest(destWpPath.img) : through())
-      .pipe(wpMode ? dest(destWpLocalPath.img) : through())
+      .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj())
   );
 };
 
@@ -206,8 +208,8 @@ const jsBabel = () => {
       )
       // 圧縮済みのファイルを出力先に保存
       .pipe(dest(destPath.js))
-      .pipe(wpMode ? dest(destWpPath.js) : through())
-      .pipe(wpMode ? dest(destWpLocalPath.js) : through())
+      .pipe(wpMode ? dest(destWpPath.js) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj())
   );
 };
 
@@ -241,7 +243,9 @@ const watchFiles = () => {
   watch(srcPath.js, series(jsBabel, browserSyncReload));
   watch(srcPath.img, series(imgImagemin, browserSyncReload));
   watch(srcPath.html, series(htmlCopy, browserSyncReload));
-  watch(srcPath.php, series(phpCopy, browserSyncReload));
+  if (wpMode) {
+    watch(srcPath.php, series(phpCopy, browserSyncReload));
+  }
 };
 
 // ! ブラウザシンク付きの開発用タスク
