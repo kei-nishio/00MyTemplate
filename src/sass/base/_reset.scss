@@ -49,6 +49,17 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
+/* リンク　リンクホバー */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s;
+}
+a:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
 /* Make images easier to work with */
 img {
   max-width: 100%;
