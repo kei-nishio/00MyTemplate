@@ -34,7 +34,8 @@ html {
 /* Set core body defaults */
 body {
   min-height: 100vh;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility; // レンダリングの表示最適化
+  text-rendering: optimizeSpeed; // レンダリングの速度最適化
   line-height: 1.5;
 }
 
@@ -51,6 +52,7 @@ a:not([class]) {
 
 /* リンク　リンクホバー */
 a {
+  display: block;
   text-decoration: none;
   color: inherit;
   transition: opacity 0.3s;
@@ -58,6 +60,13 @@ a {
 a:hover {
   cursor: pointer;
   opacity: 0.9;
+}
+
+// * PC版では電話番号リンクを無効にする
+@include mq {
+  a[href^="tel:"] {
+    pointer-events: none;
+  }
 }
 
 /* Make images easier to work with */

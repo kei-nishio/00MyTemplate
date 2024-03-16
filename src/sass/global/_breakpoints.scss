@@ -78,22 +78,3 @@ $mediaquerys: (
     }
   }
 }
-
-// ! 他のCSSで反映させた方がいいと思う
-// * ホバー
-a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  transition: opacity 0.3s;
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-// * PC版では電話番号リンクを無効にする
-@include mq {
-  a[href^="tel:"] {
-    pointer-events: none;
-  }
-}
