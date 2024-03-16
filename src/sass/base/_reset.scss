@@ -63,7 +63,7 @@ a:hover {
 }
 
 // * PC版では電話番号リンクを無効にする
-@include mq {
+@media screen and (min-width: 768px) {
   a[href^="tel:"] {
     pointer-events: none;
   }
