@@ -48,7 +48,7 @@ $mediaquerys: (
 
 @if $startFrom == sp {
   //pcで表示
-  .u-desktop {
+  .u-desktop:not(:root) {
     display: none;
     @include mq("md") {
       display: block;
@@ -56,14 +56,14 @@ $mediaquerys: (
   }
 
   //モバイルのみ表示
-  .u-mobile {
+  .u-mobile:not(:root) {
     @include mq("md") {
       display: none;
     }
   }
 } @else {
   //pcで表示
-  .u-desktop {
+  .u-desktop:not(:root) {
     display: block;
     @include mq("md") {
       display: none;
@@ -71,7 +71,7 @@ $mediaquerys: (
   }
 
   //モバイルのみ表示
-  .u-mobile {
+  .u-mobile:not(:root) {
     display: none;
     @include mq("md") {
       display: block;

@@ -44,4 +44,19 @@ get_template_part('/parts/functions-lib/fncs_scf_field_validation');
 get_template_part('/parts/functions-lib/fncs_custom_pagination');
 
 // ! カスタムメニューを追加する
-// get_template_part('/parts/functions-lib/fncs_add_menu');
+get_template_part('/parts/functions-lib/fncs_add_menu');
+
+// ! Breadcrumb NavXT で特定ページのパンくずをカスタムする
+get_template_part('/parts/functions-lib/fncs_custom-breadcrumb-navxt');
+
+// ! 固定ページのブロックエディタを無効化する
+get_template_part('/parts/functions-lib/fncs_page_editor');
+
+// ! 言語によって読み込むテンプレートをカスタムする
+get_template_part('/parts/functions-lib/fncs_template-customize');
+
+// ! Bogoの言語スイッチャーの国旗を非表示
+get_template_part('/parts/functions-lib/fncs_bogo-noflag');
+
+// ! Bogoの言語スイッチャーの表記を変更
+get_template_part('/parts/functions-lib/fncs_bogo-la-notation');
