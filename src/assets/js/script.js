@@ -1,10 +1,47 @@
 jQuery(function ($) {
   // ! 「jQuery(function ($) {}」内であればWordpressでも「$」が使用可能になる
-  // console.log("start script.js");
+  // ***********
+  // ** 定数管理
+  // ***********
 
-  // ! ***********
-  // ! function  // function myFunction(arg1, arg2) {}
-  // ! ***********
+  // ***********
+  // ** vanillaJS
+  // ***********
+  // ** 初期設定
+  // ***********
+  // ** 強制リロード
+  // ***********
+  function forceReload() {
+    window.location.href = window.location.href; // 現在のURLにリダイレクト
+  }
+
+  // ***********
+  // ** jQuery
+  // ***********
+  // ** 初期設定
+  // ***********
+
+  // ***********
+  // ** GSAP
+  // ***********
+  // ** 初期設定
+  // ***********
+  gsap.registerPlugin(ScrollTrigger);
+  // ** z-indexの設定
+  // ***********
+  function zIndexAdd() {
+    gsap.utils.toArray(".js-scroll-switch-items__image-item").forEach((item, index, array) => {
+      item.style.zIndex = `${array.length - index}`;
+    });
+  }
+
+  // ***********
+  // ** Swiper
+  // ***********
+  // ** 初期設定
+  // ***********
+
+  // *********** 以下、未整理 ***********
 
   // ***********
   // * ヘッダー高さ分を考慮した遷移
@@ -129,9 +166,9 @@ jQuery(function ($) {
     $(".js-drawer-menu").fadeToggle();
 
     if ($(".js-hamburger").hasClass("is-active")) {
-      $("body").css({ overflow: "hidden" });
+      $("html, body").css({ overflow: "hidden" });
     } else {
-      $("body").css({ overflow: "" });
+      $("html, body").css({ overflow: "auto" });
     }
   });
 

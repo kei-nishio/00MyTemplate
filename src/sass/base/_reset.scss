@@ -29,14 +29,18 @@ dd {
 /* Set core root defaults */
 html {
   scroll-behavior: smooth;
+  // overflow-x: hidden;
 }
 
 /* Set core body defaults */
 body {
+  // overflow-x: hidden;
   min-height: 100vh;
-  // text-rendering: optimizeLegibility; // レンダリングの表示最適化
-  text-rendering: optimizeSpeed; // レンダリングの速度最適化
   line-height: 1.5;
+
+  // text-rendering: optimizeLegibility; // レンダリングの表示最適化
+
+  text-rendering: optimizeSpeed; // レンダリングの速度最適化
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
@@ -53,13 +57,13 @@ a:not([class]) {
 /* リンク　リンクホバー */
 a {
   display: block;
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
   transition: opacity 0.3s;
 }
 a:hover {
-  cursor: pointer;
   opacity: 0.9;
+  cursor: pointer;
 }
 
 // * PC版では電話番号リンクを無効にする
@@ -71,9 +75,9 @@ a:hover {
 
 /* Make images easier to work with */
 img {
-  max-width: 100%;
   display: block;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Natural flow and rhythm in articles by default */
@@ -99,14 +103,15 @@ input,
 button,
 select,
 textarea {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  outline: none;
+
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  font: inherit;
-  outline: none;
 }
 
 textarea {

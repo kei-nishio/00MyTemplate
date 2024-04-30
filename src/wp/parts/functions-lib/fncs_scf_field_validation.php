@@ -1,5 +1,5 @@
 <?php
-//  ! 投稿内の繰り返しフィールドとフィールド値が空でないか判定する
+// ! 投稿内の繰り返しフィールドとフィールド値が空でないか判定する
 function check_fields_not_empty($post_id, $repeater_field_name)
 {
   $repeater_data = SCF::get($repeater_field_name, $post_id);
