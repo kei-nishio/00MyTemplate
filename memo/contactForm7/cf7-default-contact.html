@@ -96,8 +96,7 @@
         </label>
       </dt>
       <dd class="contact-form__description">
-        [checkbox* your-checkbox id:f-checkbox use_label_element "チェックボックス1" "チェックボックス2"
-        "チェックボックス3"]
+        [checkbox* your-checkbox id:f-checkbox use_label_element "チェックボックス1" "チェックボックス2" "チェックボックス3"]
       </dd>
     </div>
     <!-- * Radio -->
@@ -123,7 +122,7 @@
         </label>
       </dt>
       <dd class="contact-form__description">
-        [textarea* your-message id:f-textarea placeholder "ここにテキストがはいります"]
+        [textarea* your-message id:f-textarea]
       </dd>
     </div>
   </dl>
@@ -141,10 +140,12 @@
   </div>
 
   <!-- * Submit -->
-  <div class="contact-form__submit">[submit class:button-submit "送信する"]</div>
+  <div class="contact-form__submit">
+    [submit class:button-submit "送信する"]
+  </div>
   <!-- * To Confirm -->
-  <div class="contact-form__confirm">
-    <div class="button-submit">[submit "入力内容のご確認"]</div>
+  <div class="contact-form__submit">
+    [submit class:button-submit "確認画面へ"]
     [multistep your-multistep01 first_step "/contact/confirm/"]
   </div>
 </div>

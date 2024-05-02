@@ -116,16 +116,11 @@
       <dd class="confirm-form__description">[multiform your-message id:f-textarea]</dd>
     </div>
   </dl>
-  <div class="confirm-form__button">
-    <!-- * Previous -->
-    <div class="confirm-form__previous">
-      <div class="button-submit button-submit--white">[previous "訂正する"]</div>
-    </div>
-    <!-- * Submit -->
-    <div class="confirm-form__submit">
-      <div class="button-submit">[submit "送信する"]</div>
-      [multistep your-multistep02 last_step send_email "/contact/confirm/thanks/"]
-    </div>
+  <!-- * Previous -->
+  <div class="confirm-form__previous">[previous class:button-submit "戻る"]</div>
+  <!-- * Submit -->
+  <div class="confirm-form__submit">
+    [submit class:button-submit "送信する"] [multistep your-multistep02 last_step send_email "/contact/confirm/thanks/"]
   </div>
 </div>
 <!-- * Form Contact End -->
