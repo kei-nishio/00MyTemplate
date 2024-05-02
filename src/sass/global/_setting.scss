@@ -1,10 +1,17 @@
 @use "sass:math";
 
-// インナー幅設定（px表記すること）
+
+////////////////////
+// 幅設定
+////////////////////
 // ! rem表記にすると表示エラー起こします。
+// インナー幅設定（px表記すること）
 // コンテンツのインナー幅（最も共通の幅が多い部分）
-// ※キャンパス幅ではなくインナーの幅を指す
+// インナー幅＋パディング＝キャンパス幅
 $inner: 1100px;
+
+// タブレット時最大幅
+$max-width-sp: 600px;
 
 // 余白
 $padding-pc: 25px;
@@ -17,13 +24,7 @@ $padding-sp: 20px;
 $base-font-family: "Noto Sans JP", sans-serif;
 $second-font-family: "Roboto", "Noto Sans JP", sans-serif;
 $third-font-family: "Oswald", "Noto Sans JP", sans-serif;
-// ※検証ツールでしっかり反映されているか確認する
 
-body {
-  font-family: $base-font-family;
-}
-
-// フォントウェイト
 $regular: 300;
 $normal: 400;
 $medium: 500;
@@ -34,7 +35,6 @@ $bold: 700;
 // 色の指定
 ////////////////////
 
-//色指定（共通性のあるものは出来る限り指定すると良い）
 $black: #000;
 $white: #fff;
 
