@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
     lastWindowWidth = currentWindowWidth;
   });
   const breakpoint = 768; // レスポンシブ幅
-  const headerHeight = document.querySelector(".js-header").offsetHeight; // ヘッダーの高さ
+  // const headerHeight = document.querySelector("header").offsetHeight; // ヘッダーの高さ
   // ** 強制リロード
   // ***********
-  function forceReload() {
-    window.location.href = window.location.href; // 現在のURLにリダイレクト
-  }
+  // function forceReload() {
+  //   window.location.href = window.location.href; // 現在のURLにリダイレクト
+  // }
   // ** PC版のみの処理
   // ***********
   if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
@@ -34,75 +34,75 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // ** タブの切り替え
   // ***********
-  class TabSwitcher {
-    constructor(tabSelector, contentSelector, openClass) {
-      this.tabs = document.querySelectorAll(tabSelector);
-      this.contents = document.querySelectorAll(contentSelector);
-      this.openClass = openClass;
-      this.init();
-    }
-    init() {
-      this.tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => this.activateTab(index));
-      });
-    }
-    activateTab(index) {
-      this.resetTabs();
-      this.tabs[index].classList.add(this.openClass);
-      this.contents[index].classList.add(this.openClass);
-    }
-    resetTabs() {
-      this.tabs.forEach(tab => tab.classList.remove(this.openClass));
-      this.contents.forEach(content => content.classList.remove(this.openClass));
-    }
-  }
+  // class TabSwitcher {
+  //   constructor(tabSelector, contentSelector, openClass) {
+  //     this.tabs = document.querySelectorAll(tabSelector);
+  //     this.contents = document.querySelectorAll(contentSelector);
+  //     this.openClass = openClass;
+  //     this.init();
+  //   }
+  //   init() {
+  //     this.tabs.forEach((tab, index) => {
+  //       tab.addEventListener('click', () => this.activateTab(index));
+  //     });
+  //   }
+  //   activateTab(index) {
+  //     this.resetTabs();
+  //     this.tabs[index].classList.add(this.openClass);
+  //     this.contents[index].classList.add(this.openClass);
+  //   }
+  //   resetTabs() {
+  //     this.tabs.forEach(tab => tab.classList.remove(this.openClass));
+  //     this.contents.forEach(content => content.classList.remove(this.openClass));
+  //   }
+  // }
   // const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
   // ** NEWSのセレクトボックスからカテゴリーアーカイブに遷移する
   // ***********
-  window.redirectToUrl = function (select) {
-    let url = select.value;
-    if (url) window.location.href = url;
-  };
+  // window.redirectToUrl = function (select) {
+  //   let url = select.value;
+  //   if (url) window.location.href = url;
+  // };
   // ** ハンバーガーメニューとドロワーメニュー
   // ***********
-  class DrawerToggle {
-    constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector) {
-      this.header = document.querySelector(headerSelector);
-      this.hamburger = document.querySelector(hamburgerSelector);
-      this.drawer = document.querySelector(drawerMenuSelector);
-      this.drawerMask = document.querySelector(drawerMaskSelector);
-      this.initEvents();
-    }
-    initEvents() {
-      [this.hamburger, this.drawer].forEach(element => {
-        element.addEventListener('click', () => this.toggleDrawer());
-      });
-    }
-    toggleDrawer() {
-      [this.header, this.hamburger, this.drawer, this.drawerMask].forEach(el => {
-        el.classList.toggle('is-active');
-      });
-      if (this.hamburger.classList.contains('is-active')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
-    }
-  }
+  // class DrawerToggle {
+  //   constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector) {
+  //     this.header = document.querySelector(headerSelector);
+  //     this.hamburger = document.querySelector(hamburgerSelector);
+  //     this.drawer = document.querySelector(drawerMenuSelector);
+  //     this.drawerMask = document.querySelector(drawerMaskSelector);
+  //     this.initEvents();
+  //   }
+  //   initEvents() {
+  //     [this.hamburger, this.drawer].forEach(element => {
+  //       element.addEventListener('click', () => this.toggleDrawer());
+  //     });
+  //   }
+  //   toggleDrawer() {
+  //     [this.header, this.hamburger, this.drawer, this.drawerMask].forEach(el => {
+  //       el.classList.toggle('is-active');
+  //     });
+  //     if (this.hamburger.classList.contains('is-active')) {
+  //       document.body.style.overflow = 'hidden';
+  //     } else {
+  //       document.body.style.overflow = '';
+  //     }
+  //   }
+  // }
   // const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer-menu', '.js-drawer-mask');
   // ** ヘッダーをスクロールで非表示にする
   // ** scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
   // ***********
-  let lastScrollTop = 0;
-  window.addEventListener("scroll", () => {
-    let scrollTop = document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
-      gsap.to(".js-header", { duration: 0.5, autoAlpha: 0 });
-    } else {
-      gsap.to(".js-header", { duration: 0.5, autoAlpha: 1 });
-    }
-    lastScrollTop = scrollTop;
-  });
+  // let lastScrollTop = 0;
+  // window.addEventListener("scroll", () => {
+  //   let scrollTop = document.documentElement.scrollTop;
+  //   if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
+  //     gsap.to(".js-header", { duration: 0.5, autoAlpha: 0 });
+  //   } else {
+  //     gsap.to(".js-header", { duration: 0.5, autoAlpha: 1 });
+  //   }
+  //   lastScrollTop = scrollTop;
+  // });
   // ** 横スクロールアニメーション
   // ***********
   // let scrollHorizonContainer = document.querySelector(".js-scroll-horizon-container");
@@ -146,22 +146,22 @@ document.addEventListener("DOMContentLoaded", function () {
   // });
   // ** 2要素間の高さの差分を取得
   // ***********
-  class GetDifferenceOfTwoElements {
-    constructor(id1, id2) {
-      this.id1 = id1; // 引数で受け取ったidをプロパティに代入
-      this.id2 = id2; // 引数で受け取ったidをプロパティに代入
-      this.updateDiff(); // 差分を更新するメソッドを初期化時にも呼び出す
-    }
-    updateDiff() {
-      const topFirst = document.getElementById(this.id1).getBoundingClientRect().top;
-      const topEnd = document.getElementById(this.id2).getBoundingClientRect().top;
-      this.topDiff = Math.abs(topFirst - topEnd);
-    }
-    adjust() {
-      this.updateDiff(); // 調整のたびに位置差を更新
-      return this.topDiff;
-    }
-  }
+  // class GetDifferenceOfTwoElements {
+  //   constructor(id1, id2) {
+  //     this.id1 = id1; // 引数で受け取ったidをプロパティに代入
+  //     this.id2 = id2; // 引数で受け取ったidをプロパティに代入
+  //     this.updateDiff(); // 差分を更新するメソッドを初期化時にも呼び出す
+  //   }
+  //   updateDiff() {
+  //     const topFirst = document.getElementById(this.id1).getBoundingClientRect().top;
+  //     const topEnd = document.getElementById(this.id2).getBoundingClientRect().top;
+  //     this.topDiff = Math.abs(topFirst - topEnd);
+  //   }
+  //   adjust() {
+  //     this.updateDiff(); // 調整のたびに位置差を更新
+  //     return this.topDiff;
+  //   }
+  // }
   // const difference = new GetDifferenceOfTwoElements("first", "end");
   // ** URLのアンカーを抜き出す
   // ***********
@@ -246,6 +246,16 @@ document.addEventListener("DOMContentLoaded", function () {
   //   tabSelectorTarget.classList.add("is-active");
   //   tabContentTarget.classList.add("is-active");
   // }
+  // ** スムーズスクロール
+  // ***********
+  // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  //   anchor.addEventListener("click", function (e) {
+  //     e.preventDefault();
+  //     document.querySelector(this.getAttribute("href")).scrollIntoView({
+  //       behavior: "smooth",
+  //     });
+  //   });
+  // });
   // ***********
   // ** FVアニメーション（Lottie）
   // ** lottie.min.js の読み込みが必要
