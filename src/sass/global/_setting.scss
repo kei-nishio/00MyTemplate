@@ -27,6 +27,7 @@ body {
 $regular: 300;
 $normal: 400;
 $medium: 500;
+$semi-bold: 600;
 $bold: 700;
 
 ////////////////////
@@ -36,3 +37,9 @@ $bold: 700;
 //色指定（共通性のあるものは出来る限り指定すると良い）
 $black: #000;
 $white: #fff;
+
+body {
+  font-family: $base-font-family;
+  color: $black;
+  background-color: $white;
+}

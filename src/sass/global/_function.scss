@@ -1,29 +1,38 @@
 @use "sass:math";
 
-// 数値のみを取り出す
-// 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
+// * 数値のみを取り出す
+// * 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
 @function strip-unit($number) {
   @if type-of($number)=="number" and not unitless($number) {
     @return math.div($number, $number * 0 + 1);
   }
-
   @return $number;
 }
 
-@function vw($window_width, $size) {
+// * vwへの計算式
+@function vw($size, $window_width) {
   @return math.div($size, $window_width) * 100vw;
 }
 
-// remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
+// * remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
 @function rem($pixels) {
   @return math.div($pixels, 16) * 1rem;
+}
+
+// * パーセントへの計算式
+@function percent($size, $base-size) {
+  @return math.div(strip-unit($size), strip-unit($base-size)) * 100%;
+}
+
+// * ブロックのフォントサイズ基準にエレメントのサイズを作成する
+@function em($pixels, $block-font-size) {
+  @return math.div(strip-unit($pixels), strip-unit($block-font-size)) * 1em;
 }
 
 // * 重なり順（z-index）
 @function zi($key) {
   @return map-get($z-index-layer, $key);
 }
-
 $z-index-layer: (
   loading: 9000,
   modal: 8000,

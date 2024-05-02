@@ -1,7 +1,6 @@
-/* リキッドレイアウト対応 */
 @use "global" as *;
 
-@if $startFrom == sp {
+@if $startFrom ==sp {
   //スマホファースト
   html {
     //~375px
@@ -21,7 +20,8 @@
       font-size: 16px;
     }
   }
-} @else {
+}
+@else {
   //PCファースト
   html {
     font-size: 16px;

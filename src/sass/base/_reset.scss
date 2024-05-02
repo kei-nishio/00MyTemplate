@@ -3,6 +3,10 @@
 *::after {
   box-sizing: border-box;
 }
+// .pin-spacer {
+//   background-image: linear-gradient(skyblue, blue);
+// }
+
 
 /* Remove default padding */
 ul,
@@ -28,19 +32,19 @@ dd {
 
 /* Set core root defaults */
 html {
+  overflow-x: hidden;
+
   scroll-behavior: smooth;
-  // overflow-x: hidden;
 }
 
 /* Set core body defaults */
 body {
-  // overflow-x: hidden;
   min-height: 100vh;
+  overflow-x: hidden;
   line-height: 1.5;
 
-  // text-rendering: optimizeLegibility; // レンダリングの表示最適化
-
-  text-rendering: optimizeSpeed; // レンダリングの速度最適化
+  text-rendering: optimizeLegibility;
+  text-rendering: optimizeSpeed;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
