@@ -27,7 +27,7 @@
       }
     }
     sup {
-      color: $red;
+      color: red;
       font-weight: $medium;
     }
 
@@ -53,7 +53,7 @@
   [type="date"],
   textarea,
   select {
-    $f-border-color: $gray03;
+    $f-border-color: $black;
     $f-background-color: $white;
     width: 100%;
     margin: 0;
@@ -71,8 +71,7 @@
     // background-repeat: no-repeat;
     font-size: inherit;
     font-family: inherit;
-    @include mq {
-    }
+    @include mq {}
     &:active,
     &:hover,
     &:focus {
@@ -160,7 +159,7 @@
       &::before {
         width: $f-checkbox-size;
         height: $f-checkbox-size;
-        border: 1px solid $gray03;
+        border: 1px solid $black;
         background-color: $white;
       }
       &::after {

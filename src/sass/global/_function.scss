@@ -10,7 +10,7 @@
 }
 
 // * vwへの計算式
-@function vw($size, $window_width) {
+@function vw($window_width, $size) {
   @return math.div($size, $window_width) * 100vw;
 }
 

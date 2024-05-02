@@ -23,7 +23,7 @@ $hamburger-scale: 1.414;
   width: 100%;
   height: $hamburger-border-height;
   border-radius: $hamburger-border-height;
-  background-color: $black-sub;
+  background-color: $black;
   transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
 }
 .hamburger__border.hamburger__border--short {
@@ -39,7 +39,7 @@ $hamburger-scale: 1.414;
   width: 100%;
 }
 .hamburger.is-active .hamburger__border {
-  background-color: $white-sub;
+  background-color: $white;
   transform-origin: center;
   @for $i from 1 through $hamburger-border-number {
     &:nth-child(#{$i}) {

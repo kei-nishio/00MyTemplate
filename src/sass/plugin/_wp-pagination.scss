@@ -13,17 +13,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $black-sub;
+    color: $black;
     width: rem(40);
     height: rem(40);
-    background-color: $gray04;
+    background-color: $black;
     font-weight: $medium;
     font-size: rem(14);
     transition: background-color 0.3s, color 0.3s;
     &.current,
     &:not(.dots):not(.prev):not(.next):hover {
-      background-color: $cNavy;
-      color: $white;
+      background-color: black;
+      color: white;
     }
     &.prev {
       margin-right: rem(10);
