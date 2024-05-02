@@ -3,9 +3,10 @@
 // 数値のみを取り出す
 // 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
 @function strip-unit($number) {
-  @if type-of($number) == "number" and not unitless($number) {
+  @if type-of($number)=="number" and not unitless($number) {
     @return math.div($number, $number * 0 + 1);
   }
+
   @return $number;
 }
 
@@ -22,6 +23,7 @@
 @function zi($key) {
   @return map-get($z-index-layer, $key);
 }
+
 $z-index-layer: (
   loading: 9000,
   modal: 8000,

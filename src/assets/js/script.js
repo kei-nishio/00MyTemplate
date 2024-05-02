@@ -1,398 +1,278 @@
-jQuery(function ($) {
-  // ! 「jQuery(function ($) {}」内であればWordpressでも「$」が使用可能になる
+document.addEventListener("DOMContentLoaded", function () {
   // ***********
-  // ** 定数管理
+  // ** vanilla JS
   // ***********
-
+  // ** 基本設定
   // ***********
-  // ** vanillaJS
-  // ***********
-  // ** 初期設定
-  // ***********
+  gsap.registerPlugin(ScrollTrigger); // ScrollTriggerを使うための記述
+  let mm = gsap.matchMedia(); // メディアクエリを取得
+  const pageUrl = window.location.href; // 現在のページの絶対URL
+  const initialWindowsWidth = window.innerWidth; // ページ読み込み時のウィンドウ幅
+  let lastWindowWidth = window.innerWidth; // リサイズ時のウィンドウ幅
+  let currentWindowWidth = window.innerWidth; // 現在のウィンドウ幅
+  window.addEventListener("resize", () => {
+    currentWindowWidth = window.innerWidth;
+    console.log("currentWindowWidth: " + currentWindowWidth + "lastWindowWidth: " + lastWindowWidth);
+    lastWindowWidth = currentWindowWidth;
+  });
+  const breakpoint = 768; // レスポンシブ幅
+  const headerHeight = document.querySelector(".js-header").offsetHeight; // ヘッダーの高さ
   // ** 強制リロード
   // ***********
   function forceReload() {
     window.location.href = window.location.href; // 現在のURLにリダイレクト
   }
-
+  // ** PC版のみの処理
   // ***********
-  // ** jQuery
-  // ***********
-  // ** 初期設定
-  // ***********
-
-  // ***********
-  // ** GSAP
-  // ***********
-  // ** 初期設定
-  // ***********
-  gsap.registerPlugin(ScrollTrigger);
-  // ** z-indexの設定
-  // ***********
-  function zIndexAdd() {
-    gsap.utils.toArray(".js-scroll-switch-items__image-item").forEach((item, index, array) => {
-      item.style.zIndex = `${array.length - index}`;
-    });
+  if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
+    console.log("PC only process");
   }
-
+  // ** SP版のみの処理
   // ***********
+  if (document.querySelector("main").classList.contains("top") && currentWindowWidth < breakpoint) {
+    console.log("SP only process");
+  }
+  // ** タブの切り替え
+  // ***********
+  class TabSwitcher {
+    constructor(tabSelector, contentSelector, openClass) {
+      this.tabs = document.querySelectorAll(tabSelector);
+      this.contents = document.querySelectorAll(contentSelector);
+      this.openClass = openClass;
+      this.init();
+    }
+    init() {
+      this.tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => this.activateTab(index));
+      });
+    }
+    activateTab(index) {
+      this.resetTabs();
+      this.tabs[index].classList.add(this.openClass);
+      this.contents[index].classList.add(this.openClass);
+    }
+    resetTabs() {
+      this.tabs.forEach(tab => tab.classList.remove(this.openClass));
+      this.contents.forEach(content => content.classList.remove(this.openClass));
+    }
+  }
+  const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
+  // ** NEWSのセレクトボックスからカテゴリーアーカイブに遷移する
+  // ***********
+  window.redirectToUrl = function (select) {
+    let url = select.value;
+    if (url) window.location.href = url;
+  };
+  // ** ハンバーガーメニューとドロワーメニュー
+  // ***********
+  class DrawerToggle {
+    constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector) {
+      this.header = document.querySelector(headerSelector);
+      this.hamburger = document.querySelector(hamburgerSelector);
+      this.drawer = document.querySelector(drawerMenuSelector);
+      this.drawerMask = document.querySelector(drawerMaskSelector);
+      this.initEvents();
+    }
+    initEvents() {
+      [this.hamburger, this.drawer].forEach(element => {
+        element.addEventListener('click', () => this.toggleDrawer());
+      });
+    }
+    toggleDrawer() {
+      [this.header, this.hamburger, this.drawer, this.drawerMask].forEach(el => {
+        el.classList.toggle('is-active');
+      });
+      if (this.hamburger.classList.contains('is-active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+  const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer-menu', '.js-drawer-mask');
+  // ** ヘッダーをスクロールで非表示にする
+  // ** scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
+  // ***********
+  let lastScrollTop = 0;
+  window.addEventListener("scroll", () => {
+    let scrollTop = document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
+      gsap.to(".js-header", { duration: 0.5, autoAlpha: 0 });
+    } else {
+      gsap.to(".js-header", { duration: 0.5, autoAlpha: 1 });
+    }
+    lastScrollTop = scrollTop;
+  });
+  // ** 横スクロールアニメーション
+  // ***********
+  let scrollHorizonContainer = document.querySelector(".js-scroll-horizon-container");
+  let scrollHorizonContainerWidth = scrollHorizonContainer.offsetWidth;
+  let scrollHorizonSlides = document.querySelectorAll(".js-scroll-horizon-slide");
+  gsap.to(scrollHorizonSlides, {
+    xPercent: -100 * (scrollHorizonSlides.length - 1),
+    ease: "none",
+    scrollTrigger: {
+      // markers: true,
+      id: "stScrollHorizon",
+      trigger: ".js-scroll-horizon",
+      start: "bottom bottom",
+      pin: scrollHorizonContainer,
+      scrub: 0.5,
+      end: () => {
+        "+=" + scrollHorizonContainerWidth;
+      },
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+    },
+  });
+  // ** ホバー時追従アニメーション
+  // ***********
+  let hoverFollowers = document.querySelectorAll(".js-hover-follower");
+  hoverFollowers.forEach((target) => {
+    let img = target.querySelector(".js-hover-follower-image");
+    // gsap.set(img, { autoAlpha: 0 }); // cssで非表示にする場合は不要
+    target.addEventListener("mouseenter", function () {
+      gsap.to(img, { autoAlpha: 1, duration: 0.3 });
+    });
+    target.addEventListener("mouseleave", function () {
+      gsap.to(img, { autoAlpha: 0, duration: 0.3 });
+    });
+    target.addEventListener("mousemove", function (e) {
+      let rect = target.getBoundingClientRect();
+      let x = e.clientX - rect.left;
+      let y = e.clientY - rect.top;
+      gsap.to(img, { duration: 0.1, x: x, y: y, xPercent: 75, yPercent: -50 });
+    });
+  });
+  // ** 2要素間の高さの差分を取得
+  // ***********
+  class GetDifferenceOfTwoElements {
+    constructor(id1, id2) {
+      this.id1 = id1; // 引数で受け取ったidをプロパティに代入
+      this.id2 = id2; // 引数で受け取ったidをプロパティに代入
+      this.updateDiff(); // 差分を更新するメソッドを初期化時にも呼び出す
+    }
+    updateDiff() {
+      const topFirst = document.getElementById(this.id1).getBoundingClientRect().top;
+      const topEnd = document.getElementById(this.id2).getBoundingClientRect().top;
+      this.topDiff = Math.abs(topFirst - topEnd);
+    }
+    adjust() {
+      this.updateDiff(); // 調整のたびに位置差を更新
+      return this.topDiff;
+    }
+  }
+  const difference = new GetDifferenceOfTwoElements("first", "end");
+  // ** URLのアンカーを抜き出す
+  // ***********
+  let anchors = document.querySelectorAll("a");
+  anchors.addEventListener("click", function (anchor) {
+    let targetHref = anchor.getAttribute("href");
+    if (targetHref && targetHref.startsWith("#")) {
+      let linkAnchor = targetHref.substring(1); // 「#」以下を変数として抜き出す
+      console.log("linkAnchor: " + linkAnchor);
+    }
+  });
   // ** Swiper
   // ***********
-  // ** 初期設定
-  // ***********
-
-  // *********** 以下、未整理 ***********
-
-  // ***********
-  // * ヘッダー高さ分を考慮した遷移
-  // ***********
-  function fncHeaderDown(linkAnchor, durationTime, easeType, a) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#" + linkAnchor).offset().top - headerHeightDefault * a,
-      },
-      durationTime,
-      easeType
-    );
-  }
-
-  // ***********
-  // * Promise用 wait関数
-  // ***********
-  function wait(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  // ! ***********
-  // ! 共通
-  // ! ***********
-  // ***********
-  // * 画面幅を取得する
-  // ***********
-  const windowWidthDefault = $(window).width();
-  let windowWidth = $(window).width();
-  $(window).on("resize", function () {
-    windowWidth = $(this).width();
-  });
-
-  // ***********
-  // * ヘッダー高さを取得する
-  // ***********
-  const headerHeightDefault = $("header").height();
-
-  // ***********
-  // * URLにアンカーがある場合は読込後にヘッダー高さ分を下げる
-  // ***********
-  $("a").on("click", function () {
-    let targetHref = $(this).attr("href");
-    if (targetHref && targetHref.startsWith("#")) {
-      // console.log("targetHref: " + targetHref);
-      let linkAnchor = targetHref.substring(1); // 「#」以下を変数として抜き出す
-      fncHeaderDown(linkAnchor, 100, "linear", 1.1);
-    }
-    // リンク先が#で始まっていない場合は何もしない
-  });
-
-  // ***********
-  // * 遷移先にアンカーがあるときは読み込み後にヘッダー高さを考慮して移動する;
-  // ***********
-  $(window).on("load", function () {
-    let targetHref = window.location.href;
-    if (targetHref && targetHref.includes("#")) {
-      // console.log("targetHref: " + targetHref);
-      let linkAnchor = window.location.href.split("#")[1];
-      fncHeaderDown(linkAnchor, 100, "linear", 1.1);
-    }
-  });
-
-  // ! ***********
-  // ! 個別動作
-  // ! ***********
-  // ***********
-  // * ローディングアニメーション
-  // ***********
-  if (window.location.pathname === "/") {
-    // 初回のみローディングアニメーションを実行
-    if (!sessionStorage.getItem("visited")) {
-      // console.log("loading");
-      $("body").css({ "overflow-y": "scroll", position: "fixed" });
-      const loadingTop = $(".js-load");
-      const loadingFlex = $(".js-loading-flex");
-      const loadingLeft = $(".js-loading-left");
-      const loadingRight = $(".js-loading-right");
-
-      loadingTop.css({ display: "block" });
-      loadingLeft.css({ top: "100%" });
-      loadingRight.css({ top: "calc(100% + 80px)", right: "-20%" });
-      // ローディング画面前に背景を写さないようにするため
-      loadingFlex.css({ display: "flex" });
-
-      const loadingStartTime = 1000;
-      const imageAnimationTime = 1500;
-      const loadingFadeOutTime = 750;
-
-      wait(loadingStartTime)
-        .then(function () {
-          loadingLeft.animate(
-            {
-              top: 0,
-            },
-            imageAnimationTime
-          );
-          loadingRight.animate(
-            {
-              top: 0,
-              right: 0,
-            },
-            imageAnimationTime
-          );
-
-          return wait(imageAnimationTime);
-        })
-        .then(function () {
-          loadingTop.fadeOut(loadingFadeOutTime);
-          $("body").css({ "overflow-y": "", position: "" });
-        });
-      sessionStorage.setItem("visited", "true");
-    }
-  }
-
-  // ***********
-  // * ハンバーガーメニューとドロワーメニュー
-  // ***********
-  $(".js-hamburger , .js-drawer-menu").click(function () {
-    // console.log("hamburger");
-    $(".js-hamburger").toggleClass("is-active");
-    $(".js-drawer-menu").fadeToggle();
-
-    if ($(".js-hamburger").hasClass("is-active")) {
-      $("html, body").css({ overflow: "hidden" });
-    } else {
-      $("html, body").css({ overflow: "auto" });
-    }
-  });
-
-  // ***********
-  // * ファーストビューのスライダー
-  // ***********
-  const mainViewSwiper = new Swiper(".js-main-view-swiper .swiper", {
+  const swiper = new Swiper(".js-swiper .swiper", {
     direction: "horizontal",
     loop: true,
-    slidesPerView: 1,
     effect: "fade",
     speed: 3000,
     allowTouchMove: false,
+    slidesPerView: 1,
+    spaceBetween: 10,
+    centeredSlides: true,
     autoplay: {
-      delay: 6000,
+      delay: 5000,
+      disableOnInteraction: false,
     },
-  });
-
-  // ***********
-  // * キャンペーンのスライダー
-  // ***********
-  const campaignSwiper = new Swiper(".js-campaign-swiper .swiper", {
-    loop: true,
-    slidesPerView: "auto",
-    spaceBetween: 24,
-    grabCursor: true,
     breakpoints: {
       768: {
-        spaceBetween: 16,
-        slidesPerView: 3,
-      },
-      1024: {
-        spaceBetween: 40,
-        slidesPerView: 3,
+        allowTouchMove: true,
       },
     },
-
-    // Navigation arrows
+    pagination: {
+      el: ".js-swiper .swiper-pagination",
+      clickable: true,
+    },
     navigation: {
-      nextEl: ".js-campaign-swiper .swiper-button-next",
-      prevEl: ".js-campaign-swiper .swiper-button-prev",
+      nextEl: ".js-swiper .swiper-button-next",
+      prevEl: ".js-swiper .swiper-button-prev",
     },
   });
-
+  // ** ギャラリーモーダル
   // ***********
-  // * 横から背景画像→imageとなるアニメーション
-  // * 参考：https://design-remarks.com/image-after-color/
-  // ***********
-  $(".js-colorbox").each(function () {
-    $(this).append('<div class="is-color"></div>');
-    let color = $(this).find($(".is-color"));
-    let image = $(this).find("img");
-    let counter = 0;
-    let speed = 400;
-
-    color.css("width", "0%");
-    image.css("opacity", "0");
-    //inviewを使って背景色が画面に現れたら処理をする
-    color.on("inview", function () {
-      if (counter == 0) {
-        $(this)
-          .delay(50)
-          .animate({ width: "100%" }, speed, function () {
-            image.css("opacity", "1");
-            $(this).css({ left: "0", right: "auto" });
-            $(this).animate({ width: "0%" }, speed);
-          });
-        counter = 1;
-      }
-    });
-  });
-
-  // ***********
-  // * スクロールトップにアニメーションで移動する
-  // ***********
-  $(".js-scroll-top-button").click(function () {
-    $("html, body").animate({ scrollTop: 0 }, "normal");
-    return false;
-  });
-
-  // ***********
-  // * ページネーションをクリックしたときにクリックしたものだけをactiveにする
-  // ***********
-  $(".js-pagination-number").click(function () {
-    $(".js-pagination-number").removeClass("is-active");
-    $(this).addClass("is-active");
-  });
-
-  // ***********
-  // * About us のギャラリーモーダル
-  // ***********
-  const modal = $(".js-modal");
-  const open = $(".js-modal-open");
-  const close = $(".js-modal-close");
-  const specifiedWidth = 768;
-  // 768px以上で開くボタンをクリックしたらモーダルを表示する
-  open.on("click", function () {
-    if (windowWidth >= specifiedWidth) {
-      // console.log("open modal");
-      let imageSrc = $(this).children("img").attr("src");
-      let imageAlt = $(this).children("img").attr("alt");
-      let newImg = $("<img>", {
-        class: "modal__img js-modal-img",
-        src: imageSrc,
-        alt: imageAlt,
-      });
-      $(".js-modal-imgBox").append(newImg);
-      modal.fadeIn(500, function () {
-        $("body").css({ overflow: "hidden" });
-      });
+  let modal = document.querySelector(".js-modal");
+  let modalOriImages = document.querySelectorAll(".js-modal-ori-image");
+  let modalAddImageBox = document.querySelector(".js-modal-add-image-box");
+  let modalClose = document.querySelector(".js-modal-close");
+  const addImageToModal = (image) => {
+    let modalAddImage = document.createElement("img");
+    modalAddImage.src = image.src;
+    modalAddImage.alt = image.alt;
+    modalAddImageBox.appendChild(modalAddImage);
+    modal.classList.add("is-active");
+    document.body.style.overflow = "hidden";
+  };
+  const closeModal = (event) => {
+    if (event.target === modal || event.target === modalClose) {
+      modal.classList.remove("is-active");
+      document.body.style.overflow = "";
+      modalAddImageBox.innerHTML = "";
     }
+  };
+  modalOriImages.forEach(modalOriImage => {
+    modalOriImage.addEventListener("click", () => addImageToModal(modalOriImage));
   });
-  // 閉じるボタンをクリックしたらモーダルを閉じる
-  close.add(modal).on("click", function () {
-    // console.log("close modal");
-    modal.fadeOut(500, function () {
-      $(".js-modal-img").remove();
-      $("body").css({ overflow: "" });
-    });
+  [modal, modalClose].forEach(element => {
+    element.addEventListener("click", closeModal);
   });
-
+  // ** target-id付リンクを踏んだ時にリンク先の表示要素を切り替える
   // ***********
-  // * カテゴリータグをactiveにする & Information記事を切り替える
-  // ***********
-  const categoryButton = $(".js-category-button");
-  const categoryContent = $(".js-category-content");
-  // 初期表示
-  categoryButton.eq(0).addClass("is-active");
-  categoryContent.eq(0).addClass("is-active");
-  // ボタンをクリックしたらactiveにする
-  categoryButton.on("click", function () {
-    // console.log("categoryButton");
-    let index = categoryButton.index(this);
-    categoryButton.removeClass("is-active");
-    categoryContent.removeClass("is-active");
-    $(this).addClass("is-active");
-    categoryContent.eq(index).addClass("is-active");
-  });
-
-  // ***********
-  // * target-id付リンクを踏んだ時にリンク先のInformation記事を切り替える
-  // ***********
-  let linkId = new URL(window.location.href).searchParams.get("id");
+  let tabSelectors = document.querySelectorAll(".js-tab");
+  let tabContents = document.querySelectorAll(".js-tab-content");
+  let linkId = new URL(pageUrl).searchParams.get("id");
   if (linkId) {
-    // console.log(new URL(window.location.href));
-    // console.log(linkId);
-    categoryButton.removeClass("is-active");
-    categoryContent.removeClass("is-active");
-    let button = $("[data-target='" + linkId + "']");
-    let content = $("#" + linkId);
-    button.addClass("is-active");
-    content.addClass("is-active");
-  }
-
-  // ***********
-  // * アーカイブ年をクリックしたときにアコーディオンする
-  // ***********
-  // 初期表示
-  const archiveButton = $(".js-archive-button");
-  archiveButton.eq(0).addClass("is-active");
-  // 初期表示　is-activeの次の要素を表示する
-  const archiveButtonActive = $(".js-archive-button.is-active");
-  archiveButtonActive.next().css({ display: "block" });
-  // ボタンをクリックしたらアコーディオンする
-  archiveButton.on("click", function () {
-    $(this).toggleClass("is-active");
-    $(this).next().slideToggle(300);
-  });
-
-  // ***********
-  // * FAQのQをクリックしたときにアコーディオンする
-  // ***********
-  const faqQuestion = $(".page-faq__question");
-  const faqAnswer = $(".page-faq__answer");
-  faqQuestion.addClass("is-open");
-  faqAnswer.css("display", "block");
-  faqQuestion.on("click", function () {
-    $(this).toggleClass("is-open");
-    $(this).next().slideToggle(300);
-  });
-
-  // ***********
-  // * cf7フォームのバリデーション
-  // ***********
-  $(document).on("wpcf7invalid", function (event) {
-    $(".js-form-error").addClass("is-active");
-    window.scrollTo({
-      top: $(".js-form-error").offset().top - headerHeightDefault,
+    tabSelectors.forEach((tab) => {
+      tab.classList.remove("is-active");
     });
+    tabContents.forEach((content) => {
+      content.classList.remove("is-active");
+    });
+    let tabSelectorTarget = document.querySelector(`[data-target='${linkId}']`);
+    let tabContentTarget = document.getElementById(linkId);
+    tabSelectorTarget.classList.add("is-active");
+    tabContentTarget.classList.add("is-active");
+  }
+  // ***********
+  // ** FVアニメーション（Lottie）
+  // ** lottie.min.js の読み込みが必要
+  // ***********
+  const pageUrlNonLocate = pageUrl.replace(/\/en/g, ""); // 多言語設定がある場合は「/en」を削除
+  let ltAnimationFv = lottie.loadAnimation({
+    container: document.getElementById("animation"),
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    path: `${pageUrlNonLocate}/wp-content/themes/yourTheme/assets/images/animation/animation.json`,
   });
-
-  // ! ***********
-  // ! 今回は利用しない
-  // ! ***********
-
   // ***********
-  // * ナビゲーションクリック時にスーッと移動する
+  // ** ScrollHint https://www.appleple.com/blog/oss/scroll-hint.html
+  // ** 言語設定によるスクロールヒントの切り替え
   // ***********
-  // const headerHeight = $(".js-header").height();
-  // $('a[href^="#"]').click(function () {
-  //   const speed = 600;
-  //   let href = $(this).attr("href");
-  //   let target = $(href == "#" || href == "" ? "html" : href);
-
-  //   //移動先のpadding-topを取得
-  //   let paddingValue = parseInt(target.css("padding-top"), 10);
-
-  //   // ヘッダーの高さ分下げる
-  //   let position = target.offset().top - headerHeight + paddingValue;
-  //   $("body,html").animate({ scrollTop: position }, speed, "swing");
-  //   return false;
-  // });
-
-  // ***********
-  // * ～px or 100vh後にscroll-top-buttonを表示させる
-  // ***********
-  // $(window).scroll(function () {
-  //   // let scrollThreshold = $(this).height(); //=100vh
-  //   let scrollThreshold = 700;
-  //   let scrollPosition = $(this).scrollTop();
-  //   if (scrollPosition > scrollThreshold) {
-  //     $(".js-scroll-top-button").fadeIn();
-  //   } else {
-  //     $(".js-scroll-top-button").fadeOut();
-  //   }
-  // });
+  const currentLanguage = document.documentElement.lang;
+  let scrollableText;
+  if (currentLanguage === "ja") {
+    scrollableText = "スクロールできます";
+  } else {
+    scrollableText = "Scroll";
+  }
+  new ScrollHint(".js-scrollable", {
+    scrollHintIconAppendClass: "scroll-hint-icon-white",
+    i18n: {
+      scrollable: scrollableText,
+    },
+  });
 });
