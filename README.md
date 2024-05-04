@@ -45,4 +45,14 @@
 - `baseフォルダ内`は変更を加えないこと
 - 納品時（提出時）は`_gulpフォルダ`内の`node_modules`を削除すること
 - 提出時は`gulp build`コマンドを入力し、フォルダ内の整理を行うこと
+
+## gulpとpackage.json
+- `npm install -g npm-check-updates`：`ncu`を利用するためにインストールする
+- `ncu`：package.json内のプラグインが最新になっているか確認する
+- `ncu -u`：package.json内のプラグインを最新にする
+- `npm audit`：インストールしたプラグインのエラー情報を取得する
+- `npm audit fix`：インストールしたプラグインのエラーを修正する（安全）
+- `npm audit fix --force`：インストールしたプラグインのエラーを修正する（強制）
+- `npm outdated`：package.jsonの依存関係が最新かどうかチェックする
+
 # CodeUps-for-WordPress

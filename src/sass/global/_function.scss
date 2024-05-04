@@ -10,23 +10,28 @@
 }
 
 // * vwへの計算式
-@function vw($window_width, $size) {
-  @return math.div($size, $window_width) * 100vw;
+@function vw($size, $base) {
+  @return math.div($size, $base) * 100vw;
+}
+
+// * vhへの計算式
+@function vh($size, $base) {
+  @return math.div($size, $base) * 100vh;
 }
 
 // * remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
-@function rem($pixels) {
-  @return math.div($pixels, 16) * 1rem;
+@function rem($size) {
+  @return math.div($size, 16) * 1rem;
 }
 
 // * パーセントへの計算式
-@function percent($size, $base-size) {
-  @return math.div(strip-unit($size), strip-unit($base-size)) * 100%;
+@function percent($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100%;
 }
 
 // * ブロックのフォントサイズ基準にエレメントのサイズを作成する
-@function em($pixels, $block-font-size) {
-  @return math.div(strip-unit($pixels), strip-unit($block-font-size)) * 1em;
+@function em($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 1em;
 }
 
 // * 重なり順（z-index）
