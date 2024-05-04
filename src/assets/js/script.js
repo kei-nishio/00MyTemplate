@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // ***********
   // ** vanilla JS
   // ***********
@@ -137,17 +137,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // ** ホバー時人物写真追従アニメーション
   // ** removeを考慮してグローバルスコープで関数を定義
   // ***********
-  // let mouseEnter, mouseLeave, mouseMove;
-  // function setupImageFollowHandlers(target, imageSelector) {
-  //   const image = target.querySelector(imageSelector);
-  //   if (!mouseEnter) {
-  //     mouseEnter = () => gsap.to(image, { autoAlpha: 1, duration: 0.3 });
-  //     mouseLeave = () => gsap.to(image, { autoAlpha: 0, duration: 0.3 });
-  //     mouseMove = (e) => {
-  //       const rect = target.getBoundingClientRect();
+  // class MouseHover {
+  //   constructor(target, imageSelector) {
+  //     this.target = target;
+  //     this.image = target.querySelector(imageSelector);
+  //     this.mouseEnter = () => gsap.to(this.image, { autoAlpha: 1, duration: 0.3 });
+  //     this.mouseLeave = () => gsap.to(this.image, { autoAlpha: 0, duration: 0.3 });
+  //     this.mouseMove = (e) => {
+  //       const rect = this.target.getBoundingClientRect();
   //       const x = e.clientX - rect.left;
   //       const y = e.clientY - rect.top;
-  //       gsap.to(image, {
+  //       gsap.to(this.image, {
   //         duration: 0.1,
   //         x: x,
   //         y: y,
@@ -156,27 +156,36 @@ document.addEventListener("DOMContentLoaded", function () {
   //       });
   //     };
   //   }
+  //   setupHandlers() {
+  //     this.target.addEventListener("mouseenter", this.mouseEnter);
+  //     this.target.addEventListener("mouseleave", this.mouseLeave);
+  //     this.target.addEventListener("mousemove", this.mouseMove);
+  //   }
+  //   killHandlers() {
+  //     this.target.removeEventListener("mouseenter", this.mouseEnter);
+  //     this.target.removeEventListener("mouseleave", this.mouseLeave);
+  //     this.target.removeEventListener("mousemove", this.mouseMove);
+  //     resetInlineCssStyle(this.image);
+  //     resetInlineCssStyle(this.target);
+  //   }
+  // }
+  // function hoverImageFollowSwitch() {
   //   if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
-  //     target.addEventListener("mouseenter", mouseEnter);
-  //     target.addEventListener("mouseleave", mouseLeave);
-  //     target.addEventListener("mousemove", mouseMove);
+  //     constants.forEach((constant) => { constant.setupHandlers(); });
   //   }
   //   else {
-  //     target.removeEventListener("mouseenter", mouseEnter);
-  //     target.removeEventListener("mouseleave", mouseLeave);
-  //     target.removeEventListener("mousemove", mouseMove);
-  //     resetInlineCssStyle(image);
-  //     resetInlineCssStyle(target);
+  //     constants.forEach((constant) => { constant.killHandlers(); });
   //   }
   // }
-  // function hoverImageFollow() {
-  //   document.querySelectorAll('.js-hover-image').forEach(target => {
-  //     setupImageFollowHandlers(target, ".js-hover-image__image");
-  //   });
+  // // ホバー時人物写真追従アニメーションの初期化
+  // const constants = [];
+  // document.querySelectorAll('.js-hover-image').forEach((target, index) => {
+  //   constants[index] = new MouseHover(target, ".js-hover-image__image");
+  // });
+  // if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
+  //   constants.forEach((constant) => { constant.setupHandlers(); });
   // }
-  // hoverImageFollow();
-  // window.addEventListener("load", hoverImageFollow);
-  // window.addEventListener("resize", hoverImageFollow);
+  // window.addEventListener("resize", () => { hoverImageFollowSwitch(); });
   // ** 2要素間の高さの差分を取得
   // ***********
   // class GetDifferenceOfTwoElements {
@@ -282,9 +291,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // ** スムーズスクロール
   // ***********
   // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  //   anchor.addEventListener("click", function (e) {
+  //   anchor.addEventListener("click", e => {
   //     e.preventDefault();
-  //     document.querySelector(this.getAttribute("href")).scrollIntoView({
+  //     document.querySelector(anchor.getAttribute("href")).scrollIntoView({
   //       behavior: "smooth",
   //     });
   //   });
