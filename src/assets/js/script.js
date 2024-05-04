@@ -22,6 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // function forceReload() {
   //   window.location.href = window.location.href; // 現在のURLにリダイレクト
   // }
+  // ** インラインスタイルの初期化
+  // ***********
+  // function resetInlineCssStyle(element) {
+  //   element.style.cssText = "";
+  // }
   // ** PC版のみの処理
   // ***********
   if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
@@ -57,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //   }
   // }
   // const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
-  // ** NEWSのセレクトボックスからカテゴリーアーカイブに遷移する
+  // ** セレクトボックスからカテゴリーアーカイブに遷移する
   // ***********
   // window.redirectToUrl = function (select) {
   //   let url = select.value;
@@ -105,45 +110,73 @@ document.addEventListener("DOMContentLoaded", function () {
   // });
   // ** 横スクロールアニメーション
   // ***********
-  // let scrollHorizonContainer = document.querySelector(".js-scroll-horizon-container");
+  // let scrollHorizon = document.querySelector(".js-scroll-horizon");
+  // let scrollHorizonContainer = document.querySelector(".js-scroll-horizon__box");
   // let scrollHorizonContainerWidth = scrollHorizonContainer.offsetWidth;
-  // let scrollHorizonSlides = document.querySelectorAll(".js-scroll-horizon-slide");
+  // let scrollHorizonSlides = document.querySelectorAll(".js-scroll-horizon__image-item");
+  // let scrollHorizonBox = document.querySelector(".js-scroll-horizon__image-items");
   // gsap.to(scrollHorizonSlides, {
-  //   xPercent: -100 * (scrollHorizonSlides.length - 1),
+  //   xPercent: -105 * (scrollHorizonSlides.length - 1),
   //   ease: "none",
   //   scrollTrigger: {
   //     // markers: true,
   //     id: "stScrollHorizon",
   //     trigger: ".js-scroll-horizon",
   //     start: "bottom bottom",
-  //     pin: scrollHorizonContainer,
+  //     pin: scrollHorizon,
   //     scrub: 0.5,
-  //     end: () => {
-  //       "+=" + scrollHorizonContainerWidth;
-  //     },
+  //     end: "+=" + scrollHorizonContainerWidth,
   //     anticipatePin: 1,
   //     invalidateOnRefresh: true,
+  //     snap: {
+  //       snapTo: 1 / (scrollHorizonSlides.length - 1),
+  //       duration: { min: 0.1, max: 0.2 },
+  //     },
   //   },
   // });
-  // ** ホバー時追従アニメーション
+  // ** ホバー時人物写真追従アニメーション
+  // ** removeを考慮してグローバルスコープで関数を定義
   // ***********
-  // let hoverFollowers = document.querySelectorAll(".js-hover-follower");
-  // hoverFollowers.forEach((target) => {
-  //   let img = target.querySelector(".js-hover-follower-image");
-  //   // gsap.set(img, { autoAlpha: 0 }); // cssで非表示にする場合は不要
-  //   target.addEventListener("mouseenter", function () {
-  //     gsap.to(img, { autoAlpha: 1, duration: 0.3 });
+  // let mouseEnter, mouseLeave, mouseMove;
+  // function setupImageFollowHandlers(target, imageSelector) {
+  //   const image = target.querySelector(imageSelector);
+  //   if (!mouseEnter) {
+  //     mouseEnter = () => gsap.to(image, { autoAlpha: 1, duration: 0.3 });
+  //     mouseLeave = () => gsap.to(image, { autoAlpha: 0, duration: 0.3 });
+  //     mouseMove = (e) => {
+  //       const rect = target.getBoundingClientRect();
+  //       const x = e.clientX - rect.left;
+  //       const y = e.clientY - rect.top;
+  //       gsap.to(image, {
+  //         duration: 0.1,
+  //         x: x,
+  //         y: y,
+  //         xPercent: 75,
+  //         yPercent: -50
+  //       });
+  //     };
+  //   }
+  //   if (document.querySelector("main").classList.contains("top") && currentWindowWidth >= breakpoint) {
+  //     target.addEventListener("mouseenter", mouseEnter);
+  //     target.addEventListener("mouseleave", mouseLeave);
+  //     target.addEventListener("mousemove", mouseMove);
+  //   }
+  //   else {
+  //     target.removeEventListener("mouseenter", mouseEnter);
+  //     target.removeEventListener("mouseleave", mouseLeave);
+  //     target.removeEventListener("mousemove", mouseMove);
+  //     resetInlineCssStyle(image);
+  //     resetInlineCssStyle(target);
+  //   }
+  // }
+  // function hoverImageFollow() {
+  //   document.querySelectorAll('.js-hover-image').forEach(target => {
+  //     setupImageFollowHandlers(target, ".js-hover-image__image");
   //   });
-  //   target.addEventListener("mouseleave", function () {
-  //     gsap.to(img, { autoAlpha: 0, duration: 0.3 });
-  //   });
-  //   target.addEventListener("mousemove", function (e) {
-  //     let rect = target.getBoundingClientRect();
-  //     let x = e.clientX - rect.left;
-  //     let y = e.clientY - rect.top;
-  //     gsap.to(img, { duration: 0.1, x: x, y: y, xPercent: 75, yPercent: -50 });
-  //   });
-  // });
+  // }
+  // hoverImageFollow();
+  // window.addEventListener("load", hoverImageFollow);
+  // window.addEventListener("resize", hoverImageFollow);
   // ** 2要素間の高さの差分を取得
   // ***********
   // class GetDifferenceOfTwoElements {

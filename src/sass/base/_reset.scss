@@ -33,6 +33,7 @@ dd {
 /* Set core root defaults */
 html {
   overflow-x: hidden;
+  // scroll-behavior: smooth; // GSAP挙動と競合するためコメントアウト
 }
 
 /* Set core body defaults */
