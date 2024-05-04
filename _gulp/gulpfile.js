@@ -21,6 +21,8 @@ const del = require("del"); // ファイルやディレクトリを削除する�
 const webp = require("gulp-webp"); //webp変換
 const rename = require("gulp-rename"); //ファイル名変更
 const through2 = require("through2"); // gulpの処理を通す
+const uglify = require('gulp-uglify'); // js圧縮
+const cleanCSS = require('gulp-clean-css'); // css圧縮
 
 const browsers = ["last 2 versions", "> 5%", "ie = 11", "not ie <= 10", "ios >= 8", "and_chr >= 5", "Android >= 5"];
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
@@ -78,100 +80,53 @@ const phpCopy = () => {
   if (wpMode) {
     return (
       src(srcPath.php)
-        // WordPress反映用
-        .pipe(dest(destWpPath.php))
-        // WordPressLocal反映用
-        .pipe(dest(destWpLocalPath.php))
+        .pipe(dest(destWpPath.php)) // WordPress反映用
+        .pipe(dest(destWpLocalPath.php)) // WordPressLocal反映用
     );
   } else {
-    // return undefined; // falseの場合は何も実行せず、undefinedを返す
-    return src(".").pipe(dest("."));
+    return src(".").pipe(dest(".")); // falseの場合は何も実行せず、undefinedを返す
   }
 };
 
 // * SASSファイルのコンパイル
 const cssSass = () => {
-  // ソースファイルを指定
   return (
     src(srcPath.css)
-      // ソースマップを初期化
-      .pipe(sourcemaps.init())
-      // エラーハンドリングを設定
-      .pipe(
-        plumber({
-          errorHandler: notify.onError("Error:<%= error.message %>"),
-        })
-      )
-      // Sassのパーシャル（_ファイル）を自動的にインポート
-      .pipe(sassGlob())
-      // SassをCSSにコンパイル
-      .pipe(
-        sass.sync({
-          includePaths: ["src/sass"],
-          outputStyle: "expanded", // コンパイル後のCSSの書式（expanded or compressed）
-        })
-      )
-      // ベンダープレフィックスを自動付与
-      .pipe(
-        postcss([
-          postcssPresetEnv(),
-          autoprefixer({
-            grid: true,
-          }),
-        ])
-      )
-      // CSSプロパティをアルファベット順にソートし、未来のCSS構文を使用可能に
-      .pipe(
-        postcss([
-          cssdeclsort({
-            order: "alphabetical",
-          }),
-        ]),
-        postcssPresetEnv({ browsers: "last 2 versions" })
-      )
-      // メディアクエリを統合
-      .pipe(mmq())
-      // ソースマップを書き出し
-      .pipe(sourcemaps.write("./"))
-      // コンパイル済みのCSSファイルを出力先に保存
+      .pipe(sourcemaps.init()) // ソースマップを初期化
+      .pipe(plumber({ errorHandler: notify.onError("Error:<%= error.message %>"), })) // エラーが発生してもタスクを続行
+      .pipe(sassGlob()) // Sassのパーシャル（_ファイル）を自動的にインポート
+      .pipe(sass.sync({ includePaths: ["src/sass"], outputStyle: "expanded", })) // コンパイル後のCSSの書式（expanded or compressed）
+      .pipe(postcss([
+        postcssPresetEnv({ browsers: 'last 2 versions' }), // 未来のCSS構文を使用可能にし、対象ブラウザを最新2バージョンに限定
+        autoprefixer({ grid: true }), // ベンダープレフィックスを自動で付与、グリッドレイアウトをサポート
+        cssdeclsort({ order: 'alphabetical' }) // CSSプロパティをアルファベット順にソート
+      ]))
+      .pipe(mmq()) // メディアクエリをマージ
       .pipe(dest(destPath.css))
       .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
-      // Sassコンパイルが完了したことを通知
-      .pipe(
-        notify({
-          message: "Sassをコンパイルしました！",
-          onLast: true,
-        })
-      )
+      .pipe(sourcemaps.write("./")) // ソースマップを書き出し
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(cleanCSS()) //css圧縮
+      .pipe(sourcemaps.write("./")) // ソースマップを書き出し
+      .pipe(dest(destPath.css))
+      .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
+      .pipe(notify({ message: "Sassをコンパイルしました！", onLast: true, })) // 通知を表示
   );
 };
 
 // * 画像圧縮
 const imgImagemin = () => {
-  // 画像ファイルを指定
   return (
     src(srcPath.img)
-      // 変更があった画像のみ処理対象に
-      .pipe(changed(destPath.img))
-      // 画像を圧縮
+      .pipe(changed(destPath.img)) // 画像の変更を監視
       .pipe(
         imagemin(
           [
-            // JPEG画像の圧縮設定
-            imageminMozjpeg({
-              quality: 80, // 圧縮品質（0〜100）
-            }),
-            // PNG画像の圧縮設定
-            imageminPngquant(),
-            // SVG画像の圧縮設定
-            imageminSvgo({
-              plugins: [
-                {
-                  removeViewbox: false, // viewBox属性を削除しない
-                },
-              ],
-            }),
+            imageminMozjpeg({ quality: 80, }), // JPEG圧縮品質（0〜100）
+            imageminPngquant(), // PNG圧縮品質（0〜1）
+            imageminSvgo({ plugins: [{ removeViewbox: false, },], }), // SVG画像　viewBox属性を削除しない
           ],
           {
             verbose: true, // 圧縮情報を表示
@@ -182,7 +137,6 @@ const imgImagemin = () => {
       .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj())
       .pipe(webp()) //webpに変換
-      // 圧縮済みの画像ファイルを出力先に保存
       .pipe(dest(destPath.img))
       .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj())
@@ -191,22 +145,15 @@ const imgImagemin = () => {
 
 // * js圧縮
 const jsBabel = () => {
-  // JavaScriptファイルを指定
   return (
     src(srcPath.js)
-      // エラーハンドリングを設定
-      .pipe(
-        plumber({
-          errorHandler: notify.onError("Error: <%= error.message %>"),
-        })
-      )
-      // Babelでトランスパイル（ES6からES5へ変換）
-      .pipe(
-        babel({
-          presets: ["@babel/preset-env"],
-        })
-      )
-      // 圧縮済みのファイルを出力先に保存
+      .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>"), })) // エラーが発生してもタスクを続行
+      .pipe(babel({ presets: ["@babel/preset-env"], })) // ES6+のJavaScriptをES5に変換
+      .pipe(dest(destPath.js))
+      .pipe(wpMode ? dest(destWpPath.js) : through2.obj())
+      .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj())
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(uglify()) //js圧縮
       .pipe(dest(destPath.js))
       .pipe(wpMode ? dest(destWpPath.js) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj())
@@ -218,11 +165,9 @@ const browserSyncOption = {
   notify: false,
 };
 if (wpMode) {
-  // ローカルサーバーのURL（WordPress）
-  browserSyncOption.proxy = `http://${localSiteDomain}/`;
+  browserSyncOption.proxy = `http://${localSiteDomain}/`; // WordPressLocal反映用
 } else {
-  // ローカルサーバーのルートディレクトリ
-  browserSyncOption.server = "../dist/";
+  browserSyncOption.server = "../dist/"; // 静的コーディング反映用
 }
 const browserSyncFunc = () => {
   browserSync.init(browserSyncOption);
