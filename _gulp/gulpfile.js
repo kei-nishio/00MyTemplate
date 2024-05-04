@@ -1,37 +1,45 @@
-const { src, dest, watch, series, parallel } = require("gulp"); // Gulpの基本関数をインポート
-const os = require("os"); //osモジュールを読み込む
-const sass = require("gulp-sass")(require("sass")); // SCSSをCSSにコンパイルするためのモジュール
-const plumber = require("gulp-plumber"); // エラーが発生してもタスクを続行するためのモジュール
-const notify = require("gulp-notify"); // エラーやタスク完了の通知を表示するためのモジュール
-const sassGlob = require("gulp-sass-glob-use-forward"); // SCSSのインポートを簡略化するためのモジュール
-const mmq = require("gulp-merge-media-queries"); // メディアクエリをマージするためのモジュール
-const postcss = require("gulp-postcss"); // CSSの変換処理を行うためのモジュール
-const autoprefixer = require("autoprefixer"); // ベンダープレフィックスを自動的に追加するためのモジュール
-const cssdeclsort = require("css-declaration-sorter"); // CSSの宣言をソートするためのモジュール
-const postcssPresetEnv = require("postcss-preset-env"); // 最新のCSS構文を使用可能にするためのモジュール
-const sourcemaps = require("gulp-sourcemaps"); // ソースマップを作成するためのモジュール
-const babel = require("gulp-babel"); // ES6+のJavaScriptをES5に変換するためのモジュール
-const imageminSvgo = require("imagemin-svgo"); // SVGを最適化するためのモジュール
-const browserSync = require("browser-sync"); // ブラウザの自動リロード機能を提供するためのモジュール
-const imagemin = require("gulp-imagemin"); // 画像を最適化するためのモジュール
-const imageminMozjpeg = require("imagemin-mozjpeg"); // JPEGを最適化するためのモジュール
-const imageminPngquant = require("imagemin-pngquant"); // PNGを最適化するためのモジュール
-const changed = require("gulp-changed"); // 変更されたファイルのみを対象にするためのモジュール
-const del = require("del"); // ファイルやディレクトリを削除するためのモジュール
-const webp = require("gulp-webp"); //webp変換
-const rename = require("gulp-rename"); //ファイル名変更
-const through2 = require("through2"); // gulpの処理を通す
-const uglify = require('gulp-uglify'); // js圧縮
-const cleanCSS = require('gulp-clean-css'); // css圧縮
+// ** 基本機能
+import { src, dest, watch, series, parallel } from 'gulp'; // Gulpの基本関数
+import plumber from 'gulp-plumber'; // エラーが続行するためのモジュール
+import notify from 'gulp-notify'; // エラーやタスク完了の通知
+import sourcemaps from 'gulp-sourcemaps'; // ソースマップ作成
+import changed from 'gulp-changed'; // 変更されたファイルのみを対象にする
+import { deleteAsync } from 'del'; // ファイルやディレクトリを削除
+import through2 from 'through2'; // gulpの処理を通す
+import rename from 'gulp-rename'; // ファイル名変更
+import browserSync from 'browser-sync'; // ブラウザの自動リロード
+// ** CSS/Sass処理
+import gulpSassCreator from "gulp-sass";
+import * as sassImplementation from "sass";
+import sassGlob from 'gulp-sass-glob-use-forward'; // SCSSのインポートを簡略化
+import mmq from 'gulp-merge-media-queries'; // メディアクエリをマージ
+import postcss from 'gulp-postcss'; // CSS変換処理
+import autoprefixer from 'autoprefixer'; // ベンダープレフィックスを自動的に追加
+import cssdeclsort from 'css-declaration-sorter'; // CSS宣言をソート
+import postcssPresetEnv from 'postcss-preset-env'; // 最新のCSS構文を使用可能に
+import cleanCSS from 'gulp-clean-css'; // css圧縮
+// ** 画像圧縮
+import imagemin from 'gulp-imagemin'; // 画像を最適化
+import imageminMozjpeg from 'imagemin-mozjpeg'; // JPEG最適化
+import imageminPngquant from 'imagemin-pngquant'; // PNG最適化
+import imageminSvgo from 'imagemin-svgo'; // SVG最適化
+import webp from 'gulp-webp'; // WebP変換
+// ** js圧縮
+import babel from 'gulp-babel'; // ES6+のJavaScriptをES5に変換
+import uglify from 'gulp-uglify'; // JavaScript圧縮
+// ** システム・その他のユーティリティ
+import os from 'os'; // OSモジュール
 
+// ** その他の設定
+const sass = gulpSassCreator(sassImplementation); // SCSSをCSSにコンパイルするためのモジュール
 const browsers = ["last 2 versions", "> 5%", "ie = 11", "not ie <= 10", "ios >= 8", "and_chr >= 5", "Android >= 5"];
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
+// ** パス設定
 const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const siteTitle = "hogeTemplate"; // ! WordPress site title (project name)
 const themeName = "hogeTemplateTheme"; // ! WordPress theme file name
 const localSiteDomain = "hogeTemplate.local"; // ! WordPress Local Site Domain
-
 const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
 
 // 読み込み先
@@ -101,15 +109,14 @@ const cssSass = () => {
         autoprefixer({ grid: true }), // ベンダープレフィックスを自動で付与、グリッドレイアウトをサポート
         cssdeclsort({ order: 'alphabetical' }) // CSSプロパティをアルファベット順にソート
       ]))
-      .pipe(mmq()) // メディアクエリをマージ
-      .pipe(dest(destPath.css))
+      .pipe(mmq())
+      .pipe(sourcemaps.write('./')) // ソースマップをここで書き出す
+      .pipe(dest(destPath.css)) // 非圧縮CSSを出力
       .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
-      .pipe(sourcemaps.write("./")) // ソースマップを書き出し
-      .pipe(rename({ suffix: '.min' }))
-      .pipe(cleanCSS()) //css圧縮
-      .pipe(sourcemaps.write("./")) // ソースマップを書き出し
-      .pipe(dest(destPath.css))
+      .pipe(rename({ suffix: '.min' })) // ファイル名に.minを追加
+      .pipe(cleanCSS()) // CSSを圧縮
+      .pipe(dest(destPath.css)) // 圧縮CSSを出力
       .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
       .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
       .pipe(notify({ message: "Sassをコンパイルしました！", onLast: true, })) // 通知を表示
@@ -179,7 +186,7 @@ const browserSyncReload = (done) => {
 
 // * ファイルの削除
 const clean = () => {
-  return del([destPath.all, destWpPath.all, destWpLocalPath.all], { force: true });
+  return deleteAsync([destPath.all, destWpPath.all, destWpLocalPath.all], { force: true });
 };
 
 // * ファイルの監視
@@ -194,10 +201,11 @@ const watchFiles = () => {
 };
 
 // ! ブラウザシンク付きの開発用タスク
-exports.default = series(
+export default series(
   series(cssSass, jsBabel, imgImagemin, htmlCopy, phpCopy),
   parallel(watchFiles, browserSyncFunc)
 );
 
 // ! 本番用タスク
-exports.build = series(clean, cssSass, jsBabel, imgImagemin, htmlCopy, phpCopy);
+export const build = series(clean, cssSass, jsBabel, imgImagemin, htmlCopy, phpCopy);
+
