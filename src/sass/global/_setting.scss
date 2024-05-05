@@ -1,20 +1,19 @@
 @use "sass:math";
 
-////////////////////
-// 幅設定
-////////////////////
 // ! rem表記にすると表示エラー起こします。
-// インナー幅設定（px表記すること）
-// コンテンツのインナー幅（最も共通の幅が多い部分）
-// インナー幅＋パディング＝キャンパス幅
-$inner: 1100px;
-
-// タブレット時最大幅
-$max-width-sp: 600px;
-
-// 余白
-$padding-pc: 25px;
-$padding-sp: 20px;
+////////////////////
+// 基本設定
+////////////////////
+$innerWidth-sp: 375px; // SPのキャンパス幅
+$innerWidth-pc: 1366px; // PCのキャンパス幅
+$innerHeight-sp: 677px; // SPのキャンパス高さ
+$innerHeight-pc: 768px; // PCのキャンパス高さ
+$inner: 1100px; // コンテンツのインナー幅（インナー幅＋パディング＝キャンパス幅）
+$maxWidth-tb: 600px; // タブレット時最大幅
+$padding-sp: 20px; // SPの余白
+$padding-pc: 25px; // PCの余白
+$header-height-sp: 80px; // SPのヘッダー高さ
+$header-height-pc: 110px; // PCのヘッダー高さ
 
 ////////////////////
 // フォント設定

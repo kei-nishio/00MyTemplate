@@ -3,7 +3,7 @@
 @if $startFrom ==sp {
   .inner {
     width: 100%;
-    max-width: $max-width-sp;
+    max-width: $maxWidth-tb;
     padding-right: $padding-sp;
     padding-left: $padding-sp;
     margin-right: auto;
@@ -24,7 +24,7 @@
     margin-right: auto;
     margin-left: auto;
     @include mq("md") {
-      max-width: $max-width-sp;
+      max-width: $maxWidth-tb;
       padding-right: $padding-sp;
       padding-left: $padding-sp;
     }
