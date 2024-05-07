@@ -126,7 +126,7 @@ const cssSass = () => {
 // * 画像圧縮
 const imgImagemin = () => {
   return (
-    src(srcPath.img)
+    src(srcPath.img,{encoding: false})
       .pipe(changed(destPath.img)) // 画像の変更を監視
       .pipe(
         imagemin(
