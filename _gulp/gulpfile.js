@@ -130,7 +130,18 @@ const imgImagemin = () => {
         [
           imageminMozjpeg({ quality: 80 }), // JPEG圧縮品質（0〜100）
           imageminPngquant(), // PNG圧縮品質（0〜1）
-          imageminSvgo({ plugins: [{ removeViewbox: false }] }), // SVG画像　viewBox属性を削除しない
+          imageminSvgo({
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    removeViewBox: false,
+                  },
+                },
+              },
+            ],
+          }), // SVG画像 viewBox属性を削除しない
         ],
         {
           verbose: true, // 圧縮情報を表示
