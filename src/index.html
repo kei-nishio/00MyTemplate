@@ -1,61 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <!-- meta（不変）情報 -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
 
-<head>
-  <!-- meta（不変）情報 -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="format-detection" content="telephone=no" />
+    <!-- meta情報 -->
+    <title>ここにタイトル</title>
+    <meta name="description" content="ここに説明" />
+    <meta name="keywords" content="ここにキーワード" />
 
-  <!-- meta情報 -->
-  <title>ここにタイトル</title>
-  <meta name="description" content="ここに説明" />
-  <meta name="keywords" content="ここにキーワード" />
+    <!-- ! noindex and nofollow -->
+    <meta name="robots" content="noindex, nofollow" />
 
-  <!-- ! noindex and nofollow -->
-  <meta name="robots" content="noindex, nofollow" />
+    <!-- OGP(Open Graph Protocol) -->
+    <meta property="og.title" content="ここにタイトル" />
+    <meta property="og.type" content="websiteかdescribeかarticleから選びます" />
+    <meta property="og.url" content="ここにURL" />
+    <meta property="og.image" content="ここに絶対パスのイメージ※画像推奨サイズ1200x630" />
+    <meta property="og.site_name" content="ここにタイトル" />
+    <meta property="og.description" content="ここに説明" />
+    <meta name="twitter:card" content="summary" />
 
-  <!-- OGP(Open Graph Protocol) -->
-  <meta property="og.title" content="ここにタイトル" />
-  <meta property="og.type" content="websiteかdescribeかarticleから選びます" />
-  <meta property="og.url" content="ここにURL" />
-  <meta property="og.image" content="ここに絶対パスのイメージ※画像推奨サイズ1200x630" />
-  <meta property="og.site_name" content="ここにタイトル" />
-  <meta property="og.description" content="ここに説明" />
-  <meta name="twitter:card" content="summary" />
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico" />
+    <!-- <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" sizes="180*180" /> -->
 
-  <!-- favicon -->
-  <link rel="icon" href="/images/favicon.ico" />
-  <!-- <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" sizes="180*180" /> -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- css -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 
-  <!-- css -->
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- script -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="./assets/js/script.js"></script>
+  </head>
 
-  <!-- script -->
-  <script defer src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
-    integrity='sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=='
-    crossorigin='anonymous'></script>
-  <script defer src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'
-    integrity='sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=='
-    crossorigin='anonymous'></script>
-  <script defer src="./assets/js/script.js"></script>
-</head>
+  <body>
+    <header class="header js-header">
+      <h1>ここにheader</h1>
+    </header>
 
-<body>
-  <header class="header js-header">
-    <h1>ここにheader</h1>
-  </header>
+    <main class="main top"></main>
 
-  <main class="main top">
-  </main>
-
-  <footer class="footer">
-    <small>ここにfooter</small>
-  </footer>
-</body>
-
+    <footer class="footer">
+      <small>ここにfooter</small>
+    </footer>
+  </body>
 </html>
