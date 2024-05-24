@@ -1,16 +1,16 @@
-@use "global" as *;
+@use 'global' as *;
 
 .header {
   width: 100vw;
   position: fixed;
+  z-index: zi(header);
   top: 0;
   right: 0;
   left: 0;
-  z-index: zi(header);
-  height: rem(80);
+  height: $header-height-sp;
   background-color: transparent;
   @include mq {
-    height: rem(180);
+    height: $header-height-pc;
   }
 }
 .header__inner {

@@ -1,0 +1,16 @@
+@use 'global' as *;
+
+body {
+  background-color: $blue-light;
+  color: $black;
+  font-weight: $normal;
+  line-height: 1.5;
+  font-family: $base-font-family;
+
+  text-rendering: optimizeLegibility;
+  text-rendering: optimizeSpeed;
+}
+
+// .pin-spacer {
+//   background-image: linear-gradient(skyblue, blue);
+// }

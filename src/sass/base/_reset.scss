@@ -3,10 +3,6 @@
 *::after {
   box-sizing: border-box;
 }
-// .pin-spacer {
-//   background-image: linear-gradient(skyblue, blue);
-// }
-
 
 /* Remove default padding */
 ul,
@@ -30,20 +26,12 @@ dd {
   margin: 0;
 }
 
-/* Set core root defaults */
-html {
-  overflow-x: hidden;
-  // scroll-behavior: smooth; // GSAP挙動と競合するためコメントアウト
-}
-
-/* Set core body defaults */
+/* Set core root and body defaults */
+html,
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.5;
-
-  text-rendering: optimizeLegibility;
-  text-rendering: optimizeSpeed;
+  // scroll-behavior: smooth; // GSAP挙動と競合するためコメントアウト
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
@@ -71,7 +59,7 @@ a:hover {
 
 // * PC版では電話番号リンクを無効にする
 @media screen and (min-width: 768px) {
-  a[href^="tel:"] {
+  a[href^='tel:'] {
     pointer-events: none;
   }
 }
@@ -121,13 +109,13 @@ textarea {
   resize: vertical;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   display: none;
 }
 
-input[type="submit"],
-input[type="button"],
+input[type='submit'],
+input[type='button'],
 label,
 button,
 select {
