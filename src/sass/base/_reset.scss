@@ -40,6 +40,23 @@ ol {
   list-style: none;
 }
 
+// テーブル初期化
+table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  thead,
+  tbody,
+  tfoot,
+  tr {
+    display: contents;
+  }
+  th,
+  td {
+    display: block;
+    width: 100%;
+  }
+}
+
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
