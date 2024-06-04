@@ -1,4 +1,4 @@
-@use "global" as *;
+@use 'global' as *;
 
 .wpcf7-spinner {
   display: none;
@@ -14,7 +14,7 @@
         font-size: rem(15);
       }
       span {
-        font-weight: $normal;
+        font-weight: $regular;
       }
     }
 
@@ -44,13 +44,13 @@
   }
 
   //  ! common style
-  [type="text"],
-  [type="search"],
-  [type="tel"],
-  [type="url"],
-  [type="email"],
-  [type="password"],
-  [type="date"],
+  [type='text'],
+  [type='search'],
+  [type='tel'],
+  [type='url'],
+  [type='email'],
+  [type='password'],
+  [type='date'],
   textarea,
   select {
     $f-border-color: $black;
@@ -71,7 +71,8 @@
     // background-repeat: no-repeat;
     font-size: inherit;
     font-family: inherit;
-    @include mq {}
+    @include mq {
+    }
     &:active,
     &:hover,
     &:focus {
@@ -89,15 +90,15 @@
 
   // ! button
   button,
-  [type="button"],
-  [type="submit"] {
+  [type='button'],
+  [type='submit'] {
     display: inline-block;
     cursor: pointer;
     transition: 0.3s ease;
   }
 
   // ! radio
-  [type="radio"] {
+  [type='radio'] {
     $f-radio-size: rem(8);
     display: none;
     + span {
@@ -107,7 +108,7 @@
       cursor: pointer;
       &::before,
       &::after {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         top: 50%;
@@ -138,7 +139,7 @@
   }
 
   // ! checkbox
-  [type="checkbox"] {
+  [type='checkbox'] {
     $f-checkbox-size: rem(12);
     display: none;
     + span {
@@ -148,7 +149,7 @@
       cursor: pointer;
       &::before,
       &::after {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         top: 50%;
@@ -197,7 +198,7 @@
   }
 
   //  ! date
-  [type="date"] {
+  [type='date'] {
     position: relative;
     /*↓デフォルトのアイコンを消す場合はコメントアウト（noneにする）*/
 
