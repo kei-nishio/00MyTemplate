@@ -1,7 +1,7 @@
 @use 'global' as *;
 
 .header {
-  width: 100vw;
+  width: 100%;
   position: fixed;
   z-index: zi(header);
   top: 0;
