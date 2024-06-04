@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 // ! rem表記にすると表示エラー起こします。
 ////////////////////
@@ -19,15 +19,16 @@ $header-height-pc: 110px; // PCのヘッダー高さ
 // フォント設定
 ////////////////////
 
-$base-font-family: "Noto Sans JP", sans-serif;
-$second-font-family: "Roboto", "Noto Sans JP", sans-serif;
-$third-font-family: "Oswald", "Noto Sans JP", sans-serif;
+$base-font-family: 'Noto Sans JP', sans-serif;
+$second-font-family: 'Roboto', 'Noto Sans JP', sans-serif;
 
-$regular: 300;
-$normal: 400;
+$light: 300;
+$regular: 400;
 $medium: 500;
-$semi-bold: 600;
+$semiBold: 600;
 $bold: 700;
+$extraBold: 800;
+$blackBold: 900;
 
 ////////////////////
 // 色の指定
