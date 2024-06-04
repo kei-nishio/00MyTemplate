@@ -1,4 +1,4 @@
-@use "global" as *;
+@use 'global' as *;
 
 .breadcrumb {
   margin-top: rem(10);
@@ -19,7 +19,7 @@
   justify-content: flex-end;
   color: $black;
   font-size: rem(10);
-  font-family: $second-font-family;
+  font-family: $secondFont;
   @include mq {
     font-size: rem(15);
   }
@@ -38,7 +38,7 @@
 
 // ! Breadcrumb NavXT 設定
 .breadcrumb {
-  span[property="name"] {
+  span[property='name'] {
     display: block;
     white-space: nowrap;
     overflow: hidden;
