@@ -108,6 +108,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     lastScrollTop = scrollTop;
   });
+  // ** 途中から追従するコンタクトボタン
+  // ***********
+  let tl = gsap.timeline({});
+  tl.to('.js-floating-button', {
+    scrollTrigger: {
+      markers: true,
+      id: 'stFloatingButton',
+      trigger: '.js-floating-button',
+      start: 'bottom bottom-=20',
+      end: 'top-=50% bottom',
+      endTrigger: '#footer',
+      pin: true,
+      pinSpacing: false,
+      onLeave: () => {
+        gsap.to('.js-floating-button', { autoAlpha: 0, duration: 0.3 });
+      },
+      onEnterBack: () => {
+        gsap.to('.js-floating-button', { autoAlpha: 1, duration: 0.5 });
+      },
+    },
+  });
   // ** 横スクロールアニメーション
   // ***********
   let scrollHorizon = document.querySelector('.js-scroll-horizon');
