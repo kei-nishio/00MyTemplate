@@ -7,10 +7,10 @@
   top: 0;
   right: 0;
   left: 0;
-  height: $header-height-sp;
+  height: $headerHeight-sp;
   background-color: transparent;
   @include mq {
-    height: $header-height-pc;
+    height: $headerHeight-pc;
   }
 }
 .header__inner {
