@@ -3,10 +3,10 @@ $startFrom: sp;
 
 // デフォルト値を設定
 $mediaquerys: (
-  sm: "screen",
-  md: "screen",
-  lg: "screen",
-  xl: "screen",
+  sm: 'screen',
+  md: 'screen',
+  lg: 'screen',
+  xl: 'screen',
 );
 
 @if $startFrom == sp {
@@ -48,32 +48,32 @@ $mediaquerys: (
 
 @if $startFrom == sp {
   //pcで表示
-  .u-desktop:not(:root) {
+  .u-desktop {
     display: none;
-    @include mq("md") {
+    @include mq('md') {
       display: block;
     }
   }
 
   //モバイルのみ表示
-  .u-mobile:not(:root) {
-    @include mq("md") {
+  .u-mobile {
+    @include mq('md') {
       display: none;
     }
   }
 } @else {
   //pcで表示
-  .u-desktop:not(:root) {
+  .u-desktop {
     display: block;
-    @include mq("md") {
+    @include mq('md') {
       display: none;
     }
   }
 
   //モバイルのみ表示
-  .u-mobile:not(:root) {
+  .u-mobile {
     display: none;
-    @include mq("md") {
+    @include mq('md') {
       display: block;
     }
   }
