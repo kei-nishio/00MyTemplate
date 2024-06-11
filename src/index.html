@@ -59,7 +59,19 @@
       </div>
     </header>
 
-    <main class="main top"></main>
+    <main class="main top">
+      <p class="__img">
+        <!-- DELETE lazy!! <- FV, Modal(On/Off), HorizontalScroll, Carousel 2nd~img -->
+        <!-- https://webspe.net/lazy-loading/ -->
+        <picture>
+          <source srcset="./assets/images/-sp.webp" type="image/webp" media="(max-width: 768px)" />
+          <source srcset="./assets/images/-sp.jpg" type="image/jpeg" media="(max-width: 768px)" />
+          <source srcset="./assets/images/-pc.webp" type="image/webp" media="(min-width: 769px)" />
+          <source srcset="./assets/images/-pc.jpg" type="image/jpeg" media="(min-width: 769px)" />
+          <img src="./assets/images/-pc.jpg" alt="" decoding="async" loading="lazy" width="640" height="320" />
+        </picture>
+      </p>
+    </main>
 
     <footer class="footer">
       <small>ここにfooter</small>
