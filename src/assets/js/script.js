@@ -88,9 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.toggle('is-active');
       });
       if (this.hamburger.classList.contains('is-active')) {
-        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
+        document.body.style.overflowY = 'hidden';
+        console.log('hidden');
       } else {
-        document.body.style.overflow = '';
+        document.documentElement.style.overflowY = '';
+        document.body.style.overflowY = '';
+        console.log('visible');
       }
     }
   }

@@ -46,6 +46,7 @@
     <div class="confirm-form__submit">
       <div class="button-submit">[submit "送信する"]</div>
       [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/confirm/thanks/"]
+      <!-- [multistep your-multistep02 last_step send_email "/contact/confirm/"] -->
     </div>
   </div>
 </div>

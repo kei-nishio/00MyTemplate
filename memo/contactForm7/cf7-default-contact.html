@@ -96,7 +96,8 @@
         </label>
       </dt>
       <dd class="contact-form__description">
-        [checkbox* your-checkbox id:f-checkbox use_label_element "チェックボックス1" "チェックボックス2" "チェックボックス3"]
+        [checkbox* your-checkbox id:f-checkbox use_label_element "チェックボックス1" "チェックボックス2"
+        "チェックボックス3"]
       </dd>
     </div>
     <!-- * Radio -->
@@ -121,9 +122,27 @@
           <span class="contact-form__required">必須</span>
         </label>
       </dt>
-      <dd class="contact-form__description">
-        [textarea* your-message id:f-textarea]
-      </dd>
+      <dd class="contact-form__description">[textarea* your-message id:f-textarea]</dd>
+    </div>
+    <!-- * zip-code -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-zip-code">
+          <span class="contact-form__required">必須</span>
+          郵便番号
+        </label>
+      </dt>
+      <dd class="contact-form__description">[text* your-zip-code id:f-zip-code placeholder "例）　123-4567"]</dd>
+    </div>
+    <!-- * address -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-address">
+          <span class="contact-form__required">必須</span>
+          ご住所
+        </label>
+      </dt>
+      <dd class="contact-form__description">[text* your-address id:f-address placeholder "例）　札幌市○○町○○番地"]</dd>
     </div>
   </dl>
   <!-- * Acceptance -->
@@ -140,13 +159,14 @@
   </div>
 
   <!-- * Submit -->
-  <div class="contact-form__submit">
-    [submit class:button-submit "送信する"]
+  <div class="contact-form__confirm">
+    <div class="button-submit">[submit "送信する"]</div>
   </div>
   <!-- * To Confirm -->
-  <div class="contact-form__submit">
-    [submit class:button-submit "確認画面へ"]
-    [multistep your-multistep01 first_step "/contact/confirm/"]
+  <div class="contact-form__confirm">
+    <div class="button-submit">[submit "入力内容のご確認"]</div>
+    [multistep your-multistep01 first_step "http://localhost:3000/contact/confirm/"]
+    <!-- [multistep your-multistep01 first_step "lumine/contact/confirm/"] -->
   </div>
 </div>
 <!-- * Form Contact End -->

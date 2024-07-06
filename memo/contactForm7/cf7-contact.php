@@ -90,6 +90,7 @@
   <div class="contact-form__confirm">
     <div class="button-submit">[submit "入力内容のご確認"]</div>
     [multistep your-multistep01 first_step "http://localhost:3000/contact/confirm/"]
+    <!-- [multistep your-multistep01 first_step "/contact/confirm/"] -->
   </div>
 </div>
 <!-- * Form Contact End -->

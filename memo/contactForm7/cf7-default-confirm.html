@@ -115,12 +115,29 @@
       </dt>
       <dd class="confirm-form__description">[multiform your-message id:f-textarea]</dd>
     </div>
+    <!-- * zip-code -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">郵便番号</dt>
+      <dd class="confirm-form__description">[multiform your-zip-code id:f-zip-code]</dd>
+    </div>
+    <!-- * address -->
+    <div class="confirm-form__item">
+      <dt class="confirm-form__term">ご住所</dt>
+      <dd class="confirm-form__description">[multiform your-address id:f-address]</dd>
+    </div>
   </dl>
-  <!-- * Previous -->
-  <div class="confirm-form__previous">[previous class:button-submit "戻る"]</div>
-  <!-- * Submit -->
-  <div class="confirm-form__submit">
-    [submit class:button-submit "送信する"] [multistep your-multistep02 last_step send_email "/contact/confirm/thanks/"]
+
+  <div class="confirm-form__button">
+    <!-- * Previous -->
+    <div class="confirm-form__previous">
+      <div class="button-submit button-submit--black">[previous "訂正する"]</div>
+    </div>
+    <!-- * Submit -->
+    <div class="confirm-form__submit">
+      <div class="button-submit">[submit "送信する"]</div>
+      [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/confirm/thanks/"]
+      <!-- [multistep your-multistep02 last_step send_email "lumine/contact/confirm/thanks/"] -->
+    </div>
   </div>
 </div>
 <!-- * Form Contact End -->

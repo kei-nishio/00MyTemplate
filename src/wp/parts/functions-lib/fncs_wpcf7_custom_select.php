@@ -12,30 +12,57 @@
  * 使用例: このフックを使用して、カスタムバリデーションメッセージを追加したり、特定のフォームタグに追加のHTML属性を挿入したりすることが可能です。
  * */
 
+// * カスタム投稿タイプの取得の場合
+// add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
+// function custom_select_values($values, $options, $args)
+// {
+//   if (in_array('campaign-select', $options)) {
+//     if (!is_array($values)) {
+//       $values = [];
+//     }
+//     array_unshift($values, '選択してください');
+
+//     $args = array(
+//       'posts_per_page' => -1,
+//       'post_type' => 'campaign',
+//       'order' => 'DESC',
+//     );
+
+
+//     $the_query = new WP_Query($args);
+
+//     if ($the_query->have_posts()) {
+//       while ($the_query->have_posts()) {
+//         $the_query->the_post();
+//         $title = get_the_title();
+//         $values[] = $title;
+//       }
+//       wp_reset_postdata();
+//     }
+//   }
+
+//   return $values;
+// }
+
+// * カスタムタクソノミーの取得の場合
 add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 function custom_select_values($values, $options, $args)
 {
-  if (in_array('campaign-select', $options)) {
+  if (in_array('tax-case-study-type-select', $options)) {
     if (!is_array($values)) {
       $values = [];
     }
-    array_unshift($values, 'キャンペーン内容を選択');
+    array_unshift($values, '選択してください');
 
-    $args = array(
-      'posts_per_page' => -1,
-      'post_type' => 'campaign',
-      'order' => 'DESC',
-    );
+    $terms = get_terms(array(
+      'taxonomy' => 'tax-case-study-type',
+      'hide_empty' => false,
+    ));
 
-    $the_query = new WP_Query($args);
-
-    if ($the_query->have_posts()) {
-      while ($the_query->have_posts()) {
-        $the_query->the_post();
-        $title = get_the_title();
-        $values[] = $title;
+    if (!is_wp_error($terms) && !empty($terms)) {
+      foreach ($terms as $term) {
+        $values[] = $term->name;
       }
-      wp_reset_postdata();
     }
   }
 

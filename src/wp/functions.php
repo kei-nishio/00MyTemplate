@@ -40,6 +40,9 @@ get_template_part('/parts/functions-lib/fncs_scf_add_option');
 // ! Smart Custom Field のフィールド値を判定する
 get_template_part('/parts/functions-lib/fncs_scf_field_validation');
 
+// ! Contact Form 7で郵便番号のバリデーションを追加する
+get_template_part('/parts/functions-lib/fncs_wpcf7_zip-code-validation');
+
 // ! カスタムページネーションを追加する
 get_template_part('/parts/functions-lib/fncs_custom_pagination');
 
