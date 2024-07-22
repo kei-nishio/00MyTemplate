@@ -63,3 +63,6 @@ get_template_part('/parts/functions-lib/fncs_bogo-noflag');
 
 // ! Bogoの言語スイッチャーの表記を変更
 get_template_part('/parts/functions-lib/fncs_bogo-la-notation');
+
+// ! 特定ページからのリダイレクト設定
+get_template_part('/parts/functions-lib/fncs_redirect');

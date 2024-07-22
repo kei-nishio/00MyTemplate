@@ -86,7 +86,7 @@ const htmlCopy = () => {
 // * PHPファイルのコピー
 const phpCopy = () => {
   if (wpMode) {
-    return src(srcPath.php)
+    return src(srcPath.php, { encoding: false })
       .pipe(dest(destWpPath.php)) // WordPress反映用
       .pipe(dest(destWpLocalPath.php)); // WordPressLocal反映用
   } else {

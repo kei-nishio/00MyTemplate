@@ -10,9 +10,11 @@
       color: $black;
       font-weight: $medium;
       font-size: rem(14);
+
       @include mq {
         font-size: rem(15);
       }
+
       span {
         font-weight: $regular;
       }
@@ -22,6 +24,7 @@
       margin-top: rem(10);
       color: $black;
       font-size: rem(14);
+
       @include mq {
         font-size: rem(15);
       }
@@ -33,6 +36,7 @@
 
     &:not(:first-of-type) {
       margin-top: rem(30);
+
       @include mq {
         margin-top: rem(40);
       }
@@ -58,21 +62,24 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    padding-top: rem(16);
+    padding-right: rem(16);
     padding-bottom: rem(16);
     padding-left: rem(16);
-    padding-right: rem(16);
-    padding-top: rem(16);
     border: 1px solid $f-border-color;
     border-radius: rem(4);
     background-color: $f-background-color;
+
     // background-image: none;
     // background-position: center;
     // background-size: cover;
     // background-repeat: no-repeat;
     font-size: inherit;
     font-family: inherit;
+
     @include mq {
     }
+
     &:active,
     &:hover,
     &:focus {
@@ -184,25 +191,28 @@
   // ! select (drop down)
   select {
     position: relative;
-    // * ↓デフォルトではないアイコンを使う場合は入力する
     background-image: url(../images/common/list-polygon-open.svg);
     background-position: right 9px center;
     background-size: 12px;
     background-repeat: no-repeat;
     font-size: rem(14);
     cursor: pointer;
-    // * ↓デフォルトのアイコンを消す場合はコメントアウト（noneにする）
-    // appearance: auto;
 
     appearance: none;
+
+    option {
+      color: inherit;
+    }
   }
 
   //  ! date
   [type='date'] {
     position: relative;
+
     /*↓デフォルトのアイコンを消す場合はコメントアウト（noneにする）*/
 
     appearance: auto;
+
     /*↓デフォルトではないアイコンを使う場合は入力する*/
     // background-image: url();
     // background-position: right 12px center;

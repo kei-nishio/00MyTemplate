@@ -27,6 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function resetInlineCssStyle(element) {
     element.style.cssText = '';
   }
+  // ** 初回のみnull
+  // ***********
+  const hasOnceVisited = localStorage.getItem('hasVisitedTopPage'); // ブラウザを閉じても
+  const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage'); // タブを閉じるとリセット
+  if (hasFirstVisited === null) {
+    // ここに初回のみの処理を記述
+    localStorage.setItem('hasVisitedTopPage', 'true');
+    sessionStorage.setItem('hasVisitedTopPage', 'true');
+  }
+
   // ** PC版のみの処理
   // ***********
   if (document.querySelector('main').classList.contains('top') && currentWindowWidth >= breakpoint) {
@@ -62,12 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
+
   // ** セレクトボックスからカテゴリーアーカイブに遷移する
   // ***********
   window.redirectToUrl = function (select) {
     let url = select.value;
     if (url) window.location.href = url;
   };
+
   // ** ハンバーガーメニューとドロワーメニュー
   // ***********
   class DrawerToggle {
