@@ -393,6 +393,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   new ScrollHint('.js-scrollable', {
     scrollHintIconAppendClass: 'scroll-hint-icon-white',
+    remainingTime: 3000, //ms
+    offset: -1, // スクロールできなくても表示する
     i18n: {
       scrollable: scrollableText,
     },
