@@ -102,11 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (this.hamburger.classList.contains('is-active')) {
         document.documentElement.style.overflowY = 'hidden';
         document.body.style.overflowY = 'hidden';
-        console.log('hidden');
+        this.drawer.style.display = 'block';
+        setTimeout(() => {
+          this.drawer.style.visibility = 'visible';
+          this.drawer.style.opacity = '1';
+        }, 100);
       } else {
         document.documentElement.style.overflowY = '';
         document.body.style.overflowY = '';
-        console.log('visible');
+        this.drawer.style.visibility = 'hidden';
+        this.drawer.style.opacity = '0';
+        setTimeout(() => {
+          this.drawer.style.display = 'none';
+        }, 300);
       }
     }
   }
