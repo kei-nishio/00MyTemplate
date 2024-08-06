@@ -1,17 +1,17 @@
-@use "global" as *;
+@use 'global' as *;
 
 @if $startFrom ==sp {
   //スマホファースト
   html {
+    //375px~767px
+    font-size: 16px;
+
     //~375px
     @media (max-width: 375px) {
       font-size: vw(16, 375);
     }
 
-    //375px~767px
-    font-size: 16px;
-
-    @include mq("md") {
+    @include mq('md') {
       font-size: vw(16, strip-unit($inner));
     }
 
@@ -20,8 +20,7 @@
       font-size: 16px;
     }
   }
-}
-@else {
+} @else {
   //PCファースト
   html {
     font-size: 16px;
@@ -30,7 +29,7 @@
       font-size: vw(16, strip-unit($inner));
     }
 
-    @include mq("md") {
+    @include mq('md') {
       font-size: 16px;
     }
 
