@@ -1,38 +1,47 @@
 <?php
-
 // ! 投稿画面の表示項目を設定する
-add_action('after_setup_theme', 'my_setup');
-function my_setup()
-{
-  add_theme_support('post-thumbnails'); // アイキャッチ画像を有効化
-  add_theme_support('automatic-feed-links'); // 投稿とコメントのRSSフィードのリンクを有効化
-  add_theme_support('title-tag'); // titleタグ自動生成
-  add_theme_support('html5', array( // HTML5による出力
-    'search-form',
-    'comment-form',
-    'comment-list',
-    'gallery',
-    'caption',
-  ));
-}
+get_template_part('/parts/functions-lib/fncs_base_set_up');
 
 // ! headでgoogle fontやCDNを読み込む
-get_template_part('/parts/functions-lib/fncs_script');
+get_template_part('/parts/functions-lib/fncs_base_script');
 
-// ! カスタム投稿の表示件数を設定する
-get_template_part('/parts/functions-lib/fncs_posts_page');
+// * 以下オプション * //
+
+// ! カスタムメニューを追加する
+get_template_part('/parts/functions-lib/fncs_add_custom_menu');
+
+// ! Bogoの言語スイッチャーの表記を変更
+get_template_part('/parts/functions-lib/fncs_bogo-la-notation');
+
+// ! Bogoの言語スイッチャーの国旗を非表示
+get_template_part('/parts/functions-lib/fncs_bogo-noflag');
+
+// ! Breadcrumb NavXT で特定ページのパンくずをカスタムする
+get_template_part('/parts/functions-lib/fncs_breadcrumb-navxt');
 
 // ! Contact Form 7で自動挿入されるPタグ、brタグを削除
-get_template_part('/parts/functions-lib/fncs_wpcf7_reset');
+get_template_part('/parts/functions-lib/fncs_cf7_reset');
 
 // ! Contact Form 7でセレクトボックスをカスタマイズする
-get_template_part('/parts/functions-lib/fncs_wpcf7_custom_select');
+get_template_part('/parts/functions-lib/fncs_cf7_custom_select');
 
-// ! 通常投稿タイプのラベルを変更する
-get_template_part('/parts/functions-lib/fncs_post_label_change');
+// ! Contact Form 7で郵便番号のバリデーションを追加する
+get_template_part('/parts/functions-lib/fncs_cf7_zip-code-validation');
 
-// ! 個別記事なし投稿の場合リダイレクトする
-get_template_part('/parts/functions-lib/fncs_redirect_singular');
+// ! カスタムページネーションを追加する
+get_template_part('/parts/functions-lib/fncs_custom_pagination');
+
+// ! カスタム投稿の表示件数を設定する
+get_template_part('/parts/functions-lib/fncs_custom_posts_page');
+
+// ! 固定ページのブロックエディタを無効化する
+get_template_part('/parts/functions-lib/fncs_page_editor');
+
+// ! 通常投稿タイプのラベルを変更する（「投稿」⇒「ブログ」）
+get_template_part('/parts/functions-lib/fncs_post_label');
+
+// ! リダイレクト設定
+get_template_part('/parts/functions-lib/fncs_redirect');
 
 // ! Smart Custom Field のオプション投稿を追加する
 get_template_part('/parts/functions-lib/fncs_scf_add_option');
@@ -40,29 +49,5 @@ get_template_part('/parts/functions-lib/fncs_scf_add_option');
 // ! Smart Custom Field のフィールド値を判定する
 get_template_part('/parts/functions-lib/fncs_scf_field_validation');
 
-// ! Contact Form 7で郵便番号のバリデーションを追加する
-get_template_part('/parts/functions-lib/fncs_wpcf7_zip-code-validation');
-
-// ! カスタムページネーションを追加する
-get_template_part('/parts/functions-lib/fncs_custom_pagination');
-
-// ! カスタムメニューを追加する
-get_template_part('/parts/functions-lib/fncs_add_menu');
-
-// ! Breadcrumb NavXT で特定ページのパンくずをカスタムする
-get_template_part('/parts/functions-lib/fncs_custom-breadcrumb-navxt');
-
-// ! 固定ページのブロックエディタを無効化する
-get_template_part('/parts/functions-lib/fncs_page_editor');
-
 // ! 言語によって読み込むテンプレートをカスタムする
 get_template_part('/parts/functions-lib/fncs_template-customize');
-
-// ! Bogoの言語スイッチャーの国旗を非表示
-get_template_part('/parts/functions-lib/fncs_bogo-noflag');
-
-// ! Bogoの言語スイッチャーの表記を変更
-get_template_part('/parts/functions-lib/fncs_bogo-la-notation');
-
-// ! 特定ページからのリダイレクト設定
-get_template_part('/parts/functions-lib/fncs_redirect');
