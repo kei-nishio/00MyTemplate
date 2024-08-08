@@ -7,6 +7,9 @@ get_template_part('/parts/functions-lib/fncs_base_script');
 
 // * 以下オプション * //
 
+// ! ACFのフィールドグループをカスタムメニューに追加する
+get_template_part('/parts/functions-lib/fncs_acf_add_menu');
+
 // ! カスタムメニューを追加する
 get_template_part('/parts/functions-lib/fncs_add_custom_menu');
 
