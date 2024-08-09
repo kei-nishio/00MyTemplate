@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @uses  $image[$i] = get_field('acfBrandImage0' . $i, 'options');
+ * @uses  $image_url[$i]  = esc_url($image[$i]['url']);
+ * @uses  $image_alt[$i]  = esc_attr($image[$i]['alt']);
+ * @uses  $image_alt[$i] = $image_alt[$i] === "" ? "コレクション" . $i : $image_alt[$i];
+ */
+
 // ! ACFのフィールドグループをカスタムメニューに追加する
 add_action('admin_menu', 'my_custom_acf_menu');
 add_action('admin_init', function () {
