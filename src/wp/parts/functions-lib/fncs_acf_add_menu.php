@@ -37,10 +37,6 @@ function my_custom_acf_menu()
 
 function my_custom_acf_menu_page($field_group_key)
 {
-  if (!current_user_can('manage_options')) {
-    wp_die(__('このページにアクセスする権限がありません。'));
-  }
-
   // フィールドグループの情報を取得
   $field_group = acf_get_field_group($field_group_key);
   $field_group_title = $field_group['title'];

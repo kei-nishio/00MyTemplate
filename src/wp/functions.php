@@ -37,6 +37,9 @@ get_template_part('/parts/functions-lib/fncs_custom_pagination');
 // ! カスタム投稿の表示件数を設定する
 get_template_part('/parts/functions-lib/fncs_custom_posts_page');
 
+// ! カスタム投稿のスラッグを設定する
+get_template_part('/parts/functions-lib/fncs_custom_post_slug');
+
 // ! 固定ページのブロックエディタを無効化する
 get_template_part('/parts/functions-lib/fncs_page_editor');
 
