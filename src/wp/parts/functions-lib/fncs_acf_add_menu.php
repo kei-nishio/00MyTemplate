@@ -15,7 +15,8 @@ add_action('admin_init', function () {
 
 function my_custom_acf_menu()
 {
-  $field_group_key = 'group_66b47ed487504'; // ! フィールドグループのキー
+  $menu_slug = 'brand-collection'; // メニュースラッグを変数として定義
+  $field_group_key = 'group_66b47ed487504'; // フィールドグループのキー
 
   // フィールドグループの情報を取得
   $field_group = acf_get_field_group($field_group_key);
@@ -26,17 +27,21 @@ function my_custom_acf_menu()
     $field_group_title, // ページタイトル
     $field_group_title, // メニュータイトル
     'manage_options', // 必要な権限
-    'custom_acf_menu', // メニュースラッグ
-    function () use ($field_group_key) {
-      my_custom_acf_menu_page($field_group_key);
+    $menu_slug, // 変数として定義したメニュースラッグ
+    function () use ($field_group_key, $menu_slug) {
+      my_custom_acf_menu_page($field_group_key, $menu_slug);
     },
     'dashicons-heart', // アイコンURL
     6 // メニュー位置
   );
 }
 
-function my_custom_acf_menu_page($field_group_key)
+function my_custom_acf_menu_page($field_group_key, $menu_slug)
 {
+  if (!current_user_can('manage_options')) {
+    wp_die(__('このページにアクセスする権限がありません。'));
+  }
+
   // フィールドグループの情報を取得
   $field_group = acf_get_field_group($field_group_key);
   $field_group_title = $field_group['title'];
@@ -49,7 +54,7 @@ function my_custom_acf_menu_page($field_group_key)
   acf_form(array(
     'post_id' => 'options', // オプションページのフィールドを表示する場合
     'field_groups' => array($field_group_key), // フィールドグループのIDを指定
-    'return' => admin_url('admin.php?page=custom_acf_menu'), // カスタムメニューにリダイレクト
+    'return' => admin_url('admin.php?page=' . $menu_slug), // カスタムメニューにリダイレクト
     'submit_value' => __('更新', 'acf'),
   ));
 
