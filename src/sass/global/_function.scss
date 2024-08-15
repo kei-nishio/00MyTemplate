@@ -1,12 +1,32 @@
-@use "sass:math";
+@use 'sass:math';
 
 // * 数値のみを取り出す
 // * 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
 @function strip-unit($number) {
-  @if type-of($number)=="number" and not unitless($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
     @return math.div($number, $number * 0 + 1);
   }
   @return $number;
+}
+
+// * vwLinearの計算式
+@function vwLinear($y1, $x1, $y2, $x2) {
+  $sx1: strip-unit($x1);
+  $sy1: strip-unit($y1);
+  $sx2: strip-unit($x2);
+  $sy2: strip-unit($y2);
+
+  @if $sx1 == $sx2 {
+    @error "The x values cannot be equal, as this would cause division by zero.";
+  }
+
+  $a: math.div(($sy2 - $sy1), ($sx2 - $sx1));
+  $b: $sy1 - $a * $sx1;
+
+  $a-vw: $a * 100;
+  $b-px: $b * 1px;
+
+  @return calc(#{$a-vw}vw + #{$b-px});
 }
 
 // * vwへの計算式
