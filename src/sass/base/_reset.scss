@@ -33,7 +33,7 @@ dd {
 html,
 body {
   min-height: 100vh;
-  overflow-x: hidden;
+  // overflow-x: hidden; // position stickyを使用するためコメントアウト
   // scroll-behavior: smooth; // GSAP挙動と競合するためコメントアウト
 }
 
