@@ -36,7 +36,7 @@ const browsers = ['last 2 versions', '> 5%', 'ie = 11', 'not ie <= 10', 'ios >= 
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
 // ** パス設定
-const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpMode = true; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
 const themeName = 'mytemplatetheme'; // ! WordPress theme file name
 const localSiteDomain = 'mytemplate.local'; // ! WordPress Local Site Domain
