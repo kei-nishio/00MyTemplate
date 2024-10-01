@@ -37,9 +37,9 @@ const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\U
 
 // ** パス設定
 const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
-const siteTitle = 'hogeTemplate'; // ! WordPress site title (project name)
-const themeName = 'hogeTemplateTheme'; // ! WordPress theme file name
-const localSiteDomain = 'hogeTemplate.local'; // ! WordPress Local Site Domain
+const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
+const themeName = 'mytemplatetheme'; // ! WordPress theme file name
+const localSiteDomain = 'mytemplate.local'; // ! WordPress Local Site Domain
 const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
 
 // 読み込み先
