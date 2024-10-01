@@ -4,11 +4,11 @@
 ////////////////////
 // 基本設定
 ////////////////////
-$innerWidth-sp: 375px; // SPのキャンパス幅
-$innerWidth-pc: 1366px; // PCのキャンパス幅
-$innerHeight-sp: 677px; // SPのキャンパス高さ
-$innerHeight-pc: 768px; // PCのキャンパス高さ
-$inner: 1100px; // コンテンツのインナー幅（インナー幅＋パディング＝キャンパス幅）
+$innerWidth-sp: 375px; // SPのデザイン画面幅
+$innerWidth-pc: 1366px; // PCのデザイン画面幅
+$innerHeight-sp: 677px; // SPのデザイン画面高さ
+$innerHeight-pc: 768px; // PCのデザイン画面高さ
+$inner: 1100px; // コンテンツのインナー幅（インナー幅＋余白＝デザイン画面幅）
 $maxWidth-tb: 600px; // タブレット時最大幅
 $padding-sp: 20px; // SPの余白
 $padding-pc: 25px; // PCの余白
@@ -19,8 +19,9 @@ $headerHeight-pc: 110px; // PCのヘッダー高さ
 // フォント設定
 ////////////////////
 
-$baseFont: 'Noto Sans JP', sans-serif;
+$firstFont: 'Noto Sans JP', sans-serif;
 $secondFont: 'Roboto', 'Noto Sans JP', sans-serif;
+$thirdFont: 'Roboto', 'Noto Sans JP', sans-serif;
 
 $light: 300;
 $regular: 400;
