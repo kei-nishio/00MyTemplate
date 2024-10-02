@@ -1,13 +1,13 @@
 <?php get_header(); ?>
 <main class="main">
   <section class="single sub-top">
-    <div class="sub-top__inner inner">
+    <div class="sub-top__inner l-inner">
       <div class="sub-top__heading">
         <h1 class="sub-top__title">news</h1>
       </div>
 
       <!-- breadcrumb -->
-      <?php get_template_part('/parts/common/p-breadcrumb'); ?>
+      <?php get_template_part('/parts/component/c-breadcrumb'); ?>
 
 
       <div class="single__flex">

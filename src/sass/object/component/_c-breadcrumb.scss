@@ -1,13 +1,13 @@
 @use 'global' as *;
 
-.breadcrumb {
+.c-breadcrumb {
   margin-top: rem(10);
   text-align: right;
   @include mq {
     margin-top: rem(20);
   }
 }
-.breadcrumb__inner.inner {
+.breadcrumb__inner.l-inner {
   padding-right: rem(10);
   @include mq {
     padding-right: rem(60);
@@ -29,15 +29,15 @@
   }
 }
 // modifier
-.breadcrumb.breadcrumb--single {
+.c-breadcrumb.breadcrumb--single {
   margin-top: calc(rem(10) + rem(80));
   @include mq {
     margin-top: calc(rem(20) + rem(180));
   }
 }
 
-// ! Breadcrumb NavXT 設定
-.breadcrumb {
+// ! c-breadcrumb NavXT 設定
+.c-breadcrumb {
   span[property='name'] {
     display: block;
     white-space: nowrap;

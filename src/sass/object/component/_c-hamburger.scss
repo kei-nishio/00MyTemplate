@@ -1,4 +1,4 @@
-@use "global" as *;
+@use 'global' as *;
 
 // * user variables
 $hamburger-width: rem(25);
@@ -10,7 +10,7 @@ $hamburger-border-height: rem(1);
 $hamburger-rotate: 55deg;
 $hamburger-scale: 1.414;
 
-.hamburger {
+.c-hamburger {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,14 +31,14 @@ $hamburger-scale: 1.414;
 }
 
 // * is-active
-.hamburger.is-active {
+.c-hamburger.is-active {
   width: $hamburger-width-is-active;
   height: $hamburger-height-is-active;
 }
-.hamburger.is-active .hamburger__border.hamburger__border--short {
+.c-hamburger.is-active .hamburger__border.hamburger__border--short {
   width: 100%;
 }
-.hamburger.is-active .hamburger__border {
+.c-hamburger.is-active .hamburger__border {
   background-color: $white;
   transform-origin: center;
   @for $i from 1 through $hamburger-border-number {

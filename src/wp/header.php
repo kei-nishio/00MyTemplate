@@ -52,7 +52,7 @@
       </nav>
 
       <!-- hamburger -->
-      <div class="header__hamburger hamburger u-mobile js-hamburger">
+      <div class="header__hamburger c-hamburger u-mobile js-hamburger">
         <span class="hamburger__border"></span>
         <span class="hamburger__border"></span>
         <span class="hamburger__border hamburger__border--short"></span>
@@ -67,7 +67,7 @@
             </div>
           </div>
         </div>
-        <div class="header__drawer-inner">
+        <div class="header__drawer-l-inner">
           <nav class="header__sp-nav navigation">
             <ul class="navigation__items">
               <li class="navigation__item">
