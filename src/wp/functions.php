@@ -22,6 +22,9 @@ get_template_part('/parts/functions-lib/f-base_script');
 // ! Breadcrumb NavXT で特定ページのパンくずをカスタムする
 // get_template_part('/parts/functions-lib/f-breadcrumb-navxt');
 
+// ! reCAPTCHAを問い合わせだけに表示させる
+// get_template_part('/parts/functions-lib/f-cf7_recaptcha');
+
 // ! Contact Form 7で自動挿入されるPタグ、brタグを削除
 // get_template_part('/parts/functions-lib/f-cf7_reset');
 
