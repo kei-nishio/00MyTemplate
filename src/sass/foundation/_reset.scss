@@ -1,0 +1,57 @@
+/* reset.css start */
+
+html,
+body {
+  min-height: 100vh;
+  overflow-x: clip; // position stickyを使用可能
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+@media (any-hover: hover) {
+  a:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  a[href^='tel:'] {
+    pointer-events: none;
+  }
+}
+
+img {
+  display: block;
+}
+
+img:not([alt]) {
+  outline: red solid 5px;
+}
+
+// input[type='checkbox'],
+// input[type='radio'] {
+//   display: none;
+// }
+
+// input[type='submit'],
+// input[type='button'],
+// label,
+// button,
+// select {
+//   cursor: pointer;
+// }
+
+/* reset.css end */

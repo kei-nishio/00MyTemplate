@@ -44,7 +44,8 @@ const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-conte
 
 // 読み込み先
 const srcPath = {
-  css: '../src/sass/**/*.scss',
+  sass: '../src/sass/**/*.scss',
+  css: '../src/assets/css/**/*',
   js: '../src/assets/js/**/*',
   img: '../src/assets/images/**/*',
   html: ['../src/**/*.html', '!./node_modules/**'],
@@ -83,6 +84,18 @@ const htmlCopy = () => {
   return src(srcPath.html).pipe(dest(destPath.html));
 };
 
+// * CSSファイルのコピー
+const cssCopy = () => {
+  if (wpMode) {
+    return src(srcPath.css, { encoding: false })
+      .pipe(dest(destPath.css)) // 静的コーディング反映用
+      .pipe(dest(destWpPath.css)) // WordPress反映用
+      .pipe(dest(destWpLocalPath.css)); // WordPressLocal反映用
+  } else {
+    return src(srcPath.css, { encoding: false }).pipe(dest(destPath.css));
+  }
+};
+
 // * PHPファイルのコピー
 const phpCopy = () => {
   if (wpMode) {
@@ -96,7 +109,7 @@ const phpCopy = () => {
 
 // * SASSファイルのコンパイル
 const cssSass = () => {
-  return src(srcPath.css)
+  return src(srcPath.sass)
     .pipe(sourcemaps.init()) // ソースマップを初期化
     .pipe(plumber({ errorHandler: notify.onError('Error:<%= error.message %>') })) // エラーが発生してもタスクを続行
     .pipe(sassGlob()) // Sassのパーシャル（_ファイル）を自動的にインポート
@@ -196,7 +209,7 @@ const clean = () => {
 
 // * ファイルの監視
 const watchFiles = () => {
-  watch(srcPath.css, series(cssSass, browserSyncReload));
+  watch(srcPath.sass, series(cssSass, browserSyncReload));
   watch(srcPath.js, series(jsBabel, browserSyncReload));
   watch(srcPath.img, series(imgImagemin, browserSyncReload));
   watch(srcPath.html, series(htmlCopy, browserSyncReload));
@@ -206,7 +219,10 @@ const watchFiles = () => {
 };
 
 // ! ブラウザシンク付きの開発用タスク
-export default series(series(cssSass, jsBabel, imgImagemin, htmlCopy, phpCopy), parallel(watchFiles, browserSyncFunc));
+export default series(
+  series(cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, phpCopy),
+  parallel(watchFiles, browserSyncFunc)
+);
 
 // ! 本番用タスク
-export const build = series(clean, cssSass, jsBabel, imgImagemin, htmlCopy, phpCopy);
+export const build = series(clean, cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, phpCopy);

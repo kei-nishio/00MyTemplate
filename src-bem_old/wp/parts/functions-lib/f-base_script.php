@@ -13,7 +13,6 @@ function my_script_init()
   wp_enqueue_style('Oswald', 'https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
   // CSS
-  wp_enqueue_style('style-reset', get_theme_file_uri('/assets/css/ress.min.css'), array(), '5.0.2');
   // wp_enqueue_style('style-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
   wp_enqueue_style('style-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
   wp_enqueue_style('style-main', get_theme_file_uri('/assets/css/style.css'), array(), '1.0.0');

@@ -1,0 +1,224 @@
+@use 'global' as *;
+
+.wpcf7-spinner {
+  display: none;
+}
+
+.p-form {
+  .p-form__field {
+    dt {
+      color: $black;
+      font-weight: $medium;
+      font-size: rem(14);
+
+      @include mq {
+        font-size: rem(15);
+      }
+
+      span {
+        font-weight: $regular;
+      }
+    }
+
+    dd {
+      margin-top: rem(10);
+      color: $black;
+      font-size: rem(14);
+
+      @include mq {
+        font-size: rem(15);
+      }
+    }
+    sup {
+      color: red;
+      font-weight: $medium;
+    }
+
+    &:not(:first-of-type) {
+      margin-top: rem(30);
+
+      @include mq {
+        margin-top: rem(40);
+      }
+    }
+  }
+  .p-form__submit {
+    margin-top: rem(40);
+    text-align: center;
+  }
+
+  //  ! common style
+  [type='text'],
+  [type='search'],
+  [type='tel'],
+  [type='url'],
+  [type='email'],
+  [type='password'],
+  [type='date'],
+  textarea,
+  select {
+    $f-border-color: $black;
+    $f-background-color: $white;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: rem(16);
+    padding-right: rem(16);
+    padding-bottom: rem(16);
+    padding-left: rem(16);
+    border: 1px solid $f-border-color;
+    border-radius: rem(4);
+    background-color: $f-background-color;
+
+    // background-image: none;
+    // background-position: center;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    font-size: inherit;
+    font-family: inherit;
+
+    @include mq {
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+      border: 1px solid darken($f-border-color, 10%);
+    }
+    &::placeholder {
+      color: gray;
+    }
+  }
+
+  // ! textarea
+  textarea {
+    min-height: rem(160);
+    overflow-wrap: anywhere;
+    resize: none;
+  }
+
+  // ! button
+  button,
+  [type='button'],
+  [type='submit'] {
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  // ! radio
+  [type='radio'] {
+    $f-radio-size: rem(8);
+    display: none;
+    + span {
+      display: inline-block;
+      position: relative;
+      margin-right: 1em;
+      cursor: pointer;
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -0.5em;
+        transform: translateX(-50%) translateY(-50%);
+        transform-origin: center;
+        border-radius: 50%;
+      }
+      &::before {
+        width: $f-radio-size;
+        height: $f-radio-size;
+        border: 1px solid blue;
+        background-color: skyblue;
+      }
+      &::after {
+        opacity: 0;
+        width: calc($f-radio-size - rem(4));
+        height: calc($f-radio-size - rem(4));
+        transition: 0.3s ease;
+      }
+    }
+    &:checked + span {
+      &::after {
+        opacity: 1;
+        background: blueviolet;
+      }
+    }
+  }
+
+  // ! checkbox
+  [type='checkbox'] {
+    $f-checkbox-size: rem(12);
+    display: none;
+    + span {
+      display: inline-block;
+      position: relative;
+      margin-right: 1em;
+      cursor: pointer;
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -0.5em;
+        transform: translateX(-50%) translateY(-50%);
+        transform-origin: center;
+      }
+      &::before {
+        width: $f-checkbox-size;
+        height: $f-checkbox-size;
+        border: 1px solid $black;
+        background-color: $white;
+      }
+      &::after {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-75%) rotate(-50deg);
+        width: calc($f-checkbox-size * 1);
+        height: calc($f-checkbox-size - rem(4));
+        border-width: 0 0 1px 1px;
+        border-style: solid;
+        border-color: $black;
+        transition: 0.3s ease;
+      }
+    }
+    &:checked + span {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  // ! select (drop down)
+  select {
+    position: relative;
+    background-image: url(../images/common/list-polygon-open.svg);
+    background-position: right 9px center;
+    background-size: 12px;
+    background-repeat: no-repeat;
+    color: inherit;
+    font-size: rem(14);
+    cursor: pointer;
+
+    appearance: none;
+
+    option {
+      color: inherit;
+    }
+  }
+
+  //  ! date
+  [type='date'] {
+    position: relative;
+
+    /*↓デフォルトのアイコンを消す場合はコメントアウト（noneにする）*/
+
+    appearance: auto;
+
+    /*↓デフォルトではないアイコンを使う場合は入力する*/
+    // background-image: url();
+    // background-position: right 12px center;
+    // background-repeat: no-repeat;
+  }
+}

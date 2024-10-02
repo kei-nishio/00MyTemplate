@@ -1,0 +1,57 @@
+@use 'global' as *;
+
+.breadcrumb {
+  margin-top: rem(10);
+  text-align: right;
+  @include mq {
+    margin-top: rem(20);
+  }
+}
+.breadcrumb__inner.inner {
+  padding-right: rem(10);
+  @include mq {
+    padding-right: rem(60);
+  }
+}
+.breadcrumb__container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: $black;
+  font-size: rem(10);
+  font-family: $secondFont;
+  @include mq {
+    font-size: rem(15);
+  }
+
+  a {
+    color: $black;
+  }
+}
+// modifier
+.breadcrumb.breadcrumb--single {
+  margin-top: calc(rem(10) + rem(80));
+  @include mq {
+    margin-top: calc(rem(20) + rem(180));
+  }
+}
+
+// ! Breadcrumb NavXT 設定
+.breadcrumb {
+  span[property='name'] {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 10em;
+  }
+
+  .breadcrumb__between {
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    margin-right: rem(10);
+    margin-left: rem(10);
+    background-color: $black;
+  }
+}
