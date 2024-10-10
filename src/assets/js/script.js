@@ -269,33 +269,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   // ** Swiper
   // ***********
-  const swiper = new Swiper('.js-swiper .swiper', {
-    direction: 'horizontal',
-    loop: true,
-    effect: 'fade',
-    speed: 3000,
-    allowTouchMove: false,
-    slidesPerView: 1,
-    spaceBetween: 10,
-    centeredSlides: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
+const swiper = new Swiper('.js-swiper .swiper', {
+  direction: 'horizontal',
+  loop: true,
+  effect: 'fade',
+  speed: 3000,
+  allowTouchMove: false,
+  slidesPerView: 1,
+  spaceBetween: 10,
+  centeredSlides: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+  breakpoints: {
+    768: {
+      allowTouchMove: true,
     },
-    breakpoints: {
-      768: {
-        allowTouchMove: true,
-      },
-    },
-    pagination: {
-      el: '.js-swiper .swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.js-swiper .swiper-button-next',
-      prevEl: '.js-swiper .swiper-button-prev',
-    },
-  });
+  },
+  pagination: {
+    el: '.js-swiper .swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.js-swiper .swiper-button-next',
+    prevEl: '.js-swiper .swiper-button-prev',
+  },
+});
   // ** Swiper Creative
   // ***********
   const swiperCreative = new Swiper('.js-swiper .swiper', {
