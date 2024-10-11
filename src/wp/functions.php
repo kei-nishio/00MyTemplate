@@ -32,7 +32,7 @@ get_template_part('/parts/functions-lib/f-base_script');
 // get_template_part('/parts/functions-lib/f-cf7_custom_select');
 
 // ! Contact Form 7で郵便番号のバリデーションを追加する
-// get_template_part('/parts/functions-lib/f-cf7_zip-code-validation');
+// get_template_part('/parts/functions-lib/f-cf7_validation');
 
 // ! カスタムページネーションを追加する
 // get_template_part('/parts/functions-lib/f-custom_pagination');
