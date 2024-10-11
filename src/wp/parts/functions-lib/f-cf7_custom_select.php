@@ -12,7 +12,7 @@
  * 使用例: このフックを使用して、カスタムバリデーションメッセージを追加したり、特定のフォームタグに追加のHTML属性を挿入したりすることが可能です。
  * */
 
-// * カスタム投稿タイプの取得の場合
+// * カスタム投稿タイプを取得する場合
 // add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 // function custom_select_values($values, $options, $args)
 // {
@@ -44,7 +44,7 @@
 //   return $values;
 // }
 
-// * カスタムタクソノミーの取得の場合
+// * カスタムタクソノミーを取得する場合
 add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 function custom_select_values($values, $options, $args)
 {
@@ -66,5 +66,26 @@ function custom_select_values($values, $options, $args)
     }
   }
 
+  return $values;
+}
+
+// * 投稿者を取得する場合
+add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
+function custom_select_values($values, $options, $args)
+{
+  if (in_array('company-select', $options)) {
+    if (!is_array($values)) {
+      $values = [];
+    }
+    array_unshift($values, '北日本新聞社');
+    $authors = get_users(array(
+      'role' => 'author',
+    ));
+    if (!empty($authors)) {
+      foreach ($authors as $author) {
+        $values[] = $author->display_name;
+      }
+    }
+  }
   return $values;
 }
