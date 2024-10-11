@@ -37,6 +37,18 @@
         [text* your-kana id:f-kana placeholder "例）　ヤマダ　タロウ"]
       </dd>
     </div>
+    <!-- * zip-code -->
+    <div class="contact-form__item">
+      <dt class="contact-form__term">
+        <label for="f-zip-code">
+          <span class="contact-form__required">必須</span>
+          郵便番号
+        </label>
+      </dt>
+      <dd class="contact-form__description">
+        [text* your-zip-code id:f-zip-code placeholder "例）　123-4567"]
+      </dd>
+    </div>
     <!-- * address -->
     <div class="contact-form__item">
       <dt class="contact-form__term">
