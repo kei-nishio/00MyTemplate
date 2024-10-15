@@ -43,6 +43,9 @@ get_template_part('/parts/functions-lib/f-base_script');
 // ! カスタム投稿のスラッグを設定する
 // get_template_part('/parts/functions-lib/f-custom_post_slug');
 
+// ! データをJavaScriptに引き渡す
+// get_template_part('/functions-lib/f-js_data');
+
 // ! 固定ページのブロックエディタを無効化する
 // get_template_part('/parts/functions-lib/f-page_editor');
 

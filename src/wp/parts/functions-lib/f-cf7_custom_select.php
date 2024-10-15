@@ -69,6 +69,7 @@ function custom_select_values($values, $options, $args)
   return $values;
 }
 
+
 // * 投稿者を取得する場合
 add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 function custom_select_values($values, $options, $args)
@@ -78,14 +79,20 @@ function custom_select_values($values, $options, $args)
       $values = [];
     }
     array_unshift($values, '北日本新聞社');
-    $authors = get_users(array(
+
+    $authors = get_users([
       'role' => 'author',
-    ));
+      'orderby' => 'meta_value',    // first_nameでソート
+      'meta_key' => 'first_name',   // ソート基準をfirst_nameに設定
+      'order' => 'ASC',             // 昇順（A-Z）に並べる
+    ]);
+
     if (!empty($authors)) {
       foreach ($authors as $author) {
-        $values[] = $author->display_name;
+        $values[] = esc_attr($author->last_name); // last_nameを追加する場合
       }
     }
   }
+
   return $values;
 }
