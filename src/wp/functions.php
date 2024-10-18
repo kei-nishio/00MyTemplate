@@ -40,6 +40,9 @@ get_template_part('/parts/functions-lib/f-base_script');
 // ! カスタム投稿の表示件数を設定する
 // get_template_part('/parts/functions-lib/f-custom_posts_page');
 
+// ! カスタムタクソノミーのターム数を制限する
+// get_template_part('/functions-lib/f-custom_tax_limit');
+
 // ! カスタム投稿のスラッグを設定する
 // get_template_part('/parts/functions-lib/f-custom_post_slug');
 
