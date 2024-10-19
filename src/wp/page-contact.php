@@ -1,9 +1,3 @@
-<?php
-$domain = parse_url(home_url(), PHP_URL_HOST);
-$domain_parts = explode('.', $domain);
-echo $domain_parts[0]; // kazokudeouchi が表示される
-
-?>
 <?php get_header(); ?>
 <main class="main">
   <div class="l-lower-heading">

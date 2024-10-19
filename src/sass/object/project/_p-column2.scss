@@ -6,19 +6,18 @@
 .p-column2__inner.l-inner {
   @include mq {
     display: flex;
-    gap: 6%;
+    gap: 3%;
   }
 }
 
 .p-column2__sidebar {
   @include mq {
     flex-shrink: 0;
-    width: 20%;
+    width: 15%;
   }
 }
 
 .p-column2__main {
-  
   @include mq {
     width: 100%;
   }
@@ -28,5 +27,4 @@
 }
 
 .p-column2__content {
-  margin-top: rem(40);
 }
