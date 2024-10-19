@@ -23,7 +23,7 @@ get_template_part('/functions-lib/f-0base_set_up');
 // get_template_part('/functions-lib/f-breadcrumb-navxt');
 
 // ! Contact Form 7でセレクトボックスをカスタマイズする
-// get_template_part('/functions-lib/f-cf7_custom_select');
+get_template_part('/functions-lib/f-cf7_custom_select');
 
 // ! reCAPTCHAを問い合わせだけに表示させる
 // get_template_part('/functions-lib/f-cf7_recaptcha');

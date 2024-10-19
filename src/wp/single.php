@@ -20,6 +20,8 @@
       $author_name = esc_html(get_the_author_meta('display_name', $author_id));
       $first_name = esc_html(get_the_author_meta('first_name', $author_id));
       $last_name = esc_html(get_the_author_meta('last_name', $author_id));
+      $prev_url = !empty($prev = get_previous_post()) ? esc_url(get_permalink($prev->ID)) : '';
+      $next_url = !empty($next = get_next_post()) ? esc_url(get_permalink($next->ID)) : '';
       ?>
       <?php
       // $custom_field = get_field('');
@@ -60,6 +62,16 @@
             <div class="p-content"><?php the_content(); ?></div>
           </div>
         </div>
+        <ul class="p-single__pagination">
+          <?php if (!empty($prev)) : ?>
+            <li class="prev"><a href="<?php echo $prev_url; ?>">前の記事</a></li>
+          <?php endif; ?>
+          <?php if (!empty($next)) : ?>
+            <li class="next"><a href="<?php echo $next_url; ?>">次の記事</a></li>
+          <?php endif; ?>
+        </ul>
+
+
         <div class="p-single__button">
           <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">一覧に戻る</a></div>
         </div>

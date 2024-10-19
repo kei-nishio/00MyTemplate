@@ -7,6 +7,9 @@
         'taxonomy' => 'news-type',
         'hide_empty' => false, // 投稿がないタームも表示したい場合は false に
         'order' => 'ASC',
+        // 'parent' => 0, // 親タームのみ取得
+        // 'orderby' => 'description', // ID, name, slug, count, term_group, term_order, description
+        // 'number' => 10, // 取得するタームの数
       ));
       ?>
       <?php if (!empty($terms) && !is_wp_error($terms)) : ?>

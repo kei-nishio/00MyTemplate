@@ -1,7 +1,8 @@
 <?php
 $domain = parse_url(home_url(), PHP_URL_HOST);
-if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $domain) === false) {
-  wp_redirect(home_url());
+$domain_parts = explode('.', $domain);
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $domain_parts) === false) {
+  wp_redirect(home_url('/'));
   exit();
 };
 ?>

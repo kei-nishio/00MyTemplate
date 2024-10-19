@@ -8,20 +8,27 @@
 
 .p-single__eye-catch {
   width: 100%;
-  object-fit: cover;
   aspect-ratio: 3 / 2;
+  object-fit: cover;
 
   picture,
   img {
-    aspect-ratio: inherit;
     width: 100%;
     height: 100%;
+    aspect-ratio: inherit;
     object-fit: cover;
     object-position: 50% 50%;
   }
 }
 
 .p-single__content {
+}
+
+.p-single__pagination {
+  display: flex;
+  justify-content: center;
+  gap: rem(40);
+  margin-top: rem(40);
 }
 
 .p-single__button {

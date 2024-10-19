@@ -13,94 +13,94 @@
  * */
 
 // * カスタム投稿タイプを取得する場合
+add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
+function custom_select_values($values, $options, $args)
+{
+  if (in_array('custom-select', $options)) {
+    if (!is_array($values)) {
+      $values = [];
+    }
+    array_unshift($values, '選択してください');
+
+    $args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'news',
+      'order' => 'DESC',
+    );
+
+
+    $the_query = new WP_Query($args);
+
+    if ($the_query->have_posts()) {
+      while ($the_query->have_posts()) {
+        $the_query->the_post();
+        $title = get_the_title();
+        $values[] = $title;
+      }
+      wp_reset_postdata();
+    }
+  }
+
+  return $values;
+}
+
+// * カスタムタクソノミーを取得する場合
 // add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 // function custom_select_values($values, $options, $args)
 // {
-//   if (in_array('campaign-select', $options)) {
+//   if (in_array('tax-case-study-type-select', $options)) {
 //     if (!is_array($values)) {
 //       $values = [];
 //     }
 //     array_unshift($values, '選択してください');
 
-//     $args = array(
-//       'posts_per_page' => -1,
-//       'post_type' => 'campaign',
-//       'order' => 'DESC',
-//     );
+//     $terms = get_terms(array(
+//       'taxonomy' => 'tax-case-study-type',
+//       'hide_empty' => false,
+//     ));
 
-
-//     $the_query = new WP_Query($args);
-
-//     if ($the_query->have_posts()) {
-//       while ($the_query->have_posts()) {
-//         $the_query->the_post();
-//         $title = get_the_title();
-//         $values[] = $title;
+//     if (!is_wp_error($terms) && !empty($terms)) {
+//       foreach ($terms as $term) {
+//         $values[] = $term->name;
 //       }
-//       wp_reset_postdata();
 //     }
 //   }
 
 //   return $values;
 // }
 
-// * カスタムタクソノミーを取得する場合
-add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
-function custom_select_values($values, $options, $args)
-{
-  if (in_array('tax-case-study-type-select', $options)) {
-    if (!is_array($values)) {
-      $values = [];
-    }
-    array_unshift($values, '選択してください');
-
-    $terms = get_terms(array(
-      'taxonomy' => 'tax-case-study-type',
-      'hide_empty' => false,
-    ));
-
-    if (!is_wp_error($terms) && !empty($terms)) {
-      foreach ($terms as $term) {
-        $values[] = $term->name;
-      }
-    }
-  }
-
-  return $values;
-}
-
 // ! Contact Form 7でセレクトボックスをクエリ値に基づきカスタマイズする
-add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
-function custom_select_values($values, $options, $args)
-{
-  // フォームオプションに 'hoge-select' が含まれている場合のみ実行
-  if (in_array('hoge-select', $options)) {
-    $default_company = 'デフォルト'; // デフォルト名を設定
-    $author_id = isset($_GET['author-id']) ? intval($_GET['author-id']) : null;
-    $values = []; // 選択肢を初期化
+// add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
+// function custom_select_values($values, $options, $args)
+// {
+//   // フォームオプションに 'hoge-select' が含まれている場合のみ実行
+//   if (in_array('hoge-select', $options)) {
+//     $default_company = 'デフォルト'; // デフォルト名を設定
+//     $author_id = isset($_GET['author-id']) ? intval($_GET['author-id']) : null;
+//     $values = []; // 選択肢を初期化
 
-    // author-id が存在し、該当するユーザーが author ロールか確認
-    if ($author_id) {
-      $author = get_user_by('ID', $author_id);
-      if ($author && user_can($author, 'author')) {
-        $values[] = esc_attr($author->last_name); // 最初に author の last_name を設定
-      }
-    }
-    $values[] = $default_company; // デフォルト名を追加（常に2番目または最初）
+//     // author-id が存在し、該当するユーザーが author ロールか確認
+//     if ($author_id) {
+//       $author = get_user_by('ID', $author_id);
+//       if ($author && user_can($author, 'author')) {
+//         $values[] = esc_attr($author->last_name); // 最初に author の last_name を設定
+//       }
+//     }
+//     $values[] = $default_company; // デフォルト名を追加（常に2番目または最初）
 
-    // 残りの authors を first_name でソートして取得し、選択肢に追加
-    $authors = get_users([
-      'role' => 'author',
-      'orderby' => 'meta_value',
-      'meta_key' => 'first_name',
-      'order' => 'ASC',
-      'exclude' => $author_id ? [$author_id] : [] // author-id を除外
-    ]);
+//     // 残りの authors を first_name でソートして取得し、選択肢に追加
+//     $authors = get_users([
+//       'role' => 'author',
+//       'orderby' => 'meta_value',
+//       'meta_key' => 'first_name',
+//       'order' => 'ASC',
+//       'exclude' => $author_id ? [$author_id] : [] // author-id を除外
+//     ]);
 
-    foreach ($authors as $author) {
-      $values[] = esc_attr($author->last_name);
-    }
-  }
+//     foreach ($authors as $author) {
+//       $values[] = esc_attr($author->last_name);
+//     }
+//   }
 
-  return $values;
-}
+//   return $values;
+// }
