@@ -1,0 +1,7 @@
+<%# color, link, text %>
+<% const variable = ['white']; %>
+<% const addClass = variable.includes(color) ? ` c-button-normal--${color}` : ''; %>
+
+<div class="c-button-normal<%- addClass %>">
+  <a href="<%= link %>.html"><%= text %></a>
+</div>

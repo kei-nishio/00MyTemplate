@@ -1,29 +1,53 @@
 <% const validpage = 'top'; %>
-<!--  -->
 <% const isTopPage = page === validpage; %>
-
-<header class="p-header">
+<%
+  const navItems = [
+    { link: "hoge.html", text: "hoge" },
+    { link: "fuga.html", text: "fuga" }
+  ];
+%>
+<header class="p-header js-header">
   <div class="p-header__inner">
     <% if (isTopPage) { %>
-    <!-- TOPページの場合 -->
-    <h1 class="p-header__logo">
-      <a href="index.html">
-        <img src="./assets/images/common/logo.svg" alt="" />
-      </a>
+    <h1 class="p-header__logo"><% } else { %>
+      <div class="p-header__logo"><% } %>
+        <a href="index.html">
+          <img src="./assets/images/common/logo.svg" alt="" />
+        </a>
+        <% if (!isTopPage) { %>
+      </div>
+      <% } else { %>
     </h1>
-    <% } else { %>
-    <!-- 下層ページの場合 -->
-    <div class="p-header__logo">
-      <a href="index.html">
-        <img src="./assets/images/common/logo.svg" alt="" />
-      </a>
-    </div>
     <% } %>
-    <div class="p-header__pc-nav"><%- include(ejsPath + './project/_p-pc-nav' ) %></div>
-    <div class="p-header__hamburger"><%- include(ejsPath + './component/_c-hamburger' ) %></div>
+    <nav class="p-header__nav">
+      <ul class="p-header__list">
+        <% navItems.forEach(item => { %>
+        <li class="p-header__item">
+          <a href="<%= item.link %>">
+            <span><%= item.text %></span>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+    </nav>
+    <div class="p-header__hamburger">
+      <%- include(ejsPath + './component/_c-hamburger' ) %>
+    </div>
   </div>
 </header>
 
-<div class="p-drawer js-drawer"><%- include(ejsPath + './project/_p-drawer' ) %></div>
+<%# drawer %>
+<div class="p-drawer js-drawer">
+  <div class="p-drawer__inner l-inner">
+    <div class="p-drawer__nav">
+      <ul class="p-drawer__list">
+        <% navItems.forEach(item => { %>
+        <li class="p-drawer__item">
+          <a href="<%= item.link %>"><%= item.text %></a>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
 <div class="p-drawer-mask js-drawer-mask"></div>
-

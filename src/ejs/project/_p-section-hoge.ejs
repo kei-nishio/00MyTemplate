@@ -1,0 +1,18 @@
+<% const list = ['item1', 'item2', 'item3', 'item4']; %>
+<section class="p-section-hoge">
+  <div class="p-section-hoge__inner l-inner">
+    <div class="p-section-hoge__heading">
+      <%- include(ejsPath + './component/_c-section-title', {title: "タイトル", subTitle: "title"} ) %>
+    </div>
+    <div class="p-section-hoge__content">
+      <ul class="p-section-hoge__list">
+        <% for (let i = 0; i < list.length; i++) { %>
+        <li class="p-section-hoge__item"><%- list[i] %></li>
+        <% } %>
+      </ul>
+      <div class="p-section-hoge__button">
+        <%- include(ejsPath + './component/_c-button-normal', {color: "white", link: "link", text: "ボタン"} ) %>
+      </div>
+    </div>
+  </div>
+</section>

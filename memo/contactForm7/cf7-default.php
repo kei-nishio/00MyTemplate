@@ -13,9 +13,9 @@
 
  -->
 
-<!--  -->
+
 <!-- //! Contact Form 7 変換前 -->
-<!--  -->
+
 
 <!-- * Form Contact Start -->
 <div class="contact-form">
@@ -32,9 +32,9 @@
 </div>
 <!-- * Form Contact End -->
 
-<!--  -->
+
 <!-- //! Contact Form 7 変換後 -->
-<!--  -->
+
 
 <!-- * Form Contact Start -->
 <div class="contact-form">

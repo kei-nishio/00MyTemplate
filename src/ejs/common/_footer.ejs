@@ -1,3 +1,46 @@
+<%
+  const navItems = [
+    { link: "hoge.html", text: "hoge" },
+    { link: "fuga.html", text: "fuga" }
+  ];
+%>
 <footer class="p-footer">
-  <div class="p-footer__inner l-inner">footer</div>
+  <div class="p-footer__inner l-inner">
+    <div class="p-footer__logo">
+      <a href="index.html">
+        <img src="./assets/images/common/logo.svg" alt="" />
+      </a>
+    </div>
+    <%# sns %>
+    <div class="p-footer__sns">
+      <ul class="p-footer__sns-list">
+        <li class="p-footer__sns-item">
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-line.png" alt="line" loading="lazy"></a>
+        </li>
+        <li class="p-footer__sns-item">
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-instagram.svg" alt="instagram" loading="lazy"></a>
+        </li>
+        <li class="p-footer__sns-item">
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-x.svg" alt="x" loading="lazy"></a>
+        </li>
+        <li class="p-footer__sns-item">
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-facebook.svg" alt="facebook" loading="lazy"></a>
+        </li>
+      </ul>
+    </div>
+    <%# navigation %>
+    <div class="p-footer__nav">
+      <ul class="p-footer__list">
+        <% navItems.forEach(item => { %>
+        <li class="p-footer__item">
+          <a href="<%= item.link %>">
+            <span><%= item.text %></span>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+    <p class="p-footer__copy">&copy; yoshifuji web atelier.</p>
+  </div>
 </footer>
+<div style="height: 50vh; background-color: red; margin-top: 50vh;"></div>

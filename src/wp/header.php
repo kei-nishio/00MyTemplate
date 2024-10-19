@@ -46,17 +46,17 @@
     <div class="p-header__inner">
       <?php // logo 
       ?>
-      <?php if (!is_front_page()): ?>
-        <div class="p-header__logo">
+      <?php if (is_front_page()): ?>
+        <h1 class="p-header__logo">
         <?php else: ?>
-          <h1 class="p-header__logo">
+          <div class="p-header__logo">
           <?php endif; ?>
           <a href="<?php echo esc_url(home_url('/')); ?>">
             <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo.svg" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
           </a>
           <?php if (!is_front_page()): ?>
-        </div>
-      <?php else: ?>
+          </div>
+        <?php else: ?>
         </h1>
       <?php endif; ?>
       <?php // navigation 
