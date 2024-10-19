@@ -1,0 +1,56 @@
+@use 'global' as *;
+
+.p-section-boke {
+}
+
+.p-section-boke__inner.l-inner {
+}
+
+.p-section-boke__heading {
+  display: grid;
+  place-items: center;
+}
+
+.p-section-boke__content {
+  margin-top: rem(40);
+}
+
+.p-section-boke__slide {
+  position: relative;
+
+  .swiper {
+  }
+
+  .swiper-wrapper {
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+
+  .swiper-equipment {
+    position: initial;
+    width: 100%;
+    margin-top: rem(60);
+  }
+
+  .swiper-scrollbar {
+    display: block;
+    position: initial;
+    background-color: black;
+  }
+
+  .swiper-scrollbar-drag {
+    background-color: gray;
+  }
+}
+
+.p-section-boke__button {
+  display: grid;
+  place-items: center;
+  margin-top: rem(24);
+
+  @include mq {
+    margin-top: rem(60);
+  }
+}

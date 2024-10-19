@@ -1,0 +1,42 @@
+@use 'global' as *;
+
+.p-drawer {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  inset: 0;
+  z-index: zi('drawer');
+  height: 100vh;
+  background-color: $white;
+  transition: all 0.2s ease-in-out;
+}
+
+.p-drawer__inner.l-inner {
+  height: inherit;
+}
+
+.p-drawer__nav {
+  height: inherit;
+}
+
+.p-drawer__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: rem(48);
+  height: inherit;
+}
+
+.p-drawer__item {
+  a {
+    color: $black;
+    font-weight: $bold;
+    font-size: rem(18);
+  }
+}
+
+.p-drawer__mask {
+  display: none;
+}

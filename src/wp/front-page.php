@@ -1,157 +1,145 @@
 <?php get_header(); ?>
 <main class="main">
-
-  <!-- //! 通常投稿の新着一覧 -->
-  <ul class="">
-    <!-- 記事のループ処理開始 -->
-    <?php
-    if (wp_is_mobile()) {
-      $num = 3; // スマホの表示数(全件は-1)
+  <?php // loading 
+  ?>
+  <!-- <div class="p-loading js-loading">
+    <div class="p-loading__inner">
+    </div>
+  </div>
+  <script>
+    const loadingElement = document.querySelector(".js-loading");
+    const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
+    if (!hasFirstVisited) {
+      loadingElement.classList.add("is-active");
     } else {
-      $num = 5; // PCの表示数(全件は-1)
+      loadingElement.classList.remove("is-active");
     }
-    $args = [
-      'post_type' => 'post', // 投稿タイプのスラッグ(通常投稿は'post')
-      'posts_per_page' => $num, // 表示件数
-    ];
-    $the_query = new WP_Query($args);
-    if ($the_query->have_posts()) :
-      while ($the_query->have_posts()) : $the_query->the_post();
-    ?>
-        <li class="">
-          <!-- 記事へのリンク -->
-          <a href="<?php the_permalink(); ?>" class="">
-            <!-- アイキャッチ -->
-            <div class="">
-              <?php the_post_thumbnail('post-thumbnail', array('alt' => the_title_attribute('echo=0'))); ?>
-            </div>
-            <p class="">
-              <!-- 投稿日 -->
-              <time datetime="<?php the_time('Y-m-d'); ?>">
-                <?php the_time('Y.m.d'); ?>
-              </time>
-            </p>
-            <div class="">
-              <!-- カテゴリー1件表示(カテゴリー順の上にある方が表示される) -->
-              <?php
-              $category = get_the_category();
-              echo '<span class="' . $category->slug . '">' . $category[0]->name . '</span>';
-              ?>
-              <!-- カテゴリー全部表示 -->
-              <?php
-              $categories = get_the_category();
-              foreach ($categories as $cat) {
-                echo '<span class="' . $cat->slug . '">' . $cat->name . '</span>';
-              }
-              ?>
-            </div>
-            <h3 class="">
-              <!-- タイトル -->
-              <?php the_title(); ?>
-            </h3>
-            <div class="">
-              <!-- 本文の抜粋 -->
-              <?php the_excerpt(); ?>
-            </div>
-          </a>
-        </li>
-      <?php endwhile;
-    else : ?>
-      <p>まだ記事がありません</p>
-    <?php endif; ?>
-    <?php wp_reset_postdata(); ?>
-    <!-- 記事のループ処理終了 -->
-  </ul>
+  </script> -->
+  <?php // FV 
+  ?>
+  <section class="l-fv p-fv">
+    <div class="p-fv__inner">
+      <div class="p-fv__slide js-swiper-fv">
+        <div class="swiper">
+          <ul class="swiper-wrapper">
+            <?php for ($i = 1; $i <= 2; $i++) : ?>
+              <li class="swiper-slide">
+                <p class="p-fv__img">
+                  <picture>
+                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-sp.webp" type="image/webp" media="(max-width: 767px)" />
+                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-sp.jpg" type="image/jpeg" media="(max-width: 767px)" />
+                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.webp" type="image/webp" media="(min-width: 768px)" />
+                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.jpg" type="image/jpeg" media="(min-width: 768px)" />
+                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.jpg" alt="" decoding="async" width="640" height="320" />
+                  </picture>
+                </p>
+              </li>
+            <?php endfor; ?>
+          </ul>
+        </div>
+      </div>
+      <div class="p-fv__heading"></div>
+    </div>
+  </section>
 
-  <!-- //! カスタム投稿の新着一覧 -->
-  <ul class="">
-    <?php
-    if (wp_is_mobile()) {
-      $num = 4; // スマホの表示数(全件は-1)
-    } else {
-      $num = 8; // PCの表示数(全件は-1)
-    }
-    // 投稿タイプのみ指定する場合
-    $args = [
-      'post_type' => 'blog',
-      'posts_per_page' => $num,
+  <?php // sub query grid
+  ?>
+  <?php
+  $num = wp_is_mobile() ? 3 : 3;
+  $args = [
+    'post_type' => 'news',
+    'posts_per_page' => $num,
+    'orderby' => 'date',
+    'order' => 'DESC',
+  ];
+  $the_query = new WP_query($args);
+  ?>
+  <section class="l-section p-section-hoge">
+    <div class="p-section-hoge__inner l-inner">
+      <div class="p-section-hoge__heading">
+        <hgroup class="c-section-title">
+          <p class="c-section-title__sub">hoge</p>
+          <h2 class="c-section-title__main">グリッド</h2>
+        </hgroup>
+      </div>
+      <div class="p-section-hoge__content">
+        <?php if ($the_query->have_posts()) : ?>
+          <ul class="p-section-hoge__list">
+            <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+              <li class="p-section-hoge__item">
+                <?php $post_id = get_the_ID(); ?>
+                <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
+              </li>
+            <?php endwhile; ?>
+          </ul>
+          <div class="p-section-hoge__button">
+            <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
+          </div>
+        <?php else : ?>
+          <p style="text-align: center;">記事が投稿されていません。</p>
+        <?php endif; ?>
+        <?php wp_reset_postdata(); ?>
+      </div>
+    </div>
+  </section>
 
-      'tax_query' => array( // カテゴリー(ターム)を指定する場合はここを追記↓
-        array(
-          'taxonomy' => 'blog_category', // タクソノミーのスラッグ
-          'terms' => 'recommend', // タームのスラッグ
-          'field' => 'slug', // ターム名をスラッグで指定する（変更不要）
-        ),
-      )
-      // 追記はここまで↑
-    ];
-    $the_query = new WP_query($args);
-    ?>
-    <?php if ($the_query->have_posts()) : ?>
-      <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-        <li class="">
-          <a href="<?php the_permalink(); ?>" class="">
-            <p class="">
-              <?php if (has_post_thumbnail()) : ?>
-                <?php the_post_thumbnail('post-thumbnail', array('alt' => the_title_attribute('echo=0'))); ?>
-              <?php else : ?>
-                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/noimage.jpg" alt="no image" />
-              <?php endif; ?>
-            </p>
-            <p class="">
-              <time datetime="<?php the_time('Y-m-d'); ?>">
-                <?php the_time('Y.m.d'); ?>
-              </time>
-            </p>
-            <div class="">
-              <!-- カテゴリー(ターム)を全部表示 -->
-              <?php
-              $taxonomy_terms = get_the_terms($post->ID, 'タクソノミースラッグ');
-              foreach ($taxonomy_terms as $taxonomy_term) {
-                echo '<span class="' . $taxonomy_term->slug . '">' . $taxonomy_term->name . '</span>';
-              }
-              ?>
-              <!-- カテゴリー(ターム)を指定して表示 -->
-              <?php
-              $taxonomy_terms = get_the_terms($post->ID, 'タクソノミースラッグ');
-              foreach ($taxonomy_terms as $taxonomy_term) {
-                if (!in_array($taxonomy_term->slug, array('表示したいタームスラッグ', '表示したいタームスラッグ')))
-                  continue;
-                echo '<span class="' . $taxonomy_term->slug . '">' . $taxonomy_term->name . '</span>';
-              }
-              ?>
-              <!-- カテゴリー(ターム)を除外して表示 -->
-              <?php
-              $taxonomy_terms = get_the_terms($post->ID, 'タクソノミースラッグ');
-              foreach ($taxonomy_terms as $taxonomy_term) {
-                if (in_array($taxonomy_term->slug, array('除外したいタームスラッグ', '除外したいタームスラッグ')))
-                  continue;
-                echo '<span class="' . $taxonomy_term->slug . '">' . $taxonomy_term->name . '</span>';
-              }
-              ?>
+
+  <?php // sub query swiper
+  ?>
+  <?php
+  $num = wp_is_mobile() ? 3 : 6;
+  $args = [
+    'post_type' => 'news',
+    'posts_per_page' => $num,
+    'orderby' => 'date',
+    'order' => 'DESC',
+    'tax_query' => [ // タームを指定する場合
+      [
+        'taxonomy' => 'news-type',
+        'terms' => 'type1',
+        'field' => 'slug', // スラッグで指定する（変更不要）
+      ],
+    ]
+  ];
+  $the_query = new WP_query($args);
+  ?>
+  <section class="l-section p-section-boke">
+    <div class="p-section-boke__inner l-inner">
+      <div class="p-section-boke__heading">
+        <hgroup class="c-section-title">
+          <p class="c-section-title__sub">boke</p>
+          <h2 class="c-section-title__main">スワイパー</h2>
+        </hgroup>
+      </div>
+      <div class="p-section-boke__content">
+        <?php if ($the_query->have_posts()) : ?>
+          <div class="p-section-boke__slide js-swiper">
+            <div class="swiper">
+              <ul class="swiper-wrapper">
+                <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                  <li class="swiper-slide">
+                    <?php $post_id = get_the_ID(); ?>
+                    <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
+                  </li>
+                <?php endwhile; ?>
+              </ul>
             </div>
-            <h3 class="">
-              <?php if (wp_is_mobile()) : ?>
-                <?php echo esc_html(mb_strimwidth(get_the_title(), 0, 22 * 2 + 3, '...')); ?>
-              <?php else : ?>
-                <?php echo esc_html(mb_strimwidth(get_the_title(), 0, 22 * 2 + 3, '...')); ?>
-              <?php endif; ?>
-            </h3>
-            <p class="">
-              <?php if (wp_is_mobile()) : ?>
-                <?php echo esc_html(mb_strimwidth(get_the_excerpt(), 0, 22 * 2 + 3, '...')); ?>
-              <?php else : ?>
-                <?php echo esc_html(mb_strimwidth(get_the_excerpt(), 0, 22 * 2 + 3, '...')); ?>
-              <?php endif; ?>
-            </p>
-          </a>
-        </li>
-      <?php endwhile; ?>
-    <?php else : ?>
-      <p>まだ記事がありません</p>
-    <?php endif; ?>
-    <?php wp_reset_postdata(); ?>
-  </ul>
-
+            <div class="swiper-equipment">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-scrollbar"></div>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+          <div class="p-section-boke__button">
+            <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
+          </div>
+        <?php else : ?>
+          <p style="text-align: center;">記事が投稿されていません。</p>
+        <?php endif; ?>
+        <?php wp_reset_postdata(); ?>
+      </div>
+    </div>
+  </section>
 </main>
 <?php get_footer(); ?>

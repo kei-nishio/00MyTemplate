@@ -1,0 +1,40 @@
+@use 'global' as *;
+
+.p-section-hoge {
+}
+
+.p-section-hoge__inner.l-inner {
+}
+
+.p-section-hoge__heading {
+  display: grid;
+  place-items: center;
+}
+
+.p-section-hoge__content {
+  margin-top: rem(40);
+}
+
+.p-section-hoge__list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: rem(16);
+
+  @include mq {
+    grid-template-columns: repeat(auto-fit, minmax(rem(320), 1fr));
+    gap: rem(40) 5%;
+  }
+}
+
+.p-section-hoge__item {
+}
+
+.p-section-hoge__button {
+  display: grid;
+  place-items: center;
+  margin-top: rem(24);
+
+  @include mq {
+    margin-top: rem(60);
+  }
+}

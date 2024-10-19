@@ -1,0 +1,45 @@
+@use 'global' as *;
+
+.c-card {
+  display: block;
+  height: 100%;
+  border-radius: rem(16);
+}
+
+.c-card__img-box {
+  position: relative;
+}
+
+.c-card__img {
+  width: 100%;
+  aspect-ratio: 440 / 320;
+  border-radius: rem(16) rem(16) 0 0;
+
+  picture,
+  img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: inherit;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: inherit;
+  }
+}
+
+.c-card__date {
+}
+
+.c-card__term-list {
+}
+
+.c-card__tern-item {
+}
+
+.c-card__term {
+}
+
+.c-card__content {
+}
+
+.c-card__title {
+}

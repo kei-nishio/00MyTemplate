@@ -1,0 +1,24 @@
+@use 'global' as *;
+
+.p-archive {
+}
+
+.p-archive__title {
+}
+
+.p-archive__list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: rem(40);
+  @include mq {
+    gap: rem(60) rem(40);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.p-archive__item {
+}
+
+.p-archive__pagination {
+  margin-top: rem(80);
+}

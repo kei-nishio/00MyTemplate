@@ -1,24 +1,88 @@
 @use 'global' as *;
 
 .p-header {
-  width: 100%;
   position: fixed;
-  z-index: zi(header);
   top: 0;
   right: 0;
   left: 0;
-  height: $headerHeight-sp;
-  background-color: transparent;
-  @include mq {
-    height: $headerHeight-pc;
-  }
+  z-index: zi(header);
+  height: fClamp($headerHeight-sp, $headerHeight-pc);
 }
+
 .p-header__inner {
   display: flex;
   justify-content: space-between;
   height: inherit;
-  padding-right: rem(30);
+  padding-inline: rem(15);
+}
+
+.p-header__logo {
+  display: grid;
+  align-items: center;
+  height: inherit;
+
+  a {
+  }
+}
+
+.p-header__nav {
+  display: none;
+  height: inherit;
+
   @include mq {
-    padding-right: rem(0);
+    display: block;
+  }
+}
+
+.p-header__list {
+  display: flex;
+  align-items: center;
+  gap: rem(16);
+  height: inherit;
+
+  @include mq {
+    gap: rem(48);
+  }
+}
+
+.p-header__item {
+  height: inherit;
+  a {
+    display: grid;
+    place-items: center;
+    height: inherit;
+    color: $black;
+    font-weight: $bold;
+    font-size: rem(20);
+  }
+  span {
+    position: relative;
+  }
+  span::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: rem(-4);
+    transform: scale(0);
+    transform-origin: center;
+    width: 100%;
+    height: rem(2);
+    border-radius: rem(2);
+    background-color: $black;
+    transition: transform 0.3s;
+  }
+}
+@media screen and (any-hover: hover) {
+  .p-header__item:hover span::after {
+    transform: scale(1);
+  }
+}
+
+.p-header__hamburger {
+  display: grid;
+  place-items: center;
+
+  @include mq {
+    display: none;
   }
 }

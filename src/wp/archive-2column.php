@@ -1,0 +1,37 @@
+<?php get_header(); ?>
+<main class="main">
+  <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "default", "title" => "デフォルト"]); ?>
+
+  <?php // get_template_part('/parts/c-breadcrumb'); 
+  ?>
+
+  <div class="l-lower-top p-column2">
+    <div class="p-column2__inner l-inner">
+      <div class="p-column2__sidebar">
+        <?php get_sidebar(); ?>
+      </div>
+      <div class="p-column2__main">
+        <div class="p-column2__content">
+          <div class="p-hoge">
+            <?php if (have_posts()) : ?>
+              <ul class="p-hoge__list">
+                <?php while (have_posts()) : the_post(); ?>
+                  <li class="p-hoge__item">
+                    <?php $post_id = get_the_ID(); ?>
+                    <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
+                  </li>
+                <?php endwhile; ?>
+              </ul>
+              <div class="p-hoge__pagination">
+                <?php get_template_part('/parts/c-pagination'); ?>
+              </div>
+            <?php else : ?>
+              <p style="text-align: center;">記事が投稿されていません。</p>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<?php get_footer(); ?>

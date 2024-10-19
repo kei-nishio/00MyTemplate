@@ -1,0 +1,29 @@
+@use 'global' as *;
+
+.c-button-normal {
+  position: relative;
+  border: 1px solid $black;
+  border-radius: rem(20);
+  box-shadow: 1px 1px 0 0 $black;
+  transition: transform 0.2s, box-shadow 0.2s;
+  a,
+  input[type='submit'] {
+    min-width: rem(200);
+    display: inline-block;
+    padding-block: rem(6);
+    padding-left: rem(32);
+    padding-right: rem(48);
+    color: $black;
+    font-weight: $bold;
+    font-size: rem(18);
+    text-align: center;
+  }
+}
+
+@media screen and (any-hover: hover) {
+  .c-button-normal:hover {
+    opacity: 1;
+    transform: translate(1px, 1px);
+    box-shadow: 0 0 0 0 $black;
+  }
+}

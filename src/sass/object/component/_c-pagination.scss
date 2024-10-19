@@ -1,53 +1,77 @@
 @use 'global' as *;
 
-.navigation.pagination {
-  .screen-reader-text {
-    display: none;
-  }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: rem(10);
-    @include mq {
-      gap: rem(20);
-    }
-  }
+.c-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rem(16);
   .page-numbers {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: rem(40);
-    height: rem(40);
-    background-color: $white;
+    display: grid;
+    place-items: center;
+    width: rem(32);
+    height: rem(32);
+    border: 1px solid $black;
+    border-radius: 100%;
+    background-color: transparent;
     color: $black;
-    font-weight: $medium;
+    font-weight: $bold;
     font-size: rem(14);
+    font-family: $secondFont;
     transition: background-color 0.3s, color 0.3s;
-    &.current,
-    &:not(.dots):not(.prev):not(.next):hover {
-      background-color: black;
-      color: white;
-    }
     &.prev {
-      margin-right: rem(10);
-      img {
-        transform: scale(-1, 1);
-      }
     }
     &.next {
-      margin-left: rem(10);
     }
     &.prev,
     &.next {
-      width: rem(11);
-      height: rem(18);
-      background-color: initial;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: 50% 50%;
-      }
+      border: 1px solid $black;
+      background-color: $white;
+      position: relative;
+    }
+    &.prev::before,
+    &.prev::after,
+    &.next::before,
+    &.next::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      width: rem(6);
+      height: 1px;
+      border-radius: 1px;
+      background-color: $black;
+    }
+    &.prev::before,
+    &.prev::after {
+      left: 40%;
+      transform-origin: left;
+    }
+    &.next::before,
+    &.next::after {
+      right: 40%;
+      transform-origin: right;
+    }
+    &.prev::before,
+    &.next::before {
+      transform: rotate(-45deg);
+    }
+    &.prev::after,
+    &.next::after {
+      transform: rotate(45deg);
+    }
+    &.current,
+    &:not(.dots):not(.prev):not(.next):hover,
+    &.prev:hover,
+    &.next:hover {
+      border: 1px solid $black;
+      background-color: $black;
+      color: $white;
+    }
+    &.prev:hover::before,
+    &.prev:hover::after,
+    &.next:hover::before,
+    &.next:hover::after {
+      background-color: $white;
     }
   }
 }

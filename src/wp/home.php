@@ -7,7 +7,7 @@
       </div>
 
       <!-- breadcrumb -->
-      <?php get_template_part('/parts/component/c-breadcrumb'); ?>
+      <?php get_template_part('/parts/c-breadcrumb'); ?>
 
       <?php if (have_posts()) : ?>
         <!-- categories SP-->

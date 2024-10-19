@@ -1,76 +1,69 @@
 <?php get_header(); ?>
 <main class="main">
-  <section class="single sub-top">
-    <div class="sub-top__inner l-inner">
-      <div class="sub-top__heading">
-        <h1 class="sub-top__title">news</h1>
-      </div>
+  <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "news", "title" => "ニュース"]); ?>
 
-      <!-- breadcrumb -->
-      <?php get_template_part('/parts/component/c-breadcrumb'); ?>
+  <?php // get_template_part('/parts/c-breadcrumb'); 
+  ?>
 
-
-      <div class="single__flex">
-        <!-- post list -->
-        <article class="single__main">
-          <?php if (have_posts()) : ?>
-            <?php while (have_posts()) : the_post(); ?>
-              <?php
-              $cat = get_the_category();
-              $cat = $cat[0]->cat_name;
-              ?>
-              <time class="single__time time-tag time-tag--large " datetime="<?php the_time("c"); ?>">
-                <?php if (wp_is_mobile()) : ?>
-                  <?php the_time("y.m.d"); ?>
-                <?php else : ?>
-                  <?php the_time("Y.m.d"); ?>
-                <?php endif; ?>
-              </time>
-              <span class="single__category category-tag"><?php echo $cat; ?></span>
-              <h2 class="single__title"><?php the_title() ?></h2>
-              <div class="single__body"><?php the_content(); ?></div>
-            <?php endwhile; ?>
-          <?php else : ?>
-            <li>記事が投稿されていません</li>
-          <?php endif; ?>
-
-          <!-- to archive -->
-          <div class="single__button">
-            <a href="<?php echo esc_url(home_url('/news')); ?>" class="button-archive">一覧へもどる</a>
+  <?php if (have_posts()) : ?>
+    <?php while (have_posts()) : the_post(); ?>
+      <?php
+      $post_id = $args["post_id"];
+      $thumbnail_id = get_post_thumbnail_id($post_id);
+      $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+      $thumbnail_alt = !empty($thumbnail_alt) ? $thumbnail_alt : 'アイキャッチ';
+      $terms = get_the_terms($post->ID, $tax_slug);
+      $author_id = get_the_author_meta('ID');
+      $author_name = esc_html(get_the_author_meta('display_name', $author_id));
+      $first_name = esc_html(get_the_author_meta('first_name', $author_id));
+      $last_name = esc_html(get_the_author_meta('last_name', $author_id));
+      ?>
+      <?php
+      // $custom_field = get_field('');
+      // $image = get_field('acf_customer_image');
+      // $image_url = esc_url($image['url']);
+      // $image_alt = esc_attr($image['alt']);
+      // $images = get_field('acf_images');
+      // if ($images) :
+      //   $image = $images[0];
+      //   if ($image):
+      //     $image_url = esc_url($image['url']);
+      //     $image_alt = esc_attr($image['alt']);
+      //   endif;
+      // endif;
+      ?>
+      <article class="l-lower-top p-sub-single">
+        <div class="p-sub-single__inner l-inner">
+          <?php // eye catch 
+          ?>
+          <p class="p-sub-single__eye-catch">
+            <?php if (has_post_thumbnail()) : ?>
+              <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
+            <?php else : ?>
+              <img src="<?php echo esc_url(get_theme_file_uri("/assets/images/common/noimage.jpg")); ?>" alt="no image" />
+            <?php endif; ?>
+          </p>
+          <?php // title 
+          ?>
+          <h2 class="p-sub-single__title"><?php the_title() ?></h2>
+          <?php // date 
+          ?>
+          <time class="p-sub-single__date" datetime="<?php the_time("c"); ?>">
+            <?php the_time("Y.m.d"); ?>
+          </time>
+          <?php // content 
+          ?>
+          <div class="p-sub-single__content">
+            <div class="p-content-single"><?php the_content(); ?></div>
           </div>
-        </article>
-
-        <!-- categories -->
-        <aside class="single__aside aside u-desktop">
-          <p class="aside__heading">category</p>
-          <?php if (have_posts()) : ?>
-            <?php while (have_posts()) : the_post(); ?>
-              <?php
-              // タクソノミーのリンク
-              $current_category_id = get_queried_object_id();
-              $categories = get_categories(array(
-                'orderby' => 'ID',
-                'order'   => 'ASC',
-                // 'number'  => 3
-              ));
-              ?>
-              <ul class="aside__category-items">
-                <?php if ($categories) : ?>
-                  <?php foreach ($categories as $category) : ?>
-                    <li class="aside__category-item">
-                      <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"><?php echo esc_html($category->name); ?></a>
-                    </li>
-                  <?php endforeach; ?>
-                <?php else : ?>
-                  <li>カテゴリーがありません</li>
-                <?php endif; ?>
-              </ul>
-            <?php endwhile; ?>
-          <?php endif; ?>
-        </aside>
-      </div>
-
-    </div>
-  </section>
+        </div>
+        <div class="p-sub-single__button">
+          <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/column')); ?>">コラム一覧に戻る</a></div>
+        </div>
+      </article>
+    <?php endwhile; ?>
+  <?php else : ?>
+    <p style="text-align: center;">記事が投稿されていません。</p>
+  <?php endif; ?>
 </main>
 <?php get_footer(); ?>

@@ -1,0 +1,17 @@
+@use 'global' as *;
+
+.p-loading {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: zi('loading');
+  width: 100%;
+  height: 100vh;
+}
+.p-loading.is-active {
+  display: block;
+}
+
+.p-loading__inner {
+  height: 100%;
+}

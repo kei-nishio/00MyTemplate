@@ -2,7 +2,6 @@
 import { src, dest, watch, series, parallel } from 'gulp'; // Gulpの基本関数
 import plumber from 'gulp-plumber'; // エラーが続行するためのモジュール
 import notify from 'gulp-notify'; // エラーやタスク完了の通知
-import sourcemaps from 'gulp-sourcemaps'; // ソースマップ作成
 import changed from 'gulp-changed'; // 変更されたファイルのみを対象にする
 import { deleteAsync } from 'del'; // ファイルやディレクトリを削除
 import through2 from 'through2'; // gulpの処理を通す
@@ -18,6 +17,7 @@ import autoprefixer from 'autoprefixer'; // ベンダープレフィックスを
 import cssdeclsort from 'css-declaration-sorter'; // CSS宣言をソート
 import postcssPresetEnv from 'postcss-preset-env'; // 最新のCSS構文を使用可能に
 import cleanCSS from 'gulp-clean-css'; // css圧縮
+import sourcemaps from 'gulp-sourcemaps'; // ソースマップ作成
 // ** 画像圧縮
 import imagemin from 'gulp-imagemin'; // 画像を最適化
 import imageminMozjpeg from 'imagemin-mozjpeg'; // JPEG最適化

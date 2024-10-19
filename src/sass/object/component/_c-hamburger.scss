@@ -1,10 +1,10 @@
 @use 'global' as *;
 
 // * user variables
-$hamburger-width: rem(25);
-$hamburger-height: rem(14);
-$hamburger-width-is-active: rem(22);
-$hamburger-height-is-active: rem(22);
+$hamburger-width: rem(24);
+$hamburger-height: rem(24);
+$hamburger-width-is-active: rem(24);
+$hamburger-height-is-active: rem(24);
 $hamburger-border-number: 3;
 $hamburger-border-height: rem(1);
 $hamburger-rotate: 55deg;
@@ -18,7 +18,7 @@ $hamburger-scale: 1.414;
   height: $hamburger-height;
   cursor: pointer;
 }
-.hamburger__border {
+.c-hamburger__border {
   display: inline-block;
   width: 100%;
   height: $hamburger-border-height;
@@ -26,28 +26,23 @@ $hamburger-scale: 1.414;
   background-color: $black;
   transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
 }
-.hamburger__border.hamburger__border--short {
-  width: 65%;
-}
 
 // * is-active
 .c-hamburger.is-active {
   width: $hamburger-width-is-active;
   height: $hamburger-height-is-active;
 }
-.c-hamburger.is-active .hamburger__border.hamburger__border--short {
-  width: 100%;
-}
-.c-hamburger.is-active .hamburger__border {
-  background-color: $white;
+.c-hamburger.is-active .c-hamburger__border {
   transform-origin: center;
   @for $i from 1 through $hamburger-border-number {
     &:nth-child(#{$i}) {
       @if $i == 1 {
-        transform: scaleX($hamburger-scale) translateY(calc($hamburger-height-is-active / 2)) rotate($hamburger-rotate);
+        transform: scaleX($hamburger-scale)
+          translateY(calc($hamburger-height-is-active / 2 - 50%))
+          rotate($hamburger-rotate);
       } @else if $i == $hamburger-border-number {
         transform: scaleX($hamburger-scale)
-          translateY(calc(-1 * $hamburger-height-is-active / 2))
+          translateY(calc(-1 * $hamburger-height-is-active / 2 + 50%))
           rotate(calc(-1 * $hamburger-rotate));
       } @else {
         opacity: 0;
