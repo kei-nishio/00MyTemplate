@@ -22,6 +22,16 @@
   height: inherit;
 
   a {
+    height: inherit;
+    display: grid;
+    place-items: center;
+
+    picture,
+    img {
+      height: 50%;
+      object-fit: contain;
+      object-position: 50% 50%;
+    }
   }
 }
 
@@ -52,8 +62,6 @@
     place-items: center;
     height: inherit;
     color: $black;
-    font-weight: $bold;
-    font-size: rem(20);
   }
   span {
     position: relative;

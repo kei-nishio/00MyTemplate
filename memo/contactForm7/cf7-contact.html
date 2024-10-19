@@ -83,9 +83,34 @@
         </label>
       </dt>
       <dd class="p-form__description">
-        [select* your-select id:f-select first_as_label "選択してください" "セレクト1" "セレクト2" "セレクト3"] [select*
-        your-select id:f-select data:custom-select]
+        [select* your-select id:f-select first_as_label "選択してください" "セレクト1" "セレクト2" "セレクト3"]
       </dd>
+    </div>
+    <!-- * Select カスタムする場合 -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <label for="f-select">
+          お問い合わせの種類（セレクト）
+          <sup class="p-form__required">*</sup>
+          <span class="p-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="p-form__description">[select* your-select id:f-select data:custom-select]</dd>
+    </div>
+    <!-- * Select 条件分岐がある場合 -->
+    <div class="p-form__item">
+      [group quotation clear_on_hide]
+      <dt class="p-form__term">
+        <label for="f-select">
+          お問い合わせの種類（セレクト）
+          <sup class="p-form__required">*</sup>
+          <span class="p-form__required">必須</span>
+        </label>
+      </dt>
+      <dd class="p-form__description">
+        [select* your-select2 id:f-select2 first_as_label data:tax-case-study-type-select]
+      </dd>
+      [/group]
     </div>
     <!-- * Checkbox -->
     <div class="p-form__item">
@@ -149,7 +174,9 @@
   <!-- * Acceptance -->
   <div class="p-form__policy">
     [acceptance your-acceptance]
-    <a href="/privacy-policy/" target="_blank" rel="noreferrer noopener">「個人情報の取り扱いについて」(プライバシーポリシー)</a>に 同意する [/acceptance]
+    <a href="/privacy-policy/" target="_blank" rel="noreferrer noopener"
+      >「個人情報の取り扱いについて」(プライバシーポリシー)</a
+    >に 同意する [/acceptance]
   </div>
 
   <!-- * Submit -->

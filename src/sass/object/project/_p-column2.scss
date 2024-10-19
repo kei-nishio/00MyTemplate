@@ -13,23 +13,18 @@
 .p-column2__sidebar {
   @include mq {
     flex-shrink: 0;
-    width: 17.6%;
+    width: 20%;
   }
 }
 
 .p-column2__main {
-  margin-top: rem(40);
-
+  
   @include mq {
     width: 100%;
-    margin-top: initial;
   }
 }
 
 .p-column2__title {
-  font-weight: $bold;
-  font-size: fClamp(22, 40);
-  letter-spacing: 0.04em;
 }
 
 .p-column2__content {

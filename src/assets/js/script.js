@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loop: true,
     speed: 3000,
     allowTouchMove: true,
-    slidesPerView: 2,
+    slidesPerView: 1,
     spaceBetween: 16,
     // centeredSlides: true,
     autoplay: {
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         spaceBetween: 24,
       },
       1440: {
-        slidesPerView: 2,
+        slidesPerView: 3,
         spaceBetween: 32,
       },
     },

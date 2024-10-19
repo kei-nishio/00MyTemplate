@@ -81,16 +81,11 @@
 }
 $z-index-layer: (
   loading: 9000,
-  modal: 8000,
-  hamburger: 7000,
-  topButton: 6000,
-  headerLogo: 5000,
-  header: 4000,
+  modal: 7000,
+  header: 5000,
   drawer: 3000,
-  cta: 2000,
-  justAbove: 1000,
+  floating: 1000,
   default: 1,
-  justBelow: -1000,
 );
 
 // * 相対単位のメモ
