@@ -3,15 +3,15 @@
 <div class="p-section">
   <div class="p-section__inner">
     <div class="p-section__title">
-      <%- include(ejsPath + './component/_c-section-title',{title = "タイトル", subTitle = "title"} ) %>
+      <%- include(ejsPath + './component/_c-section-title', {title: "タイトル", subTitle: "title"} ) %>
     </div>
     <ul class="p-section__list">
-      <% for (let i=1; i <= 4; i++) { %>
+      <% for (let i = 0; i < list.length; i++) { %>
       <li class="p-section__item"><%- list[i] %></li>
       <% } %>
     </ul>
     <div class="p-section__button">
-      <%- include(ejsPath + './component/_c-btn',{color = "white", link = "link", text = "text"} ) %>
+      <%- include(ejsPath + './component/_c-btn', {color: "white", link: "link", text: "text"} ) %>
     </div>
   </div>
 </div>
