@@ -1,0 +1,29 @@
+<% const validpage = 'top'; %>
+<!--  -->
+<% const isTopPage = page === validpage; %>
+
+<header class="p-header">
+  <div class="p-header__inner">
+    <% if (isTopPage) { %>
+    <!-- TOPページの場合 -->
+    <h1 class="p-header__logo">
+      <a href="index.html">
+        <img src="./assets/images/common/logo.svg" alt="" />
+      </a>
+    </h1>
+    <% } else { %>
+    <!-- 下層ページの場合 -->
+    <div class="p-header__logo">
+      <a href="index.html">
+        <img src="./assets/images/common/logo.svg" alt="" />
+      </a>
+    </div>
+    <% } %>
+    <div class="p-header__pc-nav"><%- include(ejsPath + './project/_p-pc-nav' ) %></div>
+    <div class="p-header__hamburger"><%- include(ejsPath + './component/_p-hamburger' ) %></div>
+  </div>
+</header>
+
+<div class="p-drawer js-drawer"><%- include(ejsPath + './project/_p-drawer' ) %></div>
+<div class="p-drawer-mask js-drawer-mask"></div>
+

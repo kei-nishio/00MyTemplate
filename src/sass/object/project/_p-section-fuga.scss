@@ -1,21 +1,21 @@
 @use 'global' as *;
 
-.p-section-boke {
+.p-section-fuga {
 }
 
-.p-section-boke__inner.l-inner {
+.p-section-fuga__inner.l-inner {
 }
 
-.p-section-boke__heading {
+.p-section-fuga__heading {
   display: grid;
   place-items: center;
 }
 
-.p-section-boke__content {
+.p-section-fuga__content {
   margin-top: rem(40);
 }
 
-.p-section-boke__slide {
+.p-section-fuga__slide {
   position: relative;
 
   .swiper {
@@ -45,7 +45,7 @@
   }
 }
 
-.p-section-boke__button {
+.p-section-fuga__button {
   display: grid;
   place-items: center;
   margin-top: rem(24);

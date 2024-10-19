@@ -1,0 +1,32 @@
+{
+  "top": {
+    "title": "トップページ",
+    "description": "トップページのコンテンツ",
+    "url": "https://hogehoge.com"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "description": "お問い合わせページのコンテンツ",
+    "url": "https://hogehoge.com/contact.html"
+  },
+  "sitemap": {
+    "title": "サイトマップ",
+    "description": "サイトマップページのコンテンツ",
+    "url": "https://hogehoge.com/sitemap.html"
+  },
+  "privacy-policy": {
+    "title": "プライバシーポリシー",
+    "description": "プライバシーポリシーページのコンテンツ",
+    "url": "https://hogehoge.com/privacy-policy.html"
+  },
+  "terms": {
+    "title": "利用規約",
+    "description": "利用規約ページのコンテンツ",
+    "url": "https://hogehoge.com/terms.html"
+  },
+  "404": {
+    "title": "404エラー",
+    "description": "404エラーページのコンテンツ",
+    "url": "https://hogehoge.com/404"
+  }
+}

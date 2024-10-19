@@ -7,6 +7,7 @@ import { deleteAsync } from 'del'; // ファイルやディレクトリを削除
 import through2 from 'through2'; // gulpの処理を通す
 import rename from 'gulp-rename'; // ファイル名変更
 import browserSync from 'browser-sync'; // ブラウザの自動リロード
+import replace from 'gulp-replace'; // 文字列置換
 // ** CSS/Sass処理
 import gulpSassCreator from 'gulp-sass';
 import * as sassImplementation from 'sass';
@@ -27,6 +28,10 @@ import webp from 'gulp-webp'; // WebP変換
 // ** js圧縮
 import babel from 'gulp-babel'; // ES6+のJavaScriptをES5に変換
 import uglify from 'gulp-uglify'; // JavaScript圧縮
+// ** ejs処理
+import ejs from 'gulp-ejs'; // EJSをHTMLに変換
+import htmlbeautify from 'gulp-html-beautify'; // HTML整形
+import fs from 'fs'; // JSONファイル操作用
 // ** システム・その他のユーティリティ
 import os from 'os'; // OSモジュール
 
@@ -36,7 +41,9 @@ const browsers = ['last 2 versions', '> 5%', 'ie = 11', 'not ie <= 10', 'ios >= 
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
 // ** パス設定
-const wpMode = true; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
 const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
 const themeName = 'mytemplatetheme'; // ! WordPress theme file name
 const localSiteDomain = 'mytemplate.local'; // ! WordPress Local Site Domain
@@ -48,6 +55,7 @@ const srcPath = {
   css: '../src/assets/css/**/*',
   js: '../src/assets/js/**/*',
   img: '../src/assets/images/**/*',
+  ejs: '../src/ejs/**/*.ejs',
   html: ['../src/**/*.html', '!./node_modules/**'],
   php: ['../src/wp/**/*.php', '../src/wp/style.css', '../src/wp/screenshot.*'],
 };
@@ -81,7 +89,11 @@ const destWpLocalPath = {
 
 // * HTMLファイルのコピー
 const htmlCopy = () => {
-  return src(srcPath.html).pipe(dest(destPath.html));
+  if (ejsMode) {
+    return Promise.resolve(); // trueの場合は何も実行せず、Promiseを返す
+  } else {
+    return src(srcPath.html).pipe(dest(destPath.html));
+  }
 };
 
 // * CSSファイルのコピー
@@ -185,6 +197,47 @@ const jsBabel = () => {
     .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj());
 };
 
+// * EJSのコンパイル
+export const ejsCompile = () => {
+  if (ejsMode) {
+    const jsonFile = srcEjsDir + '/pageData/pageData.json';
+    const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+    return (
+      src([srcEjsDir + '/**/*.ejs', '!' + srcEjsDir + '/**/_*.ejs'])
+        // パーシャルファイルを除く
+        .pipe(
+          plumber({
+            // エラーハンドリングを設定
+            errorHandler: notify.onError(function (error) {
+              return {
+                message: `Error: ${error.message}`,
+                sound: false,
+              };
+            }),
+          })
+        )
+        .pipe(ejs({ json })) // 拡張子を.htmlに変更
+        .pipe(rename({ extname: '.html' })) // 空白行を削除
+        .pipe(replace(/^[ \t]*\n/gm, '')) // HTMLファイルを整形
+        .pipe(
+          htmlbeautify({
+            indent_size: 2, // インデントサイズ
+            indent_char: ' ', // インデントに使う文字
+            max_preserve_newlines: 0, // 連続する空行の最大数
+            preserve_newlines: false, // 改行を削除
+            extra_liners: [], // 余分な改行を削除
+          })
+        )
+        .pipe(dest(destPath.html))
+        .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true })) // 通知を表示
+    ); // コンパイル済みのHTMLファイルを出力先に保存
+  } else {
+    console.log('EJSをコンパイルします。');
+
+    return Promise.resolve(); // falseの場合は何も実行せず、Promiseを返す
+  }
+};
+
 // * ブラウザシンクの設定
 const browserSyncOption = {
   notify: false,
@@ -209,20 +262,23 @@ const clean = () => {
 
 // * ファイルの監視
 const watchFiles = () => {
-  watch(srcPath.sass, series(cssSass, browserSyncReload));
-  watch(srcPath.js, series(jsBabel, browserSyncReload));
-  watch(srcPath.img, series(imgImagemin, browserSyncReload));
-  watch(srcPath.html, series(htmlCopy, browserSyncReload));
+  watch(srcPath.sass, series(cssSass, browserSyncReload)); // Sass
+  watch(srcPath.js, series(jsBabel, browserSyncReload)); // JavaScript
+  watch(srcPath.img, series(imgImagemin, browserSyncReload)); // 画像ファイル
   if (wpMode) {
-    watch(srcPath.php, series(phpCopy, browserSyncReload));
+    watch(srcPath.php, series(phpCopy, browserSyncReload)); // WordPressの場合
+  } else if (ejsMode) {
+    watch(srcPath.ejs, series(ejsCompile, browserSyncReload)); // EJSの場合
+  } else {
+    watch(srcPath.html, series(htmlCopy, browserSyncReload)); // 静的コーディングの場合
   }
 };
 
 // ! ブラウザシンク付きの開発用タスク
 export default series(
-  series(cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, phpCopy),
+  series(cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy),
   parallel(watchFiles, browserSyncFunc)
 );
 
 // ! 本番用タスク
-export const build = series(clean, cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, phpCopy);
+export const build = series(clean, cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy);

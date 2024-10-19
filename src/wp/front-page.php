@@ -103,17 +103,17 @@
   ];
   $the_query = new WP_query($args);
   ?>
-  <section class="l-section p-section-boke">
-    <div class="p-section-boke__inner l-inner">
-      <div class="p-section-boke__heading">
+  <section class="l-section p-section-fuga">
+    <div class="p-section-fuga__inner l-inner">
+      <div class="p-section-fuga__heading">
         <hgroup class="c-section-title">
-          <p class="c-section-title__sub">boke</p>
+          <p class="c-section-title__sub">fuga</p>
           <h2 class="c-section-title__main">スワイパー</h2>
         </hgroup>
       </div>
-      <div class="p-section-boke__content">
+      <div class="p-section-fuga__content">
         <?php if ($the_query->have_posts()) : ?>
-          <div class="p-section-boke__slide js-swiper">
+          <div class="p-section-fuga__slide js-swiper">
             <div class="swiper">
               <ul class="swiper-wrapper">
                 <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
@@ -131,7 +131,7 @@
               <div class="swiper-button-next"></div>
             </div>
           </div>
-          <div class="p-section-boke__button">
+          <div class="p-section-fuga__button">
             <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
           </div>
         <?php else : ?>

@@ -102,4 +102,4 @@
       </div>
     </div>
   </div>
-  <div class="p-drawer__mask js-drawer-mask"></div>
+  <div class="p-drawer-mask js-drawer-mask"></div>
