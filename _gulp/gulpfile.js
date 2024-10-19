@@ -1,4 +1,4 @@
-// ** 基本機能
+// * 基本機能
 import { src, dest, watch, series, parallel } from 'gulp'; // Gulpの基本関数
 import plumber from 'gulp-plumber'; // エラーが続行するためのモジュール
 import notify from 'gulp-notify'; // エラーやタスク完了の通知
@@ -8,7 +8,7 @@ import through2 from 'through2'; // gulpの処理を通す
 import rename from 'gulp-rename'; // ファイル名変更
 import browserSync from 'browser-sync'; // ブラウザの自動リロード
 import replace from 'gulp-replace'; // 文字列置換
-// ** CSS/Sass処理
+// * CSS/Sass処理
 import gulpSassCreator from 'gulp-sass';
 import * as sassImplementation from 'sass';
 import sassGlob from 'gulp-sass-glob-use-forward'; // SCSSのインポートを簡略化
@@ -19,28 +19,28 @@ import cssdeclsort from 'css-declaration-sorter'; // CSS宣言をソート
 import postcssPresetEnv from 'postcss-preset-env'; // 最新のCSS構文を使用可能に
 import cleanCSS from 'gulp-clean-css'; // css圧縮
 import sourcemaps from 'gulp-sourcemaps'; // ソースマップ作成
-// ** 画像圧縮
+// * 画像圧縮
 import imagemin from 'gulp-imagemin'; // 画像を最適化
 import imageminMozjpeg from 'imagemin-mozjpeg'; // JPEG最適化
 import imageminPngquant from 'imagemin-pngquant'; // PNG最適化
 import imageminSvgo from 'imagemin-svgo'; // SVG最適化
 import webp from 'gulp-webp'; // WebP変換
-// ** js圧縮
+// * js圧縮
 import babel from 'gulp-babel'; // ES6+のJavaScriptをES5に変換
 import uglify from 'gulp-uglify'; // JavaScript圧縮
-// ** ejs処理
+// * ejs処理
 import ejs from 'gulp-ejs'; // EJSをHTMLに変換
 import htmlbeautify from 'gulp-html-beautify'; // HTML整形
 import fs from 'fs'; // JSONファイル操作用
-// ** システム・その他のユーティリティ
+// * システム・その他のユーティリティ
 import os from 'os'; // OSモジュール
 
-// ** その他の設定
+// * その他の設定
 const sass = gulpSassCreator(sassImplementation); // SCSSをCSSにコンパイルするためのモジュール
 const browsers = ['last 2 versions', '> 5%', 'ie = 11', 'not ie <= 10', 'ios >= 8', 'and_chr >= 5', 'Android >= 5'];
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
-// ** パス設定
+// * パス設定
 const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
 const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
@@ -49,7 +49,7 @@ const themeName = 'mytemplatetheme'; // ! WordPress theme file name
 const localSiteDomain = 'mytemplate.local'; // ! WordPress Local Site Domain
 const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
 
-// 読み込み先
+// * 読み込み先
 const srcPath = {
   sass: '../src/sass/**/*.scss',
   css: '../src/assets/css/**/*',
@@ -60,7 +60,7 @@ const srcPath = {
   php: ['../src/wp/**/*.php', '../src/wp/style.css', '../src/wp/screenshot.*'],
 };
 
-// html反映用
+// * html反映用
 const destPath = {
   all: '../dist/**/*',
   css: '../dist/assets/css/',
@@ -69,7 +69,7 @@ const destPath = {
   html: '../dist/',
 };
 
-// WordPress反映用
+// * WordPress反映用
 const destWpPath = {
   all: `../distwp/**/*`,
   css: `../distwp/assets/css/`,
@@ -78,7 +78,7 @@ const destWpPath = {
   php: `../distwp/`,
 };
 
-// WordPressLocal反映用
+// * WordPressLocal反映用
 const destWpLocalPath = {
   all: `${wpDirectory}/`, //  all: `${wpDirectory}/**/*` が効かないため
   css: `${wpDirectory}/assets/css/`,
@@ -228,12 +228,10 @@ export const ejsCompile = () => {
             extra_liners: [], // 余分な改行を削除
           })
         )
-        .pipe(dest(destPath.html))
+        .pipe(dest(destPath.html)) // コンパイル済みのHTMLファイルを出力先に保存
         .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true })) // 通知を表示
-    ); // コンパイル済みのHTMLファイルを出力先に保存
+    );
   } else {
-    console.log('EJSをコンパイルします。');
-
     return Promise.resolve(); // falseの場合は何も実行せず、Promiseを返す
   }
 };
