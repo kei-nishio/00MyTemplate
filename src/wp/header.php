@@ -23,6 +23,14 @@
       "slug" => home_url("/news")
     ],
     [
+      "name" => "terms",
+      "slug" => home_url("/terms")
+    ],
+    [
+      "name" => "privacy policy",
+      "slug" => home_url("/privacy-policy")
+    ],
+    [
       "name" => "contact",
       "slug" => home_url("/contact")
     ],

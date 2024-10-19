@@ -4,8 +4,20 @@
 }
 
 .p-single__inner.l-inner {
-  @include mq {
-    max-width: calc(rem(1280) + 2 * $padding-pc);
+}
+
+.p-single__eye-catch {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+
+  picture,
+  img {
+    aspect-ratio: inherit;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
   }
 }
 

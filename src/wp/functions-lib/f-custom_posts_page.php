@@ -7,7 +7,7 @@ function change_posts_per_page($query)
     return;
   }
 
-  $posts_per_page = wp_is_mobile() ? 6 : 12;
+  $posts_per_page = wp_is_mobile() ? 2 : 3;
 
   // カスタム投稿タイプ「news」のアーカイブページの表示件数を設定
   if ($query->is_post_type_archive('news')) {
@@ -20,7 +20,7 @@ function change_posts_per_page($query)
   }
 
   // カスタム投稿タイプのアーカイブページの表示件数を設定
-  $default_posts_per_page = wp_is_mobile() ? 6 : 10;
+  $default_posts_per_page = wp_is_mobile() ? 2 : 3;
   if ($query->is_post_type_archive()) {
     $query->set('posts_per_page', $default_posts_per_page);
     return;

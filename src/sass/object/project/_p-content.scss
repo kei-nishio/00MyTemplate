@@ -1,5 +1,5 @@
 @use 'global' as *;
-.p-content-single {
+.p-content {
   h2 {
     padding-bottom: rem(40);
     border-bottom: rem(4) solid $black;
@@ -48,7 +48,7 @@
 }
 
 // Revert all properties
-.p-content-single.p-content--revert {
+.p-content.p-content--revert {
   * {
     all: revert;
   }

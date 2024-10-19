@@ -5,7 +5,7 @@ $slug = $args['slug'] ?? '';
 <main class="main">
   <div class="l-lower-heading">
     <?php if ($slug === "news"): ?>
-      <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "news", "title" => "ニュース"]); ?>
+      <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "news", "title" => "ニュース一覧"]); ?>
     <?php else: ?>
       <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "default", "title" => "デフォルト"]); ?>
     <?php endif; ?>

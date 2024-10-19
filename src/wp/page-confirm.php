@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 <main class="main">
-  <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "contact", "title" => "お問い合わせ（確認）"]); ?>
+  <div class="l-lower-heading">
+    <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "contact", "title" => "お問い合わせ（確認）"]); ?>
+  </div>
 
   <?php // get_template_part('/parts/c-breadcrumb'); 
   ?>
@@ -11,9 +13,9 @@
         <div class="p-sub-contact__inner l-inner">
           <div class="p-sub-contact__form">
             <?php if (false): ?>
-              <?php echo do_shortcode('[contact-form-7 id="3ee3ec1" title="入力画面（確認なし）"]'); ?>
+              <?php echo do_shortcode('[contact-form-7 id="" title=""]'); ?>
             <?php else: ?>
-              <p>ここにショートコードが入ります。</p>
+              <p style="text-align: center;">ここにショートコードが入ります。</p>
             <?php endif; ?>
           </div>
         </div>

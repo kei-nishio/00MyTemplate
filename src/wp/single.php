@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 <main class="main">
-  <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "news", "title" => "ニュース"]); ?>
+  <div class="l-lower-heading">
+    <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "news", "title" => "ニュース記事"]); ?>
+  </div>
 
   <?php // get_template_part('/parts/c-breadcrumb'); 
   ?>
@@ -8,7 +10,8 @@
   <?php if (have_posts()) : ?>
     <?php while (have_posts()) : the_post(); ?>
       <?php
-      $post_id = $args["post_id"];
+      $tax_slug = "news-type";
+      $post_id = get_the_ID();
       $thumbnail_id = get_post_thumbnail_id($post_id);
       $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
       $thumbnail_alt = !empty($thumbnail_alt) ? $thumbnail_alt : 'アイキャッチ';
@@ -32,11 +35,11 @@
       //   endif;
       // endif;
       ?>
-      <article class="l-lower-top p-sub-single">
-        <div class="p-sub-single__inner l-inner">
+      <article class="l-lower-top p-single">
+        <div class="p-single__inner l-inner">
           <?php // eye catch 
           ?>
-          <p class="p-sub-single__eye-catch">
+          <p class="p-single__eye-catch">
             <?php if (has_post_thumbnail()) : ?>
               <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
             <?php else : ?>
@@ -45,20 +48,20 @@
           </p>
           <?php // title 
           ?>
-          <h2 class="p-sub-single__title"><?php the_title() ?></h2>
+          <h2 class="p-single__title"><?php the_title() ?></h2>
           <?php // date 
           ?>
-          <time class="p-sub-single__date" datetime="<?php the_time("c"); ?>">
+          <time class="p-single__date" datetime="<?php the_time("c"); ?>">
             <?php the_time("Y.m.d"); ?>
           </time>
           <?php // content 
           ?>
-          <div class="p-sub-single__content">
-            <div class="p-content-single"><?php the_content(); ?></div>
+          <div class="p-single__content">
+            <div class="p-content"><?php the_content(); ?></div>
           </div>
         </div>
-        <div class="p-sub-single__button">
-          <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/column')); ?>">コラム一覧に戻る</a></div>
+        <div class="p-single__button">
+          <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">一覧に戻る</a></div>
         </div>
       </article>
     <?php endwhile; ?>

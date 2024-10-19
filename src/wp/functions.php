@@ -29,16 +29,16 @@ get_template_part('/functions-lib/f-0base_set_up');
 // get_template_part('/functions-lib/f-cf7_recaptcha');
 
 // ! Contact Form 7で自動挿入されるPタグ、brタグを削除
-// get_template_part('/functions-lib/f-cf7_reset');
+get_template_part('/functions-lib/f-cf7_reset');
 
 // ! Contact Form 7で郵便番号のバリデーションを追加する
 // get_template_part('/functions-lib/f-cf7_validation');
 
 // ! カスタムページネーションを追加する
-// get_template_part('/functions-lib/f-custom_pagination');
+get_template_part('/functions-lib/f-custom_pagination');
 
 // ! カスタム投稿のスラッグを設定する
-// get_template_part('/functions-lib/f-custom_post_slug');
+get_template_part('/functions-lib/f-custom_post_slug');
 
 // ! カスタム投稿の並び順をユーザーフィールド値に基づいて変更する
 // get_template_part('/functions-lib/f-custom_post_sort');
@@ -47,7 +47,7 @@ get_template_part('/functions-lib/f-0base_set_up');
 // get_template_part('/functions-lib/f-custom_posts_filter');
 
 // ! カスタム投稿の表示件数を設定する
-// get_template_part('/functions-lib/f-custom_posts_page');
+get_template_part('/functions-lib/f-custom_posts_page');
 
 // ! カスタムタクソノミーのターム数を制限する
 // get_template_part('/functions-lib/f-custom_tax_limit');
@@ -56,7 +56,7 @@ get_template_part('/functions-lib/f-0base_set_up');
 // get_template_part('/functions-lib/f-js_data');
 
 // ! 通常投稿タイプのラベルを変更する（例：「投稿」⇒「ブログ」）もしくは非表示にする
-// get_template_part('/functions-lib/f-menu_post');
+get_template_part('/functions-lib/f-menu_post');
 
 // ! 管理画面のユーザープロフィール項目をカスタマイズする
 // get_template_part('/functions-lib/f-menu_profile');

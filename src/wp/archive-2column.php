@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 <main class="main">
-  <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "default", "title" => "デフォルト"]); ?>
+  <div class="l-lower-heading">
+    <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "default", "title" => "デフォルト"]); ?>
+  </div>
 
   <?php // get_template_part('/parts/c-breadcrumb'); 
   ?>
@@ -12,17 +14,17 @@
       </div>
       <div class="p-column2__main">
         <div class="p-column2__content">
-          <div class="p-hoge">
+          <div class="p-archive">
             <?php if (have_posts()) : ?>
-              <ul class="p-hoge__list">
+              <ul class="p-archive__list">
                 <?php while (have_posts()) : the_post(); ?>
-                  <li class="p-hoge__item">
+                  <li class="p-archive__item">
                     <?php $post_id = get_the_ID(); ?>
                     <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
                   </li>
                 <?php endwhile; ?>
               </ul>
-              <div class="p-hoge__pagination">
+              <div class="p-archive__pagination">
                 <?php get_template_part('/parts/c-pagination'); ?>
               </div>
             <?php else : ?>
