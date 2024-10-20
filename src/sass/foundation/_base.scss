@@ -1,6 +1,6 @@
 @use 'global' as *;
 
-@if $startFrom ==sp {
+@if $startFrom == sp {
   //スマホファースト
   html {
     //375px~767px

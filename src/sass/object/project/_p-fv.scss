@@ -25,7 +25,7 @@
   width: 100%;
   aspect-ratio: 375 / 667;
 
-  @include mq {
+  @include mq('md') {
     aspect-ratio: 1366 / 768;
   }
   picture,

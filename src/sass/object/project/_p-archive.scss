@@ -9,9 +9,8 @@
 .p-archive__list {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: rem(40);
-  @include mq {
-    gap: rem(60) rem(40);
+  gap: fluidRange(40, 60) fluidRange(40);
+  @include mq('md') {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -20,5 +19,5 @@
 }
 
 .p-archive__pagination {
-  margin-top: rem(80);
+  margin-top: fluidRange(80);
 }

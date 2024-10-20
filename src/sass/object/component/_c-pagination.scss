@@ -4,18 +4,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: rem(16);
+  gap: fluidRange(16);
   .page-numbers {
     display: grid;
     place-items: center;
-    width: rem(32);
-    height: rem(32);
+    width: fluidRange(32);
+    height: fluidRange(32);
     border: 1px solid $black;
     border-radius: 100%;
     background-color: transparent;
     color: $black;
     font-weight: $bold;
-    font-size: rem(14);
+    font-size: fluidRange(14);
     font-family: $secondFont;
     transition: background-color 0.3s, color 0.3s;
     &.prev {
@@ -36,7 +36,7 @@
       display: block;
       position: absolute;
       top: 50%;
-      width: rem(6);
+      width: fluidRange(6);
       height: 1px;
       border-radius: 1px;
       background-color: $black;

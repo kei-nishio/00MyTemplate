@@ -1,8 +1,5 @@
 @use 'global' as *;
 
 .l-lower-top {
-  margin-top: rem(40);
-  @include mq {
-    margin-top: rem(80);
-  }
+  margin-top: fluidRange(40, 80);
 }

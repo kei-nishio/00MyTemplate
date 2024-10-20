@@ -25,7 +25,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: rem(48);
+  gap: fluidRange(48);
   height: inherit;
 }
 

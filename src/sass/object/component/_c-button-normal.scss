@@ -3,15 +3,15 @@
 .c-button-normal {
   position: relative;
   border: 1px solid $black;
-  border-radius: rem(20);
+  border-radius: fluidRange(20);
   box-shadow: 1px 1px 0 0 $black;
   transition: transform 0.2s, box-shadow 0.2s;
   a,
   input[type='submit'] {
-    min-width: rem(200);
+    min-width: fluidRange(200);
     display: inline-block;
-    padding-block: rem(6);
-    padding-inline: rem(32);
+    padding-block: fluidRange(6);
+    padding-inline: fluidRange(32);
     color: $black;
     text-align: center;
   }

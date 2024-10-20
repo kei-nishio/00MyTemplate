@@ -67,12 +67,24 @@
   $a-vw: $a * 100;
   $b-px: $b * 1px;
 
+  @if $a-vw == 0 {
+    @return calc(#{$b-px});
+  }
   @return calc(#{$a-vw}vw + #{$b-px});
 }
 
-// * clampへの計算式
-@function fClamp($min, $max) {
-  @return clamp(rem($min), vwLinear($min, $width-sp, $max, $inner), rem($max));
+// * clampRange
+@function clampRange($min, $max: null) {
+  $smin: strip-unit($min);
+  $smax: if($max == null, $smin, strip-unit($max)); // $max が null の場合、$min を使用
+  @return clamp(calc($smin * 1px), vwLinear($smin, $width-sp, $smax, $inner), calc($smax * 1px));
+}
+
+// * fluidRange
+@function fluidRange($min, $max: null) {
+  $smin: strip-unit($min);
+  $smax: if($max == null, $smin, strip-unit($max)); // $max が null の場合、$min を使用
+  @return min(min(calc($smin / 375 * 100vw), vwLinear($smin, $width-sp, $smax, $inner)), calc($smax * 1px));
 }
 
 // * 重なり順（z-index）

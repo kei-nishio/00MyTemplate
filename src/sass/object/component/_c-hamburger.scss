@@ -1,12 +1,12 @@
 @use 'global' as *;
 
 // * user variables
-$hamburger-width: rem(24);
-$hamburger-height: rem(24);
-$hamburger-width-is-active: rem(24);
-$hamburger-height-is-active: rem(24);
+$hamburger-width: fluidRange(24);
+$hamburger-height: fluidRange(24);
+$hamburger-width-is-active: fluidRange(24);
+$hamburger-height-is-active: fluidRange(24);
 $hamburger-border-number: 3;
-$hamburger-border-height: rem(1);
+$hamburger-border-height: 1px;
 $hamburger-rotate: 55deg;
 $hamburger-scale: 1.414;
 

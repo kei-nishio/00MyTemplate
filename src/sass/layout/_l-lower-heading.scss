@@ -1,5 +1,5 @@
 @use 'global' as *;
 
 .l-lower-heading {
-  margin-top: fClamp($headerHeight-sp, $headerHeight-pc);
+  margin-top: clampRange($headerHeight-sp, $headerHeight-pc);
 }

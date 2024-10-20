@@ -1,33 +1,33 @@
 @use 'global' as *;
 .p-content {
   h2 {
-    padding-bottom: rem(40);
-    border-bottom: rem(4) solid $black;
+    padding-bottom: fluidRange(40);
+    border-bottom: fluidRange(4) solid $black;
     font-weight: $bold;
-    font-size: fClamp(24, 40);
+    font-size: fluidRange(24, 40);
     line-height: 2;
   }
   h3 {
     margin-top: 1em;
-    padding-bottom: rem(40);
+    padding-bottom: fluidRange(40);
     border-bottom: 1px solid $black;
     font-weight: $bold;
-    font-size: fClamp(24, 40);
+    font-size: fluidRange(24, 40);
   }
   h4 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fClamp(20, 32);
+    font-size: fluidRange(20, 32);
   }
   h5 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fClamp(18, 20);
+    font-size: fluidRange(18, 20);
   }
   h6 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fClamp(16, 20);
+    font-size: fluidRange(16, 20);
   }
   p {
     margin-top: 1em;
@@ -37,13 +37,13 @@
     list-style: decimal;
     list-style-position: inside;
     font-weight: $bold;
-    font-size: fClamp(16, 20);
+    font-size: fluidRange(16, 20);
     font-family: $secondFont;
   }
   ul {
     list-style: disc;
     list-style-position: inside;
-    font-size: fClamp(16, 20);
+    font-size: fluidRange(16, 20);
   }
 }
 

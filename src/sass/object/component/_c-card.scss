@@ -3,7 +3,8 @@
 .c-card {
   display: block;
   height: 100%;
-  border-radius: rem(16);
+  border-radius: fluidRange(16);
+  border-radius: fluidRange(16);
 }
 
 .c-card__img-box {
@@ -13,7 +14,7 @@
 .c-card__img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: rem(16) rem(16) 0 0;
+  border-radius: fluidRange(16) fluidRange(16) 0 0;
 
   picture,
   img {

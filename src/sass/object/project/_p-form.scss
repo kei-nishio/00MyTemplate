@@ -6,7 +6,7 @@
 
 .p-form {
   padding: 6.25%;
-  border-radius: rem(16);
+  border-radius: fluidRange(16);
   background-color: $white;
 
   .p-form__list {
@@ -15,75 +15,62 @@
   .p-form__item {
     display: flex;
     flex-direction: column;
-    gap: rem(8) rem(16);
+    gap: fluidRange(8) fluidRange(16);
     color: $black;
     font-weight: $bold;
-    font-size: rem(18);
+    font-size: fluidRange(18, 20);
     font-family: $secondFont;
 
-    @include mq {
+    @include mq('md') {
       flex-direction: row;
       align-items: center;
-      font-size: rem(20);
     }
   }
   .p-form__item + .p-form__item {
-    margin-top: rem(40);
-
-    @include mq {
-      margin-top: rem(56);
-    }
+    margin-top: fluidRange(40, 56);
   }
 
   .p-form__term {
     label {
       display: flex;
       align-items: center;
-      gap: rem(8);
+      gap: fluidRange(8);
     }
 
-    @include mq {
+    @include mq('md') {
       width: 30%;
     }
   }
 
   .p-form__description {
-    @include mq {
+    @include mq('md') {
       width: 70%;
     }
   }
 
   .p-form__required {
-    padding: rem(2) rem(4);
+    padding: fluidRange(2) fluidRange(4);
     border: 1px solid red;
     color: red;
-    font-size: rem(12);
-    border-radius: rem(4);
+    font-size: fluidRange(12);
+    border-radius: fluidRange(4);
   }
 
   .p-form__policy {
-    margin-top: rem(24);
-    font-size: rem(14);
+    margin-top: fluidRange(24, 40);
+    font-size: fluidRange(14);
     text-align: center;
-
-    @include mq {
-      margin-top: rem(40);
-    }
   }
 
   .p-form__submit-cation {
-    margin-top: rem(16);
+    margin-top: fluidRange(16, 32);
     text-align: center;
-
-    @include mq {
-      margin-top: rem(32);
-    }
   }
 
   .p-form__submit {
     display: grid;
     place-items: center;
-    margin-top: rem(40);
+    margin-top: fluidRange(40);
   }
 
   //  ! common style
@@ -100,11 +87,8 @@
     margin: 0;
     padding: 1em;
     border: 1px solid gray;
-    border-radius: rem(4);
+    border-radius: fluidRange(4);
     background-color: $white;
-
-    @include mq {
-    }
 
     &:active,
     &:hover,
@@ -118,7 +102,7 @@
 
   // ! textarea
   textarea {
-    min-height: rem(160);
+    min-height: fluidRange(160);
     overflow-wrap: anywhere;
     resize: none;
   }
@@ -238,11 +222,7 @@
     appearance: none;
 
     option {
-      font-size: rem(18);
-
-      @include mq {
-        font-size: rem(20);
-      }
+      font-size: fluidRange(18, 20);
     }
   }
 
