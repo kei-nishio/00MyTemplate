@@ -15,16 +15,16 @@
     <div class="p-footer__sns">
       <ul class="p-footer__sns-list">
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-line.png" alt="line" loading="lazy"></a>
+          <a href="https://line.me/ja/" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-line.png" alt="line" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-instagram.svg" alt="instagram" loading="lazy"></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-instagram.svg" alt="instagram" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-x.svg" alt="x" loading="lazy"></a>
+          <a href="https://x.com/home" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-x.svg" alt="x" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-facebook.svg" alt="facebook" loading="lazy"></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><img src="<%- ejsPath %>/assets/images/common/sns-facebook.svg" alt="facebook" loading="lazy"></a>
         </li>
       </ul>
     </div>
@@ -43,4 +43,21 @@
     <p class="p-footer__copy">&copy; yoshifuji web atelier.</p>
   </div>
 </footer>
-<div style="height: 50vh; background-color: red; margin-top: 50vh;"></div>
+<div style="height: 50vh; background-color: red; margin-top: 50vh;">
+  <div class="l-inner">
+    <h1>EJS Syntax Guide</h1>
+    <ul style="color:white;">
+      <li>ejs → <%% %> - No output tag</li>
+      <li>ejsout → <%%= %> - Outputs HTML value</li>
+      <li>ejsesc → <%%- %> - Outputs unescaped</li>
+      <li>ejscom → <%%# %> - Comment tag</li>
+      <li>ejslit → <%%%% %> - Outputs Literal <%%< /li>
+      <li>ejsinc → include statement</li>
+      <li>ejsfor → for Javascript Loop</li>
+      <li>ejseach → forEach Javascript Loop</li>
+      <li>ejsif → if Statement with condition</li>
+      <li>ejselif → else if Statement - Middle section only. Assumes you have already written the first if statement.</li>
+      <li>ejselse → else Statement - Middle section only. Assumes you have already written the first if statement.</li>
+    </ul>
+  </div>
+</div>

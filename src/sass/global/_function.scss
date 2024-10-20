@@ -72,7 +72,7 @@
 
 // * clampへの計算式
 @function fClamp($min, $max) {
-  @return clamp(rem($min), vwLinear($min, $innerWidth-sp, $max, $inner), rem($max));
+  @return clamp(rem($min), vwLinear($min, $width-sp, $max, $inner), rem($max));
 }
 
 // * 重なり順（z-index）

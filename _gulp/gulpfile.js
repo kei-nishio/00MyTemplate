@@ -200,39 +200,50 @@ const jsBabel = () => {
 // * EJSのコンパイル
 export const ejsCompile = () => {
   if (ejsMode) {
-    const jsonFile = srcEjsDir + '/pageData/pageData.json';
-    const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
-    return (
-      src([srcEjsDir + '/**/*.ejs', '!' + srcEjsDir + '/**/_*.ejs'])
-        // パーシャルファイルを除く
-        .pipe(
-          plumber({
-            // エラーハンドリングを設定
-            errorHandler: notify.onError(function (error) {
-              return {
-                message: `Error: ${error.message}`,
-                sound: false,
-              };
-            }),
-          })
-        )
-        .pipe(ejs({ json })) // 拡張子を.htmlに変更
-        .pipe(rename({ extname: '.html' })) // 空白行を削除
-        .pipe(replace(/^[ \t]*\n/gm, '')) // HTMLファイルを整形
-        .pipe(
-          htmlbeautify({
-            indent_size: 2, // インデントサイズ
-            indent_char: ' ', // インデントに使う文字
-            max_preserve_newlines: 0, // 連続する空行の最大数
-            preserve_newlines: false, // 改行を削除
-            extra_liners: [], // 余分な改行を削除
-          })
-        )
-        .pipe(dest(destPath.html)) // コンパイル済みのHTMLファイルを出力先に保存
-        .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true })) // 通知を表示
-    );
+    // JSONディレクトリからすべてのJSONファイルを読み込む
+    const jsonDir = srcEjsDir + '/pageData';
+    const jsonFiles = fs.readdirSync(jsonDir); // ディレクトリ内のファイル一覧を取得
+    let jsonData = {}; // すべてのJSONデータを格納するオブジェクト
+
+    jsonFiles.forEach((file) => {
+      if (file.endsWith('.json')) {
+        // ファイル名から拡張子を除いた部分を名前空間として使用
+        const filePath = jsonDir + '/' + file;
+        const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        const namespace = file.replace('.json', '');
+        jsonData[namespace] = fileData; // ファイル名をキーとしてデータをマージ
+      }
+    });
+    // jsonDataの内容を確認するためにログを表示
+    // console.log('jsonData:', JSON.stringify(jsonData, null, 2));
+    return src([srcEjsDir + '/**/*.ejs', '!' + srcEjsDir + '/**/_*.ejs']) // パーシャルファイルを除く
+      // .pipe(
+      //   plumber({
+      //     // エラーハンドリングを設定
+      //     errorHandler: notify.onError((error) => {
+      //       return {
+      //         message: `Error: ${error.message}`,
+      //         sound: false,
+      //       };
+      //     }),
+      //   })
+      // )
+      .pipe(ejs({ json: jsonData })) // 全てのJSONデータをEJSに渡す
+      .pipe(rename({ extname: '.html' })) // 拡張子を.htmlに変更
+      .pipe(replace(/^[ \t]*\n/gm, '')) // 空白行を削除
+      .pipe(
+        htmlbeautify({
+          indent_size: 2, // インデントサイズ
+          indent_char: ' ', // インデントに使う文字
+          max_preserve_newlines: 0, // 連続する空行の最大数
+          preserve_newlines: false, // 改行を削除
+          extra_liners: [], // 余分な改行を削除
+        })
+      )
+      .pipe(dest(destPath.html)) // コンパイル済みのHTMLファイルを出力先に保存
+      .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true })); // 通知を表示
   } else {
-    return Promise.resolve(); // falseの場合は何も実行せず、Promiseを返す
+    return Promise.resolve(); // ejsModeがfalseの場合は何も実行せず、Promiseを返す
   }
 };
 

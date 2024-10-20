@@ -1,7 +1,6 @@
-<%# color, link, text %>
-<% const variable = ['white']; %>
-<% const addClass = variable.includes(color) ? ` c-button-normal--${color}` : ''; %>
+<%# modifier, link, text %>
+<% const modifierClass = modifier ? ` c-button-normal--${modifier}` : ''; %>
 
-<div class="c-button-normal<%- addClass %>">
-  <a href="<%= link %>.html"><%= text %></a>
+<div class="c-button-normal<%= modifierClass %>">
+  <a href="<%= link %>"><%= text %></a>
 </div>

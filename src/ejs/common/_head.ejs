@@ -1,3 +1,5 @@
+<%# baseUrl, page %>
+
 <head>
   <!-- ! noindex and nofollow -->
   <meta name="robots" content="noindex, nofollow" />
@@ -10,9 +12,17 @@
   <!-- meta情報 -->
   <title><%= page['title'] %></title>
   <meta name="description" content="<%= page['description'] %>" />
+  <meta name="keywords" content="<%= page['keywords'] %>" />
 
   <!-- OGP(Open Graph Protocol) -->
-  <meta property="og:type" content="website か description か article" />
+  <%# 
+  og:type:
+    website:トップページや会社情報ページ
+    article:ブログ記事ページ 
+    product:商品詳細ページ（eコマースサイトの場合）
+    event:イベントページ 
+  %>
+  <meta property="og:type" content="<%= page['ogType'] %>" />
   <meta property="og:title" content="<%= page['title'] %>" />
   <meta property="og:description" content="<%= page['description'] %>" />
   <meta property="og:url" content="<%= page['url'] %>" />
@@ -21,7 +31,6 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="ja_JP" />
   <meta property="og:site_name" content="<%= page['title'] %>" />
-  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- X OGP -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -34,7 +43,7 @@
   <!-- <link rel="apple-touch-icon" href="<%= baseUrl %>/images/apple-touch-icon.png" sizes="180*180" /> -->
 
   <!-- canonical -->
-  <link rel="canonical" href="このページのURL" />
+  <link rel="canonical" href="<%= page['url'] %>" />
 
   <!-- google font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,11 +52,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Gotu&family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- css -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="<%= baseUrl %>/assets/css/ress.min.css" />
   <link rel="stylesheet" href="<%= baseUrl %>/assets/css/style.min.css" />
 
   <!-- JavaScript -->
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous"></script>
   <script defer src="<%= baseUrl %>/assets/js/script.js"></script>
