@@ -63,6 +63,7 @@ const srcPath = {
 // * html反映用
 const destPath = {
   all: '../dist/**/*',
+  sass: '../dist/src/sass/',
   css: '../dist/assets/css/',
   js: '../dist/assets/js/',
   img: '../dist/assets/images/',
@@ -72,6 +73,7 @@ const destPath = {
 // * WordPress反映用
 const destWpPath = {
   all: `../distwp/**/*`,
+  sass: `../distwp/src/sass/`,
   css: `../distwp/assets/css/`,
   js: `../distwp/assets/js/`,
   img: `../distwp/assets/images/`,
@@ -80,7 +82,8 @@ const destWpPath = {
 
 // * WordPressLocal反映用
 const destWpLocalPath = {
-  all: `${wpDirectory}/`, //  all: `${wpDirectory}/**/*` が効かないため
+  all: `${wpDirectory}/`, // all: `${wpDirectory}/**/*` が効かないため
+  sass: `${wpDirectory}/src/sass/`,
   css: `${wpDirectory}/assets/css/`,
   js: `${wpDirectory}/assets/js/`,
   img: `${wpDirectory}/assets/images/`,
@@ -93,6 +96,17 @@ const htmlCopy = () => {
     return Promise.resolve(); // trueの場合は何も実行せず、Promiseを返す
   } else {
     return src(srcPath.html).pipe(dest(destPath.html));
+  }
+};
+
+// * SASSファイルのコピー
+const sassCopy = () => {
+  if (wpMode) {
+    return src(srcPath.sass, { encoding: false })
+      .pipe(dest(destWpPath.sass)) // WordPress反映用
+      .pipe(dest(destWpLocalPath.sass)); // WordPressLocal反映用
+  } else {
+    return src(srcPath.sass, { encoding: false }).pipe(dest(destPath.sass));
   }
 };
 
@@ -216,32 +230,34 @@ export const ejsCompile = () => {
     });
     // jsonDataの内容を確認するためにログを表示
     // console.log('jsonData:', JSON.stringify(jsonData, null, 2));
-    return src([srcEjsDir + '/**/*.ejs', '!' + srcEjsDir + '/**/_*.ejs']) // パーシャルファイルを除く
-      // .pipe(
-      //   plumber({
-      //     // エラーハンドリングを設定
-      //     errorHandler: notify.onError((error) => {
-      //       return {
-      //         message: `Error: ${error.message}`,
-      //         sound: false,
-      //       };
-      //     }),
-      //   })
-      // )
-      .pipe(ejs({ json: jsonData })) // 全てのJSONデータをEJSに渡す
-      .pipe(rename({ extname: '.html' })) // 拡張子を.htmlに変更
-      .pipe(replace(/^[ \t]*\n/gm, '')) // 空白行を削除
-      .pipe(
-        htmlbeautify({
-          indent_size: 2, // インデントサイズ
-          indent_char: ' ', // インデントに使う文字
-          max_preserve_newlines: 0, // 連続する空行の最大数
-          preserve_newlines: false, // 改行を削除
-          extra_liners: [], // 余分な改行を削除
-        })
-      )
-      .pipe(dest(destPath.html)) // コンパイル済みのHTMLファイルを出力先に保存
-      .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true })); // 通知を表示
+    return (
+      src([srcEjsDir + '/**/*.ejs', '!' + srcEjsDir + '/**/_*.ejs']) // パーシャルファイルを除く
+        // .pipe(
+        //   plumber({
+        //     // エラーハンドリングを設定
+        //     errorHandler: notify.onError((error) => {
+        //       return {
+        //         message: `Error: ${error.message}`,
+        //         sound: false,
+        //       };
+        //     }),
+        //   })
+        // )
+        .pipe(ejs({ json: jsonData })) // 全てのJSONデータをEJSに渡す
+        .pipe(rename({ extname: '.html' })) // 拡張子を.htmlに変更
+        .pipe(replace(/^[ \t]*\n/gm, '')) // 空白行を削除
+        .pipe(
+          htmlbeautify({
+            indent_size: 2, // インデントサイズ
+            indent_char: ' ', // インデントに使う文字
+            max_preserve_newlines: 0, // 連続する空行の最大数
+            preserve_newlines: false, // 改行を削除
+            extra_liners: [], // 余分な改行を削除
+          })
+        )
+        .pipe(dest(destPath.html)) // コンパイル済みのHTMLファイルを出力先に保存
+        .pipe(notify({ message: 'Ejsをコンパイルしました！', onLast: true }))
+    ); // 通知を表示
   } else {
     return Promise.resolve(); // ejsModeがfalseの場合は何も実行せず、Promiseを返す
   }
@@ -285,9 +301,9 @@ const watchFiles = () => {
 
 // ! ブラウザシンク付きの開発用タスク
 export default series(
-  series(cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy),
+  series(cssSass, cssCopy, sassCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy),
   parallel(watchFiles, browserSyncFunc)
 );
 
 // ! 本番用タスク
-export const build = series(clean, cssSass, cssCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy);
+export const build = series(clean, cssSass, cssCopy, sassCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy);
