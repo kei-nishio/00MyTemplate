@@ -1,11 +1,11 @@
 @use 'global' as *;
 
 .c-breadcrumb {
-  margin-top: fluidRange(10, 20);
+  margin-top: clampRange(10, 20);
   text-align: right;
 }
 .breadcrumb__inner.l-inner {
-  padding-right: fluidRange(10, 60);
+  padding-right: clampRange(10, 60);
 }
 .breadcrumb__container {
   display: flex;
@@ -34,7 +34,7 @@
     display: inline-block;
     width: 20px;
     height: 2px;
-    margin-inline: fluidRange(10);
+    margin-inline: clampRange(10);
     background-color: $black;
   }
 }

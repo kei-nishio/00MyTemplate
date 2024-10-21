@@ -12,7 +12,7 @@
 }
 
 .p-section-hoge__content {
-  margin-top: fluidRange(40);
+  margin-top: clampRange(40);
 }
 
 .p-section-hoge__list {
@@ -31,5 +31,5 @@
 .p-section-hoge__button {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(24, 60);
+  margin-top: clampRange(24, 60);
 }

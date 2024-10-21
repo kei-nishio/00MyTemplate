@@ -12,7 +12,7 @@
 }
 
 .p-section-fuga__content {
-  margin-top: fluidRange(40);
+  margin-top: clampRange(40);
 }
 
 .p-section-fuga__slide {
@@ -31,7 +31,7 @@
   .swiper-equipment {
     position: initial;
     width: 100%;
-    margin-top: fluidRange(60);
+    margin-top: clampRange(60);
   }
 
   .swiper-scrollbar {
@@ -48,6 +48,6 @@
 .p-section-fuga__button {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(24, 60);
+  margin-top: clampRange(24, 60);
 
 }

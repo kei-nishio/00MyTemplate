@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   height: inherit;
-  padding-inline: fluidRange(15);
+  padding-inline: clampRange(15);
 }
 
 .p-header__logo {
@@ -24,7 +24,7 @@
   a {
     height: inherit;
     width: fit-content;
-    padding-block: fluidRange(16);
+    padding-block: clampRange(16);
 
     picture,
     img {

@@ -1,5 +1,5 @@
 @use 'global' as *;
 
 .l-lower-top {
-  margin-top: fluidRange(40, 80);
+  margin-top: clampRange(40, 80);
 }

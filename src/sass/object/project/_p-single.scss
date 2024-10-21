@@ -28,11 +28,11 @@
   display: flex;
   justify-content: center;
   gap: fluidRange(40);
-  margin-top: fluidRange(40);
+  margin-top: clampRange(40);
 }
 
 .p-single__button {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(200);
+  margin-top: clampRange(200);
 }

@@ -12,7 +12,7 @@
 }
 
 .p-error__text {
-  margin-top: fluidRange(24, 48);
+  margin-top: clampRange(24, 48);
   font-size: fluidRange(14, 16);
   line-height: 2;
   text-align: center;
@@ -24,5 +24,5 @@
 .p-error__button {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(60, 100);
+  margin-top: clampRange(60, 100);
 }
