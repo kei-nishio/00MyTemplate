@@ -1,9 +1,11 @@
 @use 'global' as *;
 
+$ratio: calc(320 / 375); // 320px以下レスポンシブの比率
+
 @if $startFrom == sp {
-  //スマホファースト
+  // スマホファースト
   html {
-    //375px~767px
+    // 375px~767px
     font-size: 16px;
 
     //~375px
@@ -11,29 +13,33 @@
       font-size: vw(16, 375);
     }
 
+    // 768px~inner
     @include mq('md') {
-      font-size: vw(16, strip-unit($inner));
+      font-size: vwLinear(calc(16 * $ratio), 768, 16, strip-unit($inner));
     }
 
-    //inner~max-screen
+    // inner~max-screen
     @media (min-width: $inner) {
       font-size: 16px;
     }
   }
 } @else {
-  //PCファースト
+  // PCファースト
   html {
+    // 375px~767px
     font-size: 16px;
 
+    // 768px~inner
     @media (max-width: $inner) {
-      font-size: vw(16, strip-unit($inner));
+      font-size: vwLinear(calc(16 * $ratio), 768, 16, strip-unit($inner));
     }
 
+    // inner~max-screen
     @include mq('md') {
       font-size: 16px;
     }
 
-    //~375px
+    // ~375px
     @media (max-width: 375px) {
       font-size: vw(16, 375);
     }

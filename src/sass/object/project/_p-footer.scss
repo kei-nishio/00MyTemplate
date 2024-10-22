@@ -14,7 +14,7 @@
   a {
     width: fit-content;
     height: fluidRange(80);
-    padding-block: clampRange(16);
+    padding-block: fluidRange(16);
 
     picture,
     img {
@@ -28,7 +28,7 @@
 .p-footer__sns {
   display: grid;
   place-items: center;
-  margin-top: clampRange(24);
+  margin-top: fluidRange(24);
 }
 
 .p-footer__sns-list {
@@ -55,7 +55,7 @@
 }
 
 .p-footer__nav {
-  margin-top: clampRange(24);
+  margin-top: fluidRange(24);
 }
 
 .p-footer__list {
@@ -72,6 +72,6 @@
 }
 
 .p-footer__copy {
-  margin-top: clampRange(64);
+  margin-top: fluidRange(64);
   text-align: center;
 }

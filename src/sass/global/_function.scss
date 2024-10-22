@@ -73,21 +73,22 @@
   @return calc(#{$a-vw}vw + #{$b-px});
 }
 
-// * clampRange
-@function clampRange($size1, $size2: null) {
+// * fluidRange
+@function fluidRange($size1, $size2: null, $ratio: null) {
   $ssize1: strip-unit($size1);
-  $ssize2: if($size2 == null, $ssize1, strip-unit($size2)); // $size2 が null の場合、$size1 を使用
+  $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
+  $sratio: if($ratio == null, calc(320 / 375), strip-unit($ratio));
   $min: min($ssize1, $ssize2);
   $max: max($ssize1, $ssize2);
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
-    @return clamp(calc($min * 1px), vwLinear($ssize1, $width-sp, $ssize2, $inner), calc($max * 1px));
+    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $inner), calc($max * 1px));
   }
 }
 
-// * fluidRange
-@function fluidRange($size1, $size2: null) {
+// * fluidRangeLinear // 320px以下で線形に出来るがややこしいので使わない。
+@function fluidRangeLinear($size1, $size2: null) {
   $ssize1: strip-unit($size1);
   $ssize2: if($size2 == null, $ssize1, strip-unit($size2)); // $size2 が null の場合、$min を使用
   $min: min($ssize1, $ssize2);

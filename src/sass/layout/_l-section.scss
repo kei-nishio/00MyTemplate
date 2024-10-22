@@ -1,5 +1,5 @@
 @use 'global' as *;
 
 .l-section {
-  margin-top: clampRange(60, 120);
+  margin-top: fluidRange(60, 120);
 }

@@ -27,7 +27,7 @@
     }
   }
   .p-form__item + .p-form__item {
-    margin-top: clampRange(40, 56);
+    margin-top: fluidRange(40, 56);
   }
 
   .p-form__term {
@@ -49,7 +49,7 @@
   }
 
   .p-form__required {
-    padding: clampRange(2) clampRange(4);
+    padding: fluidRange(2) fluidRange(4);
     border: 1px solid red;
     color: red;
     font-size: fluidRange(12);
@@ -57,20 +57,20 @@
   }
 
   .p-form__policy {
-    margin-top: clampRange(24, 40);
+    margin-top: fluidRange(24, 40);
     font-size: fluidRange(14);
     text-align: center;
   }
 
   .p-form__submit-cation {
-    margin-top: clampRange(16, 32);
+    margin-top: fluidRange(16, 32);
     text-align: center;
   }
 
   .p-form__submit {
     display: grid;
     place-items: center;
-    margin-top: clampRange(40);
+    margin-top: fluidRange(40);
   }
 
   //  ! common style

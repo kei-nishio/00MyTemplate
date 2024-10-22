@@ -6,14 +6,14 @@
   right: 0;
   left: 0;
   z-index: zi(header);
-  height: clampRange($headerHeight-sp, $headerHeight-pc);
+  height: fluidRange($headerHeight-sp, $headerHeight-pc);
 }
 
 .p-header__inner {
   display: flex;
   justify-content: space-between;
   height: inherit;
-  padding-inline: clampRange(15);
+  padding-inline: fluidRange(15);
 }
 
 .p-header__logo {
@@ -24,7 +24,7 @@
   a {
     height: inherit;
     width: fit-content;
-    padding-block: clampRange(16);
+    padding-block: fluidRange(16);
 
     picture,
     img {
@@ -47,7 +47,7 @@
 .p-header__list {
   display: flex;
   align-items: center;
-  gap: fluidRange(16,48);
+  gap: fluidRange(16, 48);
   height: inherit;
 }
 
