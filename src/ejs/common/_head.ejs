@@ -13,15 +13,11 @@
   <title><%= page['title'] %></title>
   <meta name="description" content="<%= page['description'] %>" />
   <meta name="keywords" content="<%= page['keywords'] %>" />
+  <%# memo
+  keywords: SEOに影響ないため設定は任意
+  %>
 
   <!-- OGP(Open Graph Protocol) -->
-  <%# 
-  og:type:
-    website:トップページや会社情報ページ
-    article:ブログ記事ページ 
-    product:商品詳細ページ（eコマースサイトの場合）
-    event:イベントページ 
-  %>
   <meta property="og:type" content="<%= page['ogType'] %>" />
   <meta property="og:title" content="<%= page['title'] %>" />
   <meta property="og:description" content="<%= page['description'] %>" />
@@ -31,6 +27,13 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="ja_JP" />
   <meta property="og:site_name" content="<%= page['title'] %>" />
+  <%# memo: 
+  og:type:
+    website:トップページや会社情報ページ
+    article:ブログ記事ページ 
+    product:商品詳細ページ（eコマースサイトの場合）
+    event:イベントページ 
+  %>
 
   <!-- X OGP -->
   <meta name="twitter:card" content="summary_large_image" />
