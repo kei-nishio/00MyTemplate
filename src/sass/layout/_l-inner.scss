@@ -4,10 +4,11 @@
   .l-inner {
     width: 100%;
     max-width: $maxWidth-tb;
+    margin-inline: auto;
     padding-right: $padding-sp;
     padding-left: $padding-sp;
-    margin-inline: auto;
     @include mq('md') {
+      width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
       max-width: $inner + $padding-pc * 2;
       padding-right: $padding-pc;
       padding-left: $padding-pc;
@@ -15,12 +16,13 @@
   }
 } @else {
   .l-inner {
+    width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
     max-width: $inner + $padding-pc * 2;
+    margin-inline: auto;
     padding-right: $padding-pc;
     padding-left: $padding-pc;
-    width: 100%;
-    margin-inline: auto;
     @include mq('md') {
+      width: 100%;
       max-width: $maxWidth-tb;
       padding-right: $padding-sp;
       padding-left: $padding-sp;
