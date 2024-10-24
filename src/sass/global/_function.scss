@@ -80,6 +80,26 @@
   $sratio: if($ratio == null, calc(320 / 375), strip-unit($ratio));
   $min: min($ssize1, $ssize2);
   $max: max($ssize1, $ssize2);
+  @if $ssize1 > $ssize2 {
+    $sratio: 1;
+  }
+  @if $ssize1 == $ssize2 {
+    @return rem($ssize1);
+  } @else {
+    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc($max * 1px));
+  }
+}
+
+// * fluidRangeInner
+@function fluidRangeInner($size1, $size2: null, $ratio: null) {
+  $ssize1: strip-unit($size1);
+  $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
+  $sratio: if($ratio == null, calc(320 / 375), strip-unit($ratio));
+  $min: min($ssize1, $ssize2);
+  $max: max($ssize1, $ssize2);
+  @if $ssize1 > $ssize2 {
+    $sratio: 1;
+  }
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {

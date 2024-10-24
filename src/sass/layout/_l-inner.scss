@@ -8,6 +8,7 @@
     padding-right: $padding-sp;
     padding-left: $padding-sp;
     @include mq('md') {
+      width: vw(calc($inner + 2 * $padding-pc), $width-pc);
       width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
       max-width: $inner + $padding-pc * 2;
       padding-right: $padding-pc;
@@ -16,6 +17,7 @@
   }
 } @else {
   .l-inner {
+    width: vw(calc($inner + 2 * $padding-pc), $width-pc);
     width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
     max-width: $inner + $padding-pc * 2;
     margin-inline: auto;
