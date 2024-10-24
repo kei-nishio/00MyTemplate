@@ -5,14 +5,13 @@
     width: 100%;
     max-width: $maxWidth-tb;
     margin-inline: auto;
-    padding-right: $padding-sp;
-    padding-left: $padding-sp;
+    padding-inline: $padding-sp;
+
     @include mq('md') {
       width: vw(calc($inner + 2 * $padding-pc), $width-pc);
       width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
       max-width: $inner + $padding-pc * 2;
-      padding-right: $padding-pc;
-      padding-left: $padding-pc;
+      padding-inline: $padding-pc;
     }
   }
 } @else {
@@ -21,13 +20,12 @@
     width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
     max-width: $inner + $padding-pc * 2;
     margin-inline: auto;
-    padding-right: $padding-pc;
-    padding-left: $padding-pc;
+    padding-inline: $padding-pc;
+
     @include mq('md') {
       width: 100%;
       max-width: $maxWidth-tb;
-      padding-right: $padding-sp;
-      padding-left: $padding-sp;
+      padding-inline: $padding-sp;
     }
   }
 }
