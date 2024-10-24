@@ -8,10 +8,25 @@
     padding-inline: $padding-sp;
 
     @include mq('md') {
+      // type1
       width: vw(calc($inner + 2 * $padding-pc), $width-pc);
+      max-width: $inner + $padding-pc * 2;
+      max-width: initial;
+      padding-inline: $padding-pc;
+    }
+
+    @include mq('md') {
+      // type2
       width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
       max-width: $inner + $padding-pc * 2;
+      max-width: initial;
       padding-inline: $padding-pc;
+    }
+
+    @include mq('md') {
+      // type3
+      max-width: initial;
+      padding-inline: percent(calc(($width-pc - $inner) / 2), $width-pc);
     }
   }
 } @else {
@@ -21,6 +36,7 @@
     max-width: $inner + $padding-pc * 2;
     margin-inline: auto;
     padding-inline: $padding-pc;
+    padding-inline: percent(calc(($width-pc - $inner) / 2), $width-pc);
 
     @include mq('md') {
       width: 100%;

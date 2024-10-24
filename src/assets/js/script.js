@@ -112,7 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-  const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer', '.js-drawer-mask');
+  const hamburger = document.querySelector('.js-hamburger');
+  if (hamburger) {
+    const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer', '.js-drawer-mask');
+  }
 
   // ! ヘッダーをスクロールで非表示にする ***********
   let lastScrollTop = 0;
@@ -493,67 +496,77 @@ document.addEventListener('DOMContentLoaded', () => {
   // ! FadeIN Animation ***********
   // * その場でフェードイン
   const fadeIns = document.querySelectorAll('.js-fadeIn');
-  fadeIns.forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: {
-        trigger: element,
-        start: 'top bottom-=70',
-      },
-      duration: 0.5,
-      autoAlpha: 0,
+  if (fadeIns.length > 0) {
+    fadeIns.forEach((element) => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom-=70',
+        },
+        duration: 0.5,
+        autoAlpha: 0,
+      });
     });
-  });
+  }
   // * 右からフェードイン
   const fadeInRights = document.querySelectorAll('.js-fadeInRight');
-  fadeInRights.forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: {
-        trigger: element,
-        start: 'top bottom-=70',
-      },
-      duration: 0.5,
-      autoAlpha: 0,
-      x: 100,
+  if (fadeInRights.length > 0) {
+    fadeInRights.forEach((element) => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom-=70',
+        },
+        duration: 0.5,
+        autoAlpha: 0,
+        x: 100,
+      });
     });
-  });
+  }
   // * 左からフェードイン
   const fadeInLefts = document.querySelectorAll('.js-fadeInLeft');
-  fadeInLefts.forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: {
-        trigger: element,
-        start: 'top bottom-=70',
-      },
-      duration: 0.5,
-      autoAlpha: 0,
-      x: -100,
+  if (fadeInLefts.length > 0) {
+    fadeInLefts.forEach((element) => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom-=70',
+        },
+        duration: 0.5,
+        autoAlpha: 0,
+        x: -100,
+      });
     });
-  });
+  }
   // * 下からフェードイン
   const fadeInBottoms = document.querySelectorAll('.js-fadeInBottom');
-  fadeInBottoms.forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: {
-        trigger: element,
-        start: 'top bottom-=70',
-      },
-      duration: 0.5,
-      autoAlpha: 0,
-      y: 100,
+  if (fadeInBottoms.length > 0) {
+    fadeInBottoms.forEach((element) => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom-=70',
+        },
+        duration: 0.5,
+        autoAlpha: 0,
+        y: 100,
+      });
     });
-  });
+  }
   // * 右から順番にフェードイン
   const fadeInRightStaggers = document.querySelectorAll('.js-fadeInRightStagger');
-  gsap.from(fadeInRightStaggers, {
-    scrollTrigger: {
-      trigger: fadeInRightStaggers[0],
-      start: 'top bottom-=70',
-    },
-    duration: 0.7,
-    autoAlpha: 0,
-    x: 100,
-    stagger: 0.2,
-  });
+  if (fadeInRightStaggers.length > 0) {
+    gsap.from(fadeInRightStaggers, {
+      scrollTrigger: {
+        trigger: fadeInRightStaggers[0],
+        start: 'top bottom-=70',
+      },
+      duration: 0.7,
+      autoAlpha: 0,
+      x: 100,
+      stagger: 0.2,
+    });
+  }
 
   // ! Loading Animation ***********
   if (false) {

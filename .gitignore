@@ -6,3 +6,4 @@ _gulp/package-lock.json/
 dist
 distwp
 backup
+*.zip
