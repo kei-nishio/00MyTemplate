@@ -5,3 +5,4 @@ _gulp/package-lock.json/
 .DS_Store
 dist
 distwp
+backup
