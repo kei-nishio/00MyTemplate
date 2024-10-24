@@ -60,7 +60,7 @@
     display: grid;
     place-items: center;
     height: inherit;
-    color: $black;
+    color: black;
   }
   span {
     position: relative;
@@ -75,7 +75,7 @@
     width: 100%;
     height: rem(2);
     border-radius: rem(2);
-    background-color: $black;
+    background-color: black;
     transition: transform 0.3s;
   }
 }

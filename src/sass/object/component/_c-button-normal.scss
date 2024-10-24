@@ -2,18 +2,26 @@
 
 .c-button-normal {
   position: relative;
-  border: 1px solid $black;
+  border: 1px solid black;
   border-radius: rem(20);
-  box-shadow: 1px 1px 0 0 $black;
+  box-shadow: 1px 1px 0 0 gray;
+  background-color: black;
   transition: transform 0.2s, box-shadow 0.2s;
   a,
   input[type='submit'] {
-    min-width: rem(200);
     display: inline-block;
+    min-width: rem(200);
     padding-block: rem(6);
     padding-inline: rem(32);
-    color: $black;
+    color: white;
     text-align: center;
+  }
+}
+.c-button-normal.c-button-normal--white {
+  background-color: white;
+  a,
+  input[type='submit'] {
+    color: black;
   }
 }
 
@@ -21,6 +29,6 @@
   .c-button-normal:hover {
     opacity: 1;
     transform: translate(1px, 1px);
-    box-shadow: 0 0 0 0 $black;
+    box-shadow: 0 0 0 0 gray;
   }
 }

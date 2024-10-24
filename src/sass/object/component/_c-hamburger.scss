@@ -23,7 +23,7 @@ $hamburger-scale: 1.414;
   width: 100%;
   height: $hamburger-border-height;
   border-radius: $hamburger-border-height;
-  background-color: $black;
+  background-color: black;
   transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
 }
 

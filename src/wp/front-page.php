@@ -57,10 +57,7 @@
   <section class="l-section p-section-hoge">
     <div class="p-section-hoge__inner l-inner">
       <div class="p-section-hoge__heading">
-        <hgroup class="c-section-title">
-          <p class="c-section-title__sub">hoge</p>
-          <h2 class="c-section-title__main">グリッド</h2>
-        </hgroup>
+        <?php get_template_part('/parts/c-section-title', "", ["title" => 'グリッド', "subtitle" => 'hoge', "modifier" => "hoge"]); ?>
       </div>
       <div class="p-section-hoge__content">
         <?php if ($the_query->have_posts()) : ?>
@@ -82,7 +79,6 @@
       </div>
     </div>
   </section>
-
 
   <?php // sub query swiper
   ?>
@@ -106,10 +102,7 @@
   <section class="l-section p-section-fuga">
     <div class="p-section-fuga__inner l-inner">
       <div class="p-section-fuga__heading">
-        <hgroup class="c-section-title">
-          <p class="c-section-title__sub">fuga</p>
-          <h2 class="c-section-title__main">スワイパー</h2>
-        </hgroup>
+        <?php get_template_part('/parts/c-section-title', "", ["title" => 'スワイパー', "subtitle" => 'fuga', "modifier" => ""]); ?>
       </div>
       <div class="p-section-fuga__content">
         <?php if ($the_query->have_posts()) : ?>
@@ -141,5 +134,51 @@
       </div>
     </div>
   </section>
+
+  <?php // table
+  ?>
+  <section class="l-section p-section-piyo">
+    <div class="p-section-piyo__inner l-inner">
+      <div class="p-section-piyo__heading">
+        <?php get_template_part('/parts/c-section-title', "", ["title" => 'テーブル', "subtitle" => 'piyo', "modifier" => "piyo"]); ?>
+      </div>
+      <div class="p-section-piyo__content">
+        <?php
+        $json_url =  get_theme_file_uri('/data/table.json');
+        $json_data = file_get_contents($json_url);
+        $data = json_decode($json_data, true);
+        ?>
+        <table class="p-section-piyo__table">
+          <thead>
+            <tr>
+              <th scope="col"><?php echo esc_html($data['header']['name']); ?></th>
+              <th scope="col"><?php echo esc_html($data['header']['age']); ?></th>
+              <th scope="col"><?php echo esc_html($data['header']['country']); ?></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($data['body'] as $row) : ?>
+              <tr>
+                <th scope="row"><?php echo esc_html($row['name']); ?></th>
+                <td><?php echo esc_html($row['age']); ?></td>
+                <td><?php echo esc_html($row['country']); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row"><?php echo esc_html($data['footer']['result']); ?></td>
+              <td><?php echo esc_html($data['footer']['total']); ?></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="p-section-piyo__button">
+          <div class="c-button-normal c-button-normal--white"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 <?php get_footer(); ?>

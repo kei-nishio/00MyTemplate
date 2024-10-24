@@ -1,0 +1,28 @@
+{
+  "header": {
+    "name": "名前",
+    "age": "年齢",
+    "country": "出身国"
+  },
+  "body": [
+    {
+      "name": "山田太郎",
+      "age": 20,
+      "country": "日本"
+    },
+    {
+      "name": "John Smith",
+      "age": 30,
+      "country": "USA"
+    },
+    {
+      "name": "Jean Dupont",
+      "age": 40,
+      "country": "France"
+    }
+  ],
+  "footer": {
+    "result": "合計",
+    "total": 3
+  }
+}

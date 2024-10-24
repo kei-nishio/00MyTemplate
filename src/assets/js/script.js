@@ -275,72 +275,78 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! Swiper FV ***********
-  const swiperFv = new Swiper('.js-swiper-fv .swiper', {
-    direction: 'horizontal',
-    effect: 'fade', // 'fade', 'cube', 'coverflow', 'flip'
-    loop: true,
-    speed: 3000,
-    allowTouchMove: true,
-    slidesPerView: 1,
-    spaceBetween: 16,
-    centeredSlides: true,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-    },
-    breakpoints: {
-      768: {
-        spaceBetween: 32,
+  let swiperFvs = document.querySelectorAll('.js-swiper-fv .swiper');
+  if (swiperFvs.length > 0) {
+    const swiperFv = new Swiper('.js-swiper-fv .swiper', {
+      direction: 'horizontal',
+      effect: 'fade', // 'fade', 'cube', 'coverflow', 'flip'
+      loop: true,
+      speed: 3000,
+      allowTouchMove: true,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      centeredSlides: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
       },
-    },
-  });
-  // * TOPページで特定のSwiperを制御する
-  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-    if (swiperFv) {
-      swiperFv.autoplay.stop(); // 初回は自動再生を止めておく
-      setTimeout(() => {
-        swiperFv.autoplay.start(); // 1秒後に自動再生を開始
-      }, 1000);
+      breakpoints: {
+        768: {
+          spaceBetween: 32,
+        },
+      },
+    });
+    // * TOPページで特定のSwiperを制御する
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      if (swiperFv) {
+        swiperFv.autoplay.stop(); // 初回は自動再生を止めておく
+        setTimeout(() => {
+          swiperFv.autoplay.start(); // 1秒後に自動再生を開始
+        }, 1000);
+      }
     }
   }
 
   // ! Swiper Normal  ***********
-  const swiperNews = new Swiper('.js-swiper .swiper', {
-    direction: 'horizontal', // vertical
-    loop: true,
-    speed: 3000,
-    allowTouchMove: true,
-    slidesPerView: 1,
-    spaceBetween: 16,
-    // centeredSlides: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 24,
+  let swiperNews = document.querySelectorAll('.js-swiper .swiper');
+  if (swiperNews.length > 0) {
+    const swiperNews = new Swiper('.js-swiper .swiper', {
+      direction: 'horizontal', // vertical
+      loop: true,
+      speed: 3000,
+      allowTouchMove: true,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      // centeredSlides: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
       },
-      1440: {
-        slidesPerView: 3,
-        spaceBetween: 32,
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 24,
+        },
+        1440: {
+          slidesPerView: 3,
+          spaceBetween: 32,
+        },
       },
-    },
-    pagination: {
-      el: '.js-swiper .swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.js-swiper .swiper-button-next',
-      prevEl: '.js-swiper .swiper-button-prev',
-    },
-    scrollbar: {
-      el: '.js-swiper .swiper-scrollbar',
-      hide: false,
-      draggable: true,
-    },
-  });
+      pagination: {
+        el: '.js-swiper .swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.js-swiper .swiper-button-next',
+        prevEl: '.js-swiper .swiper-button-prev',
+      },
+      scrollbar: {
+        el: '.js-swiper .swiper-scrollbar',
+        hide: false,
+        draggable: true,
+      },
+    });
+  }
 
   // ! Swiper Creative  ***********
   // const swiperCreative = new Swiper('.js-swiper .swiper', {

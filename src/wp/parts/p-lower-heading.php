@@ -1,6 +1,6 @@
 <?php
-$sub_title = $args["subtitle"];
 $title = $args["title"];
+$sub_title = $args["subtitle"];
 ?>
 <div class="p-lower-heading">
   <div class="p-lower-heading__heading">
