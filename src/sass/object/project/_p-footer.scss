@@ -13,8 +13,8 @@
 
   a {
     width: fit-content;
-    height: fluidRange(80);
-    padding-block: fluidRange(16);
+    height: rem(80);
+    padding-block: rem(16);
 
     picture,
     img {
@@ -28,19 +28,19 @@
 .p-footer__sns {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(24);
+  margin-top: rem(24);
 }
 
 .p-footer__sns-list {
   display: flex;
-  gap: fluidRange(16);
+  gap: rem(16);
 }
 
 .p-footer__sns-item {
   a {
     display: block;
-    width: fluidRange(30);
-    height: fluidRange(30);
+    width: rem(30);
+    height: rem(30);
     aspect-ratio: 1;
 
     picture,
@@ -55,14 +55,14 @@
 }
 
 .p-footer__nav {
-  margin-top: fluidRange(24);
+  margin-top: rem(24);
 }
 
 .p-footer__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: fluidRange(24);
+  gap: rem(24);
 }
 
 .p-footer__item {
@@ -72,6 +72,6 @@
 }
 
 .p-footer__copy {
-  margin-top: fluidRange(64);
+  margin-top: rem(64);
   text-align: center;
 }

@@ -26,12 +26,12 @@
 .p-single__pagination {
   display: flex;
   justify-content: center;
-  gap: fluidRange(40);
-  margin-top: fluidRange(40);
+  gap: rem(40);
+  margin-top: rem(40);
 }
 
 .p-single__button {
   display: grid;
   place-items: center;
-  margin-top: fluidRange(200);
+  margin-top: rem(200);
 }

@@ -1,33 +1,48 @@
 @use 'global' as *;
 .p-content {
   h2 {
-    padding-bottom: fluidRange(40);
-    border-bottom: fluidRange(4) solid $black;
+    padding-bottom: rem(40);
+    border-bottom: rem(4) solid $black;
     font-weight: $bold;
-    font-size: fluidRange(24, 40);
+    font-size: rem(24);
+    @include mq('md') {
+      font-size: rem(40);
+    }
     line-height: 2;
   }
   h3 {
     margin-top: 1em;
-    padding-bottom: fluidRange(40);
+    padding-bottom: rem(40);
     border-bottom: 1px solid $black;
     font-weight: $bold;
-    font-size: fluidRange(24, 40);
+    font-size: rem(24);
+    @include mq('md') {
+      font-size: rem(40);
+    }
   }
   h4 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fluidRange(20, 32);
+    font-size: rem(20);
+    @include mq('md') {
+      font-size: rem(32);
+    }
   }
   h5 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fluidRange(18, 20);
+    font-size: rem(18);
+    @include mq('md') {
+      font-size: rem(20);
+    }
   }
   h6 {
     margin-top: 1em;
     font-weight: $bold;
-    font-size: fluidRange(16, 20);
+    font-size: rem(16);
+    @include mq('md') {
+      font-size: rem(20);
+    }
   }
   p {
     margin-top: 1em;
@@ -37,13 +52,19 @@
     list-style: decimal;
     list-style-position: inside;
     font-weight: $bold;
-    font-size: fluidRange(16, 20);
+    font-size: rem(16);
+    @include mq('md') {
+      font-size: rem(20);
+    }
     font-family: $secondFont;
   }
   ul {
     list-style: disc;
     list-style-position: inside;
-    font-size: fluidRange(16, 20);
+    font-size: rem(16);
+    @include mq('md') {
+      font-size: rem(20);
+    }
   }
 }
 

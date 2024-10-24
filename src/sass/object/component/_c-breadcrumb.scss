@@ -1,20 +1,31 @@
 @use 'global' as *;
 
 .c-breadcrumb {
-  margin-top: fluidRange(10, 20);
+  margin-top: rem(10);
   text-align: right;
+
+  @include mq('md') {
+    margin-top: rem(20);
+  }
 }
 .breadcrumb__inner.l-inner {
-  padding-right: fluidRange(10, 60);
+  padding-right: rem(10);
+
+  @include mq('md') {
+    padding-right: rem(60);
+  }
 }
 .breadcrumb__container {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
   color: $black;
-  font-size: fluidRange(10, 15);
+  font-size: rem(10);
   font-family: $secondFont;
 
+  @include mq('md') {
+    font-size: rem(15);
+  }
   a {
     color: $black;
   }
@@ -24,17 +35,18 @@
 .c-breadcrumb {
   span[property='name'] {
     display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 10em;
+    overflow: hidden;
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
   }
 
   .breadcrumb__between {
     display: inline-block;
     width: 20px;
     height: 2px;
-    margin-inline: fluidRange(10);
+    margin-inline: rem(10);
     background-color: $black;
   }
 }

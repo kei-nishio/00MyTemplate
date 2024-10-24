@@ -4,7 +4,7 @@ body {
   background-color: $white;
   color: $black;
   font-weight: $regular;
-  font-size: fluidRange(16);
+  font-size: rem(16);
   line-height: 1.5;
   font-family: $firstFont;
 }

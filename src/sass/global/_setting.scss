@@ -6,7 +6,7 @@ $width-sp: 375px; // SPのデザイン画面幅
 $width-pc: 1366px; // PCのデザイン画面幅
 $height-sp: 667px; // SPのデザイン画面高さ
 $height-pc: 768px; // PCのデザイン画面高さ
-$inner: 1080px; // コンテンツのインナー幅（インナー幅＋余白＝デザイン画面幅）
+$inner: 1080px; // コンテンツのインナー幅（$inner＋$padding＋余白＝画面幅）
 $maxWidth-tb: 600px; // タブレット時最大幅
 $padding-sp: 15px; // SPの余白
 $padding-pc: 25px; // PCの余白

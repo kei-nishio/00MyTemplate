@@ -1,5 +1,8 @@
 @use 'global' as *;
 
 .l-footer {
-  margin-top: fluidRange(60, 120);
+  margin-top: rem(60);
+  @include mq('md') {
+    margin-top: rem(120);
+  }
 }
