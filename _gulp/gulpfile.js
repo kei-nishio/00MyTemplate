@@ -42,7 +42,7 @@ const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\U
 
 // * パス設定
 const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
-const wpMode = true; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
 const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
 const themeName = 'mytemplatetheme'; // ! WordPress theme file name
