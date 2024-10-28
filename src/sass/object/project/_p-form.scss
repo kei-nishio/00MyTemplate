@@ -68,6 +68,11 @@
     @include mq('md') {
       margin-top: rem(40);
     }
+
+    a {
+      text-decoration: underline;
+      margin-left: 1em;
+    }
   }
 
   .p-form__submit-cation {
