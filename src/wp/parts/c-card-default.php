@@ -1,5 +1,5 @@
 <?php
-$class = "c-card";
+$class = "c-card-default";
 $tax_slug = "news-type";
 $post_id = $args["post_id"];
 $thumbnail_id = get_post_thumbnail_id($post_id);

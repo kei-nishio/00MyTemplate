@@ -1,5 +1,5 @@
 <?php
-$slug = $args['slug'] ?? '';
+$slug = $args['slug'] ?? 'default';
 ?>
 <?php get_header(); ?>
 <main class="main">
