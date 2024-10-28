@@ -43,6 +43,7 @@ const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\U
 // * パス設定
 const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
 const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpLocalMode = true; // ! WordPressLocalの内容を上書きする場合はtrueにする
 const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
 const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
 const themeName = 'mytemplatetheme'; // ! WordPress theme file name
@@ -104,7 +105,7 @@ const sassCopy = () => {
   if (wpMode) {
     return src(srcPath.sass, { encoding: false })
       .pipe(dest(destWpPath.sass)) // WordPress反映用
-      .pipe(dest(destWpLocalPath.sass)); // WordPressLocal反映用
+      .pipe(wpLocalMode ? dest(destWpLocalPath.sass) : through2.obj()); // WordPressLocal反映用
   } else {
     return src(srcPath.sass, { encoding: false }).pipe(dest(destPath.sass));
   }
@@ -116,7 +117,7 @@ const cssCopy = () => {
     return src(srcPath.css, { encoding: false })
       .pipe(dest(destPath.css)) // 静的コーディング反映用
       .pipe(dest(destWpPath.css)) // WordPress反映用
-      .pipe(dest(destWpLocalPath.css)); // WordPressLocal反映用
+      .pipe(wpLocalMode ? dest(destWpLocalPath.css) : through2.obj()); // WordPressLocal反映用
   } else {
     return src(srcPath.css, { encoding: false }).pipe(dest(destPath.css));
   }
@@ -127,7 +128,7 @@ const phpCopy = () => {
   if (wpMode) {
     return src(srcPath.php, { encoding: false })
       .pipe(dest(destWpPath.php)) // WordPress反映用
-      .pipe(dest(destWpLocalPath.php)); // WordPressLocal反映用
+      .pipe(wpLocalMode ? dest(destWpLocalPath.php) : through2.obj()); // WordPressLocal反映用
   } else {
     return Promise.resolve(); // falseの場合は何も実行せず、Promiseを返す
   }
@@ -151,12 +152,12 @@ const cssSass = () => {
     .pipe(sourcemaps.write('./')) // ソースマップをここで書き出す
     .pipe(dest(destPath.css)) // 非圧縮CSSを出力
     .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
+    .pipe(wpLocalMode && wpMode && wpMode ? dest(destWpLocalPath.css) : through2.obj())
     .pipe(rename({ suffix: '.min' })) // ファイル名に.minを追加
     .pipe(cleanCSS()) // CSSを圧縮
     .pipe(dest(destPath.css)) // 圧縮CSSを出力
     .pipe(wpMode ? dest(destWpPath.css) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.css) : through2.obj())
+    .pipe(wpLocalMode && wpMode && wpMode ? dest(destWpLocalPath.css) : through2.obj())
     .pipe(notify({ message: 'Sassをコンパイルしました！', onLast: true })); // 通知を表示
 };
 
@@ -189,11 +190,11 @@ const imgImagemin = () => {
     )
     .pipe(dest(destPath.img))
     .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj())
+    .pipe(wpLocalMode && wpMode ? dest(destWpLocalPath.img) : through2.obj())
     .pipe(webp()) //webpに変換
     .pipe(dest(destPath.img))
     .pipe(wpMode ? dest(destWpPath.img) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.img) : through2.obj());
+    .pipe(wpLocalMode && wpMode ? dest(destWpLocalPath.img) : through2.obj());
 };
 
 // * js圧縮
@@ -203,12 +204,12 @@ const jsBabel = () => {
     .pipe(babel({ presets: ['@babel/preset-env'] })) // ES6+のJavaScriptをES5に変換
     .pipe(dest(destPath.js))
     .pipe(wpMode ? dest(destWpPath.js) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj())
+    .pipe(wpLocalMode && wpMode ? dest(destWpLocalPath.js) : through2.obj())
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify()) //js圧縮
     .pipe(dest(destPath.js))
     .pipe(wpMode ? dest(destWpPath.js) : through2.obj())
-    .pipe(wpMode ? dest(destWpLocalPath.js) : through2.obj());
+    .pipe(wpLocalMode && wpMode ? dest(destWpLocalPath.js) : through2.obj());
 };
 
 // * EJSのコンパイル
@@ -282,7 +283,11 @@ const browserSyncReload = (done) => {
 
 // * ファイルの削除
 const clean = () => {
-  return deleteAsync([destPath.all, destWpPath.all, destWpLocalPath.all], { force: true });
+  if (wpLocalMode) {
+    return deleteAsync([destPath.all, destWpPath.all, destWpLocalPath.all], { force: true });
+  } else {
+    return deleteAsync([destPath.all, destWpPath.all], { force: true });
+  }
 };
 
 // * ファイルの監視
