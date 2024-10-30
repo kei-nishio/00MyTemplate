@@ -2,19 +2,30 @@
 <main class="main">
   <?php // loading 
   ?>
-  <!-- <div class="p-loading js-loading">
+  <div class="p-loading js-loading">
     <div class="p-loading__inner">
     </div>
   </div>
   <script>
-    const loadingElement = document.querySelector(".js-loading");
-    const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
-    if (!hasFirstVisited) {
-      loadingElement.classList.add("is-active");
-    } else {
-      loadingElement.classList.remove("is-active");
-    }
-  </script> -->
+    // const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
+    // let loadingElements = document.querySelectorAll('.js-loading');
+    // let loadingHideOnHTML = document.querySelectorAll('.js-loadingHide');
+    // if (!hasFirstVisited) {
+    //   // loading on
+    //   loadingElements.forEach((element) => {
+    //     element.classList.add("is-loading");
+    //   });
+    //   loadingHideOnHTML.forEach((element) => {
+    //     element.style.visibility = 'hidden';
+    //     element.style.opacity = '0';
+    //   });
+    // } else {
+    //   // loading off
+    //   loadingElements.forEach((element) => {
+    //     element.classList.remove("is-loading");
+    //   });
+    // }
+  </script>
   <?php // FV 
   ?>
   <section class="l-fv p-fv">
