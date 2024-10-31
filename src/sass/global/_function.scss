@@ -103,7 +103,7 @@
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
-    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $inner), calc($max * 1px));
+    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc($max * 1px));
   }
 }
 
@@ -116,7 +116,10 @@
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
-    @return min(min(calc($ssize1 / 375 * 100vw), vwLinear($ssize1, $width-sp, $ssize2, $inner)), calc($ssize2 * 1px));
+    @return min(
+      min(calc($ssize1 / 375 * 100vw), vwLinear($ssize1, $width-sp, $ssize2, $width-pc)),
+      calc($ssize2 * 1px)
+    );
   }
 }
 

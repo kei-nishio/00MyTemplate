@@ -12,18 +12,24 @@
     // let loadingHideOnHTML = document.querySelectorAll('.js-loadingHide');
     // if (!hasFirstVisited) {
     //   // loading on
-    //   loadingElements.forEach((element) => {
-    //     element.classList.add("is-loading");
-    //   });
-    //   loadingHideOnHTML.forEach((element) => {
-    //     element.style.visibility = 'hidden';
-    //     element.style.opacity = '0';
-    //   });
+    //   if (loadingElements.length > 0) {
+    //     loadingElements.forEach((element) => {
+    //       element.classList.add("is-loading");
+    //     });
+    //   }
+    //   if (loadingHideOnHTML.length > 0) {
+    //     loadingHideOnHTML.forEach((element) => {
+    //       element.style.visibility = 'hidden';
+    //       element.style.opacity = '0';
+    //     });
+    //   }
     // } else {
     //   // loading off
-    //   loadingElements.forEach((element) => {
-    //     element.classList.remove("is-loading");
-    //   });
+    //   if (loadingElements.length > 0) {
+    //     loadingElements.forEach((element) => {
+    //       element.classList.remove("is-loading");
+    //     });
+    //   }
     // }
   </script>
   <?php // FV 
