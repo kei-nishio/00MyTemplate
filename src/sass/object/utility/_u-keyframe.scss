@@ -1,4 +1,4 @@
-@use "global" as *;
+@use 'global' as *;
 
 @keyframes flowing {
   0% {
@@ -6,5 +6,41 @@
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes fuwafuwa {
+  0% {
+    transform: translate(0, 0) rotate(-7deg);
+  }
+  50% {
+    transform: translate(0, -7px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(7deg);
+  }
+}
+
+@keyframes rinrin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  51% {
+    transform: rotate(-10deg);
+  }
+  52% {
+    transform: rotate(0deg);
+  }
+  53% {
+    transform: rotate(-10deg);
+  }
+  54% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
