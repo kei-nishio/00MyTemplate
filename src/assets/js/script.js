@@ -508,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: element,
           start: 'top bottom-=70',
+          once: true,
         },
         duration: 0.5,
         autoAlpha: 0,
@@ -522,6 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: element,
           start: 'top bottom-=70',
+          once: true,
         },
         duration: 0.5,
         autoAlpha: 0,
@@ -537,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: element,
           start: 'top bottom-=70',
+          once: true,
         },
         duration: 0.5,
         autoAlpha: 0,
@@ -552,6 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: element,
           start: 'top bottom-=70',
+          once: true,
         },
         duration: 0.5,
         autoAlpha: 0,
@@ -566,6 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: fadeInRightStaggers[0],
         start: 'top bottom-=70',
+        once: true,
       },
       duration: 0.7,
       autoAlpha: 0,
