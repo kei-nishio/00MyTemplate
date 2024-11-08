@@ -119,16 +119,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! ヘッダーをスクロールで非表示にする ***********
   let lastScrollTop = 0;
+  const header = document.querySelector('.js-header');
   window.addEventListener('scroll', () => {
     let scrollTop = document.documentElement.scrollTop;
     // * scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
     if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
-      gsap.to('.js-header', { duration: 0.5, autoAlpha: 0 });
+      header.classList.add('is-hidden');
     } else {
-      gsap.to('.js-header', { duration: 0.5, autoAlpha: 1 });
+      header.classList.remove('is-hidden');
     }
     lastScrollTop = scrollTop;
   });
+
+  // ! トリガー要素以下で見えなくなるターゲット ***********
+  if (false) {
+    let trigger = document.querySelector('.js-trigger');
+    let target = document.querySelector('.js-target');
+    if (trigger && target) {
+      // ビューポート上の位置＋現在のスクロール量
+      let triggerTop = trigger.getBoundingClientRect().top + window.scrollY;
+      window.addEventListener('scroll', function () {
+        // フォームの上端が画面内に入ったかどうか
+        var scrolledIntoView = window.scrollY + window.innerHeight >= triggerTop;
+        if (scrolledIntoView) {
+          target.style.opacity = '0';
+          target.style.visibility = 'hidden';
+          target.style.pointerEvents = 'none';
+          target.style.userSelect = 'none';
+        } else {
+          target.style.opacity = '1';
+          target.style.visibility = 'visible';
+          target.style.pointerEvents = '';
+          target.style.userSelect = '';
+        }
+      });
+    }
+  }
 
   // ! 途中から追従するコンタクトボタン ***********
   if (false) {
