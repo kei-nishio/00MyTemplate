@@ -4,15 +4,21 @@ $ratio: calc(320 / 375); // 320px以下レスポンシブの比率
 $type: 'type1';
 /*
 root font-sizeの設定
-[type1]
+[type1] 通常タイプ（768付近で文字サイズが小さくなる）
 ・0~$width-pcまで線形
 ・$width-pc~16px
-[type2]
+
+[type2] デザインのまま拡縮するタイプ
 ・0~$width-pc~全て線形
-[type3]
+
+[type3] 通常版の768付近で文字サイズが小さくなるのを緩和したタイプ
 ・768pxで$ratioまで縮小
 ・768px~$width-pcまで線形
 ・$width-pc~16px
+
+[type4] 画面幅がinnerになってから余白が広がるタイプ
+・0~$innerまで線形
+・$inner~16pxで一定
 */
 
 @if $startFrom == sp {
