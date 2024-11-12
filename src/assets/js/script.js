@@ -448,15 +448,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let linkId = new URL(pageUrl).searchParams.get('id');
     if (linkId) {
       tabSelectors.forEach((tab) => {
-        tab.classList.remove('is-active');
+        tab.classList.remove('is-open');
       });
       tabContents.forEach((content) => {
-        content.classList.remove('is-active');
+        content.classList.remove('is-open');
       });
       let tabSelectorTarget = document.querySelector(`[data-target='${linkId}']`);
       let tabContentTarget = document.getElementById(linkId);
-      tabSelectorTarget.classList.add('is-active');
-      tabContentTarget.classList.add('is-active');
+      tabSelectorTarget.classList.add('is-open');
+      tabContentTarget.classList.add('is-open');
     }
   }
 
