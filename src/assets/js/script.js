@@ -180,69 +180,108 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! クリックアコーディオン ***********
-  const accordionItems = document.querySelectorAll('.js-accordion');
-  if (accordionItems.length > 0) {
-    accordionItems.forEach((accordionItem, index) => {
-      const accordionParent = accordionItem.children[0];
-      const accordionChild = accordionItem.children[1];
+  class AccordionToggle {
+    constructor(accordionElement, index) {
+      this.accordionElement = accordionElement;
+      this.parent = accordionElement.children[0];
+      this.child = accordionElement.children[1];
+      this.isOpen = this.accordionElement.classList.contains('is-open');
+      this.index = index;
+      this.init();
+    }
 
-      // is-open状態を記録
-      accordionChild.style.height = 'auto';
-      accordionChild.style.opacity = 0;
-      const openedHeight = accordionChild.offsetHeight;
-      const openedPaddingTop = window.getComputedStyle(accordionChild).paddingTop;
-      const openedPaddingBottom = window.getComputedStyle(accordionChild).paddingBottom;
+    init() {
+      // 一時的にアコーディオンを表示状態にする
+      this.child.style.display = 'block';
+      this.child.style.height = 'auto';
+      this.child.style.transform = 'rotateX(0deg)';
+      this.child.style.opacity = 1;
+      this.child.style.visibility = 'visible';
 
-      // 初期状態は全て閉じておく
-      accordionChild.style.height = '0';
-      accordionChild.style.paddingTop = '0';
-      accordionChild.style.paddingBottom = '0';
-      accordionChild.style.transform = 'rotateX(90deg)';
-      
-      // index=0の要素は最初から開いておく
-      if (true && index === 0) {
-        accordionItem.classList.add('is-open');
-        accordionChild.style.display = 'block';
-        accordionChild.style.height = `${openedHeight}px`;
-        accordionChild.style.paddingTop = openedPaddingTop;
-        accordionChild.style.paddingBottom = openedPaddingBottom;
-        accordionChild.style.transform = 'rotateX(0)';
-        accordionChild.style.opacity = 1;
-        accordionChild.style.visibility = 'visible';
+      this.height = this.child.offsetHeight;
+      this.paddingTop = window.getComputedStyle(this.child).paddingTop;
+      this.paddingBottom = window.getComputedStyle(this.child).paddingBottom;
+
+      this.reset();
+
+      if (this.isOpen || this.index === 0) {
+        this.open();
+      } else {
+        this.reset();
       }
 
-      // クリックでアコーディオン
-      accordionParent.addEventListener('click', () => {
-        if (accordionItem.classList.contains('is-open')) {
-          gsap.to(accordionChild, {
-            duration: 0.3,
-            height: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
-            rotateX: 90,
-            autoAlpha: 0,
-            ease: 'power2.inOut',
-            onComplete: function () {
-              accordionChild.style.display = 'none';
-            },
-          });
-          accordionItem.classList.remove('is-open');
-          return;
-        } else {
-          gsap.to(accordionChild, {
-            duration: 0.3,
-            display: 'block',
-            height: openedHeight,
-            paddingTop: openedPaddingTop,
-            paddingBottom: openedPaddingBottom,
-            rotateX: 0,
-            autoAlpha: 1,
-            ease: 'power2.inOut',
-          });
-          accordionItem.classList.add('is-open');
-          return;
-        }
+      this.parent.addEventListener('click', () => this.toggle());
+    }
+
+    reset() {
+      this.child.style.height = '0';
+      this.child.style.paddingTop = '0';
+      this.child.style.paddingBottom = '0';
+      this.child.style.transform = 'rotateX(90deg)';
+      this.child.style.opacity = 0;
+      this.child.style.visibility = 'hidden';
+    }
+
+    open() {
+      this.isOpen = true;
+      this.accordionElement.classList.add('is-open');
+      gsap.to(this.child, {
+        duration: 0.3,
+        height: this.height,
+        paddingTop: this.paddingTop,
+        paddingBottom: this.paddingBottom,
+        rotateX: 0,
+        autoAlpha: 1,
+        ease: 'power2.inOut',
+        onStart: () => {
+          this.child.style.display = 'block';
+        },
       });
+    }
+
+    close() {
+      this.isOpen = false;
+      this.accordionElement.classList.remove('is-open');
+      gsap.to(this.child, {
+        duration: 0.3,
+        height: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        rotateX: 90,
+        autoAlpha: 0,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          this.child.style.display = 'none';
+        },
+      });
+    }
+
+    toggle() {
+      if (this.isOpen) {
+        this.close();
+      } else {
+        this.open();
+      }
+    }
+  }
+
+  const accordions = document.querySelectorAll('.js-accordion');
+  if (accordions.length > 0) {
+    accordions.forEach((accordion, index) => {
+      new AccordionToggle(accordion, index);
+    });
+
+    // ウィンドウ幅が変わったときに再度インスタンスを生成
+    let lastWindowWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      let currentWindowWidth = window.innerWidth;
+      if (currentWindowWidth !== lastWindowWidth) {
+        lastWindowWidth = currentWindowWidth;
+        accordions.forEach((accordion, index) => {
+          const isOpen = accordion.classList.contains('is-open');
+          new AccordionToggle(accordion, index, isOpen);
+        });
+      }
     });
   }
 
