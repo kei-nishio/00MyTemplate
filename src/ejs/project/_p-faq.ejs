@@ -1,0 +1,29 @@
+<%
+  const cardItems = [
+    {
+      q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
+      a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
+    },
+    {
+      q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
+      a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
+    }
+  ];
+%>
+<section class="p-faq">
+  <div class="p-faq__inner l-inner">
+    <div class="p-faq__heading">
+      <%- include(ejsPath + './component/_c-section-title', {title: "よくある質問", subTitle: "FAQ"} ) %>
+    </div>
+    <div class="p-faq__content">
+      <dl class="p-faq__list">
+        <% for(let i = 0; i < cardItems.length; i++) { %>
+        <div class="p-faq__item js-accordion">
+          <dt class="p-faq__q"><span><%- cardItems[i].q %></span></dt>
+          <dd class="p-faq__a"><span><%- cardItems[i].a %></span></dd>
+        </div>
+        <% } %>
+      </dl>
+    </div>
+  </div>
+</section>

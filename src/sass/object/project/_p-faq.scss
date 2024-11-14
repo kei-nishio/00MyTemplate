@@ -1,0 +1,127 @@
+@use 'global' as *;
+
+.p-faq {
+}
+
+.p-faq__inner.l-inner {
+}
+
+.p-faq__heading {
+}
+
+.p-faq__content {
+  margin-top: rem(0);
+
+  @include mq('md') {
+    margin-top: rem(0);
+  }
+}
+
+.p-faq__list {
+  margin-top: rem(0);
+
+  @include mq('md') {
+    margin-top: rem(0);
+  }
+}
+
+.p-faq__item {
+}
+.p-faq__item + .p-faq__item {
+  margin-top: rem(0);
+
+  @include mq('md') {
+    margin-top: rem(0);
+  }
+}
+
+.p-faq__q,
+.p-faq__a {
+}
+.p-faq__q {
+  position: relative;
+  padding-right: rem(24);
+  background-color: pink;
+  @include mq('md') {
+    padding-right: rem(48);
+  }
+}
+.p-faq__a {
+}
+// [-][+]
+.p-faq__q::before,
+.p-faq__q::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: rem(4);
+  width: rem(16);
+  height: rem(2);
+  background-color: blue;
+
+  @include mq('md') {
+    right: rem(12);
+    width: rem(24);
+  }
+}
+.p-faq__q::before {
+}
+.p-faq__q::after {
+  rotate: 90deg;
+  transition: all 0.3s ease;
+}
+
+.p-faq__q span,
+.p-faq__a span {
+  display: block;
+  position: relative;
+  padding-top: rem(8);
+  padding-right: rem(2);
+  padding-bottom: rem(8);
+  padding-left: rem(32);
+
+  @include mq('md') {
+    padding-top: rem(24);
+    padding-right: rem(12);
+    padding-bottom: rem(24);
+    padding-left: rem(82);
+  }
+}
+.p-faq__q span {
+  position: relative;
+}
+.p-faq__a span {
+}
+// [Q][A]
+.p-faq__q span::before,
+.p-faq__a span::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: rem(4);
+  translate: 0 40%;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1;
+
+  @include mq {
+    left: rem(24);
+    translate: 0 15%;
+  }
+}
+.p-faq__q span::before {
+  content: 'Q.';
+  color: red;
+}
+.p-faq__a span::before {
+  content: 'A.';
+  color: blue;
+}
+
+// is-open
+.p-faq__item.is-open {
+  .p-faq__q::after {
+    transform: scale(0);
+    rotate: 90deg;
+  }
+}

@@ -197,5 +197,27 @@
     </div>
   </section>
 
+  <?php // faq
+  ?>
+  <section class="p-faq">
+    <div class="p-faq__inner l-inner">
+      <div class="p-faq__heading">
+        <?php get_template_part('/parts/c-section-title', "", ["title" => 'よくある質問', "subtitle" => 'FAQ', "modifier" => ""]); ?>
+      </div>
+      <div class="p-faq__content">
+        <dl class="p-faq__list">
+          <div class="p-faq__item js-accordion">
+            <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
+            <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
+          </div>
+          <div class="p-faq__item js-accordion">
+            <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
+            <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
 </main>
 <?php get_footer(); ?>
