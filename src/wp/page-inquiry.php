@@ -106,16 +106,9 @@
         return !isHidden && input.value.trim() !== "";
       });
 
-      // プライバシーポリシーのチェックボックスがチェックされているか確認
-      const isPrivacyAccepted = privacyCheckbox.checked;
-
       // 確認ボタンの有効/無効状態を更新
-      confirmButton.disabled = !(allFilled && isPrivacyAccepted); // 必須項目が全て埋まっており、プライバシーポリシーにも同意されている必要がある
-
-      // デバッグ用ログ: 各入力値とボタンの状態
-      console.log('Privacy accepted:', isPrivacyAccepted);
-      console.log('All fields filled:', allFilled);
-      console.log('Confirm button disabled:', confirmButton.disabled);
+      const isPrivacyAccepted = privacyCheckbox.checked;
+      confirmButton.disabled = !(allFilled && isPrivacyAccepted); 
     }
 
     // 送信完了時のリダイレクト処理

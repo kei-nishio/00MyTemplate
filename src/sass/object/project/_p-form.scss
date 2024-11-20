@@ -52,6 +52,7 @@
   }
 
   .p-form__description {
+    overflow-wrap: anywhere;
     @include mq('md') {
       width: 70%;
     }
@@ -101,12 +102,10 @@
     margin-top: rem(40);
   }
 
-  .p-form__confirm {
-    display: none;
-    
-    .p-form__description span {
-      overflow-wrap: anywhere;
-    }
+  .p-form__note {
+    font-size: rem(14);
+    color: gray;
+    margin-top: rem(18);
   }
 
   //  ! common style
@@ -281,5 +280,13 @@
     // background-image: url();
     // background-position: right 12px center;
     // background-repeat: no-repeat;
+  }
+}
+
+.p-form__confirm {
+  display: none;
+
+  .p-form__description span {
+    overflow-wrap: anywhere;
   }
 }
