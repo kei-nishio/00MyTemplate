@@ -35,6 +35,10 @@
       "slug" => home_url("/contact")
     ],
     [
+      "name" => "inquiry",
+      "slug" => home_url("/inquiry")
+    ],
+    [
       "name" => "google",
       "slug" => "https://google.com/"
     ]

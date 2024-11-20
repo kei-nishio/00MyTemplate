@@ -3,6 +3,9 @@
 .wpcf7-spinner {
   display: none;
 }
+.wpcf7-list-item {
+  margin: 0;
+}
 
 .p-form {
   padding: 6.25%;
@@ -27,7 +30,8 @@
       font-size: rem(20);
     }
   }
-  .p-form__item + .p-form__item {
+  .p-form__item:not(:nth-of-type(1)),
+  div[data-class='wpcf7cf_group'] {
     margin-top: rem(40);
 
     @include mq('md') {
@@ -39,7 +43,8 @@
     @include mq('md') {
       width: 30%;
     }
-    label {
+    label,
+    p {
       display: flex;
       align-items: center;
       gap: rem(8);
@@ -70,8 +75,8 @@
     }
 
     a {
-      text-decoration: underline;
       margin-left: 1em;
+      text-decoration: underline;
     }
   }
 
@@ -84,10 +89,24 @@
     }
   }
 
+  .p-form__previous {
+    display: grid;
+    place-items: center;
+    margin-top: rem(40);
+  }
+
   .p-form__submit {
     display: grid;
     place-items: center;
     margin-top: rem(40);
+  }
+
+  .p-form__confirm {
+    display: none;
+    
+    .p-form__description span {
+      overflow-wrap: anywhere;
+    }
   }
 
   //  ! common style
@@ -132,6 +151,9 @@
     cursor: pointer;
     transition: 0.3s ease;
   }
+  input:disabled {
+    cursor: not-allowed;
+  }
 
   // ! radio
   #f-radio {
@@ -153,7 +175,7 @@
         display: block;
         position: absolute;
         top: 50%;
-        left: 0;
+        left: 0.4em;
         transform: translateX(-50%) translateY(-50%);
         transform-origin: center;
         border-radius: 100%;
@@ -168,13 +190,13 @@
         opacity: 0;
         width: calc($vRadioSize * 0.8);
         height: calc($vRadioSize * 0.8);
+        background: red;
         transition: 0.2s ease;
       }
     }
     &:checked + span {
       &::after {
         opacity: 1;
-        background: black;
       }
     }
   }
@@ -191,7 +213,7 @@
     + span {
       display: inline-block;
       position: relative;
-      margin-right: 1em;
+      padding-left: 1em;
       cursor: pointer;
       &::before,
       &::after {
@@ -199,7 +221,7 @@
         display: block;
         position: absolute;
         top: 50%;
-        left: -0.5em;
+        left: 0.4em;
         transform: translateX(-50%) translateY(-50%);
         transform-origin: center;
       }

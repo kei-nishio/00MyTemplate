@@ -1,14 +1,13 @@
 <!-- ! 確認画面の遷移は案件に合わせて選択すること -->
 
 <!-- * Form Contact Start -->
-<div class="p-form">
+<div class="p-form js-formArea">
   <dl class="p-form__list">
     <!-- * Company -->
     <div class="p-form__item">
       <dt class="p-form__term">
         <label for="f-company">
           会社名
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -22,7 +21,6 @@
       <dt class="p-form__term">
         <label for="f-name">
           ご担当者名
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -36,7 +34,6 @@
       <dt class="p-form__term">
         <label for="f-url">
           URL
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -50,7 +47,6 @@
       <dt class="p-form__term">
         <label for="f-tel">
           電話番号
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -64,7 +60,6 @@
       <dt class="p-form__term">
         <label for="f-mail">
           メールアドレス
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -78,7 +73,6 @@
       <dt class="p-form__term">
         <label for="f-select">
           お問い合わせの種類（セレクト）（通常）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -91,7 +85,6 @@
       <dt class="p-form__term">
         <label for="f-select">
           お問い合わせの種類（セレクト）（カスタム）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -105,7 +98,6 @@
       <dt class="p-form__term">
         <label for="f-select">
           お問い合わせの種類（セレクト）（条件分岐）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -120,7 +112,6 @@
       <dt class="p-form__term">
         <label for="f-select">
           お問い合わせの種類（セレクト）（条件分岐＋カスタム）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -134,7 +125,6 @@
       <dt class="p-form__term">
         <label for="f-checkbox">
           お問い合わせの種類（チェックボックス）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -148,7 +138,6 @@
       <dt class="p-form__term">
         <label for="f-radio">
           お問い合わせの種類（ラジオボタン）
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -161,7 +150,6 @@
       <dt class="p-form__term">
         <label for="f-textarea">
           お問い合わせ内容
-          <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>
         </label>
       </dt>
@@ -196,6 +184,7 @@
       </dd>
     </div>
   </dl>
+
   <!-- * Acceptance -->
   <div class="p-form__policy">
     [acceptance your-acceptance]
@@ -210,11 +199,166 @@
   <div class="p-form__submit">
     <div class="c-button-normal">[submit "送信する"]</div>
   </div>
-  <!-- * To Confirm Multi Step で確認画面に遷移する場合 -->
+  <!-- * To Confirm JavaScriptで確認画面に切り替える場合 -->
   <div class="p-form__submit">
-    <div class="c-button-normal">[submit "入力内容のご確認"]</div>
-    [multistep your-multistep01 first_step "http://localhost:3000/contact/confirm/"]
-    <!-- [multistep your-multistep01 first_step "hogehoge/contact/confirm/"] -->
+    <div class="c-button-normal">
+      <input type="button" value="入力内容のご確認" class="js-confirmButton" disabled>
+    </div>
+  </div>
+</div>
+
+<!--
+ !!!!!!!!!!!!!!!
+ !!! confirm !!!
+ !!!!!!!!!!!!!!!
+ -->
+<div class="p-form__confirm p-form js-confirmArea">
+  <dl class="p-form__list">
+    <!-- * Company -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          会社名
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-company-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Name -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          ご担当者名
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-name-confirm"></span>
+      </dd>
+    </div>
+    <!-- * URL -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          URL
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-url-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Telephone -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          電話番号
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-tel-confirm"></span>
+      </dd>
+    </div>
+    <!-- * E-mail -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          メールアドレス
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-mail-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Select -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          お問い合わせの種類（セレクト）（通常）
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-select-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Checkbox -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          お問い合わせの種類（チェックボックス）
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-checkbox-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Radio -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          お問い合わせの種類（ラジオボタン）
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-radio-confirm"></span>
+      </dd>
+    </div>
+    <!-- * Textarea -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          お問い合わせ内容
+          <span class="p-form__required">必須</span>
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-textarea-confirm"></span>
+      </dd>
+    </div>
+    <!-- * zip-code -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          <span class="p-form__required">必須</span>
+          郵便番号
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-zip-code-confirm"></span>
+      </dd>
+    </div>
+    <!-- * address -->
+    <div class="p-form__item">
+      <dt class="p-form__term">
+        <p>
+          <span class="p-form__required">必須</span>
+          ご住所
+        </p>
+      </dt>
+      <dd class="p-form__description">
+        <span id="f-address-confirm"></span>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="p-form__button">
+    <!-- * Previous -->
+    <div class="p-form__previous">
+      <div class="c-button-normal">
+        <input type="button" class="js-backButton" value="訂正する">
+      </div>
+    </div>
+    <!-- * Submit -->
+    <div class="p-form__submit">
+      <div class="c-button-normal">[submit "送信する"]</div>
+    </div>
   </div>
 </div>
 <!-- * Form Contact End -->

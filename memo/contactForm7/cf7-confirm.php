@@ -12,7 +12,6 @@
       </dt>
       <dd class="p-form__description">
         [multiform your-company id:f-company]
-        <p class="p-form__example">例）株式会社○○</p>
       </dd>
     </div>
     <!-- * Name -->
@@ -26,7 +25,6 @@
       </dt>
       <dd class="p-form__description">
         [multiform your-name id:f-name]
-        <p class="p-form__example">例）田中太郎</p>
       </dd>
     </div>
     <!-- * URL -->
@@ -40,7 +38,6 @@
       </dt>
       <dd class="p-form__description">
         [multiform your-url id:f-url]
-        <p class="p-form__example">例）https://www.hoge.com</p>
       </dd>
     </div>
     <!-- * Telephone -->
@@ -54,7 +51,6 @@
       </dt>
       <dd class="p-form__description">
         [multiform your-tel id:f-tel]
-        <p class="p-form__example">例）000-0000-0000</p>
       </dd>
     </div>
     <!-- * E-mail -->
@@ -68,7 +64,6 @@
       </dt>
       <dd class="p-form__description">
         [multiform your-email id:f-mail]
-        <p class="p-form__example">例）hoge@hoge.com</p>
       </dd>
     </div>
     <!-- * Select -->
@@ -135,8 +130,8 @@
     <!-- * Submit -->
     <div class="p-form__submit">
       <div class="c-button-normal">[submit "送信する"]</div>
-      [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/confirm/thanks/"]
-      <!-- [multistep your-multistep02 last_step send_email "hogehoge/contact/confirm/thanks/"] -->
+      [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/thanks/"]
+      <!-- [multistep your-multistep02 last_step send_email "hogehoge/contact/thanks/"] -->
     </div>
   </div>
 </div>

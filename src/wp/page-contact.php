@@ -12,7 +12,7 @@
         <div class="p-sub-contact__inner l-inner">
           <div class="p-sub-contact__form">
             <?php if (true): ?>
-              <?php echo do_shortcode('[contact-form-7 id="97671ee" title="入力画面"]'); ?>
+              <?php echo do_shortcode('[contact-form-7 id="97671ee" title="contact"]'); ?>
             <?php else: ?>
               <p style="text-align: center;">ここにショートコードが入ります。</p>
             <?php endif; ?>
