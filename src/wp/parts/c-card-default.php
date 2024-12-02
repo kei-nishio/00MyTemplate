@@ -10,6 +10,7 @@ $author_id = get_the_author_meta('ID');
 $author_name = esc_html(get_the_author_meta('display_name', $author_id));
 $first_name = esc_html(get_the_author_meta('first_name', $author_id));
 $last_name = esc_html(get_the_author_meta('last_name', $author_id));
+$description = nl2br(esc_html(get_the_author_meta('description')));
 ?>
 <?php
 // $custom_field = get_field('');
@@ -24,6 +25,17 @@ $last_name = esc_html(get_the_author_meta('last_name', $author_id));
 //     $image_alt = esc_attr($image['alt']);
 //   endif;
 // endif;
+// $acfItems = [
+//   'cfItem1',
+//   'cfItem2',
+// ];
+// foreach ($jobItems as $item):
+//   $field = get_field_object($item);
+//   if ($field['value']):
+//     echo $field['label'];
+//     echo $field['value'];
+//   endif;
+// endforeach;
 ?>
 <a href="<?php the_permalink(); ?>" class="<?php echo $class; ?>">
   <?php // eye catch 

@@ -20,6 +20,7 @@
       $author_name = esc_html(get_the_author_meta('display_name', $author_id));
       $first_name = esc_html(get_the_author_meta('first_name', $author_id));
       $last_name = esc_html(get_the_author_meta('last_name', $author_id));
+      $description = nl2br(esc_html(get_the_author_meta('description')));
       $prev_url = !empty($prev = get_previous_post()) ? esc_url(get_permalink($prev->ID)) : '';
       $next_url = !empty($next = get_next_post()) ? esc_url(get_permalink($next->ID)) : '';
       ?>
