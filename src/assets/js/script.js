@@ -631,6 +631,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ! Pin Animation ***********
+  const pinTarget = document.querySelector('.js-pin-target');
+  const pinTrigger = document.querySelector('.js-pin-trigger');
+  if (pinTarget) {
+    ScrollTrigger.create({
+      trigger: pinTrigger,
+      start: 'top 30%',
+      end: 'bottom 70%',
+      pin: pinTarget,
+      scrub: true,
+      // markers: true, // デバッグ用
+    });
+  }
+
+  // ! Parallax Animation ***********
+  const parallaxs = document.querySelectorAll('.js-parallax');
+  if (parallaxs.length > 0) {
+    parallaxs.forEach((element) => {
+      gsap.fromTo(
+        element,
+        {
+          y: '30%',
+          filter: 'blur(0px)',
+        },
+        {
+          y: '80%',
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 2,
+          },
+        }
+      );
+    });
+  }
+
+  // ! Clip Path Animation ***********
+  const clipDowns = document.querySelectorAll('.js-clip-down');
+  if (clipDowns.length > 0) {
+    clipDowns.forEach((element) => {
+      gsap.fromTo(
+        element,
+        {
+          clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
+        },
+        {
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 90%',
+            end: 'bottom 80%',
+            // markers: true, // マーカー表示
+            scrub: true,
+            once: true,
+          },
+        }
+      );
+    });
+  }
+
+  const clipRights = document.querySelectorAll('.js-clip-right');
+  if (clipRights.length > 0) {
+    clipRights.forEach((element) => {
+      gsap.fromTo(
+        element,
+        {
+          clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+        },
+        {
+          clipPath: 'polygon(100% 0, 0 0, 0 100%, 100% 100%)',
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 90%',
+            end: 'bottom 80%',
+            // markers: true, // マーカー表示
+            scrub: true,
+            once: true,
+          },
+        }
+      );
+    });
+  }
+
   // ! FadeIN Animation ***********
   // * その場でフェードイン
   const fadeIns = document.querySelectorAll('.js-fadeIn');
