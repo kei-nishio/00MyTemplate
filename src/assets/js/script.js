@@ -483,39 +483,121 @@ document.addEventListener('DOMContentLoaded', () => {
   let swiperNews = document.querySelectorAll('.js-swiper .swiper');
   if (swiperNews.length > 0) {
     const swiperNews = new Swiper('.js-swiper .swiper', {
-      direction: 'horizontal', // vertical
-      loop: true,
-      speed: 3000,
-      allowTouchMove: true,
-      slidesPerView: 1,
-      spaceBetween: 16,
-      // centeredSlides: true,
+      // **1. 基本設定**
+      direction: 'horizontal', // 'horizontal' (水平) または 'vertical' (垂直)
+      loop: true, // 無限ループ
+      speed: 500, // スライドの切り替え速度 (ミリ秒)
+      initialSlide: 0, // 最初に表示するスライド (インデックス番号)
+
+      // **2. スライド表示設定**
+      slidesPerView: 1, // 画面に表示するスライド数 ('auto'も指定可)
+      spaceBetween: 10, // スライド間の余白 (px)
+      slidesPerGroup: 1, // 一度に移動するスライド数
+      centeredSlides: false, // アクティブスライドを中央に表示
+
+      // **3. 自動再生**
       autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
+        delay: 3000, // スライドの間隔 (ミリ秒)
+        disableOnInteraction: false, // ユーザー操作後も再生を続ける
+        pauseOnMouseEnter: true, // マウスオーバーで一時停止
       },
+
+      // **4. ページネーション (ドット)**
+      pagination: {
+        el: '.swiper-pagination', // ページネーション要素のセレクタ
+        clickable: true, // ページネーションをクリック可能にする
+        dynamicBullets: true, // 動的なドットサイズ
+        type: 'bullets', // 'bullets', 'fraction', 'progressbar', 'custom'
+        renderBullet: function (index, className) {
+          return `<span class="${className}">${index + 1}</span>`;
+        },
+      },
+
+      // **5. ナビゲーションボタン (前後ボタン)**
+      navigation: {
+        nextEl: '.swiper-button-next', // 次のボタンのセレクタ
+        prevEl: '.swiper-button-prev', // 前のボタンのセレクタ
+      },
+
+      // **6. スクロールバー**
+      scrollbar: {
+        el: '.swiper-scrollbar', // スクロールバーのセレクタ
+        draggable: true, // ドラッグ可能にする
+      },
+
+      // **7. グリッドレイアウト**
+      grid: {
+        rows: 1, // 行数
+        fill: 'row', // 'row' (横方向) または 'column' (縦方向)
+      },
+
+      // **8. レスポンシブ設定**
       breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
         768: {
           slidesPerView: 2,
-          spaceBetween: 24,
+          spaceBetween: 20,
         },
-        1440: {
+        1024: {
           slidesPerView: 3,
-          spaceBetween: 32,
+          spaceBetween: 30,
         },
       },
-      pagination: {
-        el: '.js-swiper .swiper-pagination',
-        clickable: true,
+
+      // **9. エフェクト設定**
+      effect: 'slide', // 'slide', 'fade', 'cube', 'coverflow', 'flip', 'creative'
+      fadeEffect: {
+        crossFade: true, // フェードエフェクト間のクロスフェード
       },
-      navigation: {
-        nextEl: '.js-swiper .swiper-button-next',
-        prevEl: '.js-swiper .swiper-button-prev',
+      cubeEffect: {
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.94,
       },
-      scrollbar: {
-        el: '.js-swiper .swiper-scrollbar',
-        hide: false,
-        draggable: true,
+      coverflowEffect: {
+        rotate: 50, // スライドの回転角度
+        stretch: 0, // スライド間の距離
+        depth: 100, // 奥行き
+        modifier: 1, // 効果の強さ
+        slideShadows: true,
+      },
+
+      // **10. 仮想スライド (動的生成)**
+      virtual: {
+        slides: (function () {
+          const slides = [];
+          for (let i = 0; i < 500; i++) {
+            slides.push(`Slide ${i}`);
+          }
+          return slides;
+        })(),
+      },
+
+      // **11. スライダー動作に関する設定**
+      allowSlideNext: true, // 次スライドへの移動を許可
+      allowSlidePrev: true, // 前スライドへの移動を許可
+      allowTouchMove: true, // スワイプ操作を許可
+      threshold: 20, // スワイプ感知の閾値 (px)
+      touchRatio: 1, // スワイプ感度
+      touchAngle: 45, // スワイプ開始方向の角度制限
+      simulateTouch: true, // デスクトップでのドラッグを許可
+      grabCursor: true, // スライダー操作中にカーソルを変更
+
+      // **12. イベントコールバック**
+      on: {
+        init: function () {
+          console.log('Swiper initialized');
+        },
+        slideChange: function () {
+          console.log('Slide changed to: ', this.activeIndex);
+        },
+        reachEnd: function () {
+          console.log('Reached the last slide');
+        },
       },
     });
   }
