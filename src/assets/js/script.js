@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('SP only process');
   }
 
-  // ! タブの切り替え ***********
+  // ! タブの切り替え（常時展開型）  ***********
   class TabSwitcher {
     constructor(tabSelector, contentSelector, openClass) {
       this.tabs = document.querySelectorAll(tabSelector);
@@ -55,6 +55,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (false) {
     const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
+  }
+
+  // ! タブの切り替え（トグル型） ***********
+  class TabToggleSwitcher {
+    constructor(tabSelector, contentSelector, openClass) {
+      this.tabs = document.querySelectorAll(tabSelector);
+      this.contents = document.querySelectorAll(contentSelector);
+      this.openClass = openClass;
+      this.init();
+    }
+    init() {
+      this.tabs.forEach((tab, index) => {
+        tab.addEventListener('click', (event) => {
+          event.stopPropagation(); // イベントのバブルを防止
+          this.toggleTab(index);
+        });
+      });
+      document.addEventListener('click', (event) => {
+        const clickedInsideTab = Array.from(this.tabs).some((tab) => tab.contains(event.target));
+        const clickedInsideContent = Array.from(this.contents).some((content) => content.contains(event.target));
+        if (!clickedInsideTab && !clickedInsideContent) {
+          this.resetTabs();
+        }
+      });
+    }
+    toggleTab(index) {
+      const isActive = this.tabs[index].classList.contains(this.openClass);
+      this.resetTabs();
+      if (!isActive) {
+        this.tabs[index].classList.add(this.openClass);
+        this.contents[index].classList.add(this.openClass);
+      }
+    }
+    resetTabs() {
+      this.tabs.forEach((tab) => tab.classList.remove(this.openClass));
+      this.contents.forEach((content) => content.classList.remove(this.openClass));
+    }
+  }
+  if (true) {
+    const tabSwitcher = new TabToggleSwitcher('.js-menu-tab', '.js-menu-content', 'is-open');
   }
 
   // ! セレクトボックスからカテゴリーアーカイブに遷移する ***********
