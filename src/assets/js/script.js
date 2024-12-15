@@ -30,39 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('SP only process');
   }
 
-  // ! タブの切り替え（常時展開型）  ***********
-  class TabSwitcher {
-    constructor(tabSelector, contentSelector, openClass) {
-      this.tabs = document.querySelectorAll(tabSelector);
-      this.contents = document.querySelectorAll(contentSelector);
-      this.openClass = openClass;
-      this.init();
-    }
-    init() {
-      this.tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => this.activateTab(index));
-      });
-    }
-    activateTab(index) {
-      this.resetTabs();
-      this.tabs[index].classList.add(this.openClass);
-      this.contents[index].classList.add(this.openClass);
-    }
-    resetTabs() {
-      this.tabs.forEach((tab) => tab.classList.remove(this.openClass));
-      this.contents.forEach((content) => content.classList.remove(this.openClass));
-    }
-  }
-  if (false) {
-    const tabSwitcher = new TabSwitcher('.js-tab', '.js-tab-content', 'is-open');
-  }
-
-  // ! タブの切り替え（トグル型） ***********
+  // ! タブ・クラス名トグル ***********
   class TabToggleSwitcher {
-    constructor(tabSelector, contentSelector, openClass) {
+    constructor(tabSelector, contentSelector, openClass, exclusive = false, outsideClose = false) {
       this.tabs = document.querySelectorAll(tabSelector);
       this.contents = document.querySelectorAll(contentSelector);
-      this.openClass = openClass;
+      this.openClass = openClass; // クラス名
+      this.exclusive = exclusive; // 他のタブクラスを排他的に外すかどうか
+      this.outsideClose = outsideClose; // タブ外をクリックでクラス名を外す
       this.init();
     }
     init() {
@@ -72,18 +47,27 @@ document.addEventListener('DOMContentLoaded', () => {
           this.toggleTab(index);
         });
       });
-      document.addEventListener('click', (event) => {
-        const clickedInsideTab = Array.from(this.tabs).some((tab) => tab.contains(event.target));
-        const clickedInsideContent = Array.from(this.contents).some((content) => content.contains(event.target));
-        if (!clickedInsideTab && !clickedInsideContent) {
-          this.resetTabs();
-        }
-      });
+      if (this.outsideClose) {
+        document.addEventListener('click', (event) => {
+          const clickedInsideTab = Array.from(this.tabs).some((tab) => tab.contains(event.target));
+          const clickedInsideContent = Array.from(this.contents).some((content) => content.contains(event.target));
+          if (!clickedInsideTab && !clickedInsideContent) {
+            this.resetTabs();
+          }
+        });
+      }
     }
     toggleTab(index) {
       const isActive = this.tabs[index].classList.contains(this.openClass);
-      this.resetTabs();
-      if (!isActive) {
+
+      if (this.exclusive) {
+        this.resetTabs();
+      }
+
+      if (isActive) {
+        this.tabs[index].classList.remove(this.openClass);
+        this.contents[index].classList.remove(this.openClass);
+      } else {
         this.tabs[index].classList.add(this.openClass);
         this.contents[index].classList.add(this.openClass);
       }
@@ -93,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
       this.contents.forEach((content) => content.classList.remove(this.openClass));
     }
   }
-  if (true) {
-    const tabSwitcher = new TabToggleSwitcher('.js-menu-tab', '.js-menu-content', 'is-open');
+  if (false) {
+    const tabSwitcher = new TabToggleSwitcher('.js-menu-tab', '.js-menu-content', 'is-open', true, true);
   }
 
   // ! セレクトボックスからカテゴリーアーカイブに遷移する ***********
