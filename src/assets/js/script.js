@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! タブ・クラス名トグル ***********
-  class TabToggleSwitcher {
+  class ToggleClass {
     constructor(tabSelector, contentSelector, openClass, exclusive = false, outsideClose = false) {
       this.tabs = document.querySelectorAll(tabSelector);
       this.contents = document.querySelectorAll(contentSelector);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.tabs.forEach((tab, index) => {
         tab.addEventListener('click', (event) => {
           event.stopPropagation(); // イベントのバブルを防止
-          this.toggleTab(index);
+          this.toggleClass(index);
         });
       });
       if (this.outsideClose) {
@@ -52,16 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const clickedInsideTab = Array.from(this.tabs).some((tab) => tab.contains(event.target));
           const clickedInsideContent = Array.from(this.contents).some((content) => content.contains(event.target));
           if (!clickedInsideTab && !clickedInsideContent) {
-            this.resetTabs();
+            this.resetClass();
           }
         });
       }
     }
-    toggleTab(index) {
+    toggleClass(index) {
       const isActive = this.tabs[index].classList.contains(this.openClass);
 
       if (this.exclusive) {
-        this.resetTabs();
+        this.resetClass();
       }
 
       if (isActive) {
@@ -72,13 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.contents[index].classList.add(this.openClass);
       }
     }
-    resetTabs() {
+    resetClass() {
       this.tabs.forEach((tab) => tab.classList.remove(this.openClass));
       this.contents.forEach((content) => content.classList.remove(this.openClass));
     }
   }
+  let tabSwitcher;
   if (false) {
-    const tabSwitcher = new TabToggleSwitcher('.js-menu-tab', '.js-menu-content', 'is-open', true, true);
+    tabSwitcher = new ToggleClass('.js-menu-tab', '.js-menu-content', 'is-open', true, true);
   }
 
   // ! セレクトボックスからカテゴリーアーカイブに遷移する ***********
@@ -106,9 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
       this.hamburger = document.querySelector(hamburgerSelector);
       this.drawer = document.querySelector(drawerMenuSelector);
       this.drawerMask = document.querySelector(drawerMaskSelector);
-      this.initEvents();
+      this.init();
     }
-    initEvents() {
+    init() {
       [this.hamburger, this.drawer].forEach((element) => {
         element.addEventListener('click', () => this.toggleDrawer());
       });
@@ -136,10 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-  const hamburger = document.querySelector('.js-hamburger');
-  if (hamburger) {
+  if (true) {
     const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer', '.js-drawer-mask');
   }
+
+  // ! TOPにスクロールするボタン ***********
+  const toTopButton = document.querySelector('.js-to-up');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) {
+      toTopButton.classList.add('is-active');
+    } else {
+      toTopButton.classList.remove('is-active');
+    }
+  });
+  toTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
 
   // ! ヘッダーをスクロールで非表示にする ***********
   let lastScrollTop = 0;
