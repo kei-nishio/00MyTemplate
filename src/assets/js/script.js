@@ -102,38 +102,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! ハンバーガーメニューとドロワーメニュー ***********
   class DrawerToggle {
-    constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector) {
+    constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector, breakpoint = 768) {
       this.header = document.querySelector(headerSelector);
       this.hamburger = document.querySelector(hamburgerSelector);
       this.drawer = document.querySelector(drawerMenuSelector);
       this.drawerMask = document.querySelector(drawerMaskSelector);
+      this.breakpoint = breakpoint;
       this.init();
     }
+
     init() {
-      [this.hamburger, this.drawer].forEach((element) => {
-        element.addEventListener('click', () => this.toggleDrawer());
-      });
+      this.hamburger.addEventListener('click', () => this.toggleDrawer());
+      window.addEventListener('resize', () => this.handleResize());
     }
-    toggleDrawer() {
+
+    openDrawer() {
       [this.header, this.hamburger, this.drawer, this.drawerMask].forEach((el) => {
-        el.classList.toggle('is-active');
+        el.classList.add('is-active');
       });
+      document.documentElement.style.overflowY = 'hidden';
+      document.body.style.overflowY = 'hidden';
+      // Uncomment below if additional styles are needed for open state
+      // this.drawer.style.display = 'block';
+      // setTimeout(() => {
+      //   this.drawer.style.visibility = 'visible';
+      //   this.drawer.style.opacity = '1';
+      // }, 100);
+    }
+
+    closeDrawer() {
+      [this.header, this.hamburger, this.drawer, this.drawerMask].forEach((el) => {
+        el.classList.remove('is-active');
+      });
+      document.documentElement.style.overflowY = '';
+      document.body.style.overflowY = '';
+      // Uncomment below if additional styles are needed for close state
+      // this.drawer.style.visibility = 'hidden';
+      // this.drawer.style.opacity = '0';
+      // setTimeout(() => {
+      //   this.drawer.style.display = 'none';
+      // }, 300);
+    }
+
+    toggleDrawer() {
       if (this.hamburger.classList.contains('is-active')) {
-        document.documentElement.style.overflowY = 'hidden';
-        document.body.style.overflowY = 'hidden';
-        this.drawer.style.display = 'block';
-        setTimeout(() => {
-          this.drawer.style.visibility = 'visible';
-          this.drawer.style.opacity = '1';
-        }, 100);
+        this.closeDrawer();
       } else {
-        document.documentElement.style.overflowY = '';
-        document.body.style.overflowY = '';
-        this.drawer.style.visibility = 'hidden';
-        this.drawer.style.opacity = '0';
-        setTimeout(() => {
-          this.drawer.style.display = 'none';
-        }, 300);
+        this.openDrawer();
+      }
+    }
+
+    handleResize() {
+      if (window.innerWidth >= this.breakpoint && this.hamburger.classList.contains('is-active')) {
+        this.closeDrawer();
       }
     }
   }
@@ -219,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ! クリックアコーディオン ***********
+  // ! クリックアコーディオン 回転タイプ ***********
   class AccordionToggle {
     constructor(accordionElement, index) {
       this.accordionElement = accordionElement;
@@ -322,6 +343,69 @@ document.addEventListener('DOMContentLoaded', () => {
           new AccordionToggle(accordion, index, isOpen);
         });
       }
+    });
+  }
+
+  // ! クリックアコーディオン クリップタイプ ***********
+  class AccordionClip {
+    constructor(accordionElement, index) {
+      this.accordionElement = accordionElement;
+      this.parent = accordionElement.children[0];
+      this.child = accordionElement.children[1];
+      this.isOpen = this.accordionElement.classList.contains('is-open');
+      this.index = index;
+      this.init();
+    }
+
+    init() {
+      this.reset();
+      if (this.isOpen) this.open();
+      this.parent.addEventListener('click', () => this.toggle());
+    }
+
+    reset() {
+      Object.assign(this.child.style, {
+        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
+        opacity: 0,
+        visibility: 'hidden',
+        display: 'none',
+      });
+    }
+
+    open() {
+      this.isOpen = true;
+      this.accordionElement.classList.add('is-open');
+      this.child.style.display = 'block';
+      gsap.to(this.child, {
+        duration: 0.3,
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+        autoAlpha: 1,
+        ease: 'power2.inOut',
+      });
+    }
+
+    close() {
+      this.isOpen = false;
+      this.accordionElement.classList.remove('is-open');
+      gsap.to(this.child, {
+        duration: 0.2,
+        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
+        autoAlpha: 0,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          this.child.style.display = 'none';
+        },
+      });
+    }
+
+    toggle() {
+      this.isOpen ? this.close() : this.open();
+    }
+  }
+  const accordionClips = document.querySelectorAll('.js-accordion');
+  if (accordionClips.length > 0) {
+    accordionClips.forEach((accordion, index) => {
+      new AccordionClip(accordion, index);
     });
   }
 
@@ -587,7 +671,11 @@ document.addEventListener('DOMContentLoaded', () => {
       simulateTouch: true, // デスクトップでのドラッグを許可
       grabCursor: true, // スライダー操作中にカーソルを変更
 
-      // **12. イベントコールバック**
+      // **13. 監視設定**
+      observer: false, // SwiperがDOM変更を監視する
+      observeParents: false, // 親要素の変更も監視する
+
+      // **13. イベントコールバック**
       on: {
         init: function () {
           console.log('Swiper initialized');
