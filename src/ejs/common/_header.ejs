@@ -43,7 +43,9 @@
       <ul class="p-drawer__list">
         <% navItems.forEach(item => { %>
         <li class="p-drawer__item">
-          <a href="<%= item.link %>"><%= item.text %></a>
+          <a href="<%= item.link %>">
+            <span><%= item.text %></span>
+          </a>
         </li>
         <% }) %>
       </ul>

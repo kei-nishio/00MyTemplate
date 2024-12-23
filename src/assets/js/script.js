@@ -102,65 +102,97 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! ハンバーガーメニューとドロワーメニュー ***********
   class DrawerToggle {
-    constructor(headerSelector, hamburgerSelector, drawerMenuSelector, drawerMaskSelector, breakpoint = 768) {
-      this.header = document.querySelector(headerSelector);
-      this.hamburger = document.querySelector(hamburgerSelector);
-      this.drawer = document.querySelector(drawerMenuSelector);
-      this.drawerMask = document.querySelector(drawerMaskSelector);
+    constructor({ header, hamburger, drawer, mask, breakpoint = 768 }) {
+      this.header = document.querySelector(header);
+      this.hamburger = document.querySelector(hamburger);
+      this.drawer = document.querySelector(drawer);
+      this.mask = document.querySelector(mask);
       this.breakpoint = breakpoint;
+
+      this.activeClass = 'is-active'; // 再利用しやすいクラス名
       this.init();
     }
 
     init() {
-      this.hamburger.addEventListener('click', () => this.toggleDrawer());
+      // 各種イベントの登録
+      this.addEventListeners();
+    }
+
+    addEventListeners() {
+      this.hamburger.addEventListener('click', (e) => this.handleHamburgerClick(e));
+      this.mask.addEventListener('click', () => this.closeDrawer());
+      document.addEventListener('click', (e) => this.handleDocumentClick(e));
       window.addEventListener('resize', () => this.handleResize());
+
+      // ドロワー内のリンククリック時にドロワーを閉じる
+      const links = this.drawer.querySelectorAll('a[href]');
+      links.forEach((link) => {
+        link.addEventListener('click', () => this.closeDrawer());
+      });
     }
 
-    openDrawer() {
-      [this.header, this.hamburger, this.drawer, this.drawerMask].forEach((el) => {
-        el.classList.add('is-active');
-      });
-      document.documentElement.style.overflowY = 'hidden';
-      document.body.style.overflowY = 'hidden';
-      // Uncomment below if additional styles are needed for open state
-      // this.drawer.style.display = 'block';
-      // setTimeout(() => {
-      //   this.drawer.style.visibility = 'visible';
-      //   this.drawer.style.opacity = '1';
-      // }, 100);
+    handleHamburgerClick(e) {
+      e.stopPropagation(); // クリックイベントの伝播を防ぐ
+      this.toggleDrawer();
     }
 
-    closeDrawer() {
-      [this.header, this.hamburger, this.drawer, this.drawerMask].forEach((el) => {
-        el.classList.remove('is-active');
-      });
-      document.documentElement.style.overflowY = '';
-      document.body.style.overflowY = '';
-      // Uncomment below if additional styles are needed for close state
-      // this.drawer.style.visibility = 'hidden';
-      // this.drawer.style.opacity = '0';
-      // setTimeout(() => {
-      //   this.drawer.style.display = 'none';
-      // }, 300);
+    handleDocumentClick(e) {
+      // ドロワーが開いている状態で、ドロワー外をクリックした場合に閉じる
+      if (this.isDrawerOpen() && !this.drawer.contains(e.target) && !this.hamburger.contains(e.target)) {
+        this.closeDrawer();
+      }
+    }
+
+    handleResize() {
+      // ブレイクポイント以上でドロワーが開いていたら閉じる
+      if (window.innerWidth >= this.breakpoint && this.isDrawerOpen()) {
+        this.closeDrawer();
+      }
     }
 
     toggleDrawer() {
-      if (this.hamburger.classList.contains('is-active')) {
+      if (this.isDrawerOpen()) {
         this.closeDrawer();
       } else {
         this.openDrawer();
       }
     }
 
-    handleResize() {
-      if (window.innerWidth >= this.breakpoint && this.hamburger.classList.contains('is-active')) {
-        this.closeDrawer();
-      }
+    openDrawer() {
+      this.applyClass([this.header, this.hamburger, this.drawer, this.mask], true);
+      this.lockScroll(true);
+    }
+
+    closeDrawer() {
+      this.applyClass([this.header, this.hamburger, this.drawer, this.mask], false);
+      this.lockScroll(false);
+    }
+
+    isDrawerOpen() {
+      return this.hamburger.classList.contains(this.activeClass);
+    }
+
+    applyClass(elements, add) {
+      elements.forEach((el) => {
+        if (el) {
+          el.classList.toggle(this.activeClass, add);
+        }
+      });
+    }
+
+    lockScroll(lock) {
+      const value = lock ? 'hidden' : '';
+      document.documentElement.style.overflowY = value;
+      document.body.style.overflowY = value;
     }
   }
-  if (true) {
-    const drawerToggle = new DrawerToggle('.js-header', '.js-hamburger', '.js-drawer', '.js-drawer-mask');
-  }
+  const drawerToggle = new DrawerToggle({
+    header: '.js-header',
+    hamburger: '.js-hamburger',
+    drawer: '.js-drawer',
+    mask: '.js-drawer-mask',
+    breakpoint: 768,
+  });
 
   // ! TOPにスクロールするボタン ***********
   const toTopButton = document.querySelector('.js-to-up');
