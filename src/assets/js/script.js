@@ -196,19 +196,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! TOPにスクロールするボタン ***********
   const toTopButton = document.querySelector('.js-to-up');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 600) {
-      toTopButton.classList.add('is-active');
-    } else {
-      toTopButton.classList.remove('is-active');
-    }
-  });
-  toTopButton.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
+  if (toTopButton) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        toTopButton.classList.add('is-active');
+      } else {
+        toTopButton.classList.remove('is-active');
+      }
     });
-  });
+    toTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
+  }
 
   // ! ヘッダーをスクロールで非表示にする ***********
   let lastScrollTop = 0;
