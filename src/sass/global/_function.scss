@@ -1,10 +1,11 @@
 @use 'setting' as *;
 @use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta'; // metaモジュールをインポート
 
 // * 数値のみを取り出す
-// * 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
 @function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
     @return math.div($number, $number * 0 + 1);
   }
   @return $number;
@@ -77,16 +78,16 @@
 @function fluidRange($size1, $size2: null, $ratio: null) {
   $ssize1: strip-unit($size1);
   $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
-  $sratio: if($ratio == null, calc(320 / 375), strip-unit($ratio));
-  $min: min($ssize1, $ssize2);
-  $max: max($ssize1, $ssize2);
+  $sratio: if($ratio == null, math.div(320, 375), strip-unit($ratio));
+  $min: math.min($ssize1, $ssize2);
+  $max: math.max($ssize1, $ssize2);
   @if $ssize1 > $ssize2 {
     $sratio: 1;
   }
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
-    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc($max * 1px));
+    @return clamp(calc(#{$min * $sratio} * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc(#{$max} * 1px));
   }
 }
 
@@ -94,39 +95,40 @@
 @function fluidRangeInner($size1, $size2: null, $ratio: null) {
   $ssize1: strip-unit($size1);
   $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
-  $sratio: if($ratio == null, calc(320 / 375), strip-unit($ratio));
-  $min: min($ssize1, $ssize2);
-  $max: max($ssize1, $ssize2);
+  $sratio: if($ratio == null, math.div(320, 375), strip-unit($ratio));
+  $min: math.min($ssize1, $ssize2);
+  $max: math.max($ssize1, $ssize2);
   @if $ssize1 > $ssize2 {
     $sratio: 1;
   }
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
-    @return clamp(calc($min * $sratio * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc($max * 1px));
+    @return clamp(calc(#{$min * $sratio} * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc(#{$max} * 1px));
   }
 }
 
-// * fluidRangeLinear // 320px以下で線形に出来るがややこしいので使わない。
+// * fluidRangeLinear
 @function fluidRangeLinear($size1, $size2: null) {
   $ssize1: strip-unit($size1);
-  $ssize2: if($size2 == null, $ssize1, strip-unit($size2)); // $size2 が null の場合、$min を使用
-  $min: min($ssize1, $ssize2);
-  $max: max($ssize1, $ssize2);
+  $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
+  $min: math.min($ssize1, $ssize2);
+  $max: math.max($ssize1, $ssize2);
   @if $ssize1 == $ssize2 {
     @return rem($ssize1);
   } @else {
     @return min(
-      min(calc($ssize1 / 375 * 100vw), vwLinear($ssize1, $width-sp, $ssize2, $width-pc)),
-      calc($ssize2 * 1px)
+      min(calc(math.div($ssize1, 375) * 100vw), vwLinear($ssize1, $width-sp, $ssize2, $width-pc)),
+      calc(#{$ssize2} * 1px)
     );
   }
 }
 
 // * 重なり順（z-index）
 @function zi($key) {
-  @return map-get($z-index-layer, $key);
+  @return map.get($z-index-layer, $key);
 }
+
 $z-index-layer: (
   loading: 9000,
   modal: 7000,
@@ -136,25 +138,3 @@ $z-index-layer: (
   floating: 1000,
   default: 1,
 );
-
-// * 相対単位のメモ
-// * 美しいレスポンシブデザインのためのUTOPIA：https://utopia.fyi/
-// * 参照：https://www.w3.org/TR/css-values-4/#relative-lengths
-// * 参照：https://coliss.com/articles/build-websites/operation/css/relative-length-units-based-on-font.html
-// * 参照：https://coliss.com/articles/build-websites/operation/css/relative-length-units-based-on-the-viewport.html
-// cap = ラテン語の大文字の高さ。font-familyに因らない。
-// ch = "0"（ゼロ）の幅
-// em = 親要素のフォントサイズ
-// ex = 小文字のxの高さ
-// ic = 全角文字1文字の幅（CJK用）
-// lh = 親要素の行の高さ
-// rem = ルート要素（html）のフォントサイズ
-// rlh = ルート要素（html）の行の高さ
-// vw = ウィンドウの幅
-// vh = ウィンドウの高さ
-// lvh = ウィンドウの縦方向の長さ
-// svh = ウィンドウの短い方向の長さ
-// dvh = ウィンドウの縦方向の長さ（デバイスの向きによる）
-// vmin = ウィンドウの幅または高さの小さい方
-// vmax = ウィンドウの幅または高さの大きい方
-// % = 親要素の値
