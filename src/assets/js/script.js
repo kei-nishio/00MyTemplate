@@ -1042,6 +1042,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ! このやり方が使えるかも！？
+  // スクロールトリガーのアニメーション（fadeUp, fadeLeft, fadeRight）
+  if (false) {
+    const animations = [
+      {
+        className: 'js-fadeUp',
+        from: { y: 30, autoAlpha: 0 },
+        to: { y: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
+      },
+      {
+        className: 'js-fadeLeft',
+        from: { x: -30, autoAlpha: 0 },
+        to: { x: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
+      },
+      {
+        className: 'js-fadeRight',
+        from: { x: 30, autoAlpha: 0 },
+        to: { x: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
+      },
+    ];
+
+    animations.forEach(({ className, from, to }) => {
+      gsap.utils.toArray(`.${className}`).forEach((element) => {
+        gsap.fromTo(element, from, {
+          ...to,
+          scrollTrigger: {
+            trigger: element,
+            start: '100px bottom', // ビューポートの下端に要素が触れた時点で開始
+            end: 'center center', // アニメーションの終了条件
+            scrub: false, // スクロール位置に同期しない
+          },
+          onComplete: function () {
+            element.style.transform = ''; // アニメーション完了後にtransformをリセット
+          },
+        });
+      });
+    });
+  }
+
   // ! Loading Animation ***********
   if (false) {
     const hasOnceVisited = localStorage.getItem('hasVisitedTopPage'); //初回がfalse ブラウザを閉じても有効
