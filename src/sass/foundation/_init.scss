@@ -7,6 +7,11 @@ body {
   font-size: rem(16);
   line-height: 1.5;
   font-family: $firstFont;
+
+  background-image: url(../images/common/bg.webp);
+  background-position: 50% top;
+  background-size: 700px 700px;
+  background-repeat: repeat;
 }
 
 // GSAP挙動確認用

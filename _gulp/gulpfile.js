@@ -41,9 +41,9 @@ const browsers = ['last 2 versions', '> 5%', 'ie = 11', 'not ie <= 10', 'ios >= 
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
 // * パス設定
-const ejsMode = false; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
-const wpMode = true; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
-const wpLocalMode = true; // ! WordPressLocalの内容を上書きする場合はtrueにする
+const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpLocalMode = false; // ! WordPressLocalの内容を上書きする場合はtrueにする
 const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
 const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
 const themeName = 'mytemplatetheme'; // ! WordPress theme file name
