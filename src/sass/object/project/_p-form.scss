@@ -53,6 +53,7 @@
 
   .p-form__description {
     overflow-wrap: anywhere;
+
     @include mq('md') {
       width: 70%;
     }
@@ -103,9 +104,9 @@
   }
 
   .p-form__note {
-    font-size: rem(14);
-    color: gray;
     margin-top: rem(18);
+    color: gray;
+    font-size: rem(14);
   }
 
   //  ! common style
@@ -247,6 +248,13 @@
       }
     }
   }
+  // チェックボックスはこのやり方もあり。
+  // input[type='checkbox']:checked {
+  //   background-image: url(../images/common/icon-check.svg);
+  //   background-position: center;
+  //   background-size: contain;
+  //   background-repeat: no-repeat;
+  // }
 
   // ! select (drop down)
   select {
@@ -255,8 +263,8 @@
     background-position: right 1em center;
     background-size: 0.5em;
     background-repeat: no-repeat;
+    color: black;
     cursor: pointer;
-
     appearance: none;
 
     option {
@@ -273,7 +281,6 @@
     position: relative;
 
     /*↓デフォルトのアイコンを消す場合はコメントアウト（noneにする）*/
-
     appearance: auto;
 
     /*↓デフォルトではないアイコンを使う場合は入力する*/
