@@ -7,6 +7,9 @@ function my_script_init()
   // wp_deregister_script('jquery');
   // wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', "", "3.7.0", true);
 
+  // ! free fonts
+  wp_enqueue_style('YakuHanJP', 'https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp.css');
+  
   // ! Google Fonts
   wp_enqueue_style('zen-kaku-gothic-new', 'https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap');
   wp_enqueue_style('Jost', 'https://fonts.googleapis.com/css2?family=Jost:wght@600;700&display=swap');
