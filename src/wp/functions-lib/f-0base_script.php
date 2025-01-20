@@ -8,6 +8,7 @@ function my_script_init()
   // wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', "", "3.7.0", true);
 
   // ! free fonts
+  /** @link https://yakuhanjp.qranoko.jp/ */
   wp_enqueue_style('YakuHanJP', 'https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp.css');
   
   // ! Google Fonts

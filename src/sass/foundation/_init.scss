@@ -7,6 +7,7 @@ body {
   font-size: rem(16);
   line-height: 1.5;
   font-family: $firstFont;
+  font-feature-settings: "palt";
 
   background-image: url(../images/common/bg.webp);
   background-position: 50% top;
