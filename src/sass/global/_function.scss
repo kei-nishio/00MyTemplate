@@ -71,6 +71,9 @@
   @if $a-vw == 0 {
     @return calc(#{$b-px});
   }
+  @if $b-px == 0px {
+    @return calc(#{$a-vw}vw);
+  }
   @return calc(#{$a-vw}vw + #{$b-px});
 }
 
