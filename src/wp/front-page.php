@@ -62,7 +62,7 @@
   <?php // sub query grid
   ?>
   <?php
-  $post_type = 'news';
+  $post_type = 'post';
   $num = wp_is_mobile() ? 3 : 3;
   $args = [
     'post_type' => $post_type,
@@ -101,7 +101,7 @@
   <?php // sub query swiper
   ?>
   <?php
-  $post_type = 'news';
+  $post_type = 'post'; // default : post
   $num = wp_is_mobile() ? 3 : 6;
   $args = [
     'post_type' => $post_type,
@@ -110,7 +110,7 @@
     'order' => 'DESC',
     'tax_query' => [ // タームを指定する場合
       [
-        'taxonomy' => 'news-type',
+        'taxonomy' => 'news-type', // default : category
         'terms' => 'type1',
         'field' => 'slug', // スラッグで指定する（変更不要）
       ],

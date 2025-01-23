@@ -10,7 +10,7 @@
   <?php if (have_posts()) : ?>
     <?php while (have_posts()) : the_post(); ?>
       <?php
-      $tax_slug = "news-type";
+      $tax_slug = "news-type"; // default : category
       $post_id = get_the_ID();
       $thumbnail_id = get_post_thumbnail_id($post_id);
       $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);

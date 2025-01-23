@@ -1,18 +1,18 @@
 @use 'global' as *;
 
-.c-card {
+.c-card-post {
   display: block;
   height: 100%;
   border-radius: rem(16);
   border-radius: rem(16);
 }
 
-.c-card__img-box {
+.c-card-post__img-box {
   position: relative;
 }
 
 // cardは比率指定する
-.c-card__img {
+.c-card-post__img {
   width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: rem(16) rem(16) 0 0;
@@ -28,20 +28,20 @@
   }
 }
 
-.c-card__date {
+.c-card-post__date {
 }
 
-.c-card__term-list {
+.c-card-post__term-list {
 }
 
-.c-card__tern-item {
+.c-card-post__tern-item {
 }
 
-.c-card__term {
+.c-card-post__term {
 }
 
-.c-card__content {
+.c-card-post__content {
 }
 
-.c-card__title {
+.c-card-post__title {
 }

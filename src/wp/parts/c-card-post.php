@@ -1,6 +1,6 @@
 <?php
-$class = "c-card-default";
-$tax_slug = "news-type";
+$class = "c-card-post"; // default : c-card-post
+$tax_slug = "category"; // default : category
 $post_id = $args["post_id"];
 $thumbnail_id = get_post_thumbnail_id($post_id);
 $thumbnail_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);

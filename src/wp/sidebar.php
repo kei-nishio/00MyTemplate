@@ -4,7 +4,7 @@
       <p class="p-sidebar__heading">○○から探す</p>
       <?php
       $terms = get_terms(array(
-        'taxonomy' => 'news-type',
+        'taxonomy' => 'news-type', // default : category
         'hide_empty' => false, // 投稿がないタームも表示したい場合は false に
         'order' => 'ASC',
         // 'parent' => 0, // 親タームのみ取得
