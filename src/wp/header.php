@@ -67,10 +67,10 @@
       ?>
       <nav class="p-header__nav">
         <ul class="p-header__list">
-          <?php foreach ($nav_items as $nav_item): ?>
+          <?php foreach ($nav_items as $item): ?>
             <li class="p-header__item">
-              <a href="<?php echo esc_url($nav_item["slug"]); ?>" <?php echo (strpos($nav_item['slug'], home_url()) === 0) ? '' : 'target="_blank" rel="noopener noreferrer"'; ?>>
-                <span><?php echo esc_html($nav_item["name"]); ?></span>
+              <a href="<?php echo esc_url($item["slug"]); ?>" <?php echo (strpos($item['slug'], home_url()) === 0) ? '' : 'target="_blank" rel="noopener noreferrer"'; ?>>
+                <span><?php echo esc_html($item["name"]); ?></span>
               </a>
             </li>
           <?php endforeach; ?>
@@ -95,10 +95,10 @@
     <div class="p-drawer__inner l-inner">
       <div class="p-drawer__nav">
         <ul class="p-drawer__list">
-          <?php foreach ($nav_items as $nav_item): ?>
+          <?php foreach ($nav_items as $item): ?>
             <li class="p-drawer__item">
-              <a href="<?php echo esc_url($nav_item["slug"]); ?>" <?php echo (strpos($nav_item['slug'], home_url()) === 0) ? '' : 'target="_blank" rel="noopener noreferrer"'; ?>>
-                <span><?php echo esc_html($nav_item["name"]); ?></span>
+              <a href="<?php echo esc_url($item["slug"]); ?>" <?php echo (strpos($item['slug'], home_url()) === 0) ? '' : 'target="_blank" rel="noopener noreferrer"'; ?>>
+                <span><?php echo esc_html($item["name"]); ?></span>
               </a>
             </li>
           <?php endforeach; ?>

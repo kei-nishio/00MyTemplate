@@ -64,7 +64,7 @@ get_template_part('/functions-lib/f-menu_post');
 // ! author（投稿者）ログイン時は管理画面のメニューを制限する
 // get_template_part('/functions-lib/f-menu_restrict');
 
-// ! 固定ページのブロックエディタを無効化する
+// ! ページのブロックエディタを無効化する
 // get_template_part('/functions-lib/f-page_editor');
 
 // ! リダイレクト設定

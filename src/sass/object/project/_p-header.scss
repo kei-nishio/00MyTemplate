@@ -9,9 +9,9 @@
   height: fluidRange($headerHeight-sp, $headerHeight-pc, 1);
   transition: opacity 0.5s, visibility 0.5s;
 }
-.p-header.is-hidden{
-  opacity: 0;
+.p-header.is-hidden {
   visibility: hidden;
+  opacity: 0;
 }
 
 .p-header__inner {
@@ -27,8 +27,8 @@
   height: inherit;
 
   a {
-    height: inherit;
     width: fit-content;
+    height: inherit;
     padding-block: rem(16);
 
     picture,
@@ -53,10 +53,11 @@
   display: flex;
   align-items: center;
   gap: rem(16);
+  height: inherit;
+
   @include mq('md') {
     gap: rem(48);
   }
-  height: inherit;
 }
 
 .p-header__item {
@@ -75,6 +76,7 @@
     display: block;
     position: absolute;
     bottom: -4px;
+    left: 0;
     transform: scale(0);
     transform-origin: center;
     width: 100%;

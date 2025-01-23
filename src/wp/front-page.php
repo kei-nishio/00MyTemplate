@@ -62,9 +62,10 @@
   <?php // sub query grid
   ?>
   <?php
+  $post_type = 'news';
   $num = wp_is_mobile() ? 3 : 3;
   $args = [
-    'post_type' => 'news',
+    'post_type' => $post_type,
     'posts_per_page' => $num,
     'orderby' => 'date',
     'order' => 'DESC',
@@ -82,7 +83,7 @@
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
               <li class="p-section-hoge__item">
                 <?php $post_id = get_the_ID(); ?>
-                <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
+                <?php get_template_part('/parts/c-card', $post_type, ["post_id" => $post_id]); ?>
               </li>
             <?php endwhile; ?>
           </ul>
@@ -100,9 +101,10 @@
   <?php // sub query swiper
   ?>
   <?php
+  $post_type = 'news';
   $num = wp_is_mobile() ? 3 : 6;
   $args = [
-    'post_type' => 'news',
+    'post_type' => $post_type,
     'posts_per_page' => $num,
     'orderby' => 'date',
     'order' => 'DESC',
@@ -129,7 +131,7 @@
                 <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
                   <li class="swiper-slide">
                     <?php $post_id = get_the_ID(); ?>
-                    <?php get_template_part('/parts/c-card', "", ["post_id" => $post_id]); ?>
+                    <?php get_template_part('/parts/c-card', $post_type, ["post_id" => $post_id]); ?>
                   </li>
                 <?php endwhile; ?>
               </ul>

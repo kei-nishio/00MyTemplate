@@ -8,7 +8,7 @@ $hamburger-height-is-active: rem(24);
 $hamburger-border-number: 3;
 $hamburger-border-height: 1px;
 $hamburger-rotate: 55deg;
-$hamburger-scale: 1.414;
+$hamburger-scale: calc(1 / cos($hamburger-rotate));
 
 .c-hamburger {
   display: flex;
