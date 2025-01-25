@@ -5,7 +5,7 @@
   opacity: 0;
   position: fixed;
   inset: 0;
-  z-index: zi('drawer');
+  z-index: $ziDrawer;
   height: 100vh;
   background-color: white;
   user-select: none;

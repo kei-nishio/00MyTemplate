@@ -5,7 +5,7 @@
   top: 0;
   right: 0;
   left: 0;
-  z-index: zi(header);
+  z-index: $ziHeader;
   height: fluidRange($headerHeight-sp, $headerHeight-pc, 1);
   transition: opacity 0.5s, visibility 0.5s;
 }

@@ -126,18 +126,3 @@
     );
   }
 }
-
-// * 重なり順（z-index）
-@function zi($key) {
-  @return map.get($z-index-layer, $key);
-}
-
-$z-index-layer: (
-  loading: 9000,
-  modal: 7000,
-  header: 5000,
-  drawer: 3000,
-  drawerMask: 2000,
-  floating: 1000,
-  default: 1,
-);
