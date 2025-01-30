@@ -28,6 +28,17 @@
   justify-content: center;
   gap: rem(40);
   margin-top: rem(40);
+  .prev {
+  }
+  .index {
+  }
+  .next {
+  }
+  .hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .p-single__button {

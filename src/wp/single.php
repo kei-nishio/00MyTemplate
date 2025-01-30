@@ -62,6 +62,19 @@
           <div class="p-single__content">
             <div class="p-content"><?php the_content(); ?></div>
           </div>
+
+          <ul class="p-single__pagination">
+            <li class="prev <?php echo empty($prev) ? 'hidden' : ''; ?>">
+              <div class="c-button-arrow c-button-arrow--reverse"><a href="<?php echo $prev_url; ?>">前の記事</a></div>
+            </li>
+            <li class="index">
+              <div class="c-button-text"><a href="<?php echo esc_url(home_url('/news')); ?>">一覧に戻る</a></div>
+            </li>
+            <li class="next <?php echo empty($next) ? 'hidden' : ''; ?>">
+              <div class="c-button-arrow"><a href="<?php echo $next_url; ?>">次の記事</a></div>
+            </li>
+          </ul>
+
         </div>
         <ul class="p-single__pagination">
           <?php if (!empty($prev)) : ?>
