@@ -1,12 +1,35 @@
 @use 'global' as *;
 
+// Contact Form 7 のスタイルリセット
 .wpcf7-spinner {
-  display: none;
+  display: none; /* 送信中のスピナーを削除 */
 }
 .wpcf7-list-item {
   margin: 0;
 }
+.wpcf7-not-valid {
+  outline: 1px solid pink !important; /* エラー時の枠線 */
+}
+.wpcf7-response-output {
+  border-color: $red !important; /* エラーメッセージの枠線 */
+  text-align: center !important; /* エラーメッセージの中央揃え */
+}
+.wpcf7-not-valid-tip {
+  color: pink;
+}
+.wpcf7-not-valid-tip::before {
+  content: '!';
+  display: inline-block;
+  width: 1em;
+  aspect-ratio: 1;
+  margin-right: 0.2em;
+  background-image: url(../images/common/error.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
+// Contact Form 7 のスタイル
 .p-form {
   padding: 6.25%;
   border-radius: rem(16);

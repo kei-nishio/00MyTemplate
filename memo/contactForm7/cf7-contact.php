@@ -69,7 +69,7 @@
         </label>
       </dt>
       <dd class="p-form__description">
-        [email* your-email id:f-mail placeholder "例）hoge@hogehoge.com"]
+        [email* your-email id:f-email placeholder "例）hoge@hogehoge.com"]
         <p class="p-form__example">例）hoge@hogehoge.com</p>
       </dd>
     </div>
