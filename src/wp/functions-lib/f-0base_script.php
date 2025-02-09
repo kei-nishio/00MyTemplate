@@ -10,8 +10,30 @@ function my_script_init()
   // ! free fonts
   /** @link https://yakuhanjp.qranoko.jp/ */
   wp_enqueue_style('YakuHanJP', 'https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp.css');
-  
+
   // ! Google Fonts
+  /**
+   * @uses &display=swap
+   *    - フォント読み込み中にフォールバックフォントを表示し、読み込み完了後に指定フォントに切り替える。
+   *    - ページの表示速度を向上させるが、フォント切り替え時にレイアウトのズレ（CLS）が発生する可能性がある。
+   *
+   * @uses &display=block
+   *    - フォントが完全に読み込まれるまでテキストを非表示（FOIT: Flash of Invisible Text）。
+   *    - 一貫したデザインを保つが、フォント読み込みが遅いと空白時間が発生する。
+   *
+   * @uses &display=fallback
+   *    - 一定時間（約100ms）フォントを待ち、読み込まれなかった場合はフォールバックフォントを適用。
+   *    - その後フォントが読み込まれたら置き換える。
+   *    - FOUT（フォントのチラつき）はあるが、FOITは防げる。
+   *
+   * @uses &display=optional
+   *    - `fallback` に似ているが、ネットワーク状況が悪い場合はフォールバックフォントのまま適用されることもある。
+   *    - モバイルなど低速環境向けに最適。
+   *
+   * @uses &display=auto
+   *    - ブラウザのデフォルトの動作に従う。
+   *    - 一般的に `block` に近い動作をするが、環境によって異なる挙動を取る可能性がある。
+   */
   wp_enqueue_style('zen-kaku-gothic-new', 'https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap');
   wp_enqueue_style('Jost', 'https://fonts.googleapis.com/css2?family=Jost:wght@600;700&display=swap');
 
