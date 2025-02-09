@@ -44,3 +44,15 @@
     transform: rotate(0deg);
   }
 }
+
+/* animation: left-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; */
+.element {
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out; /* linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(x, y, x2, y2) */
+  animation-delay: 0.2s;
+  animation-iteration-count: infinite; /* 1, 2, 3, infinite */
+  animation-direction: alternate; /* normal, reverse, alternate, alternate-reverse */
+  animation-fill-mode: forwards; /* none, forwards, backwards, both */
+  animation-play-state: running; /* running, paused */
+}
