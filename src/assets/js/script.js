@@ -1083,10 +1083,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! Loading Animation ***********
   if (false) {
-    const hasOnceVisited = localStorage.getItem('hasVisitedTopPage'); //初回がfalse ブラウザを閉じても有効
-    const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage'); //初回がfalse タブを閉じるとリセット
-    // console.log('hasOnceVisited: ' + hasOnceVisited);
-    // console.log('hasFirstVisited: ' + hasFirstVisited);
+    const hasOnceVisited = localStorage.getItem('hasVisitedTopPage'); //初回がnull ブラウザを閉じても有効
+    const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage'); //初回がnull タブを閉じるとリセット
+    // localStorage.removeItem('hasVisitedTopPage'); //null化 ブラウザを閉じても有効
+    // sessionStorage.removeItem('hasVisitedTopPage'); //null化 タブを閉じるとリセット
     if (!hasFirstVisited) {
       const loading = document.querySelector('.js-loading');
       const tl = gsap.timeline();

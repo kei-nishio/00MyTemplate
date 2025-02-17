@@ -213,8 +213,8 @@
   <!-- * To Confirm Multi Step で確認画面に遷移する場合 -->
   <div class="p-form__submit">
     <div class="c-button-normal">[submit "入力内容のご確認"]</div>
-    [multistep your-multistep01 first_step "http://localhost:3000/contact/confirm/"]
-    <!-- [multistep your-multistep01 first_step "hogehoge/contact/confirm/"] -->
+    [multistep your-multistep01 first_step "http://localhost:3000/contact/confirm"]
+    <!-- [multistep your-multistep01 first_step "hogehoge/contact/confirm"] -->
   </div>
 </div>
 <!-- * Form Contact End -->

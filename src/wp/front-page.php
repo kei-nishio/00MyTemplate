@@ -6,32 +6,6 @@
     <div class="p-loading__inner">
     </div>
   </div>
-  <script>
-    // const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
-    // let loadingElements = document.querySelectorAll('.js-loading');
-    // let loadingHideOnHTML = document.querySelectorAll('.js-loadingHide');
-    // if (!hasFirstVisited) {
-    //   // loading on
-    //   if (loadingElements.length > 0) {
-    //     loadingElements.forEach((element) => {
-    //       element.classList.add("is-loading");
-    //     });
-    //   }
-    //   if (loadingHideOnHTML.length > 0) {
-    //     loadingHideOnHTML.forEach((element) => {
-    //       element.style.visibility = 'hidden';
-    //       element.style.opacity = '0';
-    //     });
-    //   }
-    // } else {
-    //   // loading off
-    //   if (loadingElements.length > 0) {
-    //     loadingElements.forEach((element) => {
-    //       element.classList.remove("is-loading");
-    //     });
-    //   }
-    // }
-  </script>
   <?php // FV 
   ?>
   <section class="l-fv p-fv">
@@ -58,6 +32,33 @@
       <div class="p-fv__heading"></div>
     </div>
   </section>
+
+  <script>
+    // const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
+    // let loadingElements = document.querySelectorAll('.js-loading');
+    // let loadingHideOnHTML = document.querySelectorAll('.js-loadingHide');
+    // if (!hasFirstVisited) {
+    //   // loading on
+    //   if (loadingElements.length > 0) {
+    //     loadingElements.forEach((element) => {
+    //       element.classList.add("is-loading");
+    //     });
+    //   }
+    //   if (loadingHideOnHTML.length > 0) {
+    //     loadingHideOnHTML.forEach((element) => {
+    //       element.style.visibility = 'hidden';
+    //       element.style.opacity = '0';
+    //     });
+    //   }
+    // } else {
+    //   // loading off
+    //   if (loadingElements.length > 0) {
+    //     loadingElements.forEach((element) => {
+    //       element.classList.remove("is-loading");
+    //     });
+    //   }
+    // }
+  </script>
 
   <?php // sub query grid
   ?>

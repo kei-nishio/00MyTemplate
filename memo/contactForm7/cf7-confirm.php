@@ -130,8 +130,8 @@
     <!-- * Submit -->
     <div class="p-form__submit">
       <div class="c-button-normal">[submit "送信する"]</div>
-      [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/thanks/"]
-      <!-- [multistep your-multistep02 last_step send_email "hogehoge/contact/thanks/"] -->
+      [multistep your-multistep02 last_step send_email "http://localhost:3000/contact/thanks"]
+      <!-- [multistep your-multistep02 last_step send_email "hogehoge/contact/thanks"] -->
     </div>
   </div>
 </div>
