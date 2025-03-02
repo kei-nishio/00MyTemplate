@@ -11,7 +11,7 @@
   outline: 1px solid pink !important; /* エラー時の枠線 */
 }
 .wpcf7-response-output {
-  border-color: $red !important; /* エラーメッセージの枠線 */
+  border-color: red !important; /* エラーメッセージの枠線 */
   text-align: center !important; /* エラーメッセージの中央揃え */
 }
 .wpcf7-not-valid-tip {
