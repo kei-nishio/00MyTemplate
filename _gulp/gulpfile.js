@@ -45,9 +45,9 @@ const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディン�
 const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const wpLocalMode = false; // ! WordPressLocalの内容を上書きする場合はtrueにする
 const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
-const siteTitle = 'mytemplate'; // ! WordPress site title (project name)
-const themeName = 'mytemplatetheme'; // ! WordPress theme file name
-const localSiteDomain = 'mytemplate.local'; // ! WordPress Local Site Domain
+const siteTitle = 'template'; // ! WordPress site title (project name)
+const themeName = 'templatetheme'; // ! WordPress theme file name
+const localSiteDomain = 'template.local'; // ! WordPress Local Site Domain
 const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
 
 // * 読み込み先
