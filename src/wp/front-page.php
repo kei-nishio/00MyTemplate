@@ -73,22 +73,22 @@
   ];
   $the_query = new WP_query($args);
   ?>
-  <section class="l-section p-section-hoge">
-    <div class="p-section-hoge__inner l-inner">
-      <div class="p-section-hoge__heading">
+  <section class="l-section p-section-grid">
+    <div class="p-section-grid__inner l-inner">
+      <div class="p-section-grid__heading">
         <?php get_template_part('/parts/c-section-title', "", ["title" => 'グリッド', "subtitle" => 'hoge', "modifier" => "hoge"]); ?>
       </div>
-      <div class="p-section-hoge__content">
+      <div class="p-section-grid__content">
         <?php if ($the_query->have_posts()) : ?>
-          <ul class="p-section-hoge__list">
+          <ul class="p-section-grid__list">
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-              <li class="p-section-hoge__item">
+              <li class="p-section-grid__item">
                 <?php $post_id = get_the_ID(); ?>
                 <?php get_template_part('/parts/c-card', $post_type, ["post_id" => $post_id]); ?>
               </li>
             <?php endwhile; ?>
           </ul>
-          <div class="p-section-hoge__button">
+          <div class="p-section-grid__button">
             <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
           </div>
         <?php else : ?>
@@ -119,14 +119,14 @@
   ];
   $the_query = new WP_query($args);
   ?>
-  <section class="l-section p-section-fuga">
-    <div class="p-section-fuga__inner l-inner">
-      <div class="p-section-fuga__heading">
+  <section class="l-section p-section-slide">
+    <div class="p-section-slide__inner l-inner">
+      <div class="p-section-slide__heading">
         <?php get_template_part('/parts/c-section-title', "", ["title" => 'スワイパー', "subtitle" => 'fuga', "modifier" => ""]); ?>
       </div>
-      <div class="p-section-fuga__content">
+      <div class="p-section-slide__content">
         <?php if ($the_query->have_posts()) : ?>
-          <div class="p-section-fuga__slide js-swiper">
+          <div class="p-section-slide__slide js-swiper">
             <div class="swiper">
               <ul class="swiper-wrapper">
                 <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
@@ -144,7 +144,7 @@
               <div class="swiper-button-next"></div>
             </div>
           </div>
-          <div class="p-section-fuga__button">
+          <div class="p-section-slide__button">
             <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
           </div>
         <?php else : ?>
@@ -157,43 +157,46 @@
 
   <?php // table
   ?>
-  <section class="l-section p-section-piyo">
-    <div class="p-section-piyo__inner l-inner">
-      <div class="p-section-piyo__heading">
+  <section class="l-section p-section-table">
+    <div class="p-section-table__inner l-inner">
+      <div class="p-section-table__heading">
         <?php get_template_part('/parts/c-section-title', "", ["title" => 'テーブル', "subtitle" => 'piyo', "modifier" => "piyo"]); ?>
       </div>
-      <div class="p-section-piyo__content">
-        <?php
-        $json_url =  get_theme_file_uri('/data/table.json');
-        $json_data = file_get_contents($json_url);
-        $data = json_decode($json_data, true);
-        ?>
-        <table class="p-section-piyo__table">
+      <div class="p-section-table__content">
+        <table class="p-section-table__table">
           <thead>
             <tr>
-              <th scope="col"><?php echo esc_html($data['header']['name']); ?></th>
-              <th scope="col"><?php echo esc_html($data['header']['age']); ?></th>
-              <th scope="col"><?php echo esc_html($data['header']['country']); ?></th>
+              <th scope="col">名前</th>
+              <th scope="col">年齢</th>
+              <th scope="col">出身国</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($data['body'] as $row) : ?>
-              <tr>
-                <th scope="row"><?php echo esc_html($row['name']); ?></th>
-                <td><?php echo esc_html($row['age']); ?></td>
-                <td><?php echo esc_html($row['country']); ?></td>
-              </tr>
-            <?php endforeach; ?>
+            <tr>
+              <th scope="row">山田太郎</th>
+              <td>20</td>
+              <td>日本</td>
+            </tr>
+            <tr>
+              <th scope="row">John Smith</th>
+              <td>30</td>
+              <td>USA</td>
+            </tr>
+            <tr>
+              <th scope="row">Jean Dupont</th>
+              <td>40</td>
+              <td>France</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th scope="row"><?php echo esc_html($data['footer']['result']); ?></td>
-              <td><?php echo esc_html($data['footer']['total']); ?></td>
+              <th scope="row">合計</th>
+              <td>3</td>
             </tr>
           </tfoot>
         </table>
 
-        <div class="p-section-piyo__button">
+        <div class="p-section-table__button">
           <div class="c-button-normal c-button-normal--white"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
         </div>
       </div>

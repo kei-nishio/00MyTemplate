@@ -1,21 +1,21 @@
 @use 'global' as *;
 
-.p-section-fuga {
+.p-section-slide {
 }
 
-.p-section-fuga__inner.l-inner {
+.p-section-slide__inner.l-inner {
 }
 
-.p-section-fuga__heading {
+.p-section-slide__heading {
   display: grid;
   place-items: center;
 }
 
-.p-section-fuga__content {
+.p-section-slide__content {
   margin-top: rem(40);
 }
 
-.p-section-fuga__slide {
+.p-section-slide__slide {
   position: relative;
 
   .swiper {
@@ -45,7 +45,7 @@
   }
 }
 
-.p-section-fuga__button {
+.p-section-slide__button {
   display: grid;
   place-items: center;
   margin-top: rem(24);

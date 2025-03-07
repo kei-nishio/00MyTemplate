@@ -1,21 +1,21 @@
 @use 'global' as *;
 
-.p-section-hoge {
+.p-section-grid {
 }
 
-.p-section-hoge__inner.l-inner {
+.p-section-grid__inner.l-inner {
 }
 
-.p-section-hoge__heading {
+.p-section-grid__heading {
   display: grid;
   place-items: center;
 }
 
-.p-section-hoge__content {
+.p-section-grid__content {
   margin-top: rem(40);
 }
 
-.p-section-hoge__list {
+.p-section-grid__list {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: rem(16) 5%;
@@ -26,10 +26,10 @@
   }
 }
 
-.p-section-hoge__item {
+.p-section-grid__item {
 }
 
-.p-section-hoge__button {
+.p-section-grid__button {
   display: grid;
   place-items: center;
   margin-top: rem(24);

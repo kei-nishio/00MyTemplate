@@ -1,12 +1,12 @@
 <% const list = ['item1', 'item2', 'item3', 'item4', 'item5', 'item6']; %>
 
-<section class="p-section-fuga">
-  <div class="p-section-fuga__inner l-inner">
-    <div class="p-section-fuga__heading">
+<section class="p-section-slide">
+  <div class="p-section-slide__inner l-inner">
+    <div class="p-section-slide__heading">
       <%- include(ejsPath + './component/_c-section-title', {title: "スワイパー", subTitle: "fuga"} ) %>
     </div>
-    <div class="p-section-fuga__content">
-      <div class="p-section-fuga__slide js-swiper">
+    <div class="p-section-slide__content">
+      <div class="p-section-slide__slide js-swiper">
         <div class="swiper">
           <ul class="swiper-wrapper">
             <% for (let i = 0; i < list.length; i++) { %>
@@ -28,7 +28,7 @@
           <div class="swiper-button-next"></div>
         </div>
       </div>
-      <div class="p-section-fuga__button">
+      <div class="p-section-slide__button">
         <%- include(ejsPath + './component/_c-button-normal', {modifier: "", link: "fuga.html", text: "ボタン"} ) %>
       </div>
     </div>

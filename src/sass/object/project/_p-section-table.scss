@@ -1,21 +1,21 @@
 @use 'global' as *;
 
-.p-section-piyo {
+.p-section-table {
 }
 
-.p-section-piyo__inner.l-inner {
+.p-section-table__inner.l-inner {
 }
 
-.p-section-piyo__heading {
+.p-section-table__heading {
   display: grid;
   place-items: center;
 }
 
-.p-section-piyo__content {
+.p-section-table__content {
   margin-top: rem(40);
 }
 
-.p-section-piyo__table {
+.p-section-table__table {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
@@ -31,7 +31,7 @@
   td {
     background-color: white;
     text-align: center;
-    padding-block: .5em;
+    padding-block: 0.5em;
     padding-inline: 2em;
   }
   tfoot > tr > th {
@@ -39,10 +39,10 @@
   }
 }
 
-.p-section-piyo__item {
+.p-section-table__item {
 }
 
-.p-section-piyo__button {
+.p-section-table__button {
   display: grid;
   place-items: center;
   margin-top: rem(24);
