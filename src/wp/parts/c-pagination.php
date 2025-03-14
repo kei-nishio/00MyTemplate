@@ -1,6 +1,6 @@
 <?php
 $args = [
-  'mid_size' => 2,
+  'mid_size' => wp_is_mobile() ? 1 : 2,
   'prev_text' => '',
   'next_text' => '',
 ];
