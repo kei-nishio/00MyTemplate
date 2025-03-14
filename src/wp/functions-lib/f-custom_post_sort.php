@@ -2,7 +2,9 @@
 // ! カスタム投稿の並び順をユーザーフィールド値に基づいて変更する
 function sort_posts_by_user_first_name($query)
 {
-  if ($query->is_main_query() && !is_admin() && $query->is_post_type_archive('developer')):
+  $post_types = array('builder'); // 複数のカスタム投稿タイプを指定
+
+  if ($query->is_main_query() && !is_admin() && is_post_type_archive($post_types)):
     $query->set('posts_per_page', -1); // すべての投稿を取得
 
     add_filter('posts_results', function ($posts) {
