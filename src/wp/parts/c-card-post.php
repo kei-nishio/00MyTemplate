@@ -50,7 +50,7 @@ $description = nl2br(esc_html(get_the_author_meta('description')));
   <?php endif; ?>
   <?php if (true): // title 
   ?>
-    <h2 class="<?php echo $class; ?>__title"><?php echo esc_html(mb_strimwidth(get_the_title(), 0, 18 * 2 + 3, '...')); ?></h2>
+    <h3 class="<?php echo $class; ?>__title"><?php echo esc_html(mb_strimwidth(get_the_title(), 0, 18 * 2 + 3, '...')); ?></h2>
   <?php endif; ?>
   <?php if (true): // date 
   ?>
