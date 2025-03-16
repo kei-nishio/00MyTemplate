@@ -8,23 +8,34 @@
     padding-inline: $padding-sp;
 
     @include mq('md') {
-      // type1
-      width: vw(calc($inner + 2 * $padding-pc), $width-pc);
+      // 最大幅を$innerに合わせる場合
       max-width: $inner + $padding-pc * 2;
+      padding-inline: $padding-pc;
+    }
+
+    @include mq('md') {
+      // デザイン比率を維持する場合（widthで調整）
+      width: vw(calc($inner + 2 * $padding-pc), $width-pc);
       max-width: initial;
       padding-inline: $padding-pc;
     }
 
     @include mq('md') {
-      // type2
+      // $width-pc以上でデザイン比率を維持しつつ、768px付近では左右余白を狭める場合
+      width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
+      max-width: initial;
+      padding-inline: $padding-pc;
+    }
+
+    @include mq('md') {
+      // デザイン比率を維持しつつ、768px付近では左右余白を狭め、最大幅は$innerに合わせる場合
       width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
       max-width: $inner + $padding-pc * 2;
-      max-width: initial;
       padding-inline: $padding-pc;
     }
 
     @include mq('md') {
-      // type3
+      // デザイン比率を維持する場合（paddingで調整）
       max-width: initial;
       padding-inline: percent(calc(($width-pc - $inner) / 2), $width-pc);
     }
