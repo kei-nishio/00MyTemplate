@@ -28,8 +28,8 @@ function Change_objectlabel()
 }
 
 // ! 通常投稿タイプを非表示にする
-function remove_post_menu()
-{
-  remove_menu_page('edit.php');
-}
-add_action('admin_menu', 'remove_post_menu');
+// function remove_post_menu()
+// {
+//   remove_menu_page('edit.php');
+// }
+// add_action('admin_menu', 'remove_post_menu');

@@ -43,7 +43,7 @@ get_template_part('/functions-lib/f-custom_post_slug');
 // ! カスタム投稿の並び順をユーザーフィールド値に基づいて変更する
 // get_template_part('/functions-lib/f-custom_post_sort');
 
-// ! カスタム投稿のカスタムタクソノミーでフィルタリングする
+// ! カスタム投稿の管理画面でタクソノミーフィルターを追加
 // get_template_part('/functions-lib/f-custom_post_tax_filter');
 
 // ! クエリパラメータ値に基づき、カスタム投稿一覧を投稿者IDでフィルターする
