@@ -31,7 +31,7 @@ get_template_part('/functions-lib/f-cf7_custom_select');
 // ! Contact Form 7で自動挿入されるPタグ、brタグを削除
 get_template_part('/functions-lib/f-cf7_reset');
 
-// ! Contact Form 7で郵便番号のバリデーションを追加する
+// ! Contact Form 7で各種バリデーションを追加する
 // get_template_part('/functions-lib/f-cf7_validation');
 
 // ! カスタムページネーションを追加する
@@ -78,6 +78,9 @@ get_template_part('/functions-lib/f-menu_post');
 
 // ! Smart Custom Field のフィールド値を判定する
 // get_template_part('/functions-lib/f-scf_field_validation');
+
+// ! タクソノミーのキャッシュを保持してget_termsを高速化する（タクソノミー保存時等に更新する）
+get_template_part('/functions-lib/f-taxonomy_cache');
 
 // ! 言語によって読み込むテンプレートをカスタムする
 // get_template_part('/functions-lib/f-template-customize');
