@@ -81,9 +81,13 @@
   }
   blockquote {
     margin: 1em 0;
-    padding: 1em;
+    padding-block: 0.5em;
+    padding-inline: 1em;
     border-left: 4px solid #fff;
     background-color: #111;
+    p {
+      margin-block: initial;
+    }
   }
 }
 
