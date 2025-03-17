@@ -14,47 +14,50 @@
       color: $white;
     }
     input[type='password'] {
-      color: $white;
-      border: 1px solid red;
+      min-width: 10em;
       padding-inline: rem(16);
       padding-top: rem(4);
       padding-bottom: rem(4);
+      border: 1px solid red;
+      color: $white;
       letter-spacing: 0.3em;
-      min-width: 10em;
     }
   }
 }
 
 // デザインの指定がある場合は、ここに記述する。
 .p-content {
+  line-height: 1.75;
+  word-break: break-word;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+  h1{
+    font-size: 1.75em;
+  }
   h2 {
     font-size: 1.5em;
-    font-weight: bold;
-    margin: 0.83em 0;
   }
-
   h3 {
-    font-size: 1.17em;
-    font-weight: bold;
-    margin: 1em 0;
+    font-size: 1.3em;
   }
-
   h4 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 1.33em 0;
+    font-size: 1.2em;
   }
-
   h5 {
-    font-size: 0.83em;
-    font-weight: bold;
-    margin: 1.67em 0;
+    font-size: 1em;
   }
-
   h6 {
-    font-size: 0.67em;
-    font-weight: bold;
-    margin: 2.33em 0;
+    font-size: 0.9em;
   }
 
   p {
@@ -62,31 +65,91 @@
   }
 
   p + p {
-    margin-top: 1em;
+    margin-top: 0.5em;
+  }
+
+  ol,
+  ul {
+    margin: 1em 0;
+    padding-left: 1.2em;
   }
 
   ol {
-    padding-left: 2em;
-    margin: 1em 0;
     list-style-type: decimal;
   }
 
   ul {
-    padding-left: 2em;
-    margin: 1em 0;
     list-style-type: disc;
   }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
   a {
     text-decoration: underline;
   }
+
   blockquote {
     margin: 1em 0;
-    padding-block: 0.5em;
-    padding-inline: 1em;
-    border-left: 4px solid #fff;
-    background-color: #111;
+    padding: 0.75em;
+    border-left: 3px solid #cccccc;
+    background-color: #f8f8f8;
+
     p {
-      margin-block: initial;
+      margin: 0;
+    }
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    margin: 1em 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 0.5em;
+    border: 1px solid #dddddd;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  // PC用スタイル（768px以上）
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 2em;
+    }
+    h2 {
+      font-size: 1.75em;
+    }
+    h3 {
+      font-size: 1.5em;
+    }
+    h4 {
+      font-size: 1.25em;
+    }
+    h5 {
+      font-size: 1.1em;
+    }
+    h6 {
+      font-size: 1em;
+    }
+
+    blockquote {
+      padding: 1em;
+      border-left-width: 4px;
+    }
+
+    table {
+      display: table;
+      white-space: normal;
     }
   }
 }
