@@ -42,11 +42,17 @@
     text-overflow: ellipsis;
   }
 
-  .breadcrumb__between {
-    display: inline-block;
-    width: 20px;
-    height: 2px;
-    margin-inline: rem(10);
+  .separator {
+    display: block;
+    width: 1em;
+    height: 1em;
+    margin-inline: 0.5em;
+    mask-image: url(../images/common/icon-arrow.svg);
+    mask-position: bottom;
+    mask-size: 70%;
+    mask-repeat: no-repeat;
     background-color: black;
+    @include mq('md') {
+    }
   }
 }
