@@ -37,12 +37,12 @@
 }
 
 // * remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
-@function rem($size) {
-  @return math.div(strip-unit($size), 16) * 1rem;
+@function rem($size, $base: 16px) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 1rem;
 }
 
 // * emへの計算式
-@function em($size, $base) {
+@function em($size, $base: 16px) {
   @return math.div(strip-unit($size), strip-unit($base)) * 1em;
 }
 
