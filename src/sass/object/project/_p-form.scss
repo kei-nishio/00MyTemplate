@@ -297,6 +297,11 @@
         font-size: rem(20);
       }
     }
+    @supports (-webkit-hyphens: none) and (not (-ms-ime-align: auto)) {
+      /* Safari だけに適用 */
+      border-radius: initial;
+      text-align-last: center;
+    }
   }
 
   //  ! date
