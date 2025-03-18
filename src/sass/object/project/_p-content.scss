@@ -41,27 +41,27 @@
     font-weight: bold;
     line-height: 1.4;
   }
-  h1{
-    font-size: 1.75em;
+  h1 {
+    font-size: em(28);
   }
   h2 {
-    font-size: 1.5em;
+    font-size: em(24);
   }
   h3 {
-    font-size: 1.3em;
+    font-size: em(21);
   }
   h4 {
-    font-size: 1.2em;
+    font-size: em(19);
   }
   h5 {
-    font-size: 1em;
+    font-size: em(16);
   }
   h6 {
-    font-size: 0.9em;
+    font-size: em(14);
   }
 
   p {
-    margin: 1em 0;
+    margin-top: 1em;
   }
 
   p + p {
@@ -88,6 +88,10 @@
 
   a {
     text-decoration: underline;
+  }
+
+  img {
+    margin: 1em 0;
   }
 
   blockquote {
@@ -124,22 +128,22 @@
   // PC用スタイル（768px以上）
   @media (min-width: 768px) {
     h1 {
-      font-size: 2em;
+      font-size: em(32);
     }
     h2 {
-      font-size: 1.75em;
+      font-size: em(28);
     }
     h3 {
-      font-size: 1.5em;
+      font-size: em(24);
     }
     h4 {
-      font-size: 1.25em;
+      font-size: em(20);
     }
     h5 {
-      font-size: 1.1em;
+      font-size: em(18);
     }
     h6 {
-      font-size: 1em;
+      font-size: em(16);
     }
 
     table {
