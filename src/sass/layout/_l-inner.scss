@@ -37,7 +37,7 @@
     @include mq('md') {
       // デザイン比率を維持する場合（paddingで調整）
       max-width: initial;
-      padding-inline: percent(calc(($width-pc - $inner) / 2), $width-pc);
+      padding-inline: pct(calc(($width-pc - $inner) / 2), $width-pc);
     }
   }
 } @else {
@@ -47,7 +47,7 @@
     max-width: $inner + $padding-pc * 2;
     margin-inline: auto;
     padding-inline: $padding-pc;
-    padding-inline: percent(calc(($width-pc - $inner) / 2), $width-pc);
+    padding-inline: pct(calc(($width-pc - $inner) / 2), $width-pc);
 
     @include mq('md') {
       width: 100%;

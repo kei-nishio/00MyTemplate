@@ -1,5 +1,5 @@
 @use 'global' as *;
 
 .l-lower-heading {
-  margin-top: fluidRange($headerHeight-sp, $headerHeight-pc, 1);
+  margin-top: fluidRange($headerHeight-sp, $headerHeight-pc);
 }

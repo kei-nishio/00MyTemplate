@@ -6,7 +6,7 @@
   right: 0;
   left: 0;
   z-index: $ziHeader;
-  height: fluidRange($headerHeight-sp, $headerHeight-pc, 1);
+  height: fluidRange($headerHeight-sp, $headerHeight-pc);
   transition: opacity 0.5s, visibility 0.5s;
 }
 .p-header.is-hidden {
