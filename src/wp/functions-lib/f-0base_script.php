@@ -44,10 +44,22 @@ function my_script_init()
   wp_enqueue_style('style-main', get_theme_file_uri('/assets/css/style.css'), ['style-reset', 'style-swiper'], '1.0.0');
 
   // ! Script
+  // wp_enqueue_script('jquery'); 
   wp_enqueue_script('splitType', 'https://unpkg.com/split-type', [], "0.3.4", false);
   wp_enqueue_script('scrollable', 'https://unpkg.com/scroll-hint@latest/js/scroll-hint.min.js', [], "1.0.0", true);
   wp_enqueue_script('swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', "", "11.0", true);
   wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', [], "3.12.5", true);
   wp_enqueue_script('gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js', ['gsap'], "3.12.5", true);
   wp_enqueue_script('script-main', get_theme_file_uri('/assets/js/script.js'), [], '1.0.0', true);
+}
+
+// ! Google Fonts・CDN高速化のためのpreconnect
+add_action('wp_head', 'add_preconnect_links');
+function add_preconnect_links()
+{
+  echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+  echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+  echo '<link rel="preconnect" href="https://cdn.jsdelivr.net">' . "\n";
+  echo '<link rel="preconnect" href="https://cdnjs.cloudflare.com">' . "\n";
+  echo '<link rel="preconnect" href="https://unpkg.com">' . "\n";
 }

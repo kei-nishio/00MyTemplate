@@ -1,12 +1,11 @@
 <?php
 // ! カスタムメニューを追加する
-add_action('admin_menu', 'my_custom_menu');
 function my_custom_menu()
 {
   // カスタムカテゴリーのデータを取得
   $categories = get_categories(array('taxonomy' => 'foo_category'));
   $parent_slug = 'manage_options'; // 親メニューのスラッグ
-
+  
   // トップレベルメニューを追加
   add_menu_page(
     'カスタムメニューのタイトル', // ページタイトル
@@ -17,7 +16,7 @@ function my_custom_menu()
     'dashicons-admin-generic', // アイコンURL
     6 // メニュー位置
   );
-
+  
   // カテゴリーごとにサブメニューを追加
   foreach ($categories as $category) {
     add_submenu_page(
@@ -36,3 +35,4 @@ function my_custom_menu_page()
 {
   echo '<div class="wrap"><h2>カスタムメニュー</h2></div>';
 }
+add_action('admin_menu', 'my_custom_menu');

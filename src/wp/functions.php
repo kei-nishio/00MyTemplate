@@ -5,7 +5,7 @@ get_template_part('/functions-lib/f-0base_functions');
 // ! headでgoogle fontやCDNを読み込む
 get_template_part('/functions-lib/f-0base_script');
 
-// ! 投稿画面の表示項目を設定する
+// ! テーマの基本機能を設定する
 get_template_part('/functions-lib/f-0base_set_up');
 
 // * 以下オプション * //
@@ -37,6 +37,15 @@ get_template_part('/functions-lib/f-cf7_reset');
 // ! カスタムページネーションを追加する
 get_template_part('/functions-lib/f-custom_pagination');
 
+// ! クエリパラメータ値に基づき、カスタム投稿一覧を投稿者IDでフィルターする
+// get_template_part('/functions-lib/f-custom_post_filter');
+
+// ! カスタム投稿の一覧画面をカスタマイズする
+get_template_part('/functions-lib/f-custom_post_list');
+
+// ! カスタム投稿の表示件数を設定する
+get_template_part('/functions-lib/f-custom_post_page');
+
 // ! カスタム投稿のスラッグを設定する
 get_template_part('/functions-lib/f-custom_post_slug');
 
@@ -46,17 +55,14 @@ get_template_part('/functions-lib/f-custom_post_slug');
 // ! カスタム投稿の管理画面でタクソノミーフィルターを追加
 // get_template_part('/functions-lib/f-custom_post_tax_filter');
 
-// ! クエリパラメータ値に基づき、カスタム投稿一覧を投稿者IDでフィルターする
-// get_template_part('/functions-lib/f-custom_posts_filter');
-
-// ! カスタム投稿の表示件数を設定する
-get_template_part('/functions-lib/f-custom_posts_page');
-
 // ! カスタムタクソノミーのターム数を制限する
 // get_template_part('/functions-lib/f-custom_tax_limit');
 
 // ! データをJavaScriptに引き渡す
 // get_template_part('/functions-lib/f-js_data');
+
+// ! WordPressログイン画面のロゴと遷移先を変更する
+get_template_part('/functions-lib/f-login_logo');
 
 // ! 通常投稿タイプのラベルを変更する（例：「投稿」⇒「ブログ」）もしくは非表示にする
 get_template_part('/functions-lib/f-menu_post');

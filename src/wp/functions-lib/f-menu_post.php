@@ -1,7 +1,5 @@
 <?php
 // ! 通常投稿タイプのラベルを変更する（「投稿」⇒「ブログ」）
-add_action('init', 'Change_objectlabel');
-add_action('admin_menu', 'Change_menulabel');
 function Change_menulabel()
 {
   global $menu;
@@ -26,6 +24,8 @@ function Change_objectlabel()
   $labels->not_found = $name . 'が見つかりませんでした';
   $labels->not_found_in_trash = 'ゴミ箱に' . $name . 'は見つかりませんでした';
 }
+add_action('init', 'Change_objectlabel');
+add_action('admin_menu', 'Change_menulabel');
 
 // ! 通常投稿タイプを非表示にする
 // function remove_post_menu()

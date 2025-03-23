@@ -21,7 +21,6 @@ remove_action('wpcf7_swv_create_schema', 'wpcf7_swv_add_select_enum_rules', 20, 
 // ! page-contact.php
 // * カスタム投稿タイプの値を取得してクエリIDによる自動チェックをする場合
 // * CF7に [custom_builder your-checkbox0 id:f-checkbox0] を追記すること
-add_action('wpcf7_init', 'custom_add_form_tag_builder');
 function custom_add_form_tag_builder()
 {
   wpcf7_add_form_tag('custom_builder', 'custom_builder_form_tag_handler', ['name-attr' => true]);
@@ -71,8 +70,9 @@ function custom_builder_form_tag_handler($tag)
 
   return $html;
 }
+add_action('wpcf7_init', 'custom_add_form_tag_builder');
+
 // * カスタムタクソノミーの値を取得する場合
-add_filter('wpcf7_form_tag_data_option', 'custom_select_values_contact', 10, 3);
 function custom_select_values_contact($values, $options, $args)
 {
   if (!is_array($values)) {
@@ -92,9 +92,9 @@ function custom_select_values_contact($values, $options, $args)
   }
   return $values;
 }
+add_filter('wpcf7_form_tag_data_option', 'custom_select_values_contact', 10, 3);
 
 // ! page-form-event.php
-add_filter('wpcf7_form_tag_data_option', 'custom_select_values_form_event', 10, 3);
 function custom_select_values_form_event($values, $options, $args)
 {
   if (!is_array($values)) {
@@ -134,9 +134,9 @@ function custom_select_values_form_event($values, $options, $args)
 
   return $values;
 }
+add_filter('wpcf7_form_tag_data_option', 'custom_select_values_form_event', 10, 3);
 
 // ! Contact Form 7でセレクトボックスをクエリ値に基づきカスタマイズする
-add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);
 function custom_select_values($values, $options, $args)
 {
   // フォームオプションに 'hoge-select' が含まれている場合のみ実行
@@ -170,3 +170,4 @@ function custom_select_values($values, $options, $args)
 
   return $values;
 }
+add_filter('wpcf7_form_tag_data_option', 'custom_select_values', 10, 3);

@@ -1,5 +1,5 @@
 <?php
-
+// ! ACFのフィールドグループをカスタムメニューに追加する
 /**
  * @uses  $image[$i] = get_field('acfBrandImage0' . $i, 'options');
  * @uses  $image_url[$i]  = esc_url($image[$i]['url']);
@@ -7,11 +7,6 @@
  * @uses  $image_alt[$i] = $image_alt[$i] === "" ? "コレクション" . $i : $image_alt[$i];
  */
 
-// ! ACFのフィールドグループをカスタムメニューに追加する
-add_action('admin_menu', 'my_custom_acf_menu');
-add_action('admin_init', function () {
-  ob_start(); // 出力バッファリングを管理画面全体に適用
-});
 
 function my_custom_acf_menu()
 {
@@ -61,3 +56,8 @@ function my_custom_acf_menu_page($field_group_key, $menu_slug)
   echo '</div>';
   ob_end_flush();
 }
+
+add_action('admin_menu', 'my_custom_acf_menu');
+add_action('admin_init', function () {
+  ob_start(); // 出力バッファリングを管理画面全体に適用
+});
