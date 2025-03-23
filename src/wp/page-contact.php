@@ -14,14 +14,14 @@
             <?php if (true): ?>
               <?php echo do_shortcode('[contact-form-7 id="97671ee" title="contact"]'); ?>
             <?php else: ?>
-              <p style="text-align: center;">ここにショートコードが入ります。</p>
+              <p style="text-align: center; margin-top: 20px; ">ここにショートコードが入ります。</p>
             <?php endif; ?>
           </div>
         </div>
       </div>
     <?php endwhile; ?>
   <?php else : ?>
-    <p style="text-align: center;">記事が投稿されていません。</p>
+    <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
   <?php endif; ?>
 </main>
 

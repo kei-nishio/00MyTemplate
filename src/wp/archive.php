@@ -34,7 +34,7 @@ $slug = $args['slug'] ?? 'default';
                 <?php get_template_part('/parts/c-pagination'); ?>
               </div>
             <?php else : ?>
-              <p style="text-align: center;">記事が投稿されていません。</p>
+              <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
             <?php endif; ?>
           </div>
         </div>
@@ -64,7 +64,7 @@ $slug = $args['slug'] ?? 'default';
                   <?php get_template_part('/parts/c-pagination'); ?>
                 </div>
               <?php else : ?>
-                <p style="text-align: center;">記事が投稿されていません。</p>
+                <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
               <?php endif; ?>
             </div>
           </div>

@@ -82,7 +82,7 @@
             <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
           </div>
         <?php else : ?>
-          <p style="text-align: center;">記事が投稿されていません。</p>
+          <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
       </div>
@@ -138,7 +138,7 @@
             <div class="c-button-normal"><a href="<?php echo esc_url(home_url('/news')); ?>">もっと見る</a></div>
           </div>
         <?php else : ?>
-          <p style="text-align: center;">記事が投稿されていません。</p>
+          <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
       </div>

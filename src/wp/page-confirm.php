@@ -37,14 +37,14 @@ if (!$referrer_valid) {
             <?php if (true): ?>
               <?php echo do_shortcode('[contact-form-7 id="da7f2a3" title="confirm"]'); ?>
             <?php else: ?>
-              <p style="text-align: center;">ここにショートコードが入ります。</p>
+              <p style="text-align: center; margin-top: 20px; ">ここにショートコードが入ります。</p>
             <?php endif; ?>
           </div>
         </div>
       </div>
     <?php endwhile; ?>
   <?php else : ?>
-    <p style="text-align: center;">記事が投稿されていません。</p>
+    <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
   <?php endif; ?>
 </main>
 

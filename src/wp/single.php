@@ -92,7 +92,7 @@
       </article>
     <?php endwhile; ?>
   <?php else : ?>
-    <p style="text-align: center;">記事が投稿されていません。</p>
+    <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
   <?php endif; ?>
 </main>
 <?php get_footer(); ?>

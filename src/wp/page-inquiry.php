@@ -14,14 +14,14 @@
             <?php if (true): ?>
               <?php echo do_shortcode('[contact-form-7 id="41009c7" title="inquiry"]'); ?>
             <?php else: ?>
-              <p style="text-align: center;">ここにショートコードが入ります。</p>
+              <p style="text-align: center; margin-top: 20px; ">ここにショートコードが入ります。</p>
             <?php endif; ?>
           </div>
         </div>
       </div>
     <?php endwhile; ?>
   <?php else : ?>
-    <p style="text-align: center;">記事が投稿されていません。</p>
+    <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
   <?php endif; ?>
 </main>
 
@@ -108,7 +108,7 @@
 
       // 確認ボタンの有効/無効状態を更新
       const isPrivacyAccepted = privacyCheckbox.checked;
-      confirmButton.disabled = !(allFilled && isPrivacyAccepted); 
+      confirmButton.disabled = !(allFilled && isPrivacyAccepted);
     }
 
     // 送信完了時のリダイレクト処理
