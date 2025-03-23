@@ -34,30 +34,20 @@
   </section>
 
   <script>
-    // const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage');
-    // let loadingElements = document.querySelectorAll('.js-loading');
-    // let loadingHideOnHTML = document.querySelectorAll('.js-loadingHide');
-    // if (!hasFirstVisited) {
-    //   // loading on
-    //   if (loadingElements.length > 0) {
-    //     loadingElements.forEach((element) => {
-    //       element.classList.add("is-loading");
-    //     });
-    //   }
-    //   if (loadingHideOnHTML.length > 0) {
-    //     loadingHideOnHTML.forEach((element) => {
-    //       element.style.visibility = 'hidden';
-    //       element.style.opacity = '0';
-    //     });
-    //   }
-    // } else {
-    //   // loading off
-    //   if (loadingElements.length > 0) {
-    //     loadingElements.forEach((element) => {
-    //       element.classList.remove("is-loading");
-    //     });
-    //   }
-    // }
+    // Flash of Unstyled Content（FOUC）対策
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    const loading = document.querySelector('.js-loading');
+    const loadingHides = document.querySelectorAll('.js-loadingHide');
+
+    if (!hasVisited) {
+      loading?.classList.add('is-loading');
+      loadingHides.forEach((el) => {
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+      });
+    } else {
+      loading?.classList.remove('is-loading');
+    }
   </script>
 
   <?php // sub query grid

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ! 基本設定 ***********
-  gsap.registerPlugin(ScrollTrigger); // ScrollTriggerを使うための記述
-  // const pageUrl = window.location.href; // 現在のページの絶対URL
+  gsap.registerPlugin(ScrollTrigger); // ScrollTrigger
+  // const pageUrl = window.location.href; // 現在ページの絶対URL
   // const initialWindowsWidth = window.innerWidth; // ページ読み込み時のウィンドウ幅
   // let lastWindowWidth = window.innerWidth; // リサイズ時のウィンドウ幅
   // let currentWindowWidth = window.innerWidth; // 現在のウィンドウ幅
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // });
   // const breakpoint = 768; // レスポンシブ幅
   // const headerHeight = document.querySelector('header').offsetHeight; // ヘッダーの高さ
+
   // ! 関数 ***********
   function forceReload() {
     window.location.href = window.location.href; // 強制リロード
@@ -1026,73 +1027,54 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-  // * 右から順番にフェードイン
-  const fadeInRightStaggers = document.querySelectorAll('.js-fadeInRightStagger');
-  if (fadeInRightStaggers.length > 0) {
-    gsap.from(fadeInRightStaggers, {
-      scrollTrigger: {
-        trigger: fadeInRightStaggers[0],
-        start: 'top bottom-=70',
-        once: true,
-      },
-      duration: 0.7,
-      autoAlpha: 0,
-      x: 100,
-      stagger: 0.2,
-    });
-  }
-
-  // ! このやり方が使えるかも！？
-  // スクロールトリガーのアニメーション（fadeUp, fadeLeft, fadeRight）
-  if (false) {
-    const animations = [
-      {
-        className: 'js-fadeUp',
-        from: { y: 30, autoAlpha: 0 },
-        to: { y: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
-      },
-      {
-        className: 'js-fadeLeft',
-        from: { x: -30, autoAlpha: 0 },
-        to: { x: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
-      },
-      {
-        className: 'js-fadeRight',
-        from: { x: 30, autoAlpha: 0 },
-        to: { x: 0, autoAlpha: 1, duration: 1.5, ease: 'power3.out' },
-      },
-    ];
-
-    animations.forEach(({ className, from, to }) => {
-      gsap.utils.toArray(`.${className}`).forEach((element) => {
-        gsap.fromTo(element, from, {
-          ...to,
-          scrollTrigger: {
-            trigger: element,
-            start: '100px bottom', // ビューポートの下端に要素が触れた時点で開始
-            end: 'center center', // アニメーションの終了条件
-            scrub: false, // スクロール位置に同期しない
-          },
-          onComplete: function () {
-            element.style.transform = ''; // アニメーション完了後にtransformをリセット
-          },
-        });
+  // * 右から順番にフェードイン（ul/ol要素にクラスをつける）
+  document.querySelectorAll('.js-fadeInRightStaggers').forEach((group) => {
+    const targets = group.querySelectorAll(':scope > *');
+    if (targets.length > 0) {
+      gsap.from(targets, {
+        scrollTrigger: {
+          trigger: group,
+          start: 'top bottom-=70',
+          once: true,
+        },
+        autoAlpha: 0,
+        x: 100,
+        duration: 0.7,
+        stagger: 0.1,
       });
-    });
-  }
-
-  // ! Loading Animation ***********
-  if (false) {
-    const hasOnceVisited = localStorage.getItem('hasVisitedTopPage'); //初回がnull ブラウザを閉じても有効
-    const hasFirstVisited = sessionStorage.getItem('hasVisitedTopPage'); //初回がnull タブを閉じるとリセット
-    // localStorage.removeItem('hasVisitedTopPage'); //null化 ブラウザを閉じても有効
-    // sessionStorage.removeItem('hasVisitedTopPage'); //null化 タブを閉じるとリセット
-    if (!hasFirstVisited) {
-      const loading = document.querySelector('.js-loading');
-      const tl = gsap.timeline();
-      tl.set(loading, { display: 'block' });
     }
-    localStorage.setItem('hasVisitedTopPage', 'true'); // ブラウザを閉じても有効
-    sessionStorage.setItem('hasVisitedTopPage', 'true'); // タブを閉じるとリセット
+  });
+  // * 下から順番にフェードイン(ul/ol要素にクラスをつける)
+  document.querySelectorAll('.js-fadeInBottomStaggers').forEach((group) => {
+    const targets = group.querySelectorAll(':scope > *');
+    if (targets.length > 0) {
+      gsap.from(targets, {
+        scrollTrigger: {
+          trigger: group,
+          start: 'top bottom-=70',
+          once: true,
+        },
+        autoAlpha: 0,
+        y: 100,
+        duration: 0.7,
+        stagger: 0.1,
+      });
+    }
+  });
+
+  // ! ローディングアニメーション ***********
+  const loading = document.querySelector('.js-loading');
+  if (loading) {
+    const loadingTL = gsap.timeline({
+      onComplete: function () {
+        // Flash of Invisible Content（FOIC）対策
+        loading.classList.remove('is-loading');
+        sessionStorage.setItem('hasVisited', 'true'); // 訪問を記録
+      },
+    });
+
+    loadingTL
+      .to('.js-loading-logo', { autoAlpha: 1, duration: 0.5 })
+      .to('.js-loading-bg', { autoAlpha: 0, duration: 0.5, ease: 'power4.inOut' }, '<');
   }
 });
