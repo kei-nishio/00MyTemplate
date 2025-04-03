@@ -1,0 +1,49 @@
+{
+  "htmlStructure": {
+    "sectionOrder": "follow_figma_layout",
+    "semanticTags": true,
+    "singleRootWrapper": true
+  },
+  "css": {
+    "namingConvention": "FLOCCS_BEM",
+    "nesting": false,
+    "styleTarget": "class",
+    "avoidGlobalTagStyle": true
+  },
+  "layout": {
+    "containerClass": "l-inner",
+    "componentPrefix": "c-",
+    "utilityPrefix": "u-",
+    "jsPrefix": "js-",
+    "statePrefix": "is-"
+  },
+  "images": {
+    "extensionRules": {
+      "default": "jpg",
+      "transparent": "png"
+    },
+    "imageOptimization": "modern-format"
+  },
+  "javascript": {
+    "hookClassPrefix": "js-",
+    "styleOnHookClass": false
+  },
+  "accessibility": {
+    "useAltText": true,
+    "ariaSupport": true,
+    "useHeadingLevelsProperly": true
+  },
+  "performance": {
+    "lazyLoadImages": true
+  },
+  "meta": {
+    "formatting": {
+      "indent": 2,
+      "indentWith": "space",
+      "propertyOrder": "as-is",
+      "trailingComma": false,
+      "quoteStyle": "double",
+      "includeFinalNewline": true
+    }
+  }
+}
