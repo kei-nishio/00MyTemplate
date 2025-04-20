@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let scrollTop = document.documentElement.scrollTop;
     // * scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
     if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
-      header.classList.add('is-hidden');
+      header.classList.add('is-scrolled');
     } else {
-      header.classList.remove('is-hidden');
+      header.classList.remove('is-scrolled');
     }
     lastScrollTop = scrollTop;
   });
@@ -850,6 +850,9 @@ document.addEventListener('DOMContentLoaded', () => {
       i18n: {
         scrollable: scrollableText,
       },
+    });
+    document.querySelectorAll('.js-scrollable').forEach((scrollable) => {
+      scrollable.style.overflowY = 'hidden';
     });
   }
 

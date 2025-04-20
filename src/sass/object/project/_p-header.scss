@@ -9,7 +9,7 @@
   height: fluidRange($headerHeight-sp, $headerHeight-pc);
   transition: opacity 0.5s, visibility 0.5s;
 }
-.p-header.is-hidden {
+.p-header.is-scrolled {
   visibility: hidden;
   opacity: 0;
 }

@@ -167,8 +167,7 @@
       </dt>
       <dd class="p-form__description">
         [textarea* your-message id:f-textarea minlength:10 maxlength:300 placeholder "お気軽にご相談ください。"]
-        <p class="p-form__note">現在[count your-message]字</p>
-        <p class="p-form__note">残り[count your-message down]字</p>
+        <p class="p-form__note">現在[count your-message]字 / 残り[count your-message down]字</p>
       </dd>
     </div>
     <!-- * zip-code -->

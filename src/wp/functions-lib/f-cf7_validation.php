@@ -50,3 +50,22 @@ function custom_furigana_validation($result, $tag)
 }
 add_filter('wpcf7_validate_text*', 'custom_furigana_validation', 20, 2);
 add_filter('wpcf7_validate_text', 'custom_furigana_validation', 20, 2);
+
+// ! Contact Form 7でメールアドレスの確認バリデーションを追加する
+function wpcf7_custom_email_validation_filter($result, $tag)
+{
+  $tag_name = strtolower($tag->name);
+
+  if ('your-email-confirm' === $tag_name) {
+    $your_email = isset($_POST['your-email']) ? sanitize_email(trim($_POST['your-email'])) : '';
+    $your_email_confirm = isset($_POST['your-email-confirm']) ? sanitize_email(trim($_POST['your-email-confirm'])) : '';
+
+    if ($your_email !== $your_email_confirm) {
+      $result->invalidate($tag, __('メールアドレスが一致しません', 'your-text-domain'));
+    }
+  }
+
+  return $result;
+}
+add_filter('wpcf7_validate_email', 'wpcf7_custom_email_validation_filter', 20, 2);
+add_filter('wpcf7_validate_email*', 'wpcf7_custom_email_validation_filter', 20, 2);

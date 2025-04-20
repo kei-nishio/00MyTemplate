@@ -39,6 +39,7 @@ function my_script_init()
 
   // ! CSS
   wp_enqueue_style('style-reset', get_theme_file_uri('/assets/css/ress.min.css'), [], '5.0.2');
+  wp_enqueue_style('scroll-hint', 'https://unpkg.com/scroll-hint@latest/css/scroll-hint.css');
   // wp_enqueue_style('style-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
   wp_enqueue_style('style-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', ['style-reset'], '11.0');
   wp_enqueue_style('style-main', get_theme_file_uri('/assets/css/style.css'), ['style-reset', 'style-swiper'], '1.0.0');
