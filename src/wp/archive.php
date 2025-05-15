@@ -49,24 +49,22 @@ $slug = $args['slug'] ?? 'default';
           <?php get_sidebar(); ?>
         </div>
         <div class="p-column2__main">
-          <div class="p-column2__content">
-            <div class="p-archive">
-              <?php if (have_posts()) : ?>
-                <ul class="p-archive__list">
-                  <?php while (have_posts()) : the_post(); ?>
-                    <li class="p-archive__item">
-                      <?php $post_id = get_the_ID(); ?>
-                      <?php get_template_part('/parts/c-card', $slug, ["post_id" => $post_id]); ?>
-                    </li>
-                  <?php endwhile; ?>
-                </ul>
-                <div class="p-archive__pagination">
-                  <?php get_template_part('/parts/c-pagination'); ?>
-                </div>
-              <?php else : ?>
-                <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
-              <?php endif; ?>
-            </div>
+          <div class="p-archive">
+            <?php if (have_posts()) : ?>
+              <ul class="p-archive__list">
+                <?php while (have_posts()) : the_post(); ?>
+                  <li class="p-archive__item">
+                    <?php $post_id = get_the_ID(); ?>
+                    <?php get_template_part('/parts/c-card', $slug, ["post_id" => $post_id]); ?>
+                  </li>
+                <?php endwhile; ?>
+              </ul>
+              <div class="p-archive__pagination">
+                <?php get_template_part('/parts/c-pagination'); ?>
+              </div>
+            <?php else : ?>
+              <p style="text-align: center; margin-top: 20px; ">記事が投稿されていません。</p>
+            <?php endif; ?>
           </div>
         </div>
       </div>
