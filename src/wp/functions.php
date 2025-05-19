@@ -76,6 +76,9 @@ get_template_part('/functions-lib/f-menu_post');
 // ! ページのブロックエディタを無効化する
 // get_template_part('/functions-lib/f-page_editor');
 
+// ! 通常投稿の一覧画面をカスタマイズする
+// get_template_part('/functions-lib/f-post_list');
+
 // ! リダイレクト設定
 // get_template_part('/functions-lib/f-redirect');
 
