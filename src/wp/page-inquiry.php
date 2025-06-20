@@ -115,5 +115,25 @@
     document.addEventListener('wpcf7mailsent', () => {
       window.location.href = '/inquiry/thanks/';
     }, false);
+
+    // エラー時は入力画面を表示して確認画面を隠す
+    // document.addEventListener('wpcf7invalid', function(event) {
+    //   const formArea = document.querySelector(".js-formArea");
+    //   const confirmArea = document.querySelector(".js-confirmArea");
+    //   if (formArea && confirmArea) {
+    //     formArea.style.display = 'block';
+    //     confirmArea.style.display = 'none';
+    //     // 入力エリアの一番上にスクロールする
+    //     window.scrollTo({
+    //       top: formArea.getBoundingClientRect().top + window.scrollY,
+    //       behavior: 'smooth'
+    //     });
+    //   }
+    // });
+
+    // 入力モード制御（スマホ対応）
+    // document.getElementById('your-email-confirmation')?.setAttribute('inputmode', 'email');
+    // document.getElementById('your-zip')?.setAttribute('inputmode', 'numeric');
+
   });
 </script>
