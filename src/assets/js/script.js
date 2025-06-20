@@ -870,6 +870,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((data) => {
               if (data.code === 200) {
                 addressField.value = data.data.fullAddress;
+                addressField.dispatchEvent(new Event('input')); // 住所入力イベントを検知できるように手動発火する
+                const confirmElement = document.getElementById('your-address-confirm');
+                if (confirmElement) {
+                  confirmElement.textContent = data.data.fullAddress;
+                }
               } else {
                 alert('郵便番号が正しいかご確認ください。');
               }
