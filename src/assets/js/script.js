@@ -923,6 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! Clip Path Animation ***********
+  // * 左からClipPathでスライドイン
   const clipDowns = document.querySelectorAll('.js-clip-down');
   if (clipDowns.length > 0) {
     clipDowns.forEach((element) => {
@@ -947,6 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // * 右からClipPathでスライドイン
   const clipRights = document.querySelectorAll('.js-clip-right');
   if (clipRights.length > 0) {
     clipRights.forEach((element) => {
