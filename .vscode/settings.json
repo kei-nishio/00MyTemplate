@@ -1,0 +1,68 @@
+{
+  // ================================
+  // これは VSCode の設定共有ファイルです
+  // ================================
+  // -----------------------------
+  // フォーマッター・保存時整形
+  // -----------------------------
+  "editor.formatOnSave": true, // ファイル保存時に自動フォーマットを実行
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // 標準の整形ツールを Prettier に指定
+  "prettier.printWidth": 120, // 折り返し幅の上限を120文字に設定（読みやすさ優先）
+  "prettier.singleQuote": true, // 文字列をシングルクオートで統一
+  "prettier.jsxSingleQuote": true, // JSX内もシングルクオートに統一
+  "javascript.preferences.quoteStyle": "single", // JS補完時もシングルクオートを使用
+  "diffEditor.ignoreTrimWhitespace": false, // 差分表示で空白の変更も強調（確認ミスを防ぐ）
+
+  // -----------------------------
+  // エディタ表示・補完・動作
+  // -----------------------------
+  "editor.wordWrap": "on", // エディタ内で長い行は自動折り返し
+  "editor.mouseWheelZoom": true, // Ctrl+ホイールでフォントサイズ変更を有効化
+  "editor.linkedEditing": true, // 開始タグ・終了タグなどの同時編集を有効化
+  "editor.minimap.enabled": false, // ミニマップ（右の小マップ）を非表示に
+  "editor.stickyScroll.enabled": false, // 見出し固定スクロールは無効化（好みに応じて）
+  "editor.unicodeHighlight.nonBasicASCII": false, // 全角・記号の強調表示を無効化（コーディング時の視認性重視）
+  "editor.accessibilitySupport": "off", // アクセシビリティ補助をオフに（通常開発用途では不要）
+
+  // -----------------------------
+  // 拡張子別設定（整形ルールなど）
+  // -----------------------------
+  "[html]": {
+    "editor.tabSize": 2, // HTMLのインデントは2スペース
+    "editor.detectIndentation": false, // 自動インデント検出を無効化（常に2スペースで統一）
+    "editor.defaultFormatter": "j69.ejs-beautify" // HTMLやEJSを整形できるフォーマッターを指定（なければ prettier に）
+  },
+  "[ejs]": {
+    "editor.defaultFormatter": "j69.ejs-beautify" // EJSテンプレートを適切に整形
+  },
+  "[css]": {
+    "editor.tabSize": 2, // CSSも2スペースで統一
+    "editor.detectIndentation": false, // 自動判定を無効にして、スタイルを固定
+    "prettier.bracketSameLine": true // closing bracket を同じ行に（好みで調整可）
+  },
+  "[scss]": {
+    "editor.tabSize": 2, // SCSSも2スペースで統一
+    "prettier.bracketSameLine": true // closing bracket を同じ行に
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client", // PHP補完と整形の定番ツール
+    "editor.tabSize": 2 // PHPも2スペースで統一
+  },
+
+  // -----------------------------
+  // Emmet・補完サポート
+  // -----------------------------
+  "emmet.includeLanguages": {
+    "ejs": "html" // EJSファイルでもHTML補完を有効にする
+  },
+  "editor.quickSuggestions": {
+    "strings": "on" // 文字列内でもコード補完を有効に
+  },
+
+  // -----------------------------
+  // Git・バージョン管理
+  // -----------------------------
+  "git.autofetch": true, // リモートからの自動フェッチを有効化
+  "git.enableSmartCommit": true, // ステージ済みファイルのみで即コミット可
+  "git.confirmSync": false // Git同期時の確認ダイアログをスキップ
+}

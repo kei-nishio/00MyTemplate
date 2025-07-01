@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode", // Prettier - コードフォーマッター
+    "j69.ejs-beautify", // EJS / HTML 整形対応
+    "bmewburn.vscode-intelephense-client", // PHP補完と構文チェック
+    "dbaeumer.vscode-eslint", // ESLint（JSの構文チェック・補完支援）
+    "stylelint.vscode-stylelint", // Stylelint（CSS / SCSSの構文チェック）
+    "formulahendry.auto-rename-tag" // 開始・終了タグの自動リネーム
+  ]
+}

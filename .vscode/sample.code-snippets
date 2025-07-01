@@ -1,0 +1,49 @@
+{
+  // ! HTMLの基本テンプレート
+  //   "HTML Boilerplate": {
+  //     "prefix": "html5",
+  //     "scope": "html",
+  //     "body": [
+  //       "<!DOCTYPE html>",
+  //       "<html lang=\"ja\">",
+  //       "<head>",
+  //       "  <meta charset=\"UTF-8\">",
+  //       "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+  //       "  <title>${1:タイトル}</title>",
+  //       "</head>",
+  //       "<body>",
+  //       "  ${2}",
+  //       "</body>",
+  //       "</html>"
+  //     ],
+  //     "description": "HTML5の基本構造"
+  //   },
+  // ! CSSボタンスタイル
+  //   "CSS Button": {
+  //     "prefix": "btn",
+  //     "scope": "css,scss",
+  //     "body": [
+  //       ".c-btn {",
+  //       "  display: inline-block;",
+  //       "  padding: 0.75em 1.5em;",
+  //       "  background-color: #007acc;",
+  //       "  color: #fff;",
+  //       "  text-align: center;",
+  //       "  text-decoration: none;",
+  //       "  border-radius: 4px;",
+  //       "}"
+  //     ],
+  //     "description": "汎用ボタンスタイル"
+  //   },
+  // ! JavaScriptのイベントリスナー
+  //   "JS addEventListener": {
+  //     "prefix": "addevent",
+  //     "scope": "javascript",
+  //     "body": [
+  //       "document.querySelector('${1:selector}').addEventListener('${2:event}', function(e) {",
+  //       "  ${3:// 処理内容}",
+  //       "});"
+  //     ],
+  //     "description": "イベントリスナーを追加"
+  //   }
+}
