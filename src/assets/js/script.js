@@ -922,6 +922,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ! Parallax Image Animation ***********
+  const parallaxImages = document.querySelectorAll('.js-parallax-image');
+  if (parallaxImages.length > 0) {
+    parallaxImages.forEach((element) => {
+      gsap.to(element, {
+        yPercent: 20,
+        ease: 'power1.inOut',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+          // markers: true,
+        },
+      });
+    });
+  }
+  // * sample CSS
+  //   .p-xxx__image {
+  //   aspect-ratio: width / height;
+  //   overflow: hidden;
+  //   width: 100%;
+  //   img {
+  //     width: 100%;
+  //     height: 120%;
+  //     object-fit: cover;
+  //     transform: translateY(-20%);
+  //   }
+  // }
+
   // ! Clip Path Animation ***********
   // * 左からClipPathでスライドイン
   const clipDowns = document.querySelectorAll('.js-clip-down');

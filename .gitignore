@@ -1,6 +1,10 @@
-_gulp/node_modules/
-_gulp/package-lock.json
-_gulp/package-lock.json/
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+_gulp/**/*
+!_gulp/gulpfile.js
+!_gulp/package.json
 .DS_Store
 dist
 distwp
