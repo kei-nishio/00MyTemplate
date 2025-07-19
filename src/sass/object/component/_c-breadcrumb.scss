@@ -1,33 +1,31 @@
 @use 'global' as *;
 
 .c-breadcrumb {
-  margin-top: rem(10);
-  text-align: right;
+  margin-top: rem(12);
 
   @include mq('md') {
-    margin-top: rem(20);
+    margin-top: rem(32);
   }
 }
-.breadcrumb__inner.l-inner {
-  padding-right: rem(10);
-
+.c-breadcrumb__inner.l-inner {
   @include mq('md') {
-    padding-right: rem(60);
   }
 }
-.breadcrumb__container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  color: black;
-  font-size: rem(10);
-  font-family: $secondFont;
+.c-breadcrumb__container {
+}
 
-  @include mq('md') {
-    font-size: rem(15);
+// ! aioseo_breadcrumbs 設定
+.c-breadcrumb {
+  .aioseo-breadcrumbs {
   }
-  a {
-    color: black;
+  .aioseo-breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    a {
+      color: #000;
+    }
+  }
+  .aioseo-breadcrumb-separator {
   }
 }
 
