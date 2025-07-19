@@ -1,10 +1,13 @@
+# ._gulp
+_gulp/**/*
+!_gulp/gulpfile.js
+!_gulp/package.json
+# .vscode
 .vscode/**/*
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-_gulp/**/*
-!_gulp/gulpfile.js
-!_gulp/package.json
+# others
 .DS_Store
 dist
 distwp
