@@ -275,6 +275,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ! クリックアコーディオン jQueryタイプ ***********
+  (function ($) {
+    $(function () {
+      $('.js-accordion').each(function () {
+        const $item = $(this);
+        const $question = $item.children().eq(0);
+        const $answer = $item.children().eq(1);
+
+        // 初期表示
+        if ($item.hasClass('is-open')) {
+          $answer.show();
+        } else {
+          $answer.hide();
+        }
+
+        // Qクリック時の処理
+        $question.on('click', function () {
+          $item.toggleClass('is-open');
+          $answer.stop(true, true).slideToggle(300);
+        });
+      });
+    });
+  })(jQuery);
+
   // ! クリックアコーディオン 回転タイプ ***********
   class AccordionToggle {
     constructor(accordionElement, index) {
@@ -360,7 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-
   const accordions = document.querySelectorAll('.js-accordion');
   if (accordions.length > 0) {
     accordions.forEach((accordion, index) => {
