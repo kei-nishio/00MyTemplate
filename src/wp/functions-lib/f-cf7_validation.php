@@ -69,3 +69,23 @@ function wpcf7_custom_email_validation_filter($result, $tag)
 }
 add_filter('wpcf7_validate_email', 'wpcf7_custom_email_validation_filter', 20, 2);
 add_filter('wpcf7_validate_email*', 'wpcf7_custom_email_validation_filter', 20, 2);
+
+// ! Contact Form 7でテキストエリアにひらがなのバリデーションを追加する（スパム対策）
+function custom_hiragana_validation($result, $tag)
+{
+  $name = $tag->name;
+
+  if ($name === 'your-message') {
+    $value = isset($_POST[$name]) ? mb_convert_kana(trim($_POST[$name]), 's', 'UTF-8') : '';
+
+    // マルチバイトで「ひらがな」が1文字以上含まれているかをチェック
+    if (!preg_match('/[ぁ-ん]/u', $value)) {
+      $result->invalidate($tag, 'お問い合わせ内容には、ひらがなを1文字以上含めてください。');
+    }
+  }
+
+  return $result;
+}
+
+add_filter('wpcf7_validate_textarea', 'custom_hiragana_validation', 10, 2);
+add_filter('wpcf7_validate_textarea*', 'custom_hiragana_validation', 10, 2);
