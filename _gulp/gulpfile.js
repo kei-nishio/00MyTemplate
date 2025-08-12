@@ -56,6 +56,7 @@ const srcPath = {
   css: '../src/assets/css/**/*',
   js: '../src/assets/js/**/*',
   img: '../src/assets/images/**/*',
+  others: ['../src/assets/**/*', '!../src/assets/images/**/*', '!../src/assets/js/**/*', '!../src/assets/css/**/*'],
   ejs: '../src/ejs/**/*.ejs',
   html: ['../src/**/*.html', '!./node_modules/**'],
   php: ['../src/wp/**/*.php', '../src/wp/style.css', '../src/wp/screenshot.*', '../src/wp/**/*.json'],
@@ -68,6 +69,7 @@ const destPath = {
   css: '../dist/assets/css/',
   js: '../dist/assets/js/',
   img: '../dist/assets/images/',
+  others: '../dist/assets/',
   html: '../dist/',
 };
 
@@ -78,6 +80,7 @@ const destWpPath = {
   css: `../distwp/assets/css/`,
   js: `../distwp/assets/js/`,
   img: `../distwp/assets/images/`,
+  others: `../distwp/assets/`,
   php: `../distwp/`,
 };
 
@@ -88,6 +91,7 @@ const destWpLocalPath = {
   css: `${wpDirectory}/assets/css/`,
   js: `${wpDirectory}/assets/js/`,
   img: `${wpDirectory}/assets/images/`,
+  others: `${wpDirectory}/assets/`,
   php: `${wpDirectory}/`,
 };
 
@@ -97,6 +101,17 @@ const htmlCopy = () => {
     return Promise.resolve(); // trueの場合は何も実行せず、Promiseを返す
   } else {
     return src(srcPath.html).pipe(dest(destPath.html));
+  }
+};
+
+// * othersファイルのコピー
+const othersCopy = () => {
+  if (wpMode) {
+    return src(srcPath.others, { encoding: false })
+      .pipe(dest(destWpPath.others)) // WordPress反映用
+      .pipe(wpLocalMode ? dest(destWpLocalPath.others) : through2.obj()); // WordPressLocal反映用
+  } else {
+    return src(srcPath.others, { encoding: false }).pipe(dest(destPath.others));
   }
 };
 
@@ -306,9 +321,20 @@ const watchFiles = () => {
 
 // ! ブラウザシンク付きの開発用タスク
 export default series(
-  series(cssSass, cssCopy, sassCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy),
+  series(cssSass, cssCopy, othersCopy, sassCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy),
   parallel(watchFiles, browserSyncFunc)
 );
 
 // ! 本番用タスク
-export const build = series(clean, cssSass, cssCopy, sassCopy, jsBabel, imgImagemin, htmlCopy, ejsCompile, phpCopy);
+export const build = series(
+  clean,
+  cssSass,
+  cssCopy,
+  othersCopy,
+  sassCopy,
+  jsBabel,
+  imgImagemin,
+  htmlCopy,
+  ejsCompile,
+  phpCopy
+);
