@@ -881,9 +881,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! お問い合わせページ限定 ***********
   if (false) {
-    if (window.location.pathname.match(/^\/contact/)) {
-      // * 郵便番号から住所を取得
-      const zipCodeField = document.querySelector('input[name="your-zip-code"]');
+    const zipCodeField = document.querySelector('input[name="your-zip-code"]');
+    if (zipCodeField) {
       const addressField = document.querySelector('input[name="your-address"]');
       zipCodeField.addEventListener('blur', function () {
         const zipCode = zipCodeField.value.replace('-', '');
