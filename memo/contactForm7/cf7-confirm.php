@@ -63,7 +63,7 @@
         </label>
       </dt>
       <dd class="p-form__description">
-        [multiform your-email id:f-mail]
+        [multiform your-email id:f-email]
       </dd>
     </div>
     <!-- * Select -->

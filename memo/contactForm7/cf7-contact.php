@@ -62,7 +62,7 @@
     <!-- * E-mail -->
     <div class="p-form__item">
       <dt class="p-form__term">
-        <label for="f-mail">
+        <label for="f-email">
           メールアドレス
           <sup class="p-form__required">*</sup>
           <span class="p-form__required">必須</span>

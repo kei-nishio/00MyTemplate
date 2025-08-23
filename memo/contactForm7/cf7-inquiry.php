@@ -58,13 +58,13 @@
     <!-- * E-mail -->
     <div class="p-form__item">
       <dt class="p-form__term">
-        <label for="f-mail">
+        <label for="f-email">
           メールアドレス
           <span class="p-form__required">必須</span>
         </label>
       </dt>
       <dd class="p-form__description">
-        [email* your-email id:f-mail placeholder "例）hoge@hogehoge.com"]
+        [email* your-email id:f-email placeholder "例）hoge@hogehoge.com"]
         <p class="p-form__example">例）hoge@hogehoge.com</p>
       </dd>
     </div>
@@ -271,7 +271,7 @@
         </p>
       </dt>
       <dd class="p-form__description">
-        <span id="f-mail-confirm"></span>
+        <span id="f-email-confirm"></span>
       </dd>
     </div>
     <!-- * Select -->
