@@ -19,10 +19,15 @@
   .aioseo-breadcrumbs {
   }
   .aioseo-breadcrumb {
+    display: inline-block;
+    max-width: 10em;
+    overflow: hidden;
     font-size: 12px;
     letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     a {
-      color: #000;
+      color: #000000;
     }
   }
   .aioseo-breadcrumb-separator {
@@ -36,7 +41,6 @@
     max-width: 10em;
     overflow: hidden;
     white-space: nowrap;
-
     text-overflow: ellipsis;
   }
 
@@ -50,6 +54,7 @@
     mask-size: 70%;
     mask-repeat: no-repeat;
     background-color: black;
+
     @include mq('md') {
     }
   }
