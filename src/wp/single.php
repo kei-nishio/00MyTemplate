@@ -63,6 +63,8 @@
             <div class="p-content"><?php the_content(); ?></div>
           </div>
 
+          <?php // ページネーション一体型 
+          ?>
           <ul class="p-single__pagination">
             <li class="prev <?php echo empty($prev) ? 'hidden' : ''; ?>">
               <div class="c-button-arrow c-button-arrow--reverse"><a href="<?php echo $prev_url; ?>">前の記事</a></div>
@@ -76,6 +78,9 @@
           </ul>
 
         </div>
+
+        <?php // ページネーション分離型 
+        ?>
         <ul class="p-single__pagination">
           <?php if (!empty($prev)) : ?>
             <li class="prev"><a href="<?php echo $prev_url; ?>">前の記事</a></li>
