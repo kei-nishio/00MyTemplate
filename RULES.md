@@ -1,31 +1,45 @@
-# Copilot 用プロンプト（Figma 画像 → 静的サイト 最小規約）
+# CLAUDE.md
 
-## 目的
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- 画像を忠実再現。テキスト/コードは漏れなく出力。ヘッダー/フッターは指示時のみ。
+## Project Overview
 
-## 出力物/構成
+This is a **Japanese static website template** for creating landing pages from Figma designs. The project uses pure HTML, CSS, and vanilla JavaScript with no build process - it's designed for direct deployment of static files.
 
-- HTML / CSS / JS（必要時）
+## Architecture & Structure
 
-```text
+### Technology Stack
+- **Frontend**: Pure HTML5, CSS3, vanilla JavaScript
+- **CSS Reset**: Ress CSS (located in `assets/css/ress.css` and `assets/css/ress.min.css`)
+- **Architecture**: FLOCSS + BEM methodology
+- **Responsive**: Mobile-first with single breakpoint at 768px
+- **Build Process**: None (static files only)
+
+### Directory Structure
+```
 project-root/
 ├─ index.html
-└─ assets/{css/style.css, js/script.js(任意), img/...}
+├─ RULES.md              # Comprehensive Japanese development guidelines
+└─ assets/
+   ├─ css/
+   │  ├─ ress.css         # CSS reset (full)
+   │  ├─ ress.min.css     # CSS reset (minified)
+   │  └─ style.css        # Main stylesheet (to be created)
+   ├─ img/                # Images directory
+   └─ js/
+      └─ script.js        # Main JavaScript (optional)
 ```
 
-## 規約
+## CSS Architecture (FLOCSS + BEM)
 
-- HTML: セマンティック。TOP の h1=ロゴ。見出し階層厳守。
-- CSS： リセットCSSを用いること（ assets\css\ress.min.css ）
-- 命名: FLOCSS + BEM（prefix: l-/c-/p-/u-/js-、形: block\_\_element--modifier）
-- レイアウト: SP ファースト → @media (min-width:768px)
-- 単位: px 統一
-- 変数: CSS カスタムプロパティで色/タイポ/余白
-- 画像: 親で比率管理、img は width:100%; height:auto; object-fit:cover
+### Naming Convention Prefixes
+- **Layout**: `l-` (e.g., `l-inner`, `l-main`, `l-section`)
+- **Component**: `c-` (e.g., `c-button`, `c-section-title`)
+- **Page**: `p-` (e.g., `p-section`, `p-faq`)
+- **Utility**: `u-` (e.g., `u-ar-16x9`, `u-ar-4x3`, `u-ar-1x1`)
+- **JavaScript hooks**: `js-` (e.g., `js-accordion`, `js-hamburger`, `js-drawer`)
 
-## 構造パターン
-
+### Standard Section Structure
 ```html
 <section class="p-section">
   <div class="p-section__inner l-inner">
@@ -40,221 +54,61 @@ project-root/
 </section>
 ```
 
-## 出力フォーマット
+## Development Standards
 
-### index.html
+### CSS Standards
+- **Units**: Use `px` exclusively (no rem, em, or other units)
+- **Responsive**: Mobile-first approach with `@media (min-width: 768px)`
+- **Variables**: Use CSS custom properties for colors, typography, and spacing
+- **Reset**: Always include `assets/css/ress.min.css` before main stylesheet
+- **Images**: Parent containers manage aspect ratios, images use `width:100%; height:auto; object-fit:cover`
 
-```html
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><!-- ページタイトル --></title>
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body>
-    <main id="main" class="l-main">
-      <!-- 構造パターンに沿って各セクションを実装 -->
-    </main>
-    <!-- JSが不要なら下行を削除 -->
-    <script src="assets/js/script.js" defer></script>
-  </body>
-</html>
-```
+### HTML Standards
+- **Semantic**: Use proper HTML5 semantic elements
+- **Headings**: h1 for logo/site title, maintain proper heading hierarchy
+- **Images**: Include `width` and `height` attributes for CLS prevention
+- **Language**: Set `lang="ja"` for Japanese content
 
-### assets/css/style.css
+### JavaScript Standards
+- **Vanilla JS**: No frameworks or libraries
+- **Pattern**: Use class-based components for interactive elements
+- **Initialization**: Wrap in `DOMContentLoaded` event listener
+- **Hooks**: Use `.js-` prefixed classes for JavaScript targets
 
-```css
-:root {
-  --inner-width: 1080px;
-  --pad-sp: 15px;
-  --pad-pc: 25px;
-  --ff: 'Zen Kaku Gothic New', Arial, sans-serif;
-  --c-text: #333;
-  --c-muted: #666;
-  --c-accent: #0066cc;
-}
-html {
-  font-size: 100%;
-}
-body {
-  margin: 0;
-  font-family: var(--ff);
-  color: var(--c-text);
-  line-height: 1.6;
-}
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+### Image Management
+- **Formats**: Prefer JPG/JPEG, use PNG only for transparency, WebP supported
+- **Location**: Store in `assets/img/` directory
+- **Aspect Ratios**: Use utility classes (`u-ar-16x9`, `u-ar-4x3`, `u-ar-1x1`)
 
-/* Layout */
-.l-inner {
-  width: 100%;
-  max-width: 600px;
-  margin-inline: auto;
-  padding-inline: var(--pad-sp);
-}
-@media (min-width: 768px) {
-  .l-inner {
-    max-width: calc(var(--inner-width)+var(--pad-pc) * 2);
-    padding-inline: var(--pad-pc);
-  }
-}
-.l-section {
-  margin-top: 60px;
-}
-@media (min-width: 768px) {
-  .l-section {
-    margin-top: 100px;
-  }
-}
+## Common JavaScript Components
 
-/* Component（例） */
-.c-section-title {
-  text-align: center;
-}
-.c-section-title__main {
-  margin: 0 0 8px;
-  font-size: 28px;
-  font-weight: 700;
-}
-@media (min-width: 768px) {
-  .c-section-title__main {
-    font-size: 40px;
-  }
-}
-.c-section-title__sub {
-  margin: 0;
-  color: var(--c-muted);
-}
+### Available JS Hooks
+- `.js-accordion` - Accordion/FAQ functionality
+- `.js-hamburger` - Mobile menu trigger
+- `.js-drawer` - Mobile navigation drawer
+- `.js-header` - Header interactions
+- `.js-to-top` - Scroll-to-top button
 
-.c-button {
-  display: inline-block;
-  border: 1px solid var(--c-text);
-  border-radius: 20px;
-  background: var(--c-text);
-  transition: transform 0.2s;
-}
-.c-button a {
-  display: inline-block;
-  padding: 12px 32px;
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-}
-.c-button:hover {
-  transform: translate(1px, 1px);
-}
-.c-button--contact {
-  background: var(--c-accent);
-}
-
-/* Page（例） */
-.p-section__content {
-  /* 必要に応じて grid/flex を定義*/
-}
-```
-
-### assets/js/script.js
-
+### Standard Accordion Pattern
 ```javascript
-document.addEventListener('DOMContentLoaded', () => {
-  /* 必要な機能のみ実装 */
-});
-
-// 例：アコーディオン
 class Accordion {
   constructor(el) {
     this.el = el;
     this.q = el.querySelector('.p-faq__q');
     this.a = el.querySelector('.p-faq__a');
-    this.q && this.q.addEventListener('click', () => this.t());
+    this.q && this.q.addEventListener('click', () => this.toggle());
   }
-  t() {
+  toggle() {
     const open = this.el.classList.toggle('is-open');
     if (this.a) this.a.style.maxHeight = open ? this.a.scrollHeight + 'px' : '0';
   }
 }
-document.querySelectorAll('.js-accordion').forEach((el) => new Accordion(el));
 ```
 
-## 画像配置パターン（親で比率管理）
+## Important Notes
 
-```html
-<figure class="p-section__figure u-ar-16x9">
-  <img src="assets/img/hero.jpg" alt="ヒーロー画像" width="1600" height="900" />
-</figure>
-<!-- p-section__content の中に配置すること -->
-```
-
-## 画像ルール（最小）
-
-- assets/img/ は .jpg/.jpeg 推奨（透過のみ .png）。WebP 併用可。
-- CLS 抑制のため可能なら `<img>` に width/height を付与。
-- 基本: `img{width:100%; height:auto; object-fit:cover}`
-
-## ユーティリティ（アスペクト比） - assets/css/style.css の末尾に追加
-
-```css
-/* Aspect Ratio Utilities */
-.u-ar-16x9 {
-  aspect-ratio: 16/9;
-  display: block;
-  overflow: hidden;
-}
-.u-ar-4x3 {
-  aspect-ratio: 4/3;
-  display: block;
-  overflow: hidden;
-}
-.u-ar-1x1 {
-  aspect-ratio: 1/1;
-  display: block;
-  overflow: hidden;
-}
-/* 可変比率（任意）: <div class="u-ar" style="--ar:3/2"> */
-.u-ar {
-  aspect-ratio: var(--ar, 16/9);
-  display: block;
-  overflow: hidden;
-}
-```
-
-## JS フック一覧（本文の「規約」節に 1 行追加）
-
-- JS フック: `.js-accordion` / `.js-hamburger` / `.js-drawer` / `.js-header` / `.js-to-top`
-
-## 最小 JS スタブ（必要時のみ） - assets/js/script.js の末尾に追加
-
-```javascript
-// Hamburger/Drawer (最小)
-(() => {
-  const b = document.querySelector('.js-hamburger'),
-    d = document.querySelector('.js-drawer');
-  if (!b || !d) return;
-  b.addEventListener('click', () => {
-    b.classList.toggle('is-active');
-    d.classList.toggle('is-active');
-  });
-})();
-// To-Top (最小)
-(() => {
-  const t = document.querySelector('.js-to-top');
-  if (!t) return;
-  addEventListener('scroll', () => t.classList.toggle('is-active', scrollY > 600));
-  t.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
-})();
-```
-
-## 最終チェックリスト（貼り付け可・運用用）
-
-- [ ] ディレクトリ: index.html / assets/{css/style.css, js/script.js(任), img/} は揃っている
-- [ ] HTML: セマンティック・TOP の h1=ロゴ・見出し階層 OK
-- [ ] 命名: FLOCSS+BEM（l-/c-/p-/u-/js-）に統一、構造パターン準拠
-- [ ] CSS: px 統一・SP→@media(min-width:768px)・変数利用 OK
-- [ ] 画像: 親で比率管理（u-ar-\*）・img は cover・width/height 付与
-- [ ] JS: 必要時のみ・フック名は規約どおり・スタブ動作確認済み
+- This project has comprehensive development guidelines in `RULES.md` (in Japanese)
+- The project is template-based - no build tools or package managers
+- All styles and scripts are included directly in HTML files
+- The codebase follows strict Japanese web development conventions
+- Focus on pixel-perfect implementation from Figma designs
