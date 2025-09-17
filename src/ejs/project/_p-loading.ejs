@@ -1,0 +1,23 @@
+<div class="p-loading">
+  <div class="p-loading__inner">
+    <h2 class="p-loading__title">Loading...</h2>
+  </div>
+</div>
+
+<script>
+  // Flash of Unstyled Content（FOUC）対策
+  // const hasVisited = sessionStorage.getItem('hasVisited');
+  const hasVisited = false; // for debug
+  const loading = document.querySelector('.js-loading');
+  const loadingHides = document.querySelectorAll('.js-loadingHide');
+
+  if (!hasVisited) {
+    loading?.classList.add('is-active');
+    loadingHides.forEach((el) => {
+      el.style.visibility = 'hidden';
+      el.style.opacity = '0';
+    });
+  } else {
+    loading?.classList.remove('is-active');
+  }
+</script>

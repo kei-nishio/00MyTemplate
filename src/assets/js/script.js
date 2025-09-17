@@ -1147,7 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingTL = gsap.timeline({
       onComplete: function () {
         // Flash of Invisible Content（FOIC）対策
-        loading.classList.remove('is-loading');
+        loading.classList.remove('is-active');
         sessionStorage.setItem('hasVisited', 'true'); // 訪問を記録
       },
     });
