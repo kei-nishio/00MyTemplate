@@ -1,17 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ! 基本設定 ***********
   gsap.registerPlugin(ScrollTrigger); // ScrollTrigger
-  // const pageUrl = window.location.href; // 現在ページの絶対URL
-  // const initialWindowsWidth = window.innerWidth; // ページ読み込み時のウィンドウ幅
-  // let lastWindowWidth = window.innerWidth; // リサイズ時のウィンドウ幅
-  // let currentWindowWidth = window.innerWidth; // 現在のウィンドウ幅
-  // window.addEventListener('resize', () => {
-  //   currentWindowWidth = window.innerWidth;
-  //   // console.log('currentWindowWidth: ' + currentWindowWidth + 'lastWindowWidth: ' + lastWindowWidth);
-  //   lastWindowWidth = currentWindowWidth;
-  // });
-  // const breakpoint = 768; // レスポンシブ幅
-  // const headerHeight = document.querySelector('header').offsetHeight; // ヘッダーの高さ
+  gsap.registerPlugin(SplitText); // SplitText
+  const breakpoint = 768;
+  function isSP() {
+    return window.innerWidth < breakpoint;
+  }
 
   // ! 関数 ***********
   function forceReload() {
@@ -1122,6 +1116,29 @@ document.addEventListener('DOMContentLoaded', () => {
         stagger: 0.1,
       });
     }
+  });
+
+  // ! Split Text Animation ***********
+  // * 1文字ずつ下からフェードイン
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.js-splitBottoms').forEach((element) => {
+      const split = new SplitText(element, { type: 'chars' });
+      if (split.chars && split.chars.length > 0 && isSP()) {
+        gsap.from(split.chars, {
+          duration: 0.3,
+          autoAlpha: 0,
+          y: 20,
+          ease: 'power2.out',
+          stagger: 0.03,
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            once: true,
+            // markers: true, // マーカー表示
+          },
+        });
+      }
+    });
   });
 
   // ! ローディングアニメーション ***********
