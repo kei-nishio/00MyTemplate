@@ -117,23 +117,25 @@
     }, false);
 
     // エラー時は入力画面を表示して確認画面を隠す
-    // document.addEventListener('wpcf7invalid', function(event) {
-    //   const formArea = document.querySelector(".js-formArea");
-    //   const confirmArea = document.querySelector(".js-confirmArea");
-    //   if (formArea && confirmArea) {
-    //     formArea.style.display = 'block';
-    //     confirmArea.style.display = 'none';
-    //     // 入力エリアの一番上にスクロールする
-    //     window.scrollTo({
-    //       top: formArea.getBoundingClientRect().top + window.scrollY,
-    //       behavior: 'smooth'
-    //     });
-    //   }
-    // });
+    document.addEventListener('wpcf7invalid', function(event) {
+      const formArea = document.querySelector(".js-formArea");
+      const confirmArea = document.querySelector(".js-confirmArea");
+      if (formArea && confirmArea) {
+        formArea.style.display = 'block';
+        confirmArea.style.display = 'none';
+        // 入力エリアの一番上にスクロールする
+        window.scrollTo({
+          top: formArea.getBoundingClientRect().top + window.scrollY,
+          behavior: 'smooth'
+        });
+      }
+    });
 
     // 入力モード制御（スマホ対応）
-    // document.getElementById('your-email-confirmation')?.setAttribute('inputmode', 'email');
-    // document.getElementById('your-zip')?.setAttribute('inputmode', 'numeric');
+    // <input type="email, tel, number">は自動で入力制御が切り替わるため不要
+    // <input type="text">で郵便番号やなど数字入力欄に対して設定する
+    document.getElementById('your-email-confirmation')?.setAttribute('inputmode', 'email');
+    document.getElementById('your-zip')?.setAttribute('inputmode', 'numeric');
 
   });
 </script>
