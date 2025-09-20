@@ -1,5 +1,9 @@
 <!-- ! 確認画面の遷移は案件に合わせて選択すること -->
 
+<?php
+/** @link https://shogo-log.com/cf7-confirm-noplugin/ */
+?>
+
 <!-- * Form Contact Start -->
 <div class="p-form js-formArea">
   <dl class="p-form__list">
