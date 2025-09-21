@@ -956,15 +956,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   // * sample CSS
-  //   .p-xxx__image {
+  // .p-xxx__image {
   //   aspect-ratio: width / height;
   //   overflow: hidden;
   //   width: 100%;
+  //   outline: 4px solid blue;
   //   img {
-  //     width: 100%;
+  //     width: auto;
   //     height: 120%;
   //     object-fit: cover;
   //     transform: translateY(-20%);
+  //     outline: 4px solid red;
   //   }
   // }
 
