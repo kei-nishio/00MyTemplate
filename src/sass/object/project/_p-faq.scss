@@ -34,44 +34,47 @@
     margin-top: rem(0);
   }
 }
-
 .p-faq__q,
 .p-faq__a {
-  display: flex;
-  align-items: baseline;
-  gap: rem(16);
-  padding-block: rem(16);
-  padding-inline: rem(4);
   @include mq('md') {
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: rem(16);
+    position: relative;
+    padding-block: rem(16);
+    padding-right: rem(64);
+    padding-left: rem(4);
+    cursor: pointer;
   }
 
   .icon {
+    display: block;
+    font-weight: 600;
+    font-size: rem(24);
   }
-}
-.p-faq__q {
-  position: relative;
-  cursor: pointer;
 
-  @include mq('md') {
+  .text {
+    display: block;
+    font-weight: 600;
+    font-size: rem(17);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
   }
-}
-.p-faq__a {
-  @include mq('md') {
-  }
-}
-// [-][+]
-.p-faq__q {
-  position: relative;
 
   .button {
     display: block;
     position: absolute;
-    top: rem(24);
+    top: 50%;
     right: rem(4);
+    transform: translateY(-50%);
     width: rem(35);
     aspect-ratio: 1;
-    background-color: black;
     border-radius: 100%;
+    background-color: var(--color-blue-100);
+
     @include mq('md') {
     }
 
@@ -83,7 +86,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: white;
+      background-color: var(--color-white);
       transition: all 0.3s ease;
 
       @include mq('md') {
@@ -92,18 +95,20 @@
     &::before {
       width: pct(14, 35);
       height: rem(2);
+
       @include mq('md') {
       }
     }
     &::after {
-      height: pct(14, 35);
       width: rem(2);
+      height: pct(14, 35);
 
       @include mq('md') {
       }
     }
   }
 }
+
 // is-open
 .p-faq__item.is-open {
   .p-faq__q {
