@@ -19,8 +19,15 @@
       <dl class="p-faq__list">
         <% for(let i = 0; i < cardItems.length; i++) { %>
         <div class="p-faq__item js-accordion">
-          <dt class="p-faq__q"><span><%- cardItems[i].q %></span></dt>
-          <dd class="p-faq__a"><span><%- cardItems[i].a %></span></dd>
+          <dt class="p-faq__q">
+            <span class="icon">Q</span>
+            <span class="text"><%- cardItems[i].q %></span>
+            <span class="button"></span>
+          </dt>
+          <dd class="p-faq__a">
+            <span class="icon">A</span>
+            <span class="text"><%- cardItems[i].a %></span>
+          </dd>
         </div>
         <% } %>
       </dl>

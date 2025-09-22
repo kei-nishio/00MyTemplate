@@ -37,92 +37,80 @@
 
 .p-faq__q,
 .p-faq__a {
+  display: flex;
+  align-items: baseline;
+  gap: rem(16);
+  padding-block: rem(16);
+  padding-inline: rem(4);
+  @include mq('md') {
+  }
+
+  .icon {
+  }
 }
 .p-faq__q {
-  cursor: pointer;
   position: relative;
-  padding-right: rem(24);
-  background-color: pink;
+  cursor: pointer;
+
   @include mq('md') {
-    padding-right: rem(48);
   }
 }
 .p-faq__a {
+  @include mq('md') {
+  }
 }
 // [-][+]
-.p-faq__q::before,
-.p-faq__q::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: rem(4);
-  width: rem(16);
-  height: rem(2);
-  background-color: blue;
-
-  @include mq('md') {
-    right: rem(12);
-    width: rem(24);
-  }
-}
-.p-faq__q::before {
-}
-.p-faq__q::after {
-  rotate: 90deg;
-  transition: all 0.3s ease;
-}
-
-.p-faq__q span,
-.p-faq__a span {
-  display: block;
+.p-faq__q {
   position: relative;
-  padding-top: rem(8);
-  padding-right: rem(2);
-  padding-bottom: rem(8);
-  padding-left: rem(32);
 
-  @include mq('md') {
-    padding-top: rem(24);
-    padding-right: rem(12);
-    padding-bottom: rem(24);
-    padding-left: rem(82);
+  .button {
+    display: block;
+    position: absolute;
+    top: rem(24);
+    right: rem(4);
+    width: rem(35);
+    aspect-ratio: 1;
+    background-color: black;
+    border-radius: 100%;
+    @include mq('md') {
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      transition: all 0.3s ease;
+
+      @include mq('md') {
+      }
+    }
+    &::before {
+      width: pct(14, 35);
+      height: rem(2);
+      @include mq('md') {
+      }
+    }
+    &::after {
+      height: pct(14, 35);
+      width: rem(2);
+
+      @include mq('md') {
+      }
+    }
   }
 }
-.p-faq__q span {
-  position: relative;
-}
-.p-faq__a span {
-}
-// [Q][A]
-.p-faq__q span::before,
-.p-faq__a span::before {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: rem(4);
-  translate: 0 40%;
-  font-style: italic;
-  font-weight: bold;
-  line-height: 1;
-
-  @include mq {
-    left: rem(24);
-    translate: 0 15%;
-  }
-}
-.p-faq__q span::before {
-  content: 'Q.';
-  color: red;
-}
-.p-faq__a span::before {
-  content: 'A.';
-  color: blue;
-}
-
 // is-open
 .p-faq__item.is-open {
-  .p-faq__q::after {
-    transform: scale(0);
-    rotate: 90deg;
+  .p-faq__q {
+    .button {
+      &::after {
+        transform: translate(-50%, -50%) scaleY(0);
+      }
+    }
   }
 }
