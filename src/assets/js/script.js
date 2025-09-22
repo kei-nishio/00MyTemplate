@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // **4. ページネーション (ドット)**
       pagination: {
-        el: '.swiper-pagination', // ページネーション要素のセレクタ
+        el: '.js-swiper .swiper-pagination', // ページネーション要素のセレクタ
         clickable: true, // ページネーションをクリック可能にする
         dynamicBullets: true, // 動的なドットサイズ
         type: 'bullets', // 'bullets', 'fraction', 'progressbar', 'custom'
@@ -651,13 +651,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // **5. ナビゲーションボタン (前後ボタン)**
       navigation: {
-        nextEl: '.swiper-button-next', // 次のボタンのセレクタ
-        prevEl: '.swiper-button-prev', // 前のボタンのセレクタ
+        nextEl: '.js-swiper .swiper-button-next', // 次のボタンのセレクタ
+        prevEl: '.js-swiper .swiper-button-prev', // 前のボタンのセレクタ
       },
 
       // **6. スクロールバー**
       scrollbar: {
-        el: '.swiper-scrollbar', // スクロールバーのセレクタ
+        el: '.js-swiper .swiper-scrollbar', // スクロールバーのセレクタ
         draggable: true, // ドラッグ可能にする
       },
 
@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! Swiper Creative  ***********
-  // const swiperCreative = new Swiper('.js-swiper .swiper', {
+  // const swiperCreative = new Swiper('.js-swiper-creative .swiper', {
   //   effect: 'creative', // 「creative」を指定
   //   creativeEffect: {
   //     perspective: false, // 遠近 boolean / number
