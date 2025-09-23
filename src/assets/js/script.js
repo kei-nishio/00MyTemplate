@@ -398,6 +398,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ! クリックアコーディオン シンプルバージョン ***********
+  class AccordionSimple {
+    constructor(accordionElement, index) {
+      this.accordionElement = accordionElement;
+      this.parent = accordionElement.children[0];
+      this.index = index;
+      this.init();
+    }
+
+    init() {
+      this.parent.addEventListener('click', () => this.toggle());
+    }
+
+    toggle() {
+      this.accordionElement.classList.toggle('is-open');
+    }
+  }
+  const accordionToggles = document.querySelectorAll('.js-accordion-toggle');
+  if (accordionToggles.length > 0) {
+    accordionToggles.forEach((accordion, index) => {
+      new AccordionSimple(accordion, index);
+    });
+  }
+
   // ! クリックアコーディオン クリップタイプ ***********
   class AccordionClip {
     constructor(accordionElement, index) {
@@ -460,6 +484,39 @@ document.addEventListener('DOMContentLoaded', () => {
       new AccordionClip(accordion, index);
     });
   }
+
+  // ! クリックアコーディオン グリッドタイプ ***********
+  const buttons = document.querySelectorAll('.js-location-button');
+  buttons.forEach((button) => {
+    button.addEventListener('click', function () {
+      const toggle = this.parentElement.nextElementSibling;
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        // 閉じる
+        this.setAttribute('aria-expanded', 'false');
+        toggle.classList.remove('is-open');
+      } else {
+        // 開く
+        this.setAttribute('aria-expanded', 'true');
+        toggle.classList.add('is-open');
+      }
+    });
+  });
+  // sample css
+  // .element {
+  //   display: grid;
+  //   grid-template-rows: auto;
+  //   visibility: visible;
+  //   opacity: 1;
+  //   overflow: hidden;
+  //   transition: grid-template-rows 0.9s ease, opacity 0.9s ease;
+  // }
+  // .element:not(.is-open) {
+  //   grid-template-rows: 0;
+  //   visibility: hidden;
+  //   opacity: 0;
+  // }
 
   // ! 横スクロールアニメーション ***********
   if (false) {
