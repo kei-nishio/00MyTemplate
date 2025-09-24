@@ -7,7 +7,7 @@ body {
   font-size: rem(16);
   line-height: 1.5;
   font-family: $firstFont;
-  font-feature-settings: "palt";
+  font-feature-settings: 'palt';
 
   background-image: url(../images/common/bg.webp);
   background-position: 50% top;
@@ -19,3 +19,9 @@ body {
 // .pin-spacer {
 //   background-image: linear-gradient(skyblue, blue);
 // }
+a[href='#'] {
+  outline: 4px dashed red;
+}
+a[tabindex='-1'] {
+  cursor: default !important;
+}
