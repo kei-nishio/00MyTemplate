@@ -81,11 +81,11 @@
 
       <!-- hamburger -->
       <div class="p-header__hamburger">
-        <div class="c-hamburger js-hamburger">
+        <button class="c-hamburger js-hamburger">
           <span class="c-hamburger__border"></span>
           <span class="c-hamburger__border"></span>
           <span class="c-hamburger__border"></span>
-        </div>
+        </button>
       </div>
 
     </div>
