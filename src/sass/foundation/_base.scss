@@ -23,7 +23,7 @@ root font-sizeの設定
 ・$inner~16pxで一定
 */
 $ratio: calc(320 / 375);
-$type: 'type1';
+$rootFontType: 'type4';
 @if $startFrom == sp {
   html {
     // 375px~767px
@@ -32,7 +32,7 @@ $type: 'type1';
     @media (max-width: 375px) {
       font-size: vw(16, 375);
     }
-    @if ($type == 'type1') {
+    @if ($rootFontType == 'type1') {
       // 768px~width-pc
       @include mq('md') {
         font-size: vw(16, $width-pc);
@@ -41,12 +41,12 @@ $type: 'type1';
       @media (min-width: $width-pc) {
         font-size: 100%;
       }
-    } @else if ($type == 'type2') {
+    } @else if ($rootFontType == 'type2') {
       // 768px~
       @include mq('md') {
         font-size: vw(16, $width-pc);
       }
-    } @else if ($type == 'type3') {
+    } @else if ($rootFontType == 'type3') {
       // 768px~width-pc
       @include mq('md') {
         font-size: vwLinear(calc(16 * $ratio), 768, 16, strip-unit($width-pc));
@@ -55,7 +55,7 @@ $type: 'type1';
       @media (min-width: $width-pc) {
         font-size: 100%;
       }
-    } @else if ($type == 'type4') {
+    } @else if ($rootFontType == 'type4') {
       // 768px~inner
       @include mq('md') {
         font-size: vw(16, $inner);
