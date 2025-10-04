@@ -1,3 +1,4 @@
+<?php global $theme_uri; ?>
 <?php
 $nav_items = [
   [
