@@ -16,7 +16,6 @@
     height: calc(80 * var(--to-rem));
     padding-block: calc(16 * var(--to-rem));
 
-    picture,
     img {
       height: 100%;
       object-fit: contain;
@@ -43,7 +42,6 @@
     height: calc(30 * var(--to-rem));
     aspect-ratio: 1;
 
-    picture,
     img {
       width: 100%;
       height: 100%;

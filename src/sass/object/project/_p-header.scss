@@ -28,17 +28,15 @@
   place-items: center;
   height: inherit;
 
-  a {
-    width: fit-content;
-    height: inherit;
-    padding-block: calc(16 * var(--to-rem));
+}
+.p-header__logo-link {
+  height: inherit;
+  padding-block: calc(16 * var(--to-rem));
 
-    picture,
-    img {
-      height: 100%;
-      object-fit: contain;
-      object-position: 50% 50%;
-    }
+  img {
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
   }
 }
 

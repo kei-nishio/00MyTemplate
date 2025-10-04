@@ -57,8 +57,9 @@
         <?php else: ?>
           <div class="p-header__logo">
           <?php endif; ?>
-          <a href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo esc_url($theme_uri . '/assets/images/common/logo.svg'); ?>" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
+          <a href="<?php echo esc_url(home_url('/')); ?>" class="p-header__logo-link">
+            <img src="<?php echo esc_url($theme_uri . '/assets/images/common/logo.svg'); ?>" alt="<?php echo esc_html(get_bloginfo('name')); ?>" class="logo" />
+            <span class="text"><?php echo esc_html(get_bloginfo('name')); ?></span>
           </a>
           <?php if (!is_front_page()): ?>
           </div>
