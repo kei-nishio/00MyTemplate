@@ -1,5 +1,5 @@
 <?php
-// ! カスタム投稿一覧を投稿者でクエリでフィルターする
+// ! カスタム投稿一覧をURLのクエリパラメータ ?author_id=◯◯ が指定されたときに、その投稿者の投稿だけを表示する
 function filter_author_id_query($query)
 {
   $post_types = array('builder', 'event', 'case');
