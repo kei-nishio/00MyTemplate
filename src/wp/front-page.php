@@ -1,3 +1,4 @@
+<?php global $theme_uri; ?>
 <?php get_header(); ?>
 <main class="main">
   <?php // loading 
@@ -17,11 +18,11 @@
               <li class="swiper-slide">
                 <p class="p-fv__img">
                   <picture>
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-sp.webp" type="image/webp" media="(max-width: 767px)" />
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-sp.jpg" type="image/jpeg" media="(max-width: 767px)" />
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.webp" type="image/webp" media="(min-width: 768px)" />
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.jpg" type="image/jpeg" media="(min-width: 768px)" />
-                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/top/fv<?php echo $i ?>-pc.jpg" alt="" decoding="async" width="640" height="320" />
+                    <source srcset="<?php echo esc_url($theme_uri . '/assets/images/top/fv' . $i . '-sp.webp'); ?>" type="image/webp" media="(max-width: 767px)" />
+                    <source srcset="<?php echo esc_url($theme_uri . '/assets/images/top/fv' . $i . '-sp.jpg'); ?>" type="image/jpeg" media="(max-width: 767px)" />
+                    <source srcset="<?php echo esc_url($theme_uri . '/assets/images/top/fv' . $i . '-pc.webp'); ?>" type="image/webp" media="(min-width: 768px)" />
+                    <source srcset="<?php echo esc_url($theme_uri . '/assets/images/top/fv' . $i . '-pc.jpg'); ?>" type="image/jpeg" media="(min-width: 768px)" />
+                    <img src="<?php echo esc_url($theme_uri . '/assets/images/top/fv' . $i . '-pc.jpg'); ?>" alt="" decoding="async" width="640" height="320" />
                   </picture>
                 </p>
               </li>

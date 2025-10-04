@@ -1,4 +1,8 @@
 <?php
+// ! グローバル変数の定義
+global $theme_uri;
+$theme_uri = get_theme_file_uri();
+
 // ! function集
 get_template_part('/functions-lib/f-0base_functions');
 

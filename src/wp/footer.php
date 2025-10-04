@@ -30,7 +30,7 @@ $nav_items = [
     ?>
     <div class="p-footer__logo">
       <a href="<?php echo esc_url(home_url('/')); ?>">
-        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo.svg" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
+        <img src="<?php echo esc_url($theme_uri . '/assets/images/common/logo.svg'); ?>" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
       </a>
     </div>
     <?php // sns 
@@ -38,16 +38,16 @@ $nav_items = [
     <div class="p-footer__sns">
       <ul class="p-footer__sns-list">
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-line.png" alt="line" loading="lazy"></a>
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url($theme_uri . '/assets/images/common/sns-line.png'); ?>" alt="line" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-instagram.svg" alt="instagram" loading="lazy"></a>
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url($theme_uri . '/assets/images/common/sns-instagram.svg'); ?>" alt="instagram" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-x.svg" alt="x" loading="lazy"></a>
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url($theme_uri . '/assets/images/common/sns-x.svg'); ?>" alt="x" loading="lazy"></a>
         </li>
         <li class="p-footer__sns-item">
-          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-facebook.svg" alt="facebook" loading="lazy"></a>
+          <a href="" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url($theme_uri . '/assets/images/common/sns-facebook.svg'); ?>" alt="facebook" loading="lazy"></a>
         </li>
       </ul>
     </div>

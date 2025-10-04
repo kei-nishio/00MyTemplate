@@ -1,3 +1,4 @@
+<?php global $theme_uri; ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -57,7 +58,7 @@
           <div class="p-header__logo">
           <?php endif; ?>
           <a href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo.svg" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
+            <img src="<?php echo esc_url($theme_uri . '/assets/images/common/logo.svg'); ?>" alt="<?php echo esc_html(get_bloginfo('name')); ?>" />
           </a>
           <?php if (!is_front_page()): ?>
           </div>

@@ -1,3 +1,4 @@
+<?php global $theme_uri; ?>
 <?php
 $class = "c-card-post"; // default : c-card-post
 $tax_slug = "category"; // default : category
@@ -44,7 +45,7 @@ $description = nl2br(esc_html(get_the_author_meta('description')));
       <?php if (has_post_thumbnail()) : ?>
         <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
       <?php else : ?>
-        <img src="<?php echo esc_url(get_theme_file_uri("/assets/images/common/noimage.jpg")); ?>" alt="no image" />
+        <img src="<?php echo esc_url($theme_uri . "/assets/images/common/noimage.jpg"); ?>" alt="no image" />
       <?php endif; ?>
     </figure>
   <?php endif; ?>

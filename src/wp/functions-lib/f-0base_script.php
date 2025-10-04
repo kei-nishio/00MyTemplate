@@ -3,6 +3,9 @@
 add_action('wp_enqueue_scripts', 'my_script_init');
 function my_script_init()
 {
+  // ! Global Variable
+  global $theme_uri;
+
   // ! jQuery
   // wp_deregister_script('jquery');
   // wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', "", "3.7.0", true);
@@ -38,11 +41,11 @@ function my_script_init()
   wp_enqueue_style('google-fonts', $google_fonts_url, [], null);
 
   // ! CSS
-  wp_enqueue_style('style-reset', get_theme_file_uri('/assets/css/ress.min.css'), [], '5.0.2');
+  wp_enqueue_style('style-reset', esc_url($theme_uri . '/assets/css/ress.min.css'), [], '5.0.2');
   wp_enqueue_style('scroll-hint', 'https://unpkg.com/scroll-hint@latest/css/scroll-hint.css');
   // wp_enqueue_style('style-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
   wp_enqueue_style('style-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', ['style-reset']);
-  wp_enqueue_style('style-main', get_theme_file_uri('/assets/css/style.css'), ['style-reset', 'style-swiper', 'google-fonts'], '1.0.0');
+  wp_enqueue_style('style-main', esc_url($theme_uri . '/assets/css/style.css'), ['style-reset', 'style-swiper', 'google-fonts'], '1.0.0');
 
   // ! Local font
   // $otf = esc_url(get_template_directory_uri() . '/assets/font/YDWbananaslipplus.otf');
@@ -64,7 +67,7 @@ function my_script_init()
   wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', [], "3.12.5", true);
   wp_enqueue_script('gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js', ['gsap'], "3.12.5", true);
   wp_enqueue_script('gsap-split-text', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js', ['gsap'], "3.12.5", true);
-  wp_enqueue_script('script-main', get_theme_file_uri('/assets/js/script.js'), [], '1.0.0', true);
+  wp_enqueue_script('script-main', esc_url($theme_uri . '/assets/js/script.js'), [], '1.0.0', true);
 }
 
 // ! Google Fonts・CDN高速化のためのpreconnect
