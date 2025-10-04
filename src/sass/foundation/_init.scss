@@ -3,16 +3,14 @@
 body {
   background-color: var(--color-white);
   color: var(--color-black);
-  font-weight: 400;
   font-size: calc(16 * var(--to-rem));
-  line-height: 1.5;
   font-family: var(--font-jp);
   font-feature-settings: 'palt';
 
-  background-image: url(../images/common/bg.webp);
-  background-position: 50% top;
-  background-size: 700px 700px;
-  background-repeat: repeat;
+  // background-image: url(../images/common/bg.webp);
+  // background-position: 50% top;
+  // background-size: 700px 700px;
+  // background-repeat: repeat;
 }
 
 // GSAP挙動確認用
