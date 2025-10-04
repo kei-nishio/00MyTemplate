@@ -1,12 +1,12 @@
 @use 'global' as *;
 
 body {
-  background-color: $white;
-  color: $black;
-  font-weight: $regular;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  font-weight: 400;
   font-size: rem(16);
   line-height: 1.5;
-  font-family: $firstFont;
+  font-family: var(--font-jp);
   font-feature-settings: 'palt';
 
   background-image: url(../images/common/bg.webp);

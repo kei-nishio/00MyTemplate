@@ -14,9 +14,8 @@
     border-radius: 100%;
     background-color: transparent;
     color: black;
-    font-weight: $bold;
     font-size: rem(14);
-    font-family: $secondFont;
+    font-family: var(--font-en);
     transition: background-color 0.3s, color 0.3s;
     &.prev {
     }

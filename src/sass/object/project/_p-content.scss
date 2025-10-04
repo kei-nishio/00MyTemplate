@@ -3,15 +3,15 @@
 // 限定記事のスタイル
 .p-content {
   .post-password-form {
-    color: $white;
+    color: var(--color-white);
     p {
-      color: $white;
+      color: var(--color-white);
     }
     label {
-      color: $white;
+      color: var(--color-white);
     }
     input[type='submit'] {
-      color: $white;
+      color: var(--color-white);
     }
     input[type='password'] {
       min-width: 10em;
@@ -19,7 +19,7 @@
       padding-top: rem(4);
       padding-bottom: rem(4);
       border: 1px solid red;
-      color: $white;
+      color: var(--color-white);
       letter-spacing: 0.3em;
     }
   }

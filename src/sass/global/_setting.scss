@@ -16,37 +16,42 @@ $headerHeight-pc: 110px; // PCのヘッダー高さ
 ////////////////////
 // フォント設定
 ////////////////////
+:root {
+  --font-jp: YakuHanJP, 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+    Meiryo, sans-serif;
+  --font-en: 'Jost', YakuHanJP, 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans', Meiryo, sans-serif;
+}
 
-$firstFont: YakuHanJP, 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
-  Meiryo, sans-serif;
-$secondFont: 'Jost', YakuHanJP, 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN',
-  'Hiragino Sans', Meiryo, sans-serif;
+@property --root-font-size {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 16px;
+}
 
-$thin: 100;
-$extraLight: 200;
-$light: 300;
-$regular: 400;
-$medium: 500;
-$semiBold: 600;
-$bold: 700;
-$extraBold: 800;
-$blackBold: 900;
+:root {
+  --to-rem: calc(tan(atan2(1px, var(--root-font-size))) * 1rem);
+}
 
 ////////////////////
 // z-index設定
 ////////////////////
 
-$ziLoading: 9000;
-$ziModal: 7000;
-$ziHeader: 5000;
-$ziDrawer: 3000;
-$ziDrawerMask: 2000;
-$ziFloating: 1000;
-$ziDefault: 1;
+:root {
+  --zi-loading: 9000;
+  --zi-modal: 7000;
+  --zi-header: 5000;
+  --zi-drawer: 3000;
+  --zi-mask: 2000;
+  --zi-floating: 1000;
+  --zi-default: 1;
+}
 
 ////////////////////
 // 色の指定
 ////////////////////
 
-$black: #000;
-$white: #fff;
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+}
