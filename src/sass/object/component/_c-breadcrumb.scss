@@ -1,10 +1,10 @@
 @use 'global' as *;
 
 .c-breadcrumb {
-  margin-top: rem(12);
+  margin-top: calc(12 * var(--to-rem));
 
   @include mq('md') {
-    margin-top: rem(32);
+    margin-top: calc(32 * var(--to-rem));
   }
 }
 .c-breadcrumb__inner.l-inner {

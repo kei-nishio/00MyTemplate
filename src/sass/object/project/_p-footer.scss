@@ -13,8 +13,8 @@
 
   a {
     width: fit-content;
-    height: rem(80);
-    padding-block: rem(16);
+    height: calc(80 * var(--to-rem));
+    padding-block: calc(16 * var(--to-rem));
 
     picture,
     img {
@@ -28,19 +28,19 @@
 .p-footer__sns {
   display: grid;
   place-items: center;
-  margin-top: rem(24);
+  margin-top: calc(24 * var(--to-rem));
 }
 
 .p-footer__sns-list {
   display: flex;
-  gap: rem(16);
+  gap: calc(16 * var(--to-rem));
 }
 
 .p-footer__sns-item {
   a {
     display: block;
-    width: rem(30);
-    height: rem(30);
+    width: calc(30 * var(--to-rem));
+    height: calc(30 * var(--to-rem));
     aspect-ratio: 1;
 
     picture,
@@ -55,14 +55,14 @@
 }
 
 .p-footer__nav {
-  margin-top: rem(24);
+  margin-top: calc(24 * var(--to-rem));
 }
 
 .p-footer__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: rem(24);
+  gap: calc(24 * var(--to-rem));
 }
 
 .p-footer__item {
@@ -71,6 +71,6 @@
 }
 
 .p-footer__copy {
-  margin-top: rem(64);
+  margin-top: calc(64 * var(--to-rem));
   text-align: center;
 }

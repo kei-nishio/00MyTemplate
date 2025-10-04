@@ -31,7 +31,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: rem(48);
+  gap: calc(48 * var(--to-rem));
   height: inherit;
 }
 

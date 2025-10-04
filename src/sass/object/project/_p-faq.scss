@@ -10,28 +10,28 @@
 }
 
 .p-faq__content {
-  margin-top: rem(0);
+  margin-top: calc(0 * var(--to-rem));
 
   @include mq('md') {
-    margin-top: rem(0);
+    margin-top: calc(0 * var(--to-rem));
   }
 }
 
 .p-faq__list {
-  margin-top: rem(0);
+  margin-top: calc(0 * var(--to-rem));
 
   @include mq('md') {
-    margin-top: rem(0);
+    margin-top: calc(0 * var(--to-rem));
   }
 }
 
 .p-faq__item {
 }
 .p-faq__item + .p-faq__item {
-  margin-top: rem(0);
+  margin-top: calc(0 * var(--to-rem));
 
   @include mq('md') {
-    margin-top: rem(0);
+    margin-top: calc(0 * var(--to-rem));
   }
 }
 .p-faq__q,
@@ -42,24 +42,24 @@
   .wrapper {
     display: flex;
     align-items: baseline;
-    gap: rem(16);
+    gap: calc(16 * var(--to-rem));
     position: relative;
-    padding-block: rem(16);
-    padding-right: rem(64);
-    padding-left: rem(4);
+    padding-block: calc(16 * var(--to-rem));
+    padding-right: calc(64 * var(--to-rem));
+    padding-left: calc(4 * var(--to-rem));
     cursor: pointer;
   }
 
   .icon {
     display: block;
     font-weight: 600;
-    font-size: rem(24);
+    font-size: calc(24 * var(--to-rem));
   }
 
   .text {
     display: block;
     font-weight: 600;
-    font-size: rem(17);
+    font-size: calc(17 * var(--to-rem));
     line-height: 1.5;
     letter-spacing: 0.02em;
   }
@@ -68,9 +68,9 @@
     display: block;
     position: absolute;
     top: 50%;
-    right: rem(4);
+    right: calc(4 * var(--to-rem));
     transform: translateY(-50%);
-    width: rem(35);
+    width: calc(35 * var(--to-rem));
     aspect-ratio: 1;
     border-radius: 100%;
     background-color: var(--color-blue-100);
@@ -94,13 +94,13 @@
     }
     &::before {
       width: pct(14, 35);
-      height: rem(2);
+      height: calc(2 * var(--to-rem));
 
       @include mq('md') {
       }
     }
     &::after {
-      width: rem(2);
+      width: calc(2 * var(--to-rem));
       height: pct(14, 35);
 
       @include mq('md') {

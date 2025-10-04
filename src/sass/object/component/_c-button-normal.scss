@@ -3,16 +3,16 @@
 .c-button-normal {
   position: relative;
   border: 1px solid black;
-  border-radius: rem(20);
+  border-radius: calc(20 * var(--to-rem));
   box-shadow: 1px 1px 0 0 gray;
   background-color: black;
   transition: transform 0.2s, box-shadow 0.2s;
   a,
   input {
     display: inline-block;
-    min-width: rem(200);
-    padding-block: rem(6);
-    padding-inline: rem(32);
+    min-width: calc(200 * var(--to-rem));
+    padding-block: calc(6 * var(--to-rem));
+    padding-inline: calc(32 * var(--to-rem));
     color: white;
     text-align: center;
   }

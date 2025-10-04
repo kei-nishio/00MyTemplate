@@ -4,17 +4,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: rem(16);
+  gap: calc(16 * var(--to-rem));
   .page-numbers {
     display: grid;
     place-items: center;
-    width: rem(32);
-    height: rem(32);
+    width: calc(32 * var(--to-rem));
+    height: calc(32 * var(--to-rem));
     border: 1px solid black;
     border-radius: 100%;
     background-color: transparent;
     color: black;
-    font-size: rem(14);
+    font-size: calc(14 * var(--to-rem));
     font-family: var(--font-en);
     transition: background-color 0.3s, color 0.3s;
     &.prev {
@@ -35,7 +35,7 @@
       display: block;
       position: absolute;
       top: 50%;
-      width: rem(6);
+      width: calc(6 * var(--to-rem));
       height: 1px;
       border-radius: 1px;
       background-color: black;

@@ -2,7 +2,7 @@
 
 (\d+(\.\d+)?)px
 
-rem($1)
+calc($1 * var(--to-rem))
 
 .scss
 

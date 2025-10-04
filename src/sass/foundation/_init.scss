@@ -4,7 +4,7 @@ body {
   background-color: var(--color-white);
   color: var(--color-black);
   font-weight: 400;
-  font-size: rem(16);
+  font-size: calc(16 * var(--to-rem));
   line-height: 1.5;
   font-family: var(--font-jp);
   font-feature-settings: 'palt';
