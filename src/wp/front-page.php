@@ -204,11 +204,11 @@
       </div>
       <div class="p-faq__content">
         <dl class="p-faq__list">
-          <div class="p-faq__item js-accordion">
+          <div class="p-faq__item js-slide-toggle">
             <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
             <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
           </div>
-          <div class="p-faq__item js-accordion">
+          <div class="p-faq__item js-slide-toggle">
             <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
             <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
           </div>

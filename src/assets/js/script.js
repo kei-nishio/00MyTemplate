@@ -7,24 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return window.innerWidth < breakpoint;
   }
 
-  // ! 関数 ***********
-  function forceReload() {
-    window.location.href = window.location.href; // 強制リロード
-  }
-  function resetInlineCssStyle(element) {
-    element.style.cssText = ''; // インラインスタイルの初期化
-  }
-
-  // ! PC版のみの処理 ***********
-  if (document.querySelector('main').classList.contains('top') && currentWindowWidth >= breakpoint) {
-    console.log('PC only process');
-  }
-
-  // ! SP版のみの処理 ***********
-  if (document.querySelector('main').classList.contains('top') && currentWindowWidth < breakpoint) {
-    console.log('SP only process');
-  }
-
   // ! タブ・クラス名トグル ***********
   class ToggleClass {
     constructor(tabSelector, contentSelector, openClass, exclusive = false, outsideClose = false) {
@@ -269,254 +251,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ! クリックアコーディオン jQueryタイプ ***********
-  (function ($) {
-    $(function () {
-      $('.js-accordion').each(function () {
-        const $item = $(this);
-        const $question = $item.children().eq(0);
-        const $answer = $item.children().eq(1);
-
-        // 初期表示
-        if ($item.hasClass('is-open')) {
-          $answer.show();
-        } else {
-          $answer.hide();
-        }
-
-        // Qクリック時の処理
-        $question.on('click', function () {
-          $item.toggleClass('is-open');
-          $answer.stop(true, true).slideToggle(300);
-        });
-      });
-    });
-  })(jQuery);
-
-  // ! クリックアコーディオン 回転タイプ ***********
-  class AccordionToggle {
-    constructor(accordionElement, index) {
-      this.accordionElement = accordionElement;
-      this.parent = accordionElement.children[0];
-      this.child = accordionElement.children[1];
-      this.isOpen = this.accordionElement.classList.contains('is-open');
-      this.index = index;
-      this.init();
+  // ! クリックアコーディオン jsタイプ ***********
+  // * slideUp
+  const slideUp = (el, duration = 300) => {
+    el.style.height = el.offsetHeight + 'px';
+    el.offsetHeight;
+    el.style.transitionProperty = 'height, margin, padding';
+    el.style.transitionDuration = duration + 'ms';
+    el.style.transitionTimingFunction = 'ease';
+    el.style.overflow = 'hidden';
+    el.style.height = 0;
+    el.style.paddingTop = 0;
+    el.style.paddingBottom = 0;
+    el.style.marginTop = 0;
+    el.style.marginBottom = 0;
+    element.classList.remove('is-open');
+    setTimeout(() => {
+      el.style.display = 'none';
+      el.style.removeProperty('height');
+      el.style.removeProperty('padding-top');
+      el.style.removeProperty('padding-bottom');
+      el.style.removeProperty('margin-top');
+      el.style.removeProperty('margin-bottom');
+      el.style.removeProperty('overflow');
+      el.style.removeProperty('transition-duration');
+      el.style.removeProperty('transition-property');
+      el.style.removeProperty('transition-timing-function');
+    }, duration);
+  };
+  // * slideDown
+  const slideDown = (el, duration = 300) => {
+    el.style.removeProperty('display');
+    let display = window.getComputedStyle(el).display;
+    if (display === 'none') {
+      display = 'block';
     }
-
-    init() {
-      // 一時的にアコーディオンを表示状態にする
-      this.child.style.display = 'block';
-      this.child.style.height = 'auto';
-      this.child.style.transform = 'rotateX(0deg)';
-      this.child.style.opacity = 1;
-      this.child.style.visibility = 'visible';
-
-      this.height = this.child.offsetHeight;
-      this.paddingTop = window.getComputedStyle(this.child).paddingTop;
-      this.paddingBottom = window.getComputedStyle(this.child).paddingBottom;
-
-      this.reset();
-
-      if (this.isOpen || this.index === 0) {
-        this.open();
-      } else {
-        this.reset();
-      }
-
-      this.parent.addEventListener('click', () => this.toggle());
+    el.style.display = display;
+    let height = el.offsetHeight;
+    el.style.overflow = 'hidden';
+    el.style.height = 0;
+    el.style.paddingTop = 0;
+    el.style.paddingBottom = 0;
+    el.style.marginTop = 0;
+    el.style.marginBottom = 0;
+    el.offsetHeight;
+    el.style.transitionProperty = 'height, margin, padding';
+    el.style.transitionDuration = duration + 'ms';
+    el.style.transitionTimingFunction = 'ease';
+    el.style.height = height + 'px';
+    el.style.removeProperty('padding-top');
+    el.style.removeProperty('padding-bottom');
+    el.style.removeProperty('margin-top');
+    el.style.removeProperty('margin-bottom');
+    el.classList.add('is-open');
+    setTimeout(() => {
+      el.style.removeProperty('height');
+      el.style.removeProperty('overflow');
+      el.style.removeProperty('transition-duration');
+      el.style.removeProperty('transition-property');
+      el.style.removeProperty('transition-timing-function');
+    }, duration);
+  };
+  // * slideToggle
+  const slideToggle = (el, duration = 300) => {
+    if (window.getComputedStyle(el).display === 'none') {
+      return slideDown(el, duration);
+    } else {
+      return slideUp(el, duration);
     }
-
-    reset() {
-      this.child.style.height = '0';
-      this.child.style.paddingTop = '0';
-      this.child.style.paddingBottom = '0';
-      this.child.style.transform = 'rotateX(90deg)';
-      this.child.style.opacity = 0;
-      this.child.style.visibility = 'hidden';
-    }
-
-    open() {
-      this.isOpen = true;
-      this.accordionElement.classList.add('is-open');
-      gsap.to(this.child, {
-        duration: 0.3,
-        height: this.height,
-        paddingTop: this.paddingTop,
-        paddingBottom: this.paddingBottom,
-        rotateX: 0,
-        autoAlpha: 1,
-        ease: 'power2.inOut',
-        onStart: () => {
-          this.child.style.display = 'block';
-        },
-      });
-    }
-
-    close() {
-      this.isOpen = false;
-      this.accordionElement.classList.remove('is-open');
-      gsap.to(this.child, {
-        duration: 0.3,
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        rotateX: 90,
-        autoAlpha: 0,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          this.child.style.display = 'none';
-        },
-      });
-    }
-
-    toggle() {
-      if (this.isOpen) {
-        this.close();
-      } else {
-        this.open();
-      }
-    }
-  }
-  const accordions = document.querySelectorAll('.js-accordion');
-  if (accordions.length > 0) {
-    accordions.forEach((accordion, index) => {
-      new AccordionToggle(accordion, index);
-    });
-
-    // ウィンドウ幅が変わったときに再度インスタンスを生成
-    let lastWindowWidth = window.innerWidth;
-    window.addEventListener('resize', () => {
-      let currentWindowWidth = window.innerWidth;
-      if (currentWindowWidth !== lastWindowWidth) {
-        lastWindowWidth = currentWindowWidth;
-        accordions.forEach((accordion, index) => {
-          const isOpen = accordion.classList.contains('is-open');
-          new AccordionToggle(accordion, index, isOpen);
-        });
-      }
-    });
-  }
-
-  // ! クリックアコーディオン シンプルバージョン ***********
-  class AccordionSimple {
-    constructor(accordionElement, index) {
-      this.accordionElement = accordionElement;
-      this.parent = accordionElement.children[0];
-      this.index = index;
-      this.init();
-    }
-
-    init() {
-      this.parent.addEventListener('click', () => this.toggle());
-    }
-
-    toggle() {
-      this.accordionElement.classList.toggle('is-open');
-    }
-  }
-  const accordionToggles = document.querySelectorAll('.js-accordion-toggle');
-  if (accordionToggles.length > 0) {
-    accordionToggles.forEach((accordion, index) => {
-      new AccordionSimple(accordion, index);
-    });
-  }
-
-  // ! クリックアコーディオン クリップタイプ ***********
-  class AccordionClip {
-    constructor(accordionElement, index) {
-      this.accordionElement = accordionElement;
-      this.parent = accordionElement.children[0];
-      this.child = accordionElement.children[1];
-      this.isOpen = this.accordionElement.classList.contains('is-open');
-      this.index = index;
-      this.init();
-    }
-
-    init() {
-      this.reset();
-      if (this.isOpen) this.open();
-      this.parent.addEventListener('click', () => this.toggle());
-    }
-
-    reset() {
-      Object.assign(this.child.style, {
-        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        opacity: 0,
-        visibility: 'hidden',
-        display: 'none',
-      });
-    }
-
-    open() {
-      this.isOpen = true;
-      this.accordionElement.classList.add('is-open');
-      this.child.style.display = 'block';
-      gsap.to(this.child, {
-        duration: 0.3,
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-        autoAlpha: 1,
-        ease: 'power2.inOut',
-      });
-    }
-
-    close() {
-      this.isOpen = false;
-      this.accordionElement.classList.remove('is-open');
-      gsap.to(this.child, {
-        duration: 0.2,
-        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        autoAlpha: 0,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          this.child.style.display = 'none';
-        },
-      });
-    }
-
-    toggle() {
-      this.isOpen ? this.close() : this.open();
-    }
-  }
-  const accordionClips = document.querySelectorAll('.js-accordion');
-  if (accordionClips.length > 0) {
-    accordionClips.forEach((accordion, index) => {
-      new AccordionClip(accordion, index);
-    });
-  }
-
-  // ! クリックアコーディオン グリッドタイプ ***********
-  const buttons = document.querySelectorAll('.js-location-button');
-  buttons.forEach((button) => {
-    button.addEventListener('click', function () {
-      const toggle = this.parentElement.nextElementSibling;
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-
-      if (isExpanded) {
-        // 閉じる
-        this.setAttribute('aria-expanded', 'false');
-        toggle.classList.remove('is-open');
-      } else {
-        // 開く
-        this.setAttribute('aria-expanded', 'true');
-        toggle.classList.add('is-open');
+  };
+  // * event listeners
+  document.querySelectorAll('.js-slide-toggle').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const target = trigger.children[1];
+      if (target) {
+        slideToggle(target, 300);
+        trigger.classList.toggle('is-open');
       }
     });
   });
-  // sample css
-  // .element {
-  //   display: grid;
-  //   grid-template-rows: auto;
-  //   visibility: visible;
-  //   opacity: 1;
-  //   overflow: hidden;
-  //   transition: grid-template-rows 0.9s ease, opacity 0.9s ease;
-  // }
-  // .element:not(.is-open) {
-  //   grid-template-rows: 0;
-  //   visibility: hidden;
-  //   opacity: 0;
-  // }
 
   // ! 横スクロールアニメーション ***********
   if (false) {
@@ -543,99 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
           duration: { min: 0.1, max: 0.2 },
         },
       },
-    });
-  }
-
-  // ! ホバー時人物写真追従アニメーション（removeを考慮してグローバルスコープで関数を定義） ***********
-  class MouseHover {
-    constructor(target, imageSelector) {
-      this.target = target;
-      this.image = target.querySelector(imageSelector);
-      this.mouseEnter = () => gsap.to(this.image, { autoAlpha: 1, duration: 0.3 });
-      this.mouseLeave = () => gsap.to(this.image, { autoAlpha: 0, duration: 0.3 });
-      this.mouseMove = (e) => {
-        const rect = this.target.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        gsap.to(this.image, {
-          duration: 0.1,
-          x: x,
-          y: y,
-          xPercent: 75,
-          yPercent: -50,
-        });
-      };
-    }
-    setupHandlers() {
-      this.target.addEventListener('mouseenter', this.mouseEnter);
-      this.target.addEventListener('mouseleave', this.mouseLeave);
-      this.target.addEventListener('mousemove', this.mouseMove);
-    }
-    killHandlers() {
-      this.target.removeEventListener('mouseenter', this.mouseEnter);
-      this.target.removeEventListener('mouseleave', this.mouseLeave);
-      this.target.removeEventListener('mousemove', this.mouseMove);
-      resetInlineCssStyle(this.image);
-      resetInlineCssStyle(this.target);
-    }
-  }
-  function hoverImageFollowSwitch() {
-    if (document.querySelector('main').classList.contains('top') && currentWindowWidth >= breakpoint) {
-      constants.forEach((constant) => {
-        constant.setupHandlers();
-      });
-    } else {
-      constants.forEach((constant) => {
-        constant.killHandlers();
-      });
-    }
-  }
-  // * ホバー時人物写真追従アニメーションの初期化
-  if (false) {
-    const constants = [];
-    document.querySelectorAll('.js-hover-image').forEach((target, index) => {
-      constants[index] = new MouseHover(target, '.js-hover-image__image');
-    });
-    if (document.querySelector('main').classList.contains('top') && currentWindowWidth >= breakpoint) {
-      constants.forEach((constant) => {
-        constant.setupHandlers();
-      });
-    }
-    window.addEventListener('resize', () => {
-      hoverImageFollowSwitch();
-    });
-  }
-
-  // ! 2要素間の高さの差分を取得 ***********
-  class GetDifferenceOfTwoElements {
-    constructor(id1, id2) {
-      this.id1 = id1; // 引数で受け取ったidをプロパティに代入
-      this.id2 = id2; // 引数で受け取ったidをプロパティに代入
-      this.updateDiff(); // 差分を更新するメソッドを初期化時にも呼び出す
-    }
-    updateDiff() {
-      const topFirst = document.getElementById(this.id1).getBoundingClientRect().top;
-      const topEnd = document.getElementById(this.id2).getBoundingClientRect().top;
-      this.topDiff = Math.abs(topFirst - topEnd);
-    }
-    adjust() {
-      this.updateDiff(); // 調整のたびに位置差を更新
-      return this.topDiff;
-    }
-  }
-  if (false) {
-    const difference = new GetDifferenceOfTwoElements('first', 'end');
-  }
-
-  // ! URLのアンカーを抜き出す ***********
-  if (false) {
-    let anchors = document.querySelectorAll('a');
-    anchors.addEventListener('click', function (anchor) {
-      let targetHref = anchor.getAttribute('href');
-      if (targetHref && targetHref.startsWith('#')) {
-        let linkAnchor = targetHref.substring(1); // 「#」以下を変数として抜き出す
-        console.log('linkAnchor: ' + linkAnchor);
-      }
     });
   }
 
@@ -798,33 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
   }
-
-  // ! Swiper Creative  ***********
-  // const swiperCreative = new Swiper('.js-swiper-creative .swiper', {
-  //   effect: 'creative', // 「creative」を指定
-  //   creativeEffect: {
-  //     perspective: false, // 遠近 boolean / number
-  //     progressMultiplier: 1, // 進捗度による倍率 number
-  //     shadowPerProgress: false, // 影 boolean
-  //     limitProgress: 2, // 進行状態制限 number
-  //     depth: 300, // 深度 number
-  //     prev: {
-  //       translate: ['-100%', 0, -1],
-  //       rotate: [0, 0, -90],
-  //       scale: 0.8,
-  //       opacity: 1,
-  //       origin: 'right bottom',
-  //     },
-  //     next: {
-  //       translate: ['100%', 0, 1],
-  //       rotate: [0, 0, 90],
-  //       scale: 0.8,
-  //       opacity: 1,
-  //       origin: 'left top',
-  //     },
-  //   },
-  // });
-
+  
   // ! ギャラリーモーダル ***********
   if (false) {
     let modal = document.querySelector('.js-modal');
