@@ -41,6 +41,12 @@
 
 // ! c-breadcrumb NavXT 設定
 .c-breadcrumb {
+  .breadcrumb__container {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 0.5em;
+  }
   span[property='name'] {
     display: block;
     max-width: 10em;
@@ -48,19 +54,17 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
+  span[property='name'].current-item {
+    color: red;
+  }
   .separator {
     display: block;
-    width: 1em;
+    aspect-ratio: 7 / 4;
     height: 1em;
-    margin-inline: 0.5em;
     mask-image: url(../images/common/icon-arrow.svg);
     mask-position: bottom;
     mask-size: 70%;
     mask-repeat: no-repeat;
     background-color: black;
-
-    @include mq('md') {
-    }
   }
 }
