@@ -15,9 +15,9 @@
     }
     input[type='password'] {
       min-width: 10em;
-      padding-inline: toRem(16);
-      padding-top: toRem(4);
-      padding-bottom: toRem(4);
+      padding-inline: torem(16);
+      padding-top: torem(4);
+      padding-bottom: torem(4);
       border: 1px solid red;
       color: var(--color-white);
       letter-spacing: 0.3em;

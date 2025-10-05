@@ -42,7 +42,7 @@
 // }
 
 // * remへの計算式
-@function toRem($size) {
+@function torem($size) {
   @return calc(strip-unit($size) * var(--to-rem));
 }
 

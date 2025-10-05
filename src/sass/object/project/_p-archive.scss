@@ -9,9 +9,9 @@
 .p-archive__list {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: toRem(40);
+  gap: torem(40);
   @include mq('md') {
-    gap: toRem(60) toRem(40);
+    gap: torem(60) torem(40);
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -20,5 +20,5 @@
 }
 
 .p-archive__pagination {
-  margin-top: toRem(80);
+  margin-top: torem(80);
 }

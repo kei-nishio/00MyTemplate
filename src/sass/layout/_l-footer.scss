@@ -1,8 +1,8 @@
 @use 'global' as *;
 
 .l-footer {
-  margin-top: toRem(60);
+  margin-top: torem(60);
   @include mq('md') {
-    margin-top: toRem(120);
+    margin-top: torem(120);
   }
 }

@@ -32,7 +32,7 @@
 // Contact Form 7 のスタイル
 .p-form {
   padding: 6.25%;
-  border-radius: toRem(16);
+  border-radius: torem(16);
   background-color: white;
 
   .p-form__list {
@@ -41,23 +41,23 @@
   .p-form__item {
     display: flex;
     flex-direction: column;
-    gap: toRem(8) toRem(16);
+    gap: torem(8) torem(16);
     color: black;
-    font-size: toRem(18);
+    font-size: torem(18);
     font-family: var(--font-en);
 
     @include mq('md') {
       flex-direction: row;
       align-items: center;
-      font-size: toRem(20);
+      font-size: torem(20);
     }
   }
   .p-form__item:not(:nth-of-type(1)),
   div[data-class='wpcf7cf_group'] {
-    margin-top: toRem(40);
+    margin-top: torem(40);
 
     @include mq('md') {
-      margin-top: toRem(56);
+      margin-top: torem(56);
     }
   }
 
@@ -69,7 +69,7 @@
     p {
       display: flex;
       align-items: center;
-      gap: toRem(8);
+      gap: torem(8);
     }
   }
 
@@ -82,20 +82,20 @@
   }
 
   .p-form__required {
-    padding: toRem(2) toRem(4);
+    padding: torem(2) torem(4);
     border: 1px solid red;
-    border-radius: toRem(4);
+    border-radius: torem(4);
     color: red;
-    font-size: toRem(12);
+    font-size: torem(12);
   }
 
   .p-form__policy {
-    margin-top: toRem(24);
-    font-size: toRem(14);
+    margin-top: torem(24);
+    font-size: torem(14);
     text-align: center;
 
     @include mq('md') {
-      margin-top: toRem(40);
+      margin-top: torem(40);
     }
 
     a {
@@ -105,30 +105,30 @@
   }
 
   .p-form__submit-cation {
-    margin-top: toRem(16);
+    margin-top: torem(16);
     text-align: center;
 
     @include mq('md') {
-      margin-top: toRem(32);
+      margin-top: torem(32);
     }
   }
 
   .p-form__previous {
     display: grid;
     place-items: center;
-    margin-top: toRem(40);
+    margin-top: torem(40);
   }
 
   .p-form__submit {
     display: grid;
     place-items: center;
-    margin-top: toRem(40);
+    margin-top: torem(40);
   }
 
   .p-form__note {
-    margin-top: toRem(18);
+    margin-top: torem(18);
     color: gray;
-    font-size: toRem(14);
+    font-size: torem(14);
   }
 
   //  ! common style
@@ -145,7 +145,7 @@
     margin: 0;
     padding: 1em;
     border: 1px solid gray;
-    border-radius: toRem(4);
+    border-radius: torem(4);
     background-color: white;
 
     &:active,
@@ -160,7 +160,7 @@
 
   // ! textarea
   textarea {
-    min-height: toRem(160);
+    min-height: torem(160);
     overflow-wrap: anywhere;
     resize: none;
   }
@@ -290,10 +290,10 @@
     appearance: none;
 
     option {
-      font-size: toRem(18);
+      font-size: torem(18);
 
       @include mq('md') {
-        font-size: toRem(20);
+        font-size: torem(20);
       }
     }
     @supports (-webkit-hyphens: none) and (not (-ms-ime-align: auto)) {

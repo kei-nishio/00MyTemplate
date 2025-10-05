@@ -7,23 +7,23 @@
 }
 
 .p-error__title {
-  font-size: toRem(20);
+  font-size: torem(20);
   text-align: center;
 
   @include mq('md') {
-    font-size: toRem(24);
+    font-size: torem(24);
   }
 }
 
 .p-error__text {
-  margin-top: toRem(24);
-  font-size: toRem(14);
+  margin-top: torem(24);
+  font-size: torem(14);
   line-height: 2;
   text-align: center;
 
   @include mq('md') {
-    margin-top: toRem(48);
-    font-size: toRem(16);
+    margin-top: torem(48);
+    font-size: torem(16);
   }
   span {
     display: inline-block;
@@ -33,9 +33,9 @@
 .p-error__button {
   display: grid;
   place-items: center;
-  margin-top: toRem(60);
+  margin-top: torem(60);
 
   @include mq('md') {
-    margin-top: toRem(100);
+    margin-top: torem(100);
   }
 }

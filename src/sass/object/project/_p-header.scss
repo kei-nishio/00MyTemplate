@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-between;
   height: inherit;
-  padding-inline: toRem(15);
+  padding-inline: torem(15);
 }
 
 .p-header__logo {
@@ -30,7 +30,7 @@
 }
 .p-header__logo-link {
   height: inherit;
-  padding-block: toRem(16);
+  padding-block: torem(16);
 
   img {
     height: 100%;
@@ -51,11 +51,11 @@
 .p-header__list {
   display: flex;
   align-items: center;
-  gap: toRem(16);
+  gap: torem(16);
   height: inherit;
 
   @include mq('md') {
-    gap: toRem(48);
+    gap: torem(48);
   }
 }
 
@@ -79,8 +79,8 @@
     transform: scale(0);
     transform-origin: center;
     width: 100%;
-    height: toRem(2);
-    border-radius: toRem(2);
+    height: torem(2);
+    border-radius: torem(2);
     background-color: black;
     transition: transform 0.3s;
   }
