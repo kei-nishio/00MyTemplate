@@ -4,7 +4,6 @@
 ::before,
 ::after {
   box-sizing: border-box;
-  font-weight: 400;
 }
 
 html,
@@ -29,7 +28,7 @@ a:not([class]) {
 
 @media (any-hover: hover) {
   a:hover {
-    opacity: 0.8;
+    opacity: 0.9;
     cursor: pointer;
   }
 }
@@ -46,6 +45,13 @@ img {
 
 img:not([alt]) {
   outline: red solid 5px;
+}
+
+a[href='#'] {
+  outline: 4px dashed red;
+}
+a[tabindex='-1'] {
+  cursor: default !important;
 }
 
 // input[type='checkbox'],
