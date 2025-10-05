@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const slideUp = (el, duration = 300) => {
     el.style.height = el.offsetHeight + 'px';
     el.offsetHeight;
-    el.style.transitionProperty = 'height, margin, padding';
+    el.style.transitionProperty = 'height, margin, padding, opacity';
     el.style.transitionDuration = duration + 'ms';
     el.style.transitionTimingFunction = 'ease';
     el.style.overflow = 'hidden';
@@ -265,7 +265,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.paddingBottom = 0;
     el.style.marginTop = 0;
     el.style.marginBottom = 0;
-    element.classList.remove('is-open');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.style.removeProperty('opacity');
+    }, duration * 0.8);
     setTimeout(() => {
       el.style.display = 'none';
       el.style.removeProperty('height');
@@ -285,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let display = window.getComputedStyle(el).display;
     if (display === 'none') {
       display = 'block';
+      el.style.opacity = 0;
     }
     el.style.display = display;
     let height = el.offsetHeight;
@@ -295,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.marginTop = 0;
     el.style.marginBottom = 0;
     el.offsetHeight;
-    el.style.transitionProperty = 'height, margin, padding';
+    el.style.transitionProperty = 'height, margin, padding, opacity';
     el.style.transitionDuration = duration + 'ms';
     el.style.transitionTimingFunction = 'ease';
     el.style.height = height + 'px';
@@ -303,7 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.removeProperty('padding-bottom');
     el.style.removeProperty('margin-top');
     el.style.removeProperty('margin-bottom');
-    el.classList.add('is-open');
+    setTimeout(() => {
+      el.style.removeProperty('opacity');
+    }, duration * 0.6);
     setTimeout(() => {
       el.style.removeProperty('height');
       el.style.removeProperty('overflow');
@@ -325,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     trigger.addEventListener('click', () => {
       const target = trigger.children[1];
       if (target) {
-        slideToggle(target, 300);
+        slideToggle(target, 500);
         trigger.classList.toggle('is-open');
       }
     });
@@ -518,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
   }
-  
+
   // ! ギャラリーモーダル ***********
   if (false) {
     let modal = document.querySelector('.js-modal');
