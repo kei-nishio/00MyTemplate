@@ -2,11 +2,9 @@
 
 .p-fv {
 }
-
 .p-fv__inner {
   position: relative;
 }
-
 .p-fv__slide {
   .swiper {
     margin-inline: calc(50% - 50vw);
@@ -19,11 +17,10 @@
   .swiper-slide {
   }
 }
-
 .p-fv__img {
-  border: 1px solid black;
   width: 100%;
   aspect-ratio: 375 / 667;
+  border: 1px solid black;
 
   @include mq('md') {
     aspect-ratio: 1366 / 768;
@@ -36,4 +33,8 @@
     object-position: 50% 50%;
     border-radius: inherit;
   }
+}
+.p-fv__heading {
+  writing-mode: vertical-rl;
+  font-feature-settings: 'vert' 1, 'vrt2' 1, 'vkrn' 1, 'vpal' 1, 'vkna' 1;
 }
