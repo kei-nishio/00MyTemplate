@@ -588,10 +588,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // ! スムーズスクロール ***********
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.querySelector(anchor.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth',
-      });
+      const targetId = anchor.getAttribute('href');
+      if (targetId.length > 1 && document.querySelector(targetId)) {
+        e.preventDefault();
+        const header = document.querySelector('.js-header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetElement = document.querySelector(targetId);
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetPosition = rect.top + scrollTop - headerHeight * 1.5;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth',
+        });
+      }
     });
   });
 
