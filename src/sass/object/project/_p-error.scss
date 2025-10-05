@@ -7,23 +7,23 @@
 }
 
 .p-error__title {
-  font-size: calc(20 * var(--to-rem));
+  font-size: toRem(20);
   text-align: center;
 
   @include mq('md') {
-    font-size: calc(24 * var(--to-rem));
+    font-size: toRem(24);
   }
 }
 
 .p-error__text {
-  margin-top: calc(24 * var(--to-rem));
-  font-size: calc(14 * var(--to-rem));
+  margin-top: toRem(24);
+  font-size: toRem(14);
   line-height: 2;
   text-align: center;
 
   @include mq('md') {
-    margin-top: calc(48 * var(--to-rem));
-    font-size: calc(16 * var(--to-rem));
+    margin-top: toRem(48);
+    font-size: toRem(16);
   }
   span {
     display: inline-block;
@@ -33,9 +33,9 @@
 .p-error__button {
   display: grid;
   place-items: center;
-  margin-top: calc(60 * var(--to-rem));
+  margin-top: toRem(60);
 
   @include mq('md') {
-    margin-top: calc(100 * var(--to-rem));
+    margin-top: toRem(100);
   }
 }

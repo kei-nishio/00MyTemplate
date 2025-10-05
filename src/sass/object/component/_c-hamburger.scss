@@ -1,10 +1,10 @@
 @use 'global' as *;
 
 // * user variables
-$hamburger-width: calc(24 * var(--to-rem));
-$hamburger-height: calc(24 * var(--to-rem));
-$hamburger-width-is-active: calc(24 * var(--to-rem));
-$hamburger-height-is-active: calc(24 * var(--to-rem));
+$hamburger-width: toRem(24);
+$hamburger-height: toRem(24);
+$hamburger-width-is-active: toRem(24);
+$hamburger-height-is-active: toRem(24);
 $hamburger-border-number: 3;
 $hamburger-border-height: 1px;
 $hamburger-rotate: 55deg;

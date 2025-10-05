@@ -3,7 +3,7 @@
 body {
   background-color: var(--color-white);
   color: var(--color-black);
-  font-size: calc(16 * var(--to-rem));
+  font-size: toRem(16);
   font-family: var(--font-jp);
   // font-feature-settings: 'palt';
 

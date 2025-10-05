@@ -12,7 +12,7 @@
 }
 
 .p-section-table__content {
-  margin-top: calc(40 * var(--to-rem));
+  margin-top: toRem(40);
 }
 
 .p-section-table__table {
@@ -45,9 +45,9 @@
 .p-section-table__button {
   display: grid;
   place-items: center;
-  margin-top: calc(24 * var(--to-rem));
+  margin-top: toRem(24);
 
   @include mq('md') {
-    margin-top: calc(60 * var(--to-rem));
+    margin-top: toRem(60);
   }
 }

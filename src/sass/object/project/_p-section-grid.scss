@@ -12,17 +12,17 @@
 }
 
 .p-section-grid__content {
-  margin-top: calc(40 * var(--to-rem));
+  margin-top: toRem(40);
 }
 
 .p-section-grid__list {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: calc(16 * var(--to-rem)) 5%;
+  gap: toRem(16) 5%;
 
   @include mq('md') {
-    grid-template-columns: repeat(auto-fit, minmax(calc(320 * var(--to-rem)), 1fr));
-    gap: calc(40 * var(--to-rem)) 5%;
+    grid-template-columns: repeat(auto-fit, minmax(toRem(320), 1fr));
+    gap: toRem(40) 5%;
   }
 }
 
@@ -32,9 +32,9 @@
 .p-section-grid__button {
   display: grid;
   place-items: center;
-  margin-top: calc(24 * var(--to-rem));
+  margin-top: toRem(24);
 
   @include mq('md') {
-    margin-top: calc(60 * var(--to-rem));
+    margin-top: toRem(60);
   }
 }

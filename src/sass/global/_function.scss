@@ -41,6 +41,11 @@
 //   @return math.div(strip-unit($size), strip-unit($base)) * 1rem;
 // }
 
+// * remへの計算式
+@function toRem($size) {
+  @return calc(strip-unit($size) * var(--to-rem));
+}
+
 // * emへの計算式
 @function em($size, $base: 16px) {
   @return math.div(strip-unit($size), strip-unit($base)) * 1em;

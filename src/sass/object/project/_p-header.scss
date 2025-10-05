@@ -20,18 +20,17 @@
   display: flex;
   justify-content: space-between;
   height: inherit;
-  padding-inline: calc(15 * var(--to-rem));
+  padding-inline: toRem(15);
 }
 
 .p-header__logo {
   display: grid;
   place-items: center;
   height: inherit;
-
 }
 .p-header__logo-link {
   height: inherit;
-  padding-block: calc(16 * var(--to-rem));
+  padding-block: toRem(16);
 
   img {
     height: 100%;
@@ -52,11 +51,11 @@
 .p-header__list {
   display: flex;
   align-items: center;
-  gap: calc(16 * var(--to-rem));
+  gap: toRem(16);
   height: inherit;
 
   @include mq('md') {
-    gap: calc(48 * var(--to-rem));
+    gap: toRem(48);
   }
 }
 
@@ -80,8 +79,8 @@
     transform: scale(0);
     transform-origin: center;
     width: 100%;
-    height: calc(2 * var(--to-rem));
-    border-radius: calc(2 * var(--to-rem));
+    height: toRem(2);
+    border-radius: toRem(2);
     background-color: black;
     transition: transform 0.3s;
   }

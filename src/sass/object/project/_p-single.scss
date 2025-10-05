@@ -25,8 +25,8 @@
 .p-single__pagination {
   display: flex;
   justify-content: center;
-  gap: calc(40 * var(--to-rem));
-  margin-top: calc(40 * var(--to-rem));
+  gap: toRem(40);
+  margin-top: toRem(40);
   .prev {
   }
   .index {
@@ -43,5 +43,5 @@
 .p-single__button {
   display: grid;
   place-items: center;
-  margin-top: calc(200 * var(--to-rem));
+  margin-top: toRem(200);
 }

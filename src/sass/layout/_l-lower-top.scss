@@ -1,8 +1,8 @@
 @use 'global' as *;
 
 .l-lower-top {
-  margin-top: calc(40 * var(--to-rem));
+  margin-top: toRem(40);
   @include mq('md') {
-    margin-top: calc(80 * var(--to-rem));
+    margin-top: toRem(80);
   }
 }

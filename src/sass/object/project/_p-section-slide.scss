@@ -12,7 +12,7 @@
 }
 
 .p-section-slide__content {
-  margin-top: calc(40 * var(--to-rem));
+  margin-top: toRem(40);
 }
 
 .p-section-slide__slide {
@@ -31,7 +31,7 @@
   .swiper-equipment {
     position: initial;
     width: 100%;
-    margin-top: calc(60 * var(--to-rem));
+    margin-top: toRem(60);
   }
 
   .swiper-scrollbar {
@@ -48,8 +48,8 @@
 .p-section-slide__button {
   display: grid;
   place-items: center;
-  margin-top: calc(24 * var(--to-rem));
+  margin-top: toRem(24);
   @include mq('md') {
-    margin-top: calc(60 * var(--to-rem));
+    margin-top: toRem(60);
   }
 }

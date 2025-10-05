@@ -32,7 +32,7 @@
 // Contact Form 7 のスタイル
 .p-form {
   padding: 6.25%;
-  border-radius: calc(16 * var(--to-rem));
+  border-radius: toRem(16);
   background-color: white;
 
   .p-form__list {
@@ -41,23 +41,23 @@
   .p-form__item {
     display: flex;
     flex-direction: column;
-    gap: calc(8 * var(--to-rem)) calc(16 * var(--to-rem));
+    gap: toRem(8) toRem(16);
     color: black;
-    font-size: calc(18 * var(--to-rem));
+    font-size: toRem(18);
     font-family: var(--font-en);
 
     @include mq('md') {
       flex-direction: row;
       align-items: center;
-      font-size: calc(20 * var(--to-rem));
+      font-size: toRem(20);
     }
   }
   .p-form__item:not(:nth-of-type(1)),
   div[data-class='wpcf7cf_group'] {
-    margin-top: calc(40 * var(--to-rem));
+    margin-top: toRem(40);
 
     @include mq('md') {
-      margin-top: calc(56 * var(--to-rem));
+      margin-top: toRem(56);
     }
   }
 
@@ -69,7 +69,7 @@
     p {
       display: flex;
       align-items: center;
-      gap: calc(8 * var(--to-rem));
+      gap: toRem(8);
     }
   }
 
@@ -82,20 +82,20 @@
   }
 
   .p-form__required {
-    padding: calc(2 * var(--to-rem)) calc(4 * var(--to-rem));
+    padding: toRem(2) toRem(4);
     border: 1px solid red;
-    border-radius: calc(4 * var(--to-rem));
+    border-radius: toRem(4);
     color: red;
-    font-size: calc(12 * var(--to-rem));
+    font-size: toRem(12);
   }
 
   .p-form__policy {
-    margin-top: calc(24 * var(--to-rem));
-    font-size: calc(14 * var(--to-rem));
+    margin-top: toRem(24);
+    font-size: toRem(14);
     text-align: center;
 
     @include mq('md') {
-      margin-top: calc(40 * var(--to-rem));
+      margin-top: toRem(40);
     }
 
     a {
@@ -105,30 +105,30 @@
   }
 
   .p-form__submit-cation {
-    margin-top: calc(16 * var(--to-rem));
+    margin-top: toRem(16);
     text-align: center;
 
     @include mq('md') {
-      margin-top: calc(32 * var(--to-rem));
+      margin-top: toRem(32);
     }
   }
 
   .p-form__previous {
     display: grid;
     place-items: center;
-    margin-top: calc(40 * var(--to-rem));
+    margin-top: toRem(40);
   }
 
   .p-form__submit {
     display: grid;
     place-items: center;
-    margin-top: calc(40 * var(--to-rem));
+    margin-top: toRem(40);
   }
 
   .p-form__note {
-    margin-top: calc(18 * var(--to-rem));
+    margin-top: toRem(18);
     color: gray;
-    font-size: calc(14 * var(--to-rem));
+    font-size: toRem(14);
   }
 
   //  ! common style
@@ -145,7 +145,7 @@
     margin: 0;
     padding: 1em;
     border: 1px solid gray;
-    border-radius: calc(4 * var(--to-rem));
+    border-radius: toRem(4);
     background-color: white;
 
     &:active,
@@ -160,7 +160,7 @@
 
   // ! textarea
   textarea {
-    min-height: calc(160 * var(--to-rem));
+    min-height: toRem(160);
     overflow-wrap: anywhere;
     resize: none;
   }
@@ -290,10 +290,10 @@
     appearance: none;
 
     option {
-      font-size: calc(18 * var(--to-rem));
+      font-size: toRem(18);
 
       @include mq('md') {
-        font-size: calc(20 * var(--to-rem));
+        font-size: toRem(20);
       }
     }
     @supports (-webkit-hyphens: none) and (not (-ms-ime-align: auto)) {

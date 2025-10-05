@@ -4,11 +4,11 @@
 
 @mixin m-text {
   padding-inline: 3%;
-  font-size: calc(14 * var(--to-rem));
+  font-size: toRem(14);
   line-height: calc(20 / 14);
   @include mq('md') {
     padding-inline: initial;
-    font-size: calc(19 * var(--to-rem));
+    font-size: toRem(19);
     line-height: calc(32 / 19);
   }
 }

@@ -3,8 +3,8 @@
 .c-card-post {
   display: block;
   height: 100%;
-  border-radius: calc(16 * var(--to-rem));
-  border-radius: calc(16 * var(--to-rem));
+  border-radius: toRem(16);
+  border-radius: toRem(16);
 }
 
 .c-card-post__img-box {
@@ -15,7 +15,7 @@
 .c-card-post__img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: calc(16 * var(--to-rem)) calc(16 * var(--to-rem)) 0 0;
+  border-radius: toRem(16) toRem(16) 0 0;
 
   img {
     width: 100%;
