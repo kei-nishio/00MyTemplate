@@ -13,13 +13,13 @@ $innerType: 'type1';
       @include mq('md') {
         // ! デザイン比率を維持しつつ、768px付近では左右余白を狭め、最大幅は$innerに合わせる場合
         width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
-        max-width: $inner + $padding-pc * 2;
+        max-width: calc($inner + $padding-pc * 2);
         padding-inline: $padding-pc;
       }
     } @else if $innerType == 'type2' {
       @include mq('md') {
         // ! 最大幅を$innerに合わせる場合
-        // max-width: $inner + $padding-pc * 2;
+        // max-width: calc($inner + $padding-pc * 2);
         // padding-inline: $padding-pc;
       }
     } @else if $innerType == 'type3' {
