@@ -1,8 +1,8 @@
 @use 'global' as *;
 
 .l-lower-top {
-  margin-top: torem(40);
+  margin-top: r(40);
   @include mq('md') {
-    margin-top: torem(80);
+    margin-top: r(80);
   }
 }

@@ -13,8 +13,8 @@
 
   a {
     width: fit-content;
-    height: torem(80);
-    padding-block: torem(16);
+    height: r(80);
+    padding-block: r(16);
 
     img {
       height: 100%;
@@ -27,19 +27,19 @@
 .p-footer__sns {
   display: grid;
   place-items: center;
-  margin-top: torem(24);
+  margin-top: r(24);
 }
 
 .p-footer__sns-list {
   display: flex;
-  gap: torem(16);
+  gap: r(16);
 }
 
 .p-footer__sns-item {
   a {
     display: block;
-    width: torem(30);
-    height: torem(30);
+    width: r(30);
+    height: r(30);
     aspect-ratio: 1;
 
     img {
@@ -53,14 +53,14 @@
 }
 
 .p-footer__nav {
-  margin-top: torem(24);
+  margin-top: r(24);
 }
 
 .p-footer__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: torem(24);
+  gap: r(24);
 }
 
 .p-footer__item {
@@ -69,6 +69,6 @@
 }
 
 .p-footer__copy {
-  margin-top: torem(64);
+  margin-top: r(64);
   text-align: center;
 }

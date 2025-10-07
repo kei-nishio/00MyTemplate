@@ -46,7 +46,7 @@
             <?php if (has_post_thumbnail()) : ?>
               <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
             <?php else : ?>
-              <img src="<?php echo esc_url($theme_uri . "/assets/images/common/noimage.jpg"); ?>" alt="no image" />
+              <img src="<?php echo esc_url($theme_uri . "/assets/images/common/noimage.webp"); ?>" alt="no image" />
             <?php endif; ?>
           </p>
           <?php // title 

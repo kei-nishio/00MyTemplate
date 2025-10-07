@@ -42,7 +42,7 @@
 // }
 
 // * remへの計算式
-@function torem($size) {
+@function r($size) {
   $stripped: strip-unit($size);
   @if $stripped == 1 {
     @return 1px;

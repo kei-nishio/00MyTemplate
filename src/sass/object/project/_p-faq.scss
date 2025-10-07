@@ -10,28 +10,28 @@
 }
 
 .p-faq__content {
-  margin-top: torem(0);
+  margin-top: r(0);
 
   @include mq('md') {
-    margin-top: torem(0);
+    margin-top: r(0);
   }
 }
 
 .p-faq__list {
-  margin-top: torem(0);
+  margin-top: r(0);
 
   @include mq('md') {
-    margin-top: torem(0);
+    margin-top: r(0);
   }
 }
 
 .p-faq__item {
 }
 .p-faq__item + .p-faq__item {
-  margin-top: torem(0);
+  margin-top: r(0);
 
   @include mq('md') {
-    margin-top: torem(0);
+    margin-top: r(0);
   }
 }
 .p-faq__q,
@@ -42,24 +42,24 @@
   .wrapper {
     display: flex;
     align-items: baseline;
-    gap: torem(16);
+    gap: r(16);
     position: relative;
-    padding-block: torem(16);
-    padding-right: torem(64);
-    padding-left: torem(4);
+    padding-block: r(16);
+    padding-right: r(64);
+    padding-left: r(4);
     cursor: pointer;
   }
 
   .icon {
     display: block;
     font-weight: 600;
-    font-size: torem(24);
+    font-size: r(24);
   }
 
   .text {
     display: block;
     font-weight: 600;
-    font-size: torem(17);
+    font-size: r(17);
     line-height: 1.5;
     letter-spacing: 0.02em;
   }
@@ -68,9 +68,9 @@
     display: block;
     position: absolute;
     top: 50%;
-    right: torem(4);
+    right: r(4);
     transform: translateY(-50%);
-    width: torem(35);
+    width: r(35);
     aspect-ratio: 1;
     border-radius: 100%;
     background-color: var(--color-blue-100);
@@ -94,13 +94,13 @@
     }
     &::before {
       width: pct(14, 35);
-      height: torem(2);
+      height: r(2);
 
       @include mq('md') {
       }
     }
     &::after {
-      width: torem(2);
+      width: r(2);
       height: pct(14, 35);
 
       @include mq('md') {
