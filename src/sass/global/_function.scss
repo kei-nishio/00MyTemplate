@@ -43,7 +43,11 @@
 
 // * remへの計算式
 @function torem($size) {
-  @return calc(strip-unit($size) * var(--to-rem));
+  $stripped: strip-unit($size);
+  @if $stripped == 1 {
+    @return 1px;
+  }
+  @return calc(#{$stripped} * var(--to-rem));
 }
 
 // * emへの計算式
