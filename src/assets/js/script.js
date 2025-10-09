@@ -330,9 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.js-slide-toggle').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const target = trigger.children[1];
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
       if (target) {
         slideToggle(target, 500);
         trigger.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', !expanded);
       }
     });
   });
