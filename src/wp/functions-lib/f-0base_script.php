@@ -45,7 +45,7 @@ function my_script_init()
   wp_enqueue_style('scroll-hint', 'https://unpkg.com/scroll-hint@latest/css/scroll-hint.css');
   // wp_enqueue_style('style-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
   wp_enqueue_style('style-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', ['style-reset']);
-  wp_enqueue_style('style-main', esc_url($theme_uri . '/assets/css/style.css'), ['style-reset', 'style-swiper', 'google-fonts'], '1.0.0');
+  wp_enqueue_style('style-main', esc_url($theme_uri . '/assets/css/style.css'), ['style-reset', 'style-swiper', 'google-fonts'], date('Ymd'));
 
   // ! Local font
   // $otf = esc_url(get_template_directory_uri() . '/assets/font/YDWbananaslipplus.otf');
