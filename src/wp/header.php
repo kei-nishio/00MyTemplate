@@ -95,20 +95,4 @@
 
   <?php // drawer 
   ?>
-  <div class="p-drawer js-drawer">
-    <div class="p-drawer__inner l-inner">
-      <div class="p-drawer__nav">
-        <ul class="p-drawer__list">
-          <?php foreach ($nav_items as $item): ?>
-            <li class="p-drawer__item">
-              <a href="<?php echo (strpos($item['slug'], 'http') === 0) ? esc_url($item['slug']) : esc_url(home_url($item['slug'])); ?>" <?php echo (strpos($item['slug'], 'http') === 0) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?> class="link">
-                <span class="en"><?php echo esc_html($item["nameEN"]); ?></span>
-                <span class="jp"><?php echo esc_html($item["nameJP"]); ?></span>
-              </a>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="p-drawer-mask js-drawer-mask"></div>
+  <?php get_template_part('parts/p-drawer', null, null); ?>
