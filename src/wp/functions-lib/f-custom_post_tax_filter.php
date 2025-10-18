@@ -3,10 +3,8 @@
 function get_custom_filters()
 {
   return [
-    'builder' => ['builder-area', 'renovation-area'],
-    'event'   => ['event-area'],
-    'player'  => ['player_category'],
-    // 他のカスタム投稿タイプとタクソノミーをここに追加
+    'custom-post-name-1' => ['custom-taxonomy-1'],
+    'custom-post-name-2' => ['custom-taxonomy-2', 'custom-taxonomy-3'],
   ];
 }
 
@@ -27,6 +25,11 @@ function add_custom_taxonomy_filters()
   }
 
   foreach ($custom_filters[$post_type] as $taxonomy) {
+    // タクソノミーの存在確認
+    if (!taxonomy_exists($taxonomy)) {
+      continue;
+    }
+
     $tax = get_taxonomy($taxonomy);
     if (!$tax) continue;
 
@@ -40,7 +43,7 @@ function add_custom_taxonomy_filters()
     if (!$terms || is_wp_error($terms)) continue;
 
     echo '<select name="' . esc_attr($taxonomy) . '" class="postform">';
-    echo '<option value="">' . esc_html($tax->labels->name) . ' を選択</option>';
+    echo '<option value="">' . esc_html($tax->labels->all_items ?? $tax->labels->name) . '</option>';
     foreach ($terms as $term) {
       printf(
         '<option value="%s" %s>%s</option>',
@@ -58,13 +61,23 @@ add_action('restrict_manage_posts', 'add_custom_taxonomy_filters');
 function filter_posts_by_custom_taxonomies($query)
 {
   global $pagenow;
-  if ($pagenow !== 'edit.php' || !$query->is_main_query()) {
+
+  // 管理画面の投稿一覧ページ以外は処理しない
+  if ($pagenow !== 'edit.php' || !$query->is_main_query() || !is_admin()) {
     return;
   }
 
-  $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'post';
+  // 投稿タイプを取得(クエリオブジェクトから優先的に取得)
+  $post_type = $query->get('post_type');
+
+  // クエリに投稿タイプが設定されていない場合はGETパラメータから取得
+  if (empty($post_type)) {
+    $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'post';
+  }
+
   $custom_filters = get_custom_filters();
 
+  // フィルター設定がない投稿タイプは処理しない
   if (!isset($custom_filters[$post_type])) {
     return;
   }
@@ -72,7 +85,8 @@ function filter_posts_by_custom_taxonomies($query)
   $tax_query = [];
 
   foreach ($custom_filters[$post_type] as $taxonomy) {
-    if (!empty($_GET[$taxonomy])) {
+    // タクソノミーが存在し、フィルター値が設定されている場合のみ処理
+    if (taxonomy_exists($taxonomy) && !empty($_GET[$taxonomy])) {
       $tax_query[] = [
         'taxonomy' => $taxonomy,
         'field'    => 'slug',
