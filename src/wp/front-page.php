@@ -31,6 +31,16 @@
         </div>
       </div>
       <h2 class="p-fv__heading">fvfvfvfvfvfvfvfvfvfv</h2>
+      
+      <div class="p-fv__letter">
+        <div class="p-fv__letter-track">
+          <span class="text">Customer Voices</span>
+          <span class="text">Customer Voices</span>
+          <span class="text">Customer Voices</span>
+          <span class="text">Customer Voices</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
