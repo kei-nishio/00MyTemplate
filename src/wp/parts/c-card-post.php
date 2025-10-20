@@ -91,10 +91,10 @@ $description = wp_kses_post(get_the_author_meta('description'));
   <?php endif; ?>
   <?php if (true): // excerpt 
   ?>
-    <p class="c-card-post__excerpt"><?php echo esc_html(get_the_excerpt()); ?></p>
+    <p class="c-card-post__excerpt"><?php echo wp_kses_post(get_the_excerpt()); ?></p>
   <?php endif; ?>
   <?php if (true): // content 
   ?>
-    <p class="c-card-post__content"><?php echo esc_html(mb_strimwidth(strip_tags(get_the_content()), 0, 100 * 2 + 3, '...')); ?></p>
+    <p class="c-card-post__content"><?php echo wp_kses_post(mb_strimwidth(strip_tags(get_the_content()), 0, 100 * 2 + 3, '...')); ?></p>
   <?php endif; ?>
 </a>
