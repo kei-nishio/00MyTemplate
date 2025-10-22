@@ -588,6 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! スムーズスクロール ***********
+  // * 同一ページ内のアンカーリンク
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
@@ -607,6 +608,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  // * ページ読み込み時にURLのハッシュをチェック（下層ページから遷移した場合）
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      const targetId = window.location.hash;
+      if (document.querySelector(targetId)) {
+        // 少し遅延させてからスクロール（レイアウトが確定するまで待つ）
+        setTimeout(() => {
+          smoothScrollToTarget(targetId);
+        }, 100);
+      }
+    }
+  });
+  // * スムーズスクロールの共通関数
+  function smoothScrollToTarget(targetId) {
+    const header = document.querySelector('.js-header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+      const rect = targetElement.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetPosition = rect.top + scrollTop - headerHeight * 1.5;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth',
+      });
+    }
+  }
 
   // ! FVアニメーション（Lottie）（lottie.min.js の読み込みが必要） ***********
   if (false) {
