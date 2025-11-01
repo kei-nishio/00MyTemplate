@@ -9,21 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! タブ・クラス名トグル ***********
   class ToggleClass {
-    constructor(tabSelector, contentSelector, openClass, exclusive = false, outsideClose = false) {
-      this.tabs = document.querySelectorAll(tabSelector);
-      this.contents = document.querySelectorAll(contentSelector);
+    constructor(tabDataAttr, contentDataAttr, openClass = 'is-open', exclusive = false, outsideClose = false) {
+      // data-tab="xxx" のような形で要素を取得
+      this.tabs = document.querySelectorAll(`[${tabDataAttr}]`);
+      this.contents = document.querySelectorAll(`[${contentDataAttr}]`);
       this.openClass = openClass; // クラス名
-      this.exclusive = exclusive; // 他のタブクラスを排他的に外すかどうか
-      this.outsideClose = outsideClose; // タブ外をクリックでクラス名を外す
+      this.exclusive = exclusive;
+      this.outsideClose = outsideClose;
       this.init();
     }
+
     init() {
       this.tabs.forEach((tab, index) => {
         tab.addEventListener('click', (event) => {
-          event.stopPropagation(); // イベントのバブルを防止
+          event.stopPropagation();
           this.toggleClass(index);
         });
       });
+
       if (this.outsideClose) {
         document.addEventListener('click', (event) => {
           const clickedInsideTab = Array.from(this.tabs).some((tab) => tab.contains(event.target));
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     }
+
     toggleClass(index) {
       const isActive = this.tabs[index].classList.contains(this.openClass);
 
@@ -49,14 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
         this.contents[index].classList.add(this.openClass);
       }
     }
+
     resetClass() {
       this.tabs.forEach((tab) => tab.classList.remove(this.openClass));
       this.contents.forEach((content) => content.classList.remove(this.openClass));
     }
   }
-  let tabSwitcher;
   if (false) {
-    tabSwitcher = new ToggleClass('.js-menu-tab', '.js-menu-content', 'is-open', true, true);
+    let tabSwitcher;
+    tabSwitcher = new ToggleClass('data-tab', 'data-content', 'is-open', true, true);
+    /*
+    参考HTML構造
+    <button data-tab="menu" data-open="false" class="is-open">メニュー</button>
+    <button data-tab="search" data-open="false">検索</button>
+    <div data-content="menu" data-open="false" class="is-open">メニューの内容</div>
+    <div data-content="search" data-open="false">検索の内容</div>
+    */
   }
 
   // ! セレクトボックスからカテゴリーアーカイブに遷移する ***********
@@ -79,14 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! ハンバーガーメニューとドロワーメニュー ***********
   class DrawerToggle {
-    constructor({ header, hamburger, drawer, mask, breakpoint = 768 }) {
-      this.header = document.querySelector(header);
-      this.hamburger = document.querySelector(hamburger);
-      this.drawer = document.querySelector(drawer);
-      this.mask = document.querySelector(mask);
+    constructor({ headerAttr, hamburgerAttr, drawerAttr, maskAttr, activeClass = 'is-active', breakpoint = 768 }) {
+      this.header = document.querySelector(`[${headerAttr}]`);
+      this.hamburger = document.querySelector(`[${hamburgerAttr}]`);
+      this.drawer = document.querySelector(`[${drawerAttr}]`);
+      this.mask = document.querySelector(`[${maskAttr}]`);
       this.breakpoint = breakpoint;
+      this.activeClass = activeClass; // トグルするクラス名（変数で指定可能）
 
-      this.activeClass = 'is-active'; // 再利用しやすいクラス名
       this.init();
     }
 
@@ -164,15 +176,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   const drawerToggle = new DrawerToggle({
-    header: '.js-header',
-    hamburger: '.js-hamburger',
-    drawer: '.js-drawer',
-    mask: '.js-drawer-mask',
+    headerAttr: 'data-header',
+    hamburgerAttr: 'data-hamburger',
+    drawerAttr: 'data-drawer',
+    maskAttr: 'data-drawer-mask',
+    activeClass: 'is-active',
     breakpoint: 768,
   });
 
   // ! TOPにスクロールするボタン ***********
-  const toTopButton = document.querySelector('.js-to-up');
+  const toTopButton = document.querySelector('[data-to-top]');
   if (toTopButton) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 600) {
@@ -191,22 +204,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! ヘッダーをスクロールで非表示にする ***********
   let lastScrollTop = 0;
-  const header = document.querySelector('.js-header');
-  window.addEventListener('scroll', () => {
-    let scrollTop = document.documentElement.scrollTop;
-    // * scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
-    if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
-      header.classList.add('is-scrolled');
-    } else {
-      header.classList.remove('is-scrolled');
-    }
-    lastScrollTop = scrollTop;
-  });
+  const header = document.querySelector('[data-header]');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      let scrollTop = document.documentElement.scrollTop;
+      // * scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
+      if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+      lastScrollTop = scrollTop;
+    });
+  }
 
   // ! トリガー要素以下で見えなくなるターゲット ***********
   if (false) {
-    let trigger = document.querySelector('.js-trigger');
-    let target = document.querySelector('.js-target');
+    let trigger = document.querySelector('[data-trigger]');
+    let target = document.querySelector('[data-target]');
     if (trigger && target) {
       // ビューポート上の位置＋現在のスクロール量
       let triggerTop = trigger.getBoundingClientRect().top + window.scrollY;
@@ -230,25 +245,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! 途中から追従するコンタクトボタン ***********
   if (false) {
-    let tl = gsap.timeline({});
-    tl.to('.js-floating-button', {
-      scrollTrigger: {
-        markers: true,
-        id: 'stFloatingButton',
-        trigger: '.js-floating-button',
-        start: 'bottom bottom-=20',
-        end: 'top-=50% bottom',
-        endTrigger: '#footer',
-        pin: true,
-        pinSpacing: false,
-        onLeave: () => {
-          gsap.to('.js-floating-button', { autoAlpha: 0, duration: 0.3 });
+    /*
+    <div data-animation="floating-button">
+      <button>お問い合わせ</button>
+    </div>
+    */
+    const floatingButton = document.querySelector('[data-animation="floating-button"]');
+    if (floatingButton) {
+      let tl = gsap.timeline({});
+      tl.to(floatingButton, {
+        scrollTrigger: {
+          markers: true,
+          id: 'stFloatingButton',
+          trigger: floatingButton,
+          start: 'bottom bottom-=20',
+          end: 'top-=50% bottom',
+          endTrigger: '#footer',
+          pin: true,
+          pinSpacing: false,
+          onLeave: () => {
+            gsap.to(floatingButton, { autoAlpha: 0, duration: 0.3 });
+          },
+          onEnterBack: () => {
+            gsap.to(floatingButton, { autoAlpha: 1, duration: 0.5 });
+          },
         },
-        onEnterBack: () => {
-          gsap.to('.js-floating-button', { autoAlpha: 1, duration: 0.5 });
-        },
-      },
-    });
+      });
+    }
   }
 
   // ! クリックアコーディオン jsタイプ ***********
@@ -327,7 +350,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   // * event listeners
-  document.querySelectorAll('.js-slide-toggle').forEach((trigger) => {
+  /*
+  <button data-animation="slide-toggle" aria-expanded="false">
+    <span>タイトル</span>
+    <div>スライドする内容</div>
+  </button>
+  */
+  document.querySelectorAll('[data-animation="slide-toggle"]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const target = trigger.children[1];
       const expanded = trigger.getAttribute('aria-expanded') === 'true';
@@ -339,38 +368,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ! 横スクロールアニメーション ***********
-  if (false) {
-    let scrollHorizon = document.querySelector('.js-scroll-horizon');
-    let scrollHorizonContainer = document.querySelector('.js-scroll-horizon__box');
-    let scrollHorizonContainerWidth = scrollHorizonContainer.offsetWidth;
-    let scrollHorizonSlides = document.querySelectorAll('.js-scroll-horizon__image-item');
-    let scrollHorizonBox = document.querySelector('.js-scroll-horizon__image-items');
-    gsap.to(scrollHorizonSlides, {
-      xPercent: -105 * (scrollHorizonSlides.length - 1),
-      ease: 'none',
-      scrollTrigger: {
-        // markers: true,
-        id: 'stScrollHorizon',
-        trigger: '.js-scroll-horizon',
-        start: 'bottom bottom',
-        pin: scrollHorizon,
-        scrub: 0.5,
-        end: '+=' + scrollHorizonContainerWidth,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        snap: {
-          snapTo: 1 / (scrollHorizonSlides.length - 1),
-          duration: { min: 0.1, max: 0.2 },
-        },
-      },
-    });
-  }
-
   // ! Swiper FV ***********
-  let swiperFvs = document.querySelectorAll('.js-swiper-fv .swiper');
+  /*
+  <div data-animation="slide-fv">
+    <div class="swiper">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">Slide 1</li>
+        <li class="swiper-slide">Slide 2</li>
+        <li class="swiper-slide">Slide 3</li>
+      </ul>
+    </div>
+  </div>
+  */
+  let swiperFvs = document.querySelectorAll('[data-animation="slide-fv"] .swiper');
   if (swiperFvs.length > 0) {
-    const swiperFv = new Swiper('.js-swiper-fv .swiper', {
+    const swiperFv = new Swiper('[data-animation="slide-fv"] .swiper', {
       direction: 'horizontal',
       effect: 'fade', // 'fade', 'cube', 'coverflow', 'flip'
       loop: true,
@@ -400,190 +412,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ! Swiper Normal  ***********
-  let swiperNews = document.querySelectorAll('.js-swiper .swiper');
-  if (swiperNews.length > 0) {
-    const swiperNews = new Swiper('.js-swiper .swiper', {
-      // **1. 基本設定**
-      direction: 'horizontal', // 'horizontal' (水平) または 'vertical' (垂直)
-      loop: true, // 無限ループ
-      speed: 500, // スライドの切り替え速度 (ミリ秒)
-      initialSlide: 0, // 最初に表示するスライド (インデックス番号)
-
-      // **2. スライド表示設定**
-      slidesPerView: 1, // 画面に表示するスライド数 ('auto'も指定可)
-      spaceBetween: 10, // スライド間の余白 (px)
-      slidesPerGroup: 1, // 一度に移動するスライド数
-      centeredSlides: false, // アクティブスライドを中央に表示
-
-      // **3. 自動再生**
+  // ! Swiper ***********
+  /*
+  <div data-animation="slide-swiper">
+    <div class="swiper">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">Slide 1</li>
+        <li class="swiper-slide">Slide 2</li>
+        <li class="swiper-slide">Slide 3</li>
+      </ul>
+    </div>
+  </div>
+  */
+  const swiperEl = document.querySelectorAll('[data-animation="slide-swiper"] .swiper');
+  if (swiperEl.length > 0) {
+    const swiper = new Swiper('[data-animation="slide-swiper"] .swiper', {
+      loop: true,
+      speed: 600,
+      slidesPerView: 1,
+      spaceBetween: 20,
       autoplay: {
-        delay: 3000, // スライドの間隔 (ミリ秒)
-        disableOnInteraction: false, // ユーザー操作後も再生を続ける
-        pauseOnMouseEnter: true, // マウスオーバーで一時停止
+        delay: 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
       },
-
-      // **4. ページネーション (ドット)**
       pagination: {
-        el: '.js-swiper .swiper-pagination', // ページネーション要素のセレクタ
-        clickable: true, // ページネーションをクリック可能にする
-        dynamicBullets: true, // 動的なドットサイズ
-        type: 'bullets', // 'bullets', 'fraction', 'progressbar', 'custom'
-        renderBullet: function (index, className) {
-          return `<span class="${className}">${index + 1}</span>`;
-        },
+        el: '[data-animation="slide-swiper"] .swiper-pagination',
+        clickable: true,
       },
-
-      // **5. ナビゲーションボタン (前後ボタン)**
       navigation: {
-        nextEl: '.js-swiper .swiper-button-next', // 次のボタンのセレクタ
-        prevEl: '.js-swiper .swiper-button-prev', // 前のボタンのセレクタ
+        nextEl: '[data-animation="slide-swiper"] .swiper-button-next',
+        prevEl: '[data-animation="slide-swiper"] .swiper-button-prev',
       },
-
-      // **6. スクロールバー**
-      scrollbar: {
-        el: '.js-swiper .swiper-scrollbar', // スクロールバーのセレクタ
-        draggable: true, // ドラッグ可能にする
-      },
-
-      // **7. グリッドレイアウト**
-      grid: {
-        rows: 1, // 行数
-        fill: 'row', // 'row' (横方向) または 'column' (縦方向)
-      },
-
-      // **8. レスポンシブ設定**
       breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 10,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
       },
-
-      // **9. エフェクト設定**
-      effect: 'slide', // 'slide', 'fade', 'cube', 'coverflow', 'flip', 'creative'
-      fadeEffect: {
-        crossFade: true, // フェードエフェクト間のクロスフェード
-      },
-      cubeEffect: {
-        shadow: true,
-        slideShadows: true,
-        shadowOffset: 20,
-        shadowScale: 0.94,
-      },
-      coverflowEffect: {
-        rotate: 50, // スライドの回転角度
-        stretch: 0, // スライド間の距離
-        depth: 100, // 奥行き
-        modifier: 1, // 効果の強さ
-        slideShadows: true,
-      },
-
-      // **10. 仮想スライド (動的生成)**
-      virtual: {
-        slides: (function () {
-          const slides = [];
-          for (let i = 0; i < 500; i++) {
-            slides.push(`Slide ${i}`);
-          }
-          return slides;
-        })(),
-      },
-
-      // **11. スライダー動作に関する設定**
-      allowSlideNext: true, // 次スライドへの移動を許可
-      allowSlidePrev: true, // 前スライドへの移動を許可
-      allowTouchMove: true, // スワイプ操作を許可
-      threshold: 20, // スワイプ感知の閾値 (px)
-      touchRatio: 1, // スワイプ感度
-      touchAngle: 45, // スワイプ開始方向の角度制限
-      simulateTouch: true, // デスクトップでのドラッグを許可
-      grabCursor: true, // スライダー操作中にカーソルを変更
-
-      // **13. 監視設定**
-      observer: false, // SwiperがDOM変更を監視する
-      observeParents: false, // 親要素の変更も監視する
-
-      // **13. イベントコールバック**
       on: {
-        init: function () {
+        init() {
           console.log('Swiper initialized');
         },
-        slideChange: function () {
-          console.log('Slide changed to: ', this.activeIndex);
-        },
-        reachEnd: function () {
-          console.log('Reached the last slide');
+        slideChange() {
+          console.log('Active slide:', this.activeIndex);
         },
       },
-    });
-  }
-
-  // ! ギャラリーモーダル ***********
-  if (false) {
-    let modal = document.querySelector('.js-modal');
-    let modalOriImages = document.querySelectorAll('.js-modal-ori-image');
-    let modalAddImageBox = document.querySelector('.js-modal-add-image-box');
-    let modalClose = document.querySelector('.js-modal-close');
-    const addImageToModal = (image) => {
-      let modalAddImage = document.createElement('img');
-      modalAddImage.src = image.src;
-      modalAddImage.alt = image.alt;
-      modalAddImageBox.appendChild(modalAddImage);
-      modal.classList.add('is-active');
-      document.body.style.overflow = 'hidden';
-    };
-    const closeModal = (event) => {
-      if (event.target === modal || event.target === modalClose) {
-        modal.classList.remove('is-active');
-        document.body.style.overflow = '';
-        modalAddImageBox.innerHTML = '';
-      }
-    };
-    modalOriImages.forEach((modalOriImage) => {
-      modalOriImage.addEventListener('click', () => addImageToModal(modalOriImage));
-    });
-    [modal, modalClose].forEach((element) => {
-      element.addEventListener('click', closeModal);
-    });
-  }
-
-  // ! クリックで画像を切り替える
-  if (false) {
-    const targetImages = document.querySelectorAll('.js-target-image img');
-    const thumbnailImage = document.querySelector('.js-thumbnail-image img');
-    targetImages.forEach((targetImage) => {
-      targetImage.addEventListener('click', () => {
-        thumbnailImage.src = targetImage.src;
-        thumbnailImage.alt = targetImage.alt;
-      });
     });
   }
 
   // ! クエリパラメータでリンク先の表示要素を切り替える ***********
+  /*
+  <!-- タブボタン -->
+  <button data-tab="tab1">タブ1</button>
+  <button data-tab="tab2">タブ2</button>
+  <button data-tab="tab3">タブ3</button>
+
+  <!-- タブコンテンツ -->
+  <div data-tab-content="tab1" id="tab1">コンテンツ1</div>
+  <div data-tab-content="tab2" id="tab2">コンテンツ2</div>
+  <div data-tab-content="tab3" id="tab3">コンテンツ3</div>
+
+  <!-- URL例 -->
+  https://example.com/page.html?id=tab2
+  */
   if (false) {
-    let tabSelectors = document.querySelectorAll('.js-tab');
-    let tabContents = document.querySelectorAll('.js-tab-content');
-    let linkId = new URL(pageUrl).searchParams.get('id');
+    const urlParams = new URLSearchParams(window.location.search);
+    const linkId = urlParams.get('id');
+
     if (linkId) {
-      tabSelectors.forEach((tab) => {
-        tab.classList.remove('is-open');
-      });
-      tabContents.forEach((content) => {
-        content.classList.remove('is-open');
-      });
-      let tabSelectorTarget = document.querySelector(`[data-target='${linkId}']`);
-      let tabContentTarget = document.getElementById(linkId);
-      tabSelectorTarget.classList.add('is-open');
-      tabContentTarget.classList.add('is-open');
+      // すべてのタブとコンテンツから is-open を削除
+      const removeActiveClass = (selector) => {
+        document.querySelectorAll(selector).forEach((element) => {
+          element.classList.remove('is-open');
+        });
+      };
+      removeActiveClass('[data-tab]');
+      removeActiveClass('[data-tab-content]');
+
+      // 対象のタブとコンテンツに is-open を追加
+      const tabSelectorTarget = document.querySelector(`[data-tab='${linkId}']`);
+      const tabContentTarget = document.getElementById(linkId);
+
+      if (tabSelectorTarget && tabContentTarget) {
+        tabSelectorTarget.classList.add('is-open');
+        tabContentTarget.classList.add('is-open');
+      }
     }
   }
 
@@ -594,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetId = anchor.getAttribute('href');
       if (targetId.length > 1 && document.querySelector(targetId)) {
         e.preventDefault();
-        const header = document.querySelector('.js-header');
+        const header = document.querySelector('[data-header]');
         const headerHeight = header ? header.offsetHeight : 0;
         const targetElement = document.querySelector(targetId);
         const rect = targetElement.getBoundingClientRect();
@@ -622,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   // * スムーズスクロールの共通関数
   function smoothScrollToTarget(targetId) {
-    const header = document.querySelector('.js-header');
+    const header = document.querySelector('[data-header]');
     const headerHeight = header ? header.offsetHeight : 0;
     const targetElement = document.querySelector(targetId);
 
@@ -651,16 +564,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! ScrollHint https://www.appleple.com/blog/oss/scroll-hint.html ***********
+  /*
+  <div data-scrollable>
+    <table></table>
+  </div>
+  */
   if (false) {
     const currentLanguage = document.documentElement.lang;
     let scrollableText;
-    // * 言語設定によるスクロールヒントの切り替え
     if (currentLanguage === 'ja') {
       scrollableText = 'スクロールできます';
     } else {
       scrollableText = 'Scroll';
     }
-    new ScrollHint('.js-scrollable', {
+    new ScrollHint('[data-scrollable]', {
       scrollHintIconAppendClass: 'scroll-hint-icon-white',
       remainingTime: 3000, //ms
       offset: -1, // スクロールできなくても表示する
@@ -668,12 +585,12 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollable: scrollableText,
       },
     });
-    document.querySelectorAll('.js-scrollable').forEach((scrollable) => {
+    document.querySelectorAll('[data-scrollable]').forEach((scrollable) => {
       scrollable.style.overflowY = 'hidden';
     });
   }
 
-  // ! お問い合わせページ限定 ***********
+  // ! お問い合わせページで郵便番号から住所を自動入力 ***********
   if (false) {
     const zipCodeField = document.querySelector('input[name="your-zip-code"]');
     if (zipCodeField) {
@@ -701,8 +618,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ! Pin Animation ***********
-  const pinTarget = document.querySelector('.js-pin-target');
-  const pinTrigger = document.querySelector('.js-pin-trigger');
+  const pinTarget = document.querySelector('[data-animation="pin-target"]');
+  const pinTrigger = document.querySelector('[data-animation="pin-trigger"]');
   if (pinTarget) {
     ScrollTrigger.create({
       trigger: pinTrigger,
@@ -714,32 +631,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ! Parallax Animation ***********
-  const parallaxs = document.querySelectorAll('.js-parallax');
-  if (parallaxs.length > 0) {
-    parallaxs.forEach((element) => {
-      gsap.fromTo(
-        element,
-        {
-          y: '30%',
-          filter: 'blur(0px)',
-        },
-        {
-          y: '80%',
-          ease: 'power1.inOut',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 2,
-          },
-        }
-      );
-    });
-  }
-
   // ! Parallax Image Animation ***********
-  const parallaxImages = document.querySelectorAll('.js-parallax-image');
+  /*
+  .p-xxx__image {
+    aspect-ratio: width / height;
+    overflow: hidden;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      transform: translateY(-10%);
+    }
+  }
+  */
+  const parallaxImages = document.querySelectorAll('[data-animation="parallax-image"]');
   if (parallaxImages.length > 0) {
     parallaxImages.forEach((element) => {
       gsap.to(element, {
@@ -755,24 +661,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-  // * sample CSS
-  // .p-xxx__image {
-  //   aspect-ratio: width / height;
-  //   overflow: hidden;
-  //   width: 100%;
-  //   outline: 4px solid blue;
-  //   img {
-  //     width: auto;
-  //     height: 120%;
-  //     object-fit: cover;
-  //     transform: translateY(-20%);
-  //     outline: 4px solid red;
-  //   }
-  // }
 
   // ! Clip Path Animation ***********
   // * 左からClipPathでスライドイン
-  const clipDowns = document.querySelectorAll('.js-clip-down');
+  const clipDowns = document.querySelectorAll('[data-animation="clip-down"]');
   if (clipDowns.length > 0) {
     clipDowns.forEach((element) => {
       gsap.fromTo(
@@ -797,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // * 右からClipPathでスライドイン
-  const clipRights = document.querySelectorAll('.js-clip-right');
+  const clipRights = document.querySelectorAll('[data-animation="clip-right"]');
   if (clipRights.length > 0) {
     clipRights.forEach((element) => {
       gsap.fromTo(
@@ -823,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! FadeIN Animation ***********
   // * その場でフェードイン
-  const fadeIns = document.querySelectorAll('.js-fadeIn');
+  const fadeIns = document.querySelectorAll('[data-animation="fade-in"]');
   if (fadeIns.length > 0) {
     fadeIns.forEach((element) => {
       gsap.from(element, {
@@ -838,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   // * 右からフェードイン
-  const fadeInRights = document.querySelectorAll('.js-fadeInRight');
+  const fadeInRights = document.querySelectorAll('[data-animation="fade-in-right"]');
   if (fadeInRights.length > 0) {
     fadeInRights.forEach((element) => {
       gsap.from(element, {
@@ -854,7 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   // * 左からフェードイン
-  const fadeInLefts = document.querySelectorAll('.js-fadeInLeft');
+  const fadeInLefts = document.querySelectorAll('[data-animation="fade-in-left"]');
   if (fadeInLefts.length > 0) {
     fadeInLefts.forEach((element) => {
       gsap.from(element, {
@@ -870,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   // * 下からフェードイン
-  const fadeInBottoms = document.querySelectorAll('.js-fadeInBottom');
+  const fadeInBottoms = document.querySelectorAll('[data-animation="fade-in-bottom"]');
   if (fadeInBottoms.length > 0) {
     fadeInBottoms.forEach((element) => {
       gsap.from(element, {
@@ -886,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   // * 右から順番にフェードイン（ul/ol要素にクラスをつける）
-  document.querySelectorAll('.js-fadeInRightStaggers').forEach((group) => {
+  document.querySelectorAll('[data-animation="fade-in-right-staggers"]').forEach((group) => {
     const targets = group.querySelectorAll(':scope > *');
     if (targets.length > 0) {
       gsap.from(targets, {
@@ -903,7 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   // * 下から順番にフェードイン(ul/ol要素にクラスをつける)
-  document.querySelectorAll('.js-fadeInBottomStaggers').forEach((group) => {
+  document.querySelectorAll('[data-animation="fade-in-bottom-staggers"]').forEach((group) => {
     const targets = group.querySelectorAll(':scope > *');
     if (targets.length > 0) {
       gsap.from(targets, {
@@ -923,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ! Split Text Animation ***********
   // * 1文字ずつ下からフェードイン
   document.fonts.ready.then(() => {
-    document.querySelectorAll('.js-splitBottoms').forEach((element) => {
+    document.querySelectorAll('[data-animation="split-bottoms"]').forEach((element) => {
       const split = new SplitText(element, { type: 'chars' });
       if (split.chars && split.chars.length > 0 && isSP()) {
         gsap.from(split.chars, {
@@ -944,7 +836,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ! ローディングアニメーション ***********
-  const loading = document.querySelector('.js-loading');
+  /*
+  <div data-animation="loading" class="is-active">
+    <div data-animation="loading-bg"></div>
+    <div data-animation="loading-logo">
+      <img src="logo.svg" alt="Logo">
+    </div>
+  </div>
+  */
+  const loading = document.querySelector('[data-animation="loading"]');
   if (loading) {
     const loadingTL = gsap.timeline({
       onComplete: function () {
@@ -955,7 +855,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadingTL
-      .to('.js-loading-logo', { autoAlpha: 1, duration: 0.5 })
-      .to('.js-loading-bg', { autoAlpha: 0, duration: 0.5, ease: 'power4.inOut' }, '<');
+      .to('[data-animation="loading-title"]', { autoAlpha: 0, duration: 0.5, ease: 'power4.inOut' }, '<');
   }
 });

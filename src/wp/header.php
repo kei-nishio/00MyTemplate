@@ -48,7 +48,7 @@
   ?>
   <?php // header 
   ?>
-  <header class="p-header js-header">
+  <header class="p-header" data-header>
     <div class="p-header__inner">
       <?php // logo 
       ?>
@@ -83,7 +83,7 @@
 
       <!-- hamburger -->
       <div class="p-header__hamburger">
-        <button class="c-hamburger js-hamburger">
+        <button class="c-hamburger" type="button" aria-label="メニュー" aria-expanded="false" data-hamburger>
           <span class="c-hamburger__border"></span>
           <span class="c-hamburger__border"></span>
           <span class="c-hamburger__border"></span>

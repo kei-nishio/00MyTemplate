@@ -29,7 +29,7 @@ $nav_items = [
   ]
 ];
 ?>
-<div class="p-drawer js-drawer">
+<div class="p-drawer" data-drawer>
   <div class="p-drawer__inner l-inner">
     <div class="p-drawer__nav">
       <ul class="p-drawer__list">
@@ -45,4 +45,4 @@ $nav_items = [
     </div>
   </div>
 </div>
-<div class="p-drawer-mask js-drawer-mask"></div>
+<div class="p-drawer-mask" data-drawer-mask></div>

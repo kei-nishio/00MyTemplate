@@ -1,17 +1,20 @@
 <?php global $theme_uri; ?>
 <?php get_header(); ?>
 <main class="main">
+
   <?php // loading 
   ?>
-  <div class="p-loading js-loading">
+  <div class="p-loading" data-animation="loading">
     <div class="p-loading__inner">
+      <p class="p-loading__title" data-animation="loading-title">Loading...</p>
     </div>
   </div>
+  
   <?php // FV 
   ?>
   <section class="l-fv p-fv">
     <div class="p-fv__inner">
-      <div class="p-fv__slide js-swiper-fv">
+      <div class="p-fv__slide" data-animation="slide-fv">
         <div class="swiper">
           <ul class="swiper-wrapper">
             <?php for ($i = 1; $i <= 2; $i++) : ?>
@@ -31,7 +34,7 @@
         </div>
       </div>
       <h2 class="p-fv__heading">fvfvfvfvfvfvfvfvfvfv</h2>
-      
+
       <div class="p-fv__letter">
         <div class="p-fv__letter-track">
           <span class="text">Customer Voices</span>
@@ -48,8 +51,8 @@
     // Flash of Unstyled Content（FOUC）対策
     // const hasVisited = sessionStorage.getItem('hasVisited');
     const hasVisited = false; // for debug
-    const loading = document.querySelector('.js-loading');
-    const loadingHides = document.querySelectorAll('.js-loadingHide');
+    const loading = document.querySelector('[data-animation="loading"]');
+    const loadingHides = document.querySelectorAll('[data-animation="loading-hide"]');
 
     if (!hasVisited) {
       loading?.classList.add('is-active');
@@ -128,7 +131,7 @@
       </div>
       <div class="p-section-slide__content">
         <?php if ($the_query->have_posts()) : ?>
-          <div class="p-section-slide__slide js-swiper">
+          <div class="p-section-slide__slide" data-animation="slide-swiper">
             <div class="swiper">
               <ul class="swiper-wrapper">
                 <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
@@ -214,11 +217,11 @@
       </div>
       <div class="p-faq__content">
         <dl class="p-faq__list">
-          <div class="p-faq__item js-slide-toggle">
+          <div class="p-faq__item" data-animation="slide-toggle">
             <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
             <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
           </div>
-          <div class="p-faq__item js-slide-toggle">
+          <div class="p-faq__item" data-animation="slide-toggle">
             <dt class="p-faq__q"><span>ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。</span></dt>
             <dd class="p-faq__a"><span>ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。</span></dd>
           </div>

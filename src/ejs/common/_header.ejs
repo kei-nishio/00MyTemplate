@@ -6,7 +6,7 @@
     { link: "fuga.html", text: "fuga" }
   ];
 %>
-<header class="p-header js-header">
+<header class="p-header" data-header>
   <div class="p-header__inner">
     <% if (isTopPage) { %>
     <h1 class="p-header__logo"><% } else { %>
@@ -30,26 +30,17 @@
         <% }) %>
       </ul>
     </nav>
+
+    <%# hamburger %>
     <div class="p-header__hamburger">
-      <%- include(ejsPath + './component/_c-hamburger' ) %>
+      <button class="c-hamburger" type="button" aria-label="メニュー" aria-expanded="false" data-hamburger>
+        <span class="c-hamburger__border"></span>
+        <span class="c-hamburger__border"></span>
+        <span class="c-hamburger__border"></span>
+      </button>
     </div>
   </div>
 </header>
 
 <%# drawer %>
-<div class="p-drawer js-drawer">
-  <div class="p-drawer__inner l-inner">
-    <div class="p-drawer__nav">
-      <ul class="p-drawer__list">
-        <% navItems.forEach(item => { %>
-        <li class="p-drawer__item">
-          <a href="<%= item.link %>">
-            <span><%= item.text %></span>
-          </a>
-        </li>
-        <% }) %>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="p-drawer-mask js-drawer-mask"></div>
+<%- include(baseUrlPath + '/project/_p-drawer' ) %>

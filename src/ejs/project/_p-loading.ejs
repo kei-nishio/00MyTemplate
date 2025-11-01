@@ -1,6 +1,6 @@
-<div class="p-loading">
+<div class="p-loading" data-animation="loading">
   <div class="p-loading__inner">
-    <h2 class="p-loading__title">Loading...</h2>
+    <p class="p-loading__title" data-animation="loading-title">Loading...</p>
   </div>
 </div>
 
@@ -8,8 +8,8 @@
   // Flash of Unstyled Content（FOUC）対策
   // const hasVisited = sessionStorage.getItem('hasVisited');
   const hasVisited = false; // for debug
-  const loading = document.querySelector('.js-loading');
-  const loadingHides = document.querySelectorAll('.js-loadingHide');
+  const loading = document.querySelector('[data-animation="loading"]');
+  const loadingHides = document.querySelectorAll('[data-animation="loading-hide"]');
 
   if (!hasVisited) {
     loading?.classList.add('is-active');

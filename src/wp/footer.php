@@ -23,6 +23,10 @@ $nav_items = [
   ]
 ];
 ?>
+<?php // to top button
+?>
+<button class="p-to-top" aria-label="to top" data-top-top>to top</button>
+
 <?php // footer
 ?>
 <footer class="l-footer p-footer">
