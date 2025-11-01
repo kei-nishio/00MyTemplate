@@ -338,3 +338,17 @@ export const build = series(
   ejsCompile,
   phpCopy
 );
+
+// ! 本番用タスク（画像なし）
+export const build_no_images = series(
+  clean,
+  cssSass,
+  cssCopy,
+  othersCopy,
+  sassCopy,
+  jsBabel,
+  // imgImagemin,
+  htmlCopy,
+  ejsCompile,
+  phpCopy
+);
