@@ -103,21 +103,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     init() {
+      // 必須要素が存在しない場合は処理を中断
+      if (!this.hamburger || !this.drawer) {
+        console.warn('DrawerToggle: 必須要素が見つかりません');
+        return;
+      }
+
       // 各種イベントの登録
       this.addEventListeners();
     }
 
     addEventListeners() {
-      this.hamburger.addEventListener('click', (e) => this.handleHamburgerClick(e));
-      this.mask.addEventListener('click', () => this.closeDrawer());
+      if (this.hamburger) {
+        this.hamburger.addEventListener('click', (e) => this.handleHamburgerClick(e));
+      }
+
+      if (this.mask) {
+        this.mask.addEventListener('click', () => this.closeDrawer());
+      }
+
       document.addEventListener('click', (e) => this.handleDocumentClick(e));
       window.addEventListener('resize', () => this.handleResize());
 
       // ドロワー内のリンククリック時にドロワーを閉じる
-      const links = this.drawer.querySelectorAll('a[href]');
-      links.forEach((link) => {
-        link.addEventListener('click', () => this.closeDrawer());
-      });
+      if (this.drawer) {
+        const links = this.drawer.querySelectorAll('a[href]');
+        links.forEach((link) => {
+          link.addEventListener('click', () => this.closeDrawer());
+        });
+      }
     }
 
     handleHamburgerClick(e) {
@@ -127,7 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     handleDocumentClick(e) {
       // ドロワーが開いている状態で、ドロワー外をクリックした場合に閉じる
-      if (this.isDrawerOpen() && !this.drawer.contains(e.target) && !this.hamburger.contains(e.target)) {
+      if (
+        this.isDrawerOpen() &&
+        this.drawer &&
+        !this.drawer.contains(e.target) &&
+        this.hamburger &&
+        !this.hamburger.contains(e.target)
+      ) {
         this.closeDrawer();
       }
     }
@@ -158,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     isDrawerOpen() {
-      return this.hamburger.classList.contains(this.activeClass);
+      return this.hamburger && this.hamburger.classList.contains(this.activeClass);
     }
 
     applyClass(elements, add) {
@@ -854,7 +874,6 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
 
-    loadingTL
-      .to('[data-animation="loading-title"]', { autoAlpha: 0, duration: 0.5, ease: 'power4.inOut' }, '<');
+    loadingTL.to('[data-animation="loading-title"]', { autoAlpha: 0, duration: 0.5, ease: 'power4.inOut' }, '<');
   }
 });
