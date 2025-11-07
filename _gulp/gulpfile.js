@@ -1,3 +1,7 @@
+// * 環境変数の読み込み
+import dotenv from 'dotenv';
+dotenv.config({ path: '../environments/.env.local' });
+
 // * 基本機能
 import { src, dest, watch, series, parallel } from 'gulp'; // Gulpの基本関数
 import plumber from 'gulp-plumber'; // エラーが続行するためのモジュール
@@ -37,18 +41,27 @@ import os from 'os'; // OSモジュール
 
 // * その他の設定
 const sass = gulpSassCreator(sassImplementation); // SCSSをCSSにコンパイルするためのモジュール
-const browsers = ['last 2 versions', '> 5%', 'ie = 11', 'not ie <= 10', 'ios >= 8', 'and_chr >= 5', 'Android >= 5'];
+const browsers = process.env.BROWSERS?.split(',').map((b) => b.trim()) || [
+  'last 2 versions',
+  '> 5%',
+  'ie >= 11',
+  'not ie <= 10',
+  'ios >= 8',
+  'and_chr >= 5',
+  'Android >= 5',
+];
 const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\Users\userName
 
 // * パス設定
-const ejsMode = true; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
-const wpMode = false; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
-const wpLocalMode = false; // ! WordPressLocalの内容を上書きする場合はtrueにする
-const srcEjsDir = '../src/ejs'; // ! EJSファイルのディレクトリ
-const siteTitle = 'template'; // ! WordPress site title (project name)
-const themeName = 'templatetheme'; // ! WordPress theme file name
-const localSiteDomain = 'template.local'; // ! WordPress Local Site Domain
+const ejsMode = process.env.EJS_MODE === 'true'; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpMode = process.env.WP_MODE === 'true'; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
+const wpLocalMode = process.env.WP_LOCAL_MODE === 'true'; // ! WordPressLocalの内容を上書きする場合はtrueにする
+const srcEjsDir = process.env.SRC_EJS_DIR || '../src/ejs'; // ! EJSファイルのディレクトリ
+const siteTitle = process.env.SITE_TITLE || 'template'; // ! WordPress site title (project name)
+const themeName = process.env.THEME_NAME || 'templatetheme'; // ! WordPress theme file name
+const localSiteDomain = process.env.LOCAL_SITE_DOMAIN || 'template.local'; // ! WordPress Local Site Domain
 const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
+const jpegQuality = parseInt(process.env.JPEG_QUALITY) || 80; // ! JPEG圧縮品質
 
 // * 読み込み先
 const srcPath = {
@@ -158,7 +171,7 @@ const cssSass = () => {
     .pipe(sass.sync({ includePaths: ['src/sass'], outputStyle: 'expanded' })) // コンパイル後のCSSの書式（expanded or compressed）
     .pipe(
       postcss([
-        postcssPresetEnv({ browsers: 'last 2 versions' }), // 未来のCSS構文を使用可能にし、対象ブラウザを最新2バージョンに限定
+        postcssPresetEnv({ browsers: browsers }), // 未来のCSS構文を使用可能にし、環境変数で指定されたブラウザをサポート
         autoprefixer({ grid: true }), // ベンダープレフィックスを自動で付与、グリッドレイアウトをサポート
         cssdeclsort({ order: 'alphabetical' }), // CSSプロパティをアルファベット順にソート
       ])
@@ -183,7 +196,7 @@ const imgImagemin = () => {
     .pipe(
       imagemin(
         [
-          imageminMozjpeg({ quality: 80 }), // JPEG圧縮品質（0〜100）
+          imageminMozjpeg({ quality: jpegQuality }), // JPEG圧縮品質（環境変数から取得）
           imageminPngquant(), // PNG圧縮品質（0〜1）
           imageminSvgo({
             plugins: [

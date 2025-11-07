@@ -17,6 +17,7 @@
     "browser-sync": "^3.0.2",
     "css-declaration-sorter": "^7.2.0",
     "del": "^7.1.0",
+    "dotenv": "^17.2.3",
     "fs": "^0.0.1-security",
     "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
