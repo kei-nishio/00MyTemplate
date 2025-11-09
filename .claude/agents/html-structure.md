@@ -9,6 +9,13 @@ color: red
 
 デザインから、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
 
+## ビルドモード判定
+
+1. `environments/.env.local` を読み込み
+2. `EJS_MODE` が true なら `src/ejs/` に出力
+3. `WP_MODE` が true なら `src/wp/` に出力
+4. 両方 false なら `src/index.html` に出力
+
 ## ビルドモード別出力先
 
 ### 編集対象（共通）

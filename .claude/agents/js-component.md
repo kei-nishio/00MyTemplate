@@ -7,7 +7,7 @@ color: red
 
 # 役割
 
-インタラクション実装のため、CLAUDE.md の規約に準拠した Vanilla JS を生成。
+インタラクション実装のため、Vanilla JS を生成。
 
 ## 必須ルール
 

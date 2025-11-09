@@ -13,7 +13,7 @@ color: red
 
 ### 編集対象（共通）
 
-- src/sass/foundation/\_base.scss
+- src/sass/foundation/\_init.scss
 - src/sass/global/\_mixin.scss
 - src/sass/global/\_setting.scss
 - src/sass/layout/\_l-(name).scss

@@ -20,12 +20,17 @@ color: red
 1. `.claude/progress/design-manifest.json` - 詳細マニフェスト
 2. `.claude/progress/section-checklist.md` - チェックリスト
 
-## マニフェスト構造
+### 詳細マニフェスト構造フォーマット
+
+`.claude/progress/design-manifest.md`:
 
 ```json
 {
-  "projectName": "" , // template
-  "figmaUrl": "", // http:...
+  "manifestVersion": "1.0.0",
+  "generatedAt": "2025-11-09T12:34:56Z",
+  "mcpSource": "figma",
+  "projectName": "template",
+  "figmaUrl": "https://...",
   "buildMode": {
     "ejsMode": false, // boolean
     "wpMode": false // boolean
@@ -39,13 +44,13 @@ color: red
   },
   "sections": [
     {
-      "id": "", // 
+      "id": "", //
       "name": "", // fv, about, ...
       "estimatedTokens": , // number
       "status": "" // pending
     },
     {
-      "id": "", // 
+      "id": "", //
       "name": "", // fv, about, ...
       "estimatedTokens": , // number
       "status": "" // pending
@@ -58,6 +63,35 @@ color: red
     }
   ]
 }
+```
+
+### コーディング進捗チェックリストフォーマット
+
+`.claude/progress/section-checklist.md`:
+
+```markdown
+# コーディング進捗チェックリスト
+
+生成日時: {timestamp}
+プロジェクト: {projectName}
+
+## グローバルコンポーネント
+
+- [ ] c-button-normal (使用回数: 5)
+- [ ] c-card-post (使用回数: 3)
+
+## セクション一覧
+
+- [ ] fv (推定: 5000 tokens)
+- [ ] about (推定: 3000 tokens)
+- [ ] service (推定: 4000 tokens)
+
+## 進捗サマリー
+
+- 総セクション数: 10
+- 完了: 0
+- 残り: 10
+- 推定総トークン: 45000
 ```
 
 ## 禁止

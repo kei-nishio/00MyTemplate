@@ -19,8 +19,25 @@ color: red
 
 ### Phase 2: グローバルコンポーネント
 
-- html-structure, sass-flocss, js-component を起動
-- 全セクションで使用するコンポーネントを先に生成
+マニフェストの `globalComponents` 配列から以下を優先実装:
+
+1. `c-button-*`, `c-card-*` など再利用コンポーネント
+2. 各コンポーネントごとに:
+   - html-structure agent で HTML/EJS/PHP 生成
+   - sass-flocss agent で scss 生成
+   - js-component agent で必要な JS 生成
+3. 完了後に次の Phase へ
+
+#### セクション処理時のデータ受け渡し
+
+各エージェントに以下をプロンプトで渡す:
+
+- ビルドモード
+- セクション名: `{section.name}`
+- セクション ID: `{section.id}`
+- デザイントークン: `{designTokens}` (色・フォント・ブレークポイント)
+- ビルドモード: `{buildMode.ejsMode}`, `{buildMode.wpMode}`
+- グローバルコンポーネント一覧: `{globalComponents}`
 
 ### Phase 3: セクション順次処理
 
@@ -29,8 +46,8 @@ color: red
   1. html-structure agent
   2. sass-flocss agent
   <!-- 3. js-component agent（必要時） -->
-  4. 進捗更新
-  5. コンテキストクリア
+  3. 進捗更新
+  4. コンテキストクリア
 
 ### Phase 4: 完了処理
 
@@ -38,7 +55,7 @@ color: red
 <!-- - `cd _gulp && npx gulp build` でビルドテスト -->
 - 完了レポート生成
 - レポートに基づいて修正する
-- 修正しきれなかった場合は、最大2回までレビューと修正を実施する
+- 修正しきれなかった場合は、最大 2 回までレビューと修正を実施する
 
 ## トークン管理
 
