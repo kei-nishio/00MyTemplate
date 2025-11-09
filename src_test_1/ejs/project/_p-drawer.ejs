@@ -1,0 +1,22 @@
+<%
+  const navItems = [
+    { link: "hoge.html", text: "hoge" },
+    { link: "fuga.html", text: "fuga" }
+  ];
+%>
+<div class="p-drawer" data-drawer>
+  <div class="p-drawer__inner l-inner">
+    <div class="p-drawer__nav">
+      <ul class="p-drawer__list">
+        <% navItems.forEach(item => { %>
+        <li class="p-drawer__item">
+          <a href="<%= item.link %>">
+            <span><%= item.text %></span>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="p-drawer-mask" data-drawer-mask></div>

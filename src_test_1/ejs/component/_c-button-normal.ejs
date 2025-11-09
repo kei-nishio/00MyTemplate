@@ -1,0 +1,6 @@
+<%# modifier, link, text %>
+<% const modifierClass = modifier ? ` c-button-normal--${modifier}` : ''; %>
+
+<div class="c-button-normal<%= modifierClass %>">
+  <a href="<%= link %>"><%= text %></a>
+</div>

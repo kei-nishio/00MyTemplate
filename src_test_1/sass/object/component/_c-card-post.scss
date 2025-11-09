@@ -1,0 +1,46 @@
+@use 'global' as *;
+
+.c-card-post {
+  display: block;
+  height: 100%;
+  border-radius: r(16);
+  border-radius: r(16);
+}
+
+.c-card-post__img-box {
+  position: relative;
+}
+
+// cardは比率指定する
+.c-card-post__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: r(16) r(16) 0 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: inherit;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: inherit;
+  }
+}
+
+.c-card-post__date {
+}
+
+.c-card-post__term-list {
+}
+
+.c-card-post__tern-item {
+}
+
+.c-card-post__term {
+}
+
+.c-card-post__content {
+}
+
+.c-card-post__title {
+}

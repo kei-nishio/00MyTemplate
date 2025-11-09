@@ -1,0 +1,27 @@
+@use 'global' as *;
+
+.c-section-title {
+  display: inline-block;
+  text-align: center;
+}
+
+.c-section-title__main {
+  font-family: var(--font-en);
+  font-size: r(32);
+  font-weight: 700;
+  color: var(--color-primary);
+
+  @include mq(md) {
+    font-size: r(48);
+  }
+}
+
+.c-section-title__sub {
+  margin-top: r(8);
+  font-size: r(14);
+  color: var(--color-text-secondary);
+
+  @include mq(md) {
+    font-size: r(16);
+  }
+}

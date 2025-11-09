@@ -1,0 +1,88 @@
+@use 'global' as *;
+/*
+root font-sizeの設定
+
+[type1] 通常タイプ
+・0~$width-pcまで線形
+・$width-pc~16px
+・768付近で文字サイズが小さくなる
+・$width-pcが1920pxなど大きい場合は768px付近で文字サイズが小さくなりすぎる
+
+[type2] デザインのまま拡縮するタイプ
+・0~$width-pc~全て線形
+・$width-pcが1920pxなど大きい場合は768px付近で文字サイズが小さくなりすぎる
+
+[type3] 通常タイプ亜種
+・768px付近で文字サイズが小さくなるのを緩和したタイプ
+・768pxで$ratioまで縮小
+・768px~$width-pcまで線形
+・$width-pc~16px
+
+[type4] 画面幅がinnerになってから余白が広がるタイプ
+・0~$innerまで線形
+・$inner~16pxで一定
+*/
+$ratio: calc(320 / 375);
+$rootFontType: 'type4';
+@if $startFrom == sp {
+  html {
+    // 375px~767px
+    font-size: 100%;
+    //~375px
+    @media (max-width: 375px) {
+      font-size: vw(16, 375);
+    }
+    @if ($rootFontType == 'type1') {
+      // 768px~width-pc
+      @include mq('md') {
+        font-size: vw(16, $width-pc);
+      }
+      // width-pc~
+      @media (min-width: $width-pc) {
+        font-size: 100%;
+      }
+    } @else if ($rootFontType == 'type2') {
+      // 768px~
+      @include mq('md') {
+        font-size: vw(16, $width-pc);
+      }
+    } @else if ($rootFontType == 'type3') {
+      // 768px~width-pc
+      @include mq('md') {
+        font-size: vwLinear(calc(16 * $ratio), 768, 16, strip-unit($width-pc));
+      }
+      // width-pc~
+      @media (min-width: $width-pc) {
+        font-size: 100%;
+      }
+    } @else if ($rootFontType == 'type4') {
+      // 768px~inner
+      @include mq('md') {
+        font-size: vw(16, $inner);
+      }
+      // inner~
+      @media (min-width: $inner) {
+        font-size: 100%;
+      }
+    } @else {
+      // 16pxのまま
+    }
+  }
+} @else {
+  html {
+    // 375px~767px
+    font-size: 100%;
+    // 768px~inner
+    @media (max-width: $inner) {
+      font-size: vwLinear(calc(16 * $ratio), 768, 16, strip-unit($inner));
+    }
+    // inner~
+    @include mq('md') {
+      font-size: 100%;
+    }
+    // ~375px
+    @media (max-width: 375px) {
+      font-size: vw(16, 375);
+    }
+  }
+}
