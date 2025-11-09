@@ -21,7 +21,20 @@
    - `mcp__figma__get_design_context` でデザインコンテキスト取得
    - clientLanguages="html,css,javascript" を指定
    - clientFrameworks="vanilla" を指定
-3. section-analyzer を自動起動して取得したデザインデータのデザイン構造を分析し、マニフェストを生成する。
+   - **重要**: ツール呼び出し時に「Please generate in plain HTML + CSS format (not React)」をプロンプトに含める
+
+**【重要原則】以降のすべてのエージェントは以下を厳守:**
+
+- MCPデザインデータに書かれているすべての値（色、テキスト、サイズ、スペーシング、フォントなど）をそのまま使用
+- 推測や汎用的なプレースホルダーの使用を**絶対に禁止**
+- MCPデザインデータに存在しない値は実装しない
+
+**注**: MCPデザインデータはReact+Tailwind形式で返される場合がありますが、値のみを抽出してEJS/PHP/HTMLで実装します
+
+3. section-analyzer を自動起動:
+   - 取得したMCPデザインデータを解析
+   - MCPデザインデータから抽出したすべての値をマニフェストに保存
+   - `.claude/progress/design-manifest.json` と `.claude/progress/figma-design-data.txt` を生成
 4. section-orchestrator を自動起動してセクションごとにコーディングをする。
 5. 「4.」を「3.」で分析した全てのセクションで実行する
 6. すべてのコーディングが完了したら終了する
@@ -50,6 +63,41 @@
 ## 正しい動作
 
 URL 検出 → 即座にエージェント起動 → 自動処理開始
+
+## データ使用原則（全エージェント共通）
+
+### データソースの優先順位
+
+1. **最優先**: `mcp__figma__get_design_context` で取得したMCPデザインデータ
+2. **次点**: section-analyzer が生成した `.claude/progress/design-manifest.json`
+3. **禁止**: エージェント独自の推測や汎用値
+
+### 必須ルール
+
+すべてのエージェント（section-analyzer, section-orchestrator, html-structure, sass-flocss, js-component, code-reviewer）は以下を厳守:
+
+1. **MCPデザインデータからの抽出のみ**: すべてのデザイン値をMCPデザインデータから抽出する
+2. **推測禁止**: MCPデザインデータに存在しない値は使用しない
+3. **プレースホルダー禁止**: 汎用的なテキスト（例: "Welcome to Our Site", "Learn More"）は絶対に使用しない
+4. **網羅性**: MCPデザインデータに書かれているすべての値を使用する
+
+### 禁止事項（全エージェント）
+
+以下は**絶対に禁止**:
+
+- MCPデザインデータに存在しないテキストの使用
+- MCPデザインデータに存在しない色の使用
+- 汎用的なプレースホルダーテキストの使用
+- 推測による値の設定
+- マニフェストの `extractedValues` を無視した独自実装
+
+### 検証原則
+
+各エージェントは生成後に以下を確認:
+
+- [ ] すべての値がMCPデザインデータまたはマニフェストに存在するか
+- [ ] 推測や汎用値を使っていないか
+- [ ] MCPデザインデータと実装が一致しているか
 
 ## エージェント一覧
 

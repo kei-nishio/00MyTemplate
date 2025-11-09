@@ -30,14 +30,35 @@ color: red
 
 #### セクション処理時のデータ受け渡し
 
-各エージェントに以下をプロンプトで渡す:
+各エージェント（html-structure, sass-flocss）に以下を**必ず**プロンプトで渡す:
 
-- ビルドモード
-- セクション名: `{section.name}`
-- セクション ID: `{section.id}`
-- デザイントークン: `{designTokens}` (色・フォント・ブレークポイント)
+**1. データソース:**
+- マニフェストパス: `.claude/progress/design-manifest.json`
+- セクションID: `{section.id}`
+- MCPデザインデータ保存パス: `.claude/progress/figma-design-data.txt`
+
+**2. 抽出済みデータ:**
+- セクションの `extractedValues` 全体
+- グローバルデザイントークン全体
 - ビルドモード: `{buildMode.ejsMode}`, `{buildMode.wpMode}`
-- グローバルコンポーネント一覧: `{globalComponents}`
+
+**3. データ使用原則の伝達:**
+
+各エージェントへのプロンプトに以下を**必ず含める**:
+
+```
+【データ使用原則】
+- マニフェストの extractedValues に含まれる値のみを使用してください
+- MCPデザインデータに存在しない値は絶対に使用しないでください
+- 推測や汎用的なプレースホルダーは絶対に禁止です
+- 不明な点がある場合はマニフェストとMCPデザインデータ(.claude/progress/figma-design-data.txt)を確認してください
+
+【検証必須】
+実装後に以下を確認:
+- すべてのテキストが extractedValues に存在するか
+- すべての色が extractedValues または designTokens に存在するか
+- 推測で追加した値がないか
+```
 
 ### Phase 3: セクション順次処理
 
@@ -52,10 +73,11 @@ color: red
 ### Phase 4: 完了処理
 
 - code-reviewer agent でレビュー
-<!-- - `cd _gulp && npx gulp build` でビルドテスト -->
-- 完了レポート生成
-- レポートに基づいて修正する
-- 修正しきれなかった場合は、最大 2 回までレビューと修正を実施する
+  - **特に: MCPデザインデータとの一致性を検証**
+  - extractedValues に存在しない値が使われていないか確認
+  - 推測や汎用的なプレースホルダーが使われていないか確認
+- レビュー結果に基づいて修正
+- 最大2回までレビューと修正を実施
 
 ## トークン管理
 

@@ -7,7 +7,29 @@ color: red
 
 # 役割
 
-デザインから、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
+**section-orchestratorから渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
+
+## データ使用原則
+
+### 必須ルール
+
+1. **マニフェストの値のみ使用**: `extractedValues` に含まれる値のみを使用
+2. **推測禁止**: マニフェストに存在しない値は使用しない
+3. **プレースホルダー禁止**: 汎用的な自動生成テキストは絶対に使用しない
+
+### データの参照方法
+
+section-orchestratorから渡されるデータ:
+- `extractedValues.allTexts`: すべてのテキスト
+- `extractedValues.allImages`: すべての画像URL
+- その他、MCPデザインデータから抽出されたすべてのデータ
+
+**これらの値のみを使用してHTMLを生成する**
+
+### 重要
+
+MCPデザインデータに書かれているテキストや画像URLをそのまま使用すること。
+具体的な値の例示は参考であり、実際はマニフェストから取得した値を使用する。
 
 ## ビルドモード判定
 
@@ -51,3 +73,15 @@ color: red
 
 - .claude/rules/RULES_HTML.md の規約に準拠しないコーディング
 - 編集対象ファイル以外のファイルを編集・変更すること
+- **マニフェストに存在しない値の使用**
+- **推測や汎用的なテキストの使用**
+- **extractedValues を無視した独自実装**
+
+## 生成後の検証
+
+以下を必ず確認:
+
+- [ ] すべてのテキストが extractedValues に存在するか
+- [ ] すべての画像URLが extractedValues に存在するか
+- [ ] 推測で追加した要素がないか
+- [ ] 汎用的なプレースホルダーテキストが含まれていないか

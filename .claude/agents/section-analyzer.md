@@ -7,13 +7,36 @@ color: red
 
 # 役割
 
-デザインを分析し、セクション単位に分解して JSON マニフェストを生成。
+**Figma MCPで取得したデザインデータを解析**し、セクション単位に分解してJSONマニフェストを生成。
 
-## 分析項目
+## データソース
 
-- セクション識別
-- デザイントークン抽出（色、フォント、ブレイクポイント、余白）
-- グローバルコンポーネント検出
+- **入力**: `mcp__figma__get_design_context` で取得したMCPデザインデータ
+- **処理**: MCPデザインデータからすべてのデザイン値を抽出
+- **出力**: `.claude/progress/design-manifest.json` と `.claude/progress/figma-design-data.txt`
+
+## 必須ルール
+
+1. **MCPデザインデータからの抽出のみ**: すべてのデータをMCPデザインデータから抽出する
+2. **推測禁止**: MCPデザインデータに存在しない値は使用しない
+3. **網羅性**: MCPデザインデータに書かれているすべての値を抽出する
+
+## データ抽出対象
+
+**「何を」ではなく「どこから」を明確にする:**
+
+MCPデザインデータから以下をすべて抽出（具体的な要素名は例示、実際はMCPデザインデータに存在するすべての値が対象）:
+
+- `className` 属性からすべてのスタイル値（色、サイズ、スペーシング、フォントなど）
+- テキストノードからすべてのテキスト内容
+- `const imgXxx = "..."` からすべての画像URL
+- `data-name` 属性からセクション構造
+- `data-node-id` 属性からFigmaノードID
+- その他、MCPデザインデータに含まれるすべてのデザイン関連の値
+
+**重要: 上記は例示であり、実際はMCPデザインデータに存在するすべての値を対象とする**
+
+**注**: MCPデザインデータはReact+Tailwind形式で返される場合がありますが、形式に関わらず値のみを抽出します
 
 ## 出力
 
@@ -22,48 +45,57 @@ color: red
 
 ### 詳細マニフェスト構造フォーマット
 
-`.claude/progress/design-manifest.md`:
+`.claude/progress/design-manifest.json`:
 
 ```json
 {
-  "manifestVersion": "1.0.0",
+  "manifestVersion": "2.0.0",
   "generatedAt": "2025-11-09T12:34:56Z",
   "mcpSource": "figma",
+  "mcpData": {
+    "designDataPath": ".claude/progress/figma-design-data.txt",
+    "extractedAt": "2025-11-09T12:34:56Z"
+  },
   "projectName": "template",
   "figmaUrl": "https://...",
   "buildMode": {
-    "ejsMode": false, // boolean
-    "wpMode": false // boolean
+    "ejsMode": false,
+    "wpMode": false
   },
-  "totalSections": , // number
-  "estimatedTokens": , // number
+  "totalSections": 4,
+  "estimatedTokens": 45000,
   "designTokens": {
-    "colors": {}, // --color-xxx
-    "fonts": {}, // --font-xxx
-    "breakpoints": {} // --bp-md
+    "colors": {},
+    "fonts": {},
+    "breakpoints": {}
   },
   "sections": [
     {
-      "id": "", //
-      "name": "", // fv, about, ...
-      "estimatedTokens": , // number
-      "status": "" // pending
-    },
-    {
-      "id": "", //
-      "name": "", // fv, about, ...
-      "estimatedTokens": , // number
-      "status": "" // pending
+      "id": "section-01",
+      "name": "header",
+      "reactNodeId": "984:336",
+      "estimatedTokens": 8000,
+      "status": "pending",
+      "extractedValues": {
+        "allTexts": [],
+        "allColors": [],
+        "allFontSizes": [],
+        "allSpacings": [],
+        "allImages": [],
+        "allOtherValues": {}
+      }
     }
   ],
   "globalComponents": [
     {
-      "name": "c-xxx", // text
-      "usageCount": ,// number
+      "name": "c-xxx",
+      "usageCount": 1
     }
   ]
 }
 ```
+
+**重要**: `extractedValues` にはMCPデザインデータから抽出したすべての値を格納する。具体的な要素（allTexts, allColorsなど）は例示であり、MCPデザインデータに存在するすべての種類の値を抽出すること。
 
 ### コーディング進捗チェックリストフォーマット
 
@@ -94,6 +126,25 @@ color: red
 - 推定総トークン: 45000
 ```
 
+## 必須タスク
+
+1. MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存
+2. MCPデザインデータからすべての値を抽出
+3. 抽出した値を `extractedValues` に格納
+4. マニフェストを `.claude/progress/design-manifest.json` に保存
+
 ## 禁止
 
 - コード生成はしない（分析のみ）
+- **MCPデザインデータに存在しない値の追加**
+- **値の推測や補完**
+- **汎用的なデフォルト値の使用**
+
+## 検証
+
+マニフェスト生成後に確認:
+
+- [ ] MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存したか
+- [ ] すべての値がMCPデザインデータに存在するか
+- [ ] 推測で追加した値がないか
+- [ ] `extractedValues` にすべての抽出データが含まれているか
