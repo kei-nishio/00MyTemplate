@@ -1,132 +1,39 @@
 ---
 name: sass-flocss
-description: FLOCSS準拠Sass生成。r()関数、mq()ミックスイン、パフォーマンス配慮。
+description: FLOCSS準拠のSASSファイルを生成する。r()関数、mq()ミックスイン、パフォーマンス配慮。
 tools: Read, Write, Edit, Grep
+color: red
 ---
 
 # 役割
 
-Figma デザインから、CLAUDE.md の規約に準拠した Sass を生成。
+デザインから、.claude/rules/RULES_SCSS.md の規約に準拠した Sass を生成。
 
-## 必須ルール
+## ビルドモード別出力先
 
-### 1. ファイル配置
+### 編集対象（共通）
 
-```
-scss/
-├── foundation/
-│   ├── _base.scss           # Base styles
-│   ├── _init.scss           # Variables, colors, breakpoints
-│   └── _reset.scss          # CSS reset
-├── global/
-│   ├── _breakpoints.scss    # Media query breakpoints
-│   ├── _function.scss       # Sass functions
-│   ├── _index.scss          # Import entry
-│   ├── _mixin.scss          # Common mixins
-│   └── _setting.scss        # Base reset & typography
-├── layout/
-│   ├── _l-xxx.scss          # Layout
-│   └── _l-yyy.scss          # Layout
-├── object/
-│   ├── component/
-│   │   ├── _c-button.scss   # Button component
-│   │   └── _c-card.scss     # Card component
-│   ├── project/
-│   │   ├── _p-fv.scss       # Fv section
-│   │   └── _p-xxx.scss      # Section project
-│   └── utility/
-│       ├── _u-keyframe.scss # Keyframe utilities
-│       ├── _u-pc.scss       # Display only pc utilities
-│       └── _u-sp.scss       # Display only sp utilities
-└── style.scss               # Main import file
-```
+- src/sass/foundation/\_base.scss
+- src/sass/global/\_mixin.scss
+- src/sass/global/\_setting.scss
+- src/sass/layout/\_l-(name).scss
+- src/sass/object/component/\_c-(name).scss
+- src/sass/object/project/\_p-(name).scss
+- src/sass/object/utility/\_u-(name).scss
 
-### 2. 先頭行
+### 編集禁止
 
-```scss
-@use 'global' as *;
-```
-
-### 3. 単位
-
-- `r()`関数必須（例: `r(16)`, `r(24)`）
-- 生の px 値禁止（1px border は例外）
-
-### 4. レスポンシブ
-
-```scss
-// Mobile-first
-.p-section {
-  padding: r(40);
-
-  @include mq('md') {
-    padding: r(80);
-  }
-}
-```
-
-### 5. CSS 変数
-
-- 色: `var(--color-*)`
-- z-index: `var(--zi-*)`
-- フォント: `var(--font-*)`
-
-### 6. BEM 記法
-
-- **Layout**: `.l-header`, `.l-footer`, `.l-main`
-- **Component**: `.c-button`, `.c-card`, `.c-form`
-- **Project**: `.p-hero`, `.p-features`, `.p-pricing`
-- **Utility**: `.u-mt-10`, `.u-text-center`, `.u-hidden`
-
-```scss
-// Block
-.c-card {
-}
-
-// Element
-.c-card__title {
-}
-.c-card__body {
-}
-.c-card__footer {
-}
-
-// Modifier
-.c-card--featured {
-}
-```
-
-### 7. hover
-
-```scss
-@media screen and (any-hover: hover) {
-  .c-button:hover {
-    opacity: 0.9;
-  }
-}
-```
-
-### 8. プロパティ順序
-
-1. position/layout
-2. sizing
-3. spacing
-4. border/background
-5. typography
-6. animation
-
-### 9. パフォーマンス
-
-- `will-change`: アニメーション要素のみ
-- `transform`, `opacity` でアニメーション（reflow 回避）
-
-### 10. インデント
-
-2 スペース
+- dist/ <!-- gulpで自動生成されるため編集禁止 -->
+- distwp/ <!-- gulpで自動生成されるため編集禁止 -->
+- src/assets/css/
+- src/sass/foundation/\_base.scss
+- src/sass/foundation/\_reset.scss
+- src/sass/global/\_breakpoints.scss
+- src/sass/global/\_function.scss
+- src/sass/global/\_index.scss
+- src/sass/style.scss
 
 ## 禁止
 
-- 生の px, rem, em
-- !important（特別な理由なく）
-- ID セレクタ
-- 深いネスト（3 階層まで）
+- .claude/rules/RULES_SCSS.md の規約に準拠しないコーディング
+- 編集対象ファイル以外のファイルを編集・変更すること

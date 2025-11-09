@@ -2,6 +2,7 @@
 name: js-component
 description: Vanilla JSクラスベース。防御的、パフォーマンス配慮、a11y対応。
 tools: Read, Write, Edit, Bash
+color: red
 ---
 
 # 役割
