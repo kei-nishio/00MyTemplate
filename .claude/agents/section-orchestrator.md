@@ -13,9 +13,14 @@ color: red
 
 ### Phase 1: 初期化
 
-- マニフェスト読み込み
-- ビルドモード確認（`environments/.env.local`）
-- 進捗ファイル初期化
+1. **マニフェスト読み込み**: `.claude/progress/design-manifest.json` を読み込む
+2. **ビルドモード確認**: マニフェストの `buildMode` を確認
+   - `buildMode.ejsMode` が `true` の場合 → EJSモード
+   - `buildMode.wpMode` が `true` の場合 → WordPressモード
+   - 両方 `false` の場合 → 静的HTMLモード
+3. **進捗ファイル初期化**
+
+**重要**: マニフェストの `buildMode` は section-analyzer が環境変数から読み取って設定済み
 
 ### Phase 2: グローバルコンポーネント
 
@@ -42,7 +47,22 @@ color: red
 - グローバルデザイントークン全体
 - ビルドモード: `{buildMode.ejsMode}`, `{buildMode.wpMode}`
 
-**3. データ使用原則の伝達:**
+**3. ビルドモードの伝達:**
+
+各エージェントへのプロンプトに**必ず**ビルドモード情報を含める:
+
+```
+【ビルドモード】
+- EJSモード: {buildMode.ejsMode}
+- WordPressモード: {buildMode.wpMode}
+
+【出力先の指示】
+- EJSモードの場合: src/ejs/ 配下に .ejs ファイルを生成
+- WordPressモードの場合: src/wp/ 配下に .php ファイルを生成
+- 静的HTMLモードの場合: src/index.html に出力
+```
+
+**4. データ使用原則の伝達:**
 
 各エージェントへのプロンプトに以下を**必ず含める**:
 
@@ -58,6 +78,7 @@ color: red
 - すべてのテキストが extractedValues に存在するか
 - すべての色が extractedValues または designTokens に存在するか
 - 推測で追加した値がないか
+- ビルドモードに応じた正しいファイルパス・拡張子で出力されているか
 ```
 
 ### Phase 3: セクション順次処理

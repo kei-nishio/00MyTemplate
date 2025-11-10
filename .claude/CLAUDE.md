@@ -32,8 +32,10 @@
 **注**: MCPデザインデータはReact+Tailwind形式で返される場合がありますが、値のみを抽出してEJS/PHP/HTMLで実装します
 
 3. section-analyzer を自動起動:
+   - **環境変数を読み取る**: `environments/.env.local` から `EJS_MODE` と `WP_MODE` を確認
    - 取得したMCPデザインデータを解析
    - MCPデザインデータから抽出したすべての値をマニフェストに保存
+   - **ビルドモードをマニフェストに記録**: 読み取った環境変数を `buildMode` に設定
    - `.claude/progress/design-manifest.json` と `.claude/progress/figma-design-data.txt` を生成
 4. section-orchestrator を自動起動してセクションごとにコーディングをする。
 5. 「4.」を「3.」で分析した全てのセクションで実行する

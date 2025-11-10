@@ -7,7 +7,7 @@ color: red
 
 # 役割
 
-**section-orchestratorから渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
+**section-orchestrator から渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
 
 ## データ使用原則
 
@@ -19,24 +19,51 @@ color: red
 
 ### データの参照方法
 
-section-orchestratorから渡されるデータ:
-- `extractedValues.allTexts`: すべてのテキスト
-- `extractedValues.allImages`: すべての画像URL
-- その他、MCPデザインデータから抽出されたすべてのデータ
+section-orchestrator から渡されるデータ:
 
-**これらの値のみを使用してHTMLを生成する**
+- `extractedValues.allTexts`: すべてのテキスト
+- `extractedValues.allImages`: すべての画像 URL
+- その他、MCP デザインデータから抽出されたすべてのデータ
+
+**これらの値のみを使用して HTML を生成する**
 
 ### 重要
 
-MCPデザインデータに書かれているテキストや画像URLをそのまま使用すること。
+MCP デザインデータに書かれているテキストや画像 URL をそのまま使用すること。
 具体的な値の例示は参考であり、実際はマニフェストから取得した値を使用する。
 
 ## ビルドモード判定
 
-1. `environments/.env.local` を読み込み
-2. `EJS_MODE` が true なら `src/ejs/` に出力
-3. `WP_MODE` が true なら `src/wp/` に出力
-4. 両方 false なら `src/index.html` に出力
+**重要**: section-orchestrator から渡されるマニフェストの `buildMode` を必ず確認すること
+
+### 1. マニフェストから判定
+
+マニフェストの `buildMode.ejsMode` と `buildMode.wpMode` を確認:
+
+### 2. モード別の実装
+
+#### EJS Mode (`ejsMode: true`)
+
+**出力先:**
+
+- メインページ: `src/ejs/index.ejs`
+- 共通パーツ: `src/ejs/common/_header.ejs`, `src/ejs/common/_footer.ejs`
+- コンポーネント: `src/ejs/component/_c-xxx.ejs`
+- プロジェクトセクション: `src/ejs/project/_p-xxx.ejs`
+- データファイル: `src/ejs/pageData/xxx.json`
+
+#### WordPress Mode (`wpMode: true`)
+
+**出力先:**
+
+- テンプレート: `src/wp/xxx.php`
+- テンプレートパーツ: `src/wp/parts/c-xxx.php`, `src/wp/parts/p-xxx.php`
+
+#### Static HTML Mode (両方 `false`)
+
+**出力先:**
+
+- `src/index.html` に直接出力
 
 ## ビルドモード別出力先
 
@@ -55,20 +82,6 @@ MCPデザインデータに書かれているテキストや画像URLをその�
 - src/sass/\*.scss
 - src/wp/functions-lib/\*.php
 
-### 編集対象（モード別）
-
-#### Static HTML:
-
-- src/index.html
-
-#### EJS Mode
-
-- src/ejs/\*
-
-#### WordPress Mode
-
-- src/wp/\*
-
 ## 禁止
 
 - .claude/rules/RULES_HTML.md の規約に準拠しないコーディング
@@ -82,6 +95,6 @@ MCPデザインデータに書かれているテキストや画像URLをその�
 以下を必ず確認:
 
 - [ ] すべてのテキストが extractedValues に存在するか
-- [ ] すべての画像URLが extractedValues に存在するか
+- [ ] すべての画像 URL が extractedValues に存在するか
 - [ ] 推測で追加した要素がないか
 - [ ] 汎用的なプレースホルダーテキストが含まれていないか

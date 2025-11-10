@@ -128,10 +128,12 @@ MCPデザインデータから以下をすべて抽出（具体的な要素名�
 
 ## 必須タスク
 
-1. MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存
-2. MCPデザインデータからすべての値を抽出
-3. 抽出した値を `extractedValues` に格納
-4. マニフェストを `.claude/progress/design-manifest.json` に保存
+1. **環境変数を読み取る**: `environments/.env.local` から `EJS_MODE` と `WP_MODE` を確認
+2. MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存
+3. MCPデザインデータからすべての値を抽出
+4. 抽出した値を `extractedValues` に格納
+5. **ビルドモードをマニフェストに記録**: 読み取った環境変数を `buildMode` に設定
+6. マニフェストを `.claude/progress/design-manifest.json` に保存
 
 ## 禁止
 
