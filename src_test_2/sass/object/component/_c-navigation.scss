@@ -1,0 +1,52 @@
+@use 'global' as *;
+
+// * ================================
+// * c-navigation
+// * ================================
+
+.c-navigation__list {
+  display: flex;
+  gap: r(30);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c-navigation__item {
+  position: relative;
+}
+
+.c-navigation__link {
+  display: block;
+  font-family: var(--font-lato);
+  font-weight: 500;
+  font-size: r(10);
+  color: var(--color-white);
+  letter-spacing: 2.3488px;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 0.3s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.c-navigation__item--active .c-navigation__link {
+  color: var(--color-primary);
+  font-size: r(11);
+}
+
+// * Adjust specific item font sizes based on design
+.c-navigation__item:nth-child(2) .c-navigation__link,
+.c-navigation__item:nth-child(5) .c-navigation__link {
+  font-size: r(10);
+}
+
+.c-navigation__item:nth-child(1) .c-navigation__link,
+.c-navigation__item:nth-child(3) .c-navigation__link,
+.c-navigation__item:nth-child(4) .c-navigation__link {
+  font-size: r(11);
+}

@@ -1,0 +1,40 @@
+@use 'global' as *;
+
+.p-section-grid {
+}
+
+.p-section-grid__inner.l-inner {
+}
+
+.p-section-grid__heading {
+  display: grid;
+  place-items: center;
+}
+
+.p-section-grid__content {
+  margin-top: r(40);
+}
+
+.p-section-grid__list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: r(16) 5%;
+
+  @include mq('md') {
+    grid-template-columns: repeat(auto-fit, minmax(r(320), 1fr));
+    gap: r(40) 5%;
+  }
+}
+
+.p-section-grid__item {
+}
+
+.p-section-grid__button {
+  display: grid;
+  place-items: center;
+  margin-top: r(24);
+
+  @include mq('md') {
+    margin-top: r(60);
+  }
+}

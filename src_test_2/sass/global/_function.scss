@@ -1,0 +1,99 @@
+@use 'setting' as *;
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta'; // metaモジュールをインポート
+
+// * 数値のみを取り出す
+@function strip-unit($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+  @return $number;
+}
+
+// * vwへの計算式
+@function vw($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100vw;
+}
+
+// * vhへの計算式
+@function vh($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100vh;
+}
+
+// * lvhへの計算式
+@function lvh($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100lvh;
+}
+
+// * svhへの計算式
+@function svh($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100svh;
+}
+
+// * dvhへの計算式
+@function dvh($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100dvh;
+}
+
+// * remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
+// @function rem($size, $base: 16px) {
+//   @return math.div(strip-unit($size), strip-unit($base)) * 1rem;
+// }
+
+// * remへの計算式
+@function r($size) {
+  $stripped: strip-unit($size);
+  @if $stripped == 1 {
+    @return 1px;
+  }
+  @return calc(#{$stripped} * var(--to-rem));
+}
+
+// * emへの計算式
+@function em($size, $base: 16px) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 1em;
+}
+
+// * パーセントへの計算式
+@function pct($size, $base) {
+  @return math.div(strip-unit($size), strip-unit($base)) * 100%;
+}
+
+// * vwLinear
+// 2点間の値から直線的なvw計算式（y = ax + b）を返す関数
+@function vwLinear($y1, $x1, $y2, $x2) {
+  $x1: strip-unit($x1);
+  $y1: strip-unit($y1);
+  $x2: strip-unit($x2);
+  $y2: strip-unit($y2);
+
+  @if $x1 == $x2 {
+    @error "The x values cannot be equal (division by zero).";
+  }
+
+  $a: math.div($y2 - $y1, $x2 - $x1);
+  $b: $y1 - $a * $x1;
+
+  $vw: $a * 100;
+  $px: $b * 1px;
+
+  @return if($vw == 0, calc(#{$px}), if($px == 0px, calc(#{$vw}vw), calc(#{$vw}vw + #{$px})));
+}
+
+// * fluidRange
+// 指定した2サイズ間で画面幅に応じてサイズを流動的に変化させるclamp()を返す関数
+@function fluidRange($size1, $size2: null, $ratio: 1) {
+  $ssize1: strip-unit($size1);
+  $ssize2: if($size2 == null, $ssize1, strip-unit($size2));
+  $sratio: if($ssize1 > $ssize2, 1, strip-unit($ratio));
+
+  @if $ssize1 == $ssize2 {
+    @return rem($ssize1);
+  }
+
+  $min: math.min($ssize1, $ssize2);
+  $max: math.max($ssize1, $ssize2);
+
+  @return clamp(calc(#{$min * $sratio} * 1px), vwLinear($ssize1, $width-sp, $ssize2, $width-pc), calc(#{$max} * 1px));
+}

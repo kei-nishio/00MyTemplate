@@ -1,0 +1,6 @@
+@use 'global' as *;
+
+.p-xxx {
+  @include mq('md') {
+  }
+}

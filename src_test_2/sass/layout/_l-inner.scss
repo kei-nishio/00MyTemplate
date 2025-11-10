@@ -1,0 +1,62 @@
+@use 'global' as *;
+
+$innerType: 'type1';
+
+@if $startFrom == sp {
+  .l-inner {
+    width: 100%;
+    max-width: $maxWidth-tb;
+    margin-inline: auto;
+    padding-inline: $padding-sp;
+
+    @if $innerType == 'type1' {
+      @include mq('md') {
+        // ! デザイン比率を維持しつつ、768px付近では左右余白を狭め、最大幅は$innerに合わせる場合
+        width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
+        max-width: calc($inner + $padding-pc * 2);
+        padding-inline: $padding-pc;
+      }
+    } @else if $innerType == 'type2' {
+      @include mq('md') {
+        // ! 最大幅を$innerに合わせる場合
+        // max-width: calc($inner + $padding-pc * 2);
+        // padding-inline: $padding-pc;
+      }
+    } @else if $innerType == 'type3' {
+      @include mq('md') {
+        // ! デザイン比率を維持する場合（widthで調整）
+        // width: vw(calc($inner + 2 * $padding-pc), $width-pc);
+        // max-width: initial;
+        // padding-inline: $padding-pc;
+      }
+    } @else if $innerType == 'type4' {
+      @include mq('md') {
+        // ! $width-pc以上でデザイン比率を維持しつつ、768px付近では左右余白を狭める場合
+        // width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
+        // max-width: initial;
+        // padding-inline: $padding-pc;
+      }
+    } @else if $innerType == 'type5' {
+      @include mq('md') {
+        // ! デザイン比率を維持する場合（paddingで調整）
+        // max-width: initial;
+        // padding-inline: pct(calc(($width-pc - $inner) / 2), $width-pc);
+      }
+    }
+  }
+} @else {
+  .l-inner {
+    width: vw(calc($inner + 2 * $padding-pc), $width-pc);
+    width: vwLinear(768, 768, calc($inner + 2 * $padding-pc), $width-pc);
+    max-width: $inner + $padding-pc * 2;
+    margin-inline: auto;
+    padding-inline: $padding-pc;
+    padding-inline: pct(calc(($width-pc - $inner) / 2), $width-pc);
+
+    @include mq('md') {
+      width: 100%;
+      max-width: $maxWidth-tb;
+      padding-inline: $padding-sp;
+    }
+  }
+}

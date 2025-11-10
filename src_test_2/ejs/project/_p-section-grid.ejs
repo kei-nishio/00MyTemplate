@@ -1,0 +1,24 @@
+<section class="p-section-grid">
+  <div class="p-section-grid__inner l-inner">
+    <div class="p-section-grid__heading">
+      <%- include(ejsPath + './component/_c-section-title', {title: "グリッド", subTitle: "hoge"} ) %>
+    </div>
+    <div class="p-section-grid__content">
+      <ul class="p-section-grid__list">
+        <% for (let i = 0; i < json.cards.length; i++) { %>
+        <li class="p-section-grid__item">
+          <%- include(ejsPath + './component/_c-card', { 
+                modifier: json.cards[i].modifier, 
+                link: json.cards[i].link, 
+                title: json.cards[i].title, 
+                content: json.cards[i].content 
+            }) %>
+        </li>
+        <% } %>
+      </ul>
+      <div class="p-section-grid__button">
+        <%- include(ejsPath + './component/_c-button-normal', {modifier: "white", link: "hoge.html", text: "ボタン"} ) %>
+      </div>
+    </div>
+  </div>
+</section>

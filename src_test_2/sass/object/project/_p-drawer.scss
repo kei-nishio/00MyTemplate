@@ -1,0 +1,46 @@
+@use 'global' as *;
+
+.p-drawer {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  inset: 0;
+  z-index: var(--zi-drawer);
+  height: 100vh;
+  background-color: white;
+  user-select: none;
+  transition: all 0.2s ease-in-out;
+}
+.p-drawer.is-active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: initial;
+  user-select: initial;
+}
+
+.p-drawer__inner.l-inner {
+  height: inherit;
+}
+
+.p-drawer__nav {
+  height: inherit;
+}
+
+.p-drawer__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: r(48);
+  height: inherit;
+}
+
+.p-drawer__item {
+  a {
+    color: black;
+  }
+}
+
+.p-drawer__mask {
+  display: none;
+}
