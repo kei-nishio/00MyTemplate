@@ -34,15 +34,41 @@
 3. section-analyzer を自動起動:
    - **環境変数を読み取る**: `environments/.env.local` から `EJS_MODE` と `WP_MODE` を確認
    - 取得したMCPデザインデータを解析
-   - MCPデザインデータから抽出したすべての値をマニフェストに保存
+   - **ページ構造を識別**: 複数ページの場合はページごとにディレクトリ分割
+   - **セクション分割**: 各ページ内をセクション単位に分割
+   - MCPデザインデータから抽出したすべての値を保存
    - **ビルドモードをマニフェストに記録**: 読み取った環境変数を `buildMode` に設定
-   - `.claude/progress/design-manifest.json` と `.claude/progress/figma-design-data.txt` を生成
-4. section-orchestrator を自動起動してセクションごとにコーディングをする:
-   - **重要**: html-structure エージェントは初期ファイルのサンプルセクションを削除してからデザインのセクションを配置する
-   - マニフェストに定義されていないセクションは必ず削除する
-   - Figmaデザインに存在するセクションのみを順序通りに配置する
-5. 「4.」を「3.」で分析した全てのセクションで実行する
-6. すべてのコーディングが完了したら終了する
+   - 出力:
+     - `.claude/progress/design-manifest.json` (プロジェクト全体総括)
+     - `.claude/progress/figma-design-data.txt` (MCPデータ全体)
+     - `.claude/progress/pages/{pageId}/page-info.json` (ページメタ情報)
+     - `.claude/progress/pages/{pageId}/section-XX.json` (セクション詳細)
+
+4. design-tokens を自動起動（セクションコーディング前のグローバル設定）:
+   - マニフェストから `designTokens` を読み込み
+   - **カラー設定**: `src/sass/global/_setting.scss` に CSS変数追加
+   - **フォント設定**: ビルドモードに応じてフォント読み込みコード追加
+     - EJSモード → `src/ejs/common/_head.ejs`
+     - WordPressモード → `src/wp/functions-lib/f-0base_script.php`
+     - 静的HTML → `src/index.html`
+   - 全セクションで共通利用できるグローバル設定を完了
+
+5. section-orchestrator を自動起動してページ/セクションごとにコーディング:
+   - **ページループ**: マニフェストの `pages` 配列をループ
+   - 各ページ内で**セクションループ**:
+     1. **layout-converter**: 座標 → flexbox/grid 変換情報を生成
+        - 入力: `pages/{pageId}/section-XX.json`
+        - 出力: `pages/{pageId}/section-XX-layout.json`
+     2. **html-structure**: HTML/EJS/PHP生成
+        - 入力: section-XX.json + section-XX-layout.json
+        - **重要**: 初期ファイルのサンプルセクションを削除
+     3. **sass-flocss**: SCSS生成
+        - layout.jsonの推奨レイアウトに従う
+        - position absolute を最小化
+     4. **js-component**: JavaScript生成（必要時）
+     5. **code-reviewer**: 品質チェックと修正
+
+6. すべてのページ・セクションのコーディングが完了したら終了する
 
 ## エラーハンドリング
 
@@ -79,7 +105,7 @@ URL 検出 → 即座にエージェント起動 → 自動処理開始
 
 ### 必須ルール
 
-すべてのエージェント（section-analyzer, section-orchestrator, html-structure, sass-flocss, js-component, code-reviewer）は以下を厳守:
+すべてのエージェント（section-analyzer, design-tokens, section-orchestrator, html-structure, sass-flocss, js-component, code-reviewer）は以下を厳守:
 
 1. **MCPデザインデータからの抽出のみ**: すべてのデザイン値をMCPデザインデータから抽出する
 2. **推測禁止**: MCPデザインデータに存在しない値は使用しない
@@ -96,6 +122,116 @@ URL 検出 → 即座にエージェント起動 → 自動処理開始
 - 推測による値の設定
 - マニフェストの `extractedValues` を無視した独自実装
 
+## MCP デザインデータの変換原則（重要）
+
+### レイアウト変換：Absolute配置からモダンレイアウトへ
+
+MCPデザインデータは座標ベースの`position: absolute`配置で返されるが、**保守性・レスポンシブ性・アクセシビリティの観点から、モダンなレイアウト手法に変換する**。
+
+#### 基本方針（全エージェント共通）
+
+1. **値は保持、配置方法を変換**
+   - フォントサイズ、色、テキスト内容、画像URLは厳密に保持
+   - 座標値（left, top）は、gap/margin/paddingに変換
+   - 要素間の距離を計算してレスポンシブ対応
+
+2. **Flexbox/Grid優先**
+   - ナビゲーション → `display: flex; gap: X`
+   - カードグリッド → `display: grid; grid-template-columns: ...`
+   - センタリング → `margin: 0 auto` または flex center
+
+3. **Absolute最小化**
+   - 使用許容: 背景画像、オーバーレイ、装飾要素のみ
+   - 禁止: コンテンツ要素、テキスト、ボタン、ナビゲーション
+
+#### 座標からレイアウトへの変換例
+
+**❌ MCP生データの忠実な再現（禁止）:**
+```html
+<div style="position: relative;">
+  <p style="position: absolute; left: 666px; top: 54px;">HOME</p>
+  <p style="position: absolute; left: 746px; top: 54px;">PRODUCTS</p>
+  <p style="position: absolute; left: 857px; top: 54px;">ABOUT US</p>
+</div>
+```
+
+**✅ 変換後（推奨）:**
+
+HTML:
+```html
+<nav class="nav" aria-label="Main navigation">
+  <ul class="nav__list">
+    <li class="nav__item"><a href="#home">HOME</a></li>
+    <li class="nav__item"><a href="#products">PRODUCTS</a></li>
+    <li class="nav__item"><a href="#about">ABOUT US</a></li>
+  </ul>
+</nav>
+```
+
+SCSS:
+```scss
+.nav__list {
+  display: flex;
+  gap: r(40);  // 746-666=80, 857-746=111 → 平均または意図を考慮
+  justify-content: flex-end;  // 右寄せ（MCPの配置から判断）
+}
+```
+
+#### 変換パターン一覧
+
+| MCPパターン | 変換方法 | 実装例 |
+|-----------|---------|-------|
+| **ナビゲーション** | 水平に並んだ要素 | `display: flex; gap: r(X)` |
+| **カードグリッド** | 同サイズ要素が格子状 | `display: grid; grid-template-columns: repeat(3, 1fr)` |
+| **センタリング** | `left: 50%; transform: translateX(-50%)` | `margin-inline: auto; text-align: center` |
+| **縦並び** | Y座標が異なる要素 | `display: flex; flex-direction: column; gap: r(X)` |
+| **背景+コンテンツ** | 重なり要素 | 親relative + 背景absolute + コンテンツrelative |
+
+#### Gap値の計算方法
+
+section-analyzerが座標から計算：
+
+```
+gap = 次の要素の座標 - (現在の要素の座標 + サイズ)
+```
+
+**水平方向:**
+```
+gap-horizontal = next.left - (current.left + current.width)
+```
+
+**垂直方向:**
+```
+gap-vertical = next.top - (current.top + current.height)
+```
+
+**例:**
+- 要素A: left: 666px, width: 45px
+- 要素B: left: 746px
+- gap = 746 - (666 + 45) = 35px → `gap: r(35)`
+
+#### Absoluteが許容されるケース
+- 背景画像
+- オーバーレイ
+- あしらい
+
+#### エージェント別の責務
+
+1. **section-analyzer**
+   - 座標からレイアウトパターンを識別
+   - gap値を計算
+   - `layoutStructure`をマニフェストに追加
+
+2. **html-structure**
+   - セマンティックHTML構造を生成
+   - `<nav>`, `<ul>`, `<section>` などを使用
+   - Absoluteベースの構造を生成しない
+
+3. **sass-flocss**
+   - Flexbox/Grid実装
+   - 計算されたgap値を適用
+   - Absolute使用は背景・オーバーレイのみ
+
 ### 検証原則
 
 各エージェントは生成後に以下を確認:
@@ -108,9 +244,11 @@ URL 検出 → 即座にエージェント起動 → 自動処理開始
 
 ## エージェント一覧
 
-- section-analyzer.md: Figma デザインを解析してマニフェスト生成
-- section-orchestrator.md: セクション単位での段階的生成を管理
-- html-structure.md:`src/index.html` ページの HTML 骨組みを生成
-- sass-flocss.md: `src/sass/**/*.scss` FLOCSS 準拠のスタイル生成
-- js-component.md: `src/assets/js/script.js` UI 動作やイベント処理を生成
-- code-reviewer.md: 自動品質チェックと修正提案
+- **section-analyzer.md**: Figma デザインを解析してページ/セクション分割、マニフェスト生成
+- **design-tokens.md**: マニフェストのdesignTokensをsrcディレクトリに反映（カラー・フォント等のグローバル設定）
+- **layout-converter.md**: 座標データを機械的に分析し、position absolute → flexbox/grid 変換情報を生成
+- **section-orchestrator.md**: ページ/セクション単位での段階的生成を管理
+- **html-structure.md**: HTML/EJS/PHP の骨組みを生成（layout.json を活用）
+- **sass-flocss.md**: FLOCSS 準拠のスタイル生成（layout.json を活用）
+- **js-component.md**: UI 動作やイベント処理を生成
+- **code-reviewer.md**: 自動品質チェックと修正提案

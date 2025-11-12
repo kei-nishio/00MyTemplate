@@ -23,11 +23,13 @@ color: red
 
 **検証手順**:
 
-1. `.claude/progress/design-manifest.json` を読み込む
-2. `.claude/progress/figma-design-data.txt` を読み込む（存在する場合）
-3. 実装ファイル（HTML/EJS/PHP, SCSS）を読み込む
-4. 実装に含まれる値をすべて抽出
-5. マニフェストの `extractedValues` と照合
+1. `.claude/progress/design-manifest.json` を読み込む（プロジェクト全体情報）
+2. `.claude/progress/pages/{pageId}/page-info.json` を読み込む（ページ情報）
+3. `.claude/progress/pages/{pageId}/section-XX.json` を読み込む（セクション詳細）
+4. `.claude/progress/figma-design-data.txt` を読み込む（存在する場合）
+5. 実装ファイル（HTML/EJS/PHP, SCSS）を読み込む
+6. 実装に含まれる値をすべて抽出
+7. section-XX.json の `extractedValues` と照合
 
 **検証対象の値**:
 
@@ -47,18 +49,22 @@ color: red
 ```
 【MCPデザインデータ一致性検証】
 
-❌ CRITICAL: 以下の値がMCPデザインデータに存在しません
-- テキスト: "Welcome to Our Site" (ファイル: src/ejs/project/_p-fv.ejs:4)
-  → マニフェストには存在しません（推測で追加された可能性）
-- 色: #3498DB (ファイル: src/sass/object/project/_p-fv.scss:12)
-  → マニフェストには存在しません（推測で追加された可能性）
+対象: pages/top/section-01.json (hero-header)
 
-⚠️ WARNING: 以下の値がマニフェストに存在しますが使用されていません
-- テキスト: "CONTACT US" (extractedValues.allTexts[5])
+❌ CRITICAL: 以下の値がMCPデザインデータに存在しません
+- テキスト: "Welcome to Our Site" (ファイル: src/ejs/project/_p-hero-header.ejs:4)
+  → pages/top/section-01.json の extractedValues.texts には存在しません
+  → 推測で追加された可能性があります
+- 色: #3498DB (ファイル: src/sass/object/project/_p-hero-header.scss:12)
+  → pages/top/section-01.json の extractedValues.colors には存在しません
+  → 推測で追加された可能性があります
+
+⚠️ WARNING: 以下の値がsection-01.jsonに存在しますが使用されていません
+- テキスト: "CONTACT" (extractedValues.texts[3])
 
 ✅ OK: 以下は正しく一致しています
-- 色: #f3491e → extractedValues.allColors に存在
-- テキスト: "PUT YOUR TITLE / NAME HERE" → extractedValues.allTexts に存在
+- 色: #f3491e → extractedValues.colors に存在
+- テキスト: "PUT YOUR TITLE / NAME HERE" → extractedValues.texts に存在
 ```
 
 ### 1.5. 初期ファイルクリーンアップ検証（重要）
@@ -75,7 +81,10 @@ color: red
 ```
 【初期ファイルクリーンアップ検証】
 
+対象ページ: pages/top/page-info.json
+
 ❌ CRITICAL: 以下のサンプルセクションが残っています
+→ page-info.jsonに定義されていないセクションです
 → これらのセクションは削除してください
 
 ✅ OK: 初期ファイルは正しくクリーンアップされています

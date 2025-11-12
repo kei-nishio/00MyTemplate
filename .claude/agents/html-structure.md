@@ -26,8 +26,10 @@ color: red
 
 section-orchestrator から渡されるデータ:
 
-- `extractedValues.allTexts`: すべてのテキスト
-- `extractedValues.allImages`: すべての画像 URL
+- `extractedValues.texts`: すべてのテキスト（配列）
+- `extractedValues.images`: すべての画像 URL（配列）
+- `extractedValues.colors`: すべての色（配列）
+- `extractedValues.fontSizes`: すべてのフォントサイズ（配列）
 - その他、MCP デザインデータから抽出されたすべてのデータ
 
 **これらの値のみを使用して HTML を生成する**
@@ -36,6 +38,172 @@ section-orchestrator から渡されるデータ:
 
 MCP デザインデータに書かれているテキストや画像 URL をそのまま使用すること。
 具体的な値の例示は参考であり、実際はマニフェストから取得した値を使用する。
+
+## レイアウト生成方針（重要）
+
+### 絶対配置の最小化
+
+MCPデザインデータは`position: absolute`で構成されているが、**保守性・レスポンシブ性の観点から、これを忠実に再現しない**。
+
+#### 基本原則
+
+1. **Flexbox/Grid優先**: モダンなレイアウト手法を最優先
+2. **Absolute最小化**: 背景・オーバーレイ・装飾要素のみに限定
+3. **値は保持**: フォントサイズ、色、間隔の値は厳密に保持
+4. **配置方法を変換**: 座標値をgap/margin/paddingに変換
+
+### 座標からレイアウトへの変換ルール
+
+#### 1. ナビゲーション要素
+
+**❌ MCP の生データ（使用禁止）:**
+```html
+<div style="position: relative; height: 10px; width: 454px;">
+  <p style="position: absolute; left: 22px; top: 0;">HOME</p>
+  <p style="position: absolute; left: 120px; top: 1.5px;">PRODUCTS</p>
+  <p style="position: absolute; left: 231.5px; top: 0;">ABOUT US</p>
+  <p style="position: absolute; left: 338.5px; top: 0;">CONTACT</p>
+  <p style="position: absolute; left: 431px; top: 1.5px;">LOGIN</p>
+</div>
+```
+
+**✅ 変換後（推奨）:**
+```html
+<nav class="p-hero-header__nav" aria-label="Main navigation">
+  <ul class="p-hero-header__nav-list">
+    <li class="p-hero-header__nav-item p-hero-header__nav-item--active">
+      <a href="#home">HOME</a>
+    </li>
+    <li class="p-hero-header__nav-item">
+      <a href="#products">PRODUCTS</a>
+    </li>
+    <li class="p-hero-header__nav-item">
+      <a href="#about">ABOUT US</a>
+    </li>
+    <li class="p-hero-header__nav-item">
+      <a href="#contact">CONTACT</a>
+    </li>
+    <li class="p-hero-header__nav-item">
+      <a href="#login">LOGIN</a>
+    </li>
+  </ul>
+</nav>
+```
+
+対応するSCSS: `display: flex; gap: r(35~40);` (座標差分から計算)
+
+#### 2. センタリング要素
+
+**❌ MCP:**
+```html
+<p style="position: absolute; left: 601px; top: 166.5px; transform: translateX(-50%);">TITLE #1</p>
+```
+
+**✅ 変換後:**
+```html
+<h2 class="p-content-section__title">TITLE #1</h2>
+```
+
+対応するSCSS: `max-width: r(210); margin: 0 auto; text-align: center;`
+
+#### 3. カード/グリッド配置
+
+**❌ MCP（各カードが個別にabsolute）:**
+```html
+<div style="position: absolute; left: 100px; top: 200px;">カード1</div>
+<div style="position: absolute; left: 400px; top: 200px;">カード2</div>
+<div style="position: absolute; left: 700px; top: 200px;">カード3</div>
+```
+
+**✅ 変換後:**
+```html
+<div class="p-section__cards">
+  <div class="p-section__card">カード1</div>
+  <div class="p-section__card">カード2</div>
+  <div class="p-section__card">カード3</div>
+</div>
+```
+
+対応するSCSS: `display: grid; grid-template-columns: repeat(3, 1fr); gap: r(100);`
+
+#### 4. 重なりレイヤー（背景+コンテンツ）
+
+**✅ Absoluteが許容されるケース:**
+```html
+<section class="p-hero-header">
+  <%# 背景レイヤー（absolute許容） %>
+  <div class="p-hero-header__background">
+    <img src="..." alt="" class="p-hero-header__bg-image">
+  </div>
+
+  <%# オーバーレイ（absolute許容） %>
+  <div class="p-hero-header__overlay"></div>
+
+  <%# コンテンツ（通常フロー） %>
+  <div class="p-hero-header__content">
+    <nav>...</nav>
+    <h1>...</h1>
+  </div>
+</section>
+```
+
+#### 5. テキストブロック
+
+**❌ MCP:**
+```html
+<div style="position: absolute; left: 612px; top: 363px; width: 410px;">
+  <p>長い説明文...</p>
+</div>
+```
+
+**✅ 変換後:**
+```html
+<div class="p-content-section__description">
+  <p>長い説明文...</p>
+</div>
+```
+
+対応するSCSS: `max-width: r(410); margin: 0 auto;`
+
+### layout-converterからのデータ活用
+
+section-orchestratorから渡される`section-XX-layout.json`を参照：
+
+**入力ファイル:**
+```
+- pages/{pageId}/section-XX.json (座標・テキスト・画像データ)
+- pages/{pageId}/section-XX-layout.json (レイアウト変換情報)
+- pages/{pageId}/page-info.json (出力パス情報)
+```
+
+**section-XX-layout.jsonの活用:**
+```javascript
+// section-XX-layout.json から
+const layoutData = JSON.parse(fs.readFileSync('section-01-layout.json'));
+layoutData.layoutStructure.groups.forEach(group => {
+  if (group.recommendedLayout === "flexbox-row") {
+    // <ul><li> 構造で水平リスト生成
+    // group.elements に含まれる要素のみ使用（推測で追加しない）
+  } else if (group.recommendedLayout === "flexbox-column") {
+    // <div> 構造で垂直配置
+  } else if (group.recommendedLayout === "margin-auto") {
+    // センタリング
+  }
+});
+```
+
+**重要:**
+- section-XX-layout.jsonの `elements` 配列に含まれる要素のみを生成
+- 推測で要素を追加しない
+- `recommendedLayout` を参考にHTML構造を決定
+
+### 実装優先順位
+
+1. **セマンティックHTML構造** - `<nav>`, `<ul>`, `<section>`, `<article>` など
+2. **BEM命名** - `.block__element--modifier`
+3. **アクセシビリティ** - `aria-label`, `role`, `alt`
+4. **データ属性** - `data-section-id` でセクション識別
+5. **レイアウトはSCSSに委譲** - HTMLにはスタイルを書かない
 
 ## ビルドモード判定
 

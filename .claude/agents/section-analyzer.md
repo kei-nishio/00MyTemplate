@@ -38,64 +38,217 @@ MCPデザインデータから以下をすべて抽出（具体的な要素名�
 
 **注**: MCPデザインデータはReact+Tailwind形式で返される場合がありますが、形式に関わらず値のみを抽出します
 
+## ページ構造の識別
+
+MCPデザインデータから複数ページを識別し、ページごとにディレクトリ分割する。
+
+### ページ識別方法
+
+#### 方法: ユーザー指定（複数URL）
+- 複数のFigma URLが提供された場合、それぞれをページとして処理
+
+### ページID生成ルール
+
+data-nameまたはフレーム名から自動生成:
+- "Top Page" → `top`
+- "About Page" → `about`
+- "Contact Form" → `contact`
+
+小文字化、スペースをハイフン化、英数字のみ使用
+
+## セクション分割
+
+各ページ内を意味のあるセクションに分割する。
+
+### セクション識別方法
+
+1. **data-name属性**: `#1`, `#2`, `Header`, `Hero`, `Footer` など
+2. **視覚的区切り**: 大きな余白、背景色の変化
+3. **意味的まとまり**: ヘッダー、コンテンツエリア、フッターなど
+
+### セクションID生成ルール
+
+- ページ内で連番: `section-01`, `section-02`, `section-03`, ...
+- data-nameがある場合は名前も記録: `name: "hero-header"`
+
+## 出力ファイル構造
+
+```
+.claude/progress/
+├─ design-manifest.json              # プロジェクト全体の総括
+├─ figma-design-data.txt             # MCPデータ全体
+└─ pages/
+   ├─ top/                           # トップページ
+   │  ├─ page-info.json              # ページメタ情報
+   │  ├─ section-01.json             # セクション詳細
+   │  ├─ section-02.json
+   │  └─ section-03.json
+   │
+   ├─ about/                         # Aboutページ
+   │  ├─ page-info.json
+   │  ├─ section-01.json
+   │  └─ section-02.json
+   │
+   └─ contact/                       # Contactページ
+      ├─ page-info.json
+      └─ section-01.json
+```
+
 ## 出力
 
-1. `.claude/progress/design-manifest.json` - 詳細マニフェスト
-2. `.claude/progress/section-checklist.md` - チェックリスト
+1. `.claude/progress/design-manifest.json` - プロジェクト全体の総括
+2. `.claude/progress/figma-design-data.txt` - MCPデザインデータ全体
+3. `.claude/progress/pages/{pageId}/page-info.json` - ページメタ情報
+4. `.claude/progress/pages/{pageId}/section-XX.json` - セクション詳細
 
-### 詳細マニフェスト構造フォーマット
-
-`.claude/progress/design-manifest.json`:
+### 1. design-manifest.json（プロジェクト全体総括）
 
 ```json
 {
-  "manifestVersion": "2.0.0",
-  "generatedAt": "2025-11-09T12:34:56Z",
+  "manifestVersion": "3.0.0",
+  "generatedAt": "2025-11-12T12:34:56Z",
   "mcpSource": "figma",
   "mcpData": {
     "designDataPath": ".claude/progress/figma-design-data.txt",
-    "extractedAt": "2025-11-09T12:34:56Z"
+    "extractedAt": "2025-11-12T12:34:56Z"
   },
   "projectName": "template",
-  "figmaUrl": "https://...",
+  "figmaUrl": "https://www.figma.com/design/...",
   "buildMode": {
-    "ejsMode": false,
+    "ejsMode": true,
     "wpMode": false
   },
-  "totalSections": 4,
-  "estimatedTokens": 45000,
-  "designTokens": {
-    "colors": {},
-    "fonts": {},
-    "breakpoints": {}
-  },
-  "sections": [
+  "totalPages": 3,
+  "pages": [
     {
-      "id": "section-01",
-      "name": "header",
-      "reactNodeId": "984:336",
-      "estimatedTokens": 8000,
-      "status": "pending",
-      "extractedValues": {
-        "allTexts": [],
-        "allColors": [],
-        "allFontSizes": [],
-        "allSpacings": [],
-        "allImages": [],
-        "allOtherValues": {}
-      }
+      "id": "top",
+      "name": "Top Page",
+      "figmaNodeId": "1:2690",
+      "directory": "pages/top",
+      "outputPath": "src/ejs/index.ejs",
+      "totalSections": 4,
+      "status": "pending"
+    },
+    {
+      "id": "about",
+      "name": "About Page",
+      "figmaNodeId": "1:3000",
+      "directory": "pages/about",
+      "outputPath": "src/ejs/about.ejs",
+      "totalSections": 3,
+      "status": "pending"
     }
   ],
+  "designTokens": {
+    "colors": {
+      "primary": "#f3491e",
+      "text-light": "#d2cfcf",
+      "text-gray": "#656b6e"
+    },
+    "fonts": {
+      "lato": "'Lato', sans-serif",
+      "inter": "'Inter', sans-serif"
+    }
+  },
   "globalComponents": [
     {
-      "name": "c-xxx",
-      "usageCount": 1
+      "name": "c-button",
+      "usageCount": 5,
+      "pages": ["top", "about", "contact"]
     }
   ]
 }
 ```
 
-**重要**: `extractedValues` にはMCPデザインデータから抽出したすべての値を格納する。具体的な要素（allTexts, allColorsなど）は例示であり、MCPデザインデータに存在するすべての種類の値を抽出すること。
+### 2. pages/{pageId}/page-info.json（ページメタ情報）
+
+```json
+{
+  "pageId": "top",
+  "pageName": "Top Page",
+  "figmaNodeId": "1:2690",
+  "figmaUrl": "https://www.figma.com/design/...?node-id=1:2690",
+  "outputPath": "src/ejs/index.ejs",
+  "totalSections": 4,
+  "sections": [
+    {
+      "id": "section-01",
+      "name": "hero-header",
+      "figmaNodeId": "1:2691",
+      "dataFile": "pages/top/section-01.json",
+      "layoutFile": "pages/top/section-01-layout.json",
+      "outputEjs": "src/ejs/project/_p-hero-header.ejs",
+      "outputScss": "src/sass/object/project/_p-hero-header.scss",
+      "estimatedTokens": 8000,
+      "status": "pending"
+    },
+    {
+      "id": "section-02",
+      "name": "content-section",
+      "figmaNodeId": "1:2703",
+      "dataFile": "pages/top/section-02.json",
+      "layoutFile": "pages/top/section-02-layout.json",
+      "outputEjs": "src/ejs/project/_p-content-section.ejs",
+      "outputScss": "src/sass/object/project/_p-content-section.scss",
+      "estimatedTokens": 9000,
+      "status": "pending"
+    }
+  ]
+}
+```
+
+### 3. pages/{pageId}/section-XX.json（セクション詳細）
+
+```json
+{
+  "pageId": "top",
+  "sectionId": "section-01",
+  "sectionName": "hero-header",
+  "figmaNodeId": "1:2691",
+  "extractedValues": {
+    "texts": [
+      {
+        "content": "YOUR COMPANY",
+        "left": 132,
+        "top": 52,
+        "width": 165.6,
+        "fontSize": 16,
+        "fontFamily": "Lato",
+        "fontWeight": "500",
+        "color": "#ffffff",
+        "letterSpacing": 3.2
+      },
+      {
+        "content": "HOME",
+        "left": 22,
+        "top": 0,
+        "width": 45.1,
+        "fontSize": 11,
+        "fontFamily": "Lato",
+        "color": "#f3491e"
+      }
+    ],
+    "images": [
+      {
+        "name": "background",
+        "url": "https://www.figma.com/api/mcp/asset/...",
+        "left": 0,
+        "top": 0,
+        "width": 1200,
+        "height": 800
+      }
+    ],
+    "colors": ["#ffffff", "#f3491e", "#d2cfcf"],
+    "fontSizes": [6, 10, 11, 14, 16, 23, 38, 50, 59],
+    "positions": {
+      "width": 1202,
+      "height": 802
+    }
+  }
+}
+```
+
+**重要**: `extractedValues` にはMCPデザインデータから抽出したすべての値を格納する。座標値（left, top, width, height）も必ず含める。
 
 ### コーディング進捗チェックリストフォーマット
 
