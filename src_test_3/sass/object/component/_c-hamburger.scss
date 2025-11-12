@@ -1,0 +1,52 @@
+@use 'global' as *;
+
+// * user variables
+$hamburger-width: r(24);
+$hamburger-height: r(24);
+$hamburger-width-is-active: r(24);
+$hamburger-height-is-active: r(24);
+$hamburger-border-number: 3;
+$hamburger-border-height: 1px;
+$hamburger-rotate: 55deg;
+$hamburger-scale: calc(1 / cos($hamburger-rotate));
+
+.c-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: $hamburger-width;
+  height: $hamburger-height;
+  cursor: pointer;
+}
+.c-hamburger__border {
+  display: inline-block;
+  width: 100%;
+  height: $hamburger-border-height;
+  border-radius: $hamburger-border-height;
+  background-color: black;
+  transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
+}
+
+// * is-active
+.c-hamburger.is-active {
+  width: $hamburger-width-is-active;
+  height: $hamburger-height-is-active;
+}
+.c-hamburger.is-active .c-hamburger__border {
+  transform-origin: center;
+  @for $i from 1 through $hamburger-border-number {
+    &:nth-child(#{$i}) {
+      @if $i == 1 {
+        transform: scaleX($hamburger-scale)
+          translateY(calc($hamburger-height-is-active / 2 - 50%))
+          rotate($hamburger-rotate);
+      } @else if $i == $hamburger-border-number {
+        transform: scaleX($hamburger-scale)
+          translateY(calc(-1 * $hamburger-height-is-active / 2 + 50%))
+          rotate(calc(-1 * $hamburger-rotate));
+      } @else {
+        opacity: 0;
+      }
+    }
+  }
+}

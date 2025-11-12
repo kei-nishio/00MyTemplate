@@ -1,0 +1,70 @@
+@use 'global' as *;
+
+.c-breadcrumb {
+  margin-top: r(12);
+
+  @include mq('md') {
+    margin-top: r(32);
+  }
+}
+.c-breadcrumb__inner.l-inner {
+  @include mq('md') {
+  }
+}
+.c-breadcrumb__container {
+}
+
+// ! aioseo_breadcrumbs 設定
+.c-breadcrumb {
+  .aioseo-breadcrumbs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+    align-items: baseline;
+  }
+  .aioseo-breadcrumb {
+    display: inline-block;
+    max-width: 10em;
+    overflow: hidden;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    a {
+      color: #000000;
+    }
+  }
+  .aioseo-breadcrumb-separator {
+    display: inline-block;
+  }
+}
+
+// ! c-breadcrumb NavXT 設定
+.c-breadcrumb {
+  .breadcrumb__container {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 0.5em;
+  }
+  span[property='name'] {
+    display: block;
+    max-width: 10em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  span[property='name'].current-item {
+    color: red;
+  }
+  .separator {
+    display: block;
+    aspect-ratio: 7 / 4;
+    height: 1em;
+    mask-image: url(../images/common/icon-arrow.svg);
+    mask-position: bottom;
+    mask-size: 70%;
+    mask-repeat: no-repeat;
+    background-color: black;
+  }
+}

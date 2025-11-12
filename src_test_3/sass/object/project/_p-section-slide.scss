@@ -1,0 +1,55 @@
+@use 'global' as *;
+
+.p-section-slide {
+}
+
+.p-section-slide__inner.l-inner {
+}
+
+.p-section-slide__heading {
+  display: grid;
+  place-items: center;
+}
+
+.p-section-slide__content {
+  margin-top: r(40);
+}
+
+.p-section-slide__slide {
+  position: relative;
+
+  .swiper {
+  }
+
+  .swiper-wrapper {
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+
+  .swiper-equipment {
+    position: initial;
+    width: 100%;
+    margin-top: r(60);
+  }
+
+  .swiper-scrollbar {
+    display: block;
+    position: initial;
+    background-color: black;
+  }
+
+  .swiper-scrollbar-drag {
+    background-color: gray;
+  }
+}
+
+.p-section-slide__button {
+  display: grid;
+  place-items: center;
+  margin-top: r(24);
+  @include mq('md') {
+    margin-top: r(60);
+  }
+}

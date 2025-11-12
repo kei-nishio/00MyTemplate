@@ -1,0 +1,18 @@
+@use 'global' as *;
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  font-size: r(16);
+  font-family: var(--font-jp);
+
+  // background-image: url(../images/common/bg.webp);
+  // background-position: 50% top;
+  // background-size: 700px 700px;
+  // background-repeat: repeat;
+}
+
+// GSAP挙動確認用
+// .pin-spacer {
+//   background-image: linear-gradient(skyblue, blue);
+// }

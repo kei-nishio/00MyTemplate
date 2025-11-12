@@ -1,0 +1,17 @@
+<% baseUrlPath='..' ; ejsPath='.' ; pageData="top" %>
+<!DOCTYPE html>
+<html lang="ja">
+<%- include(baseUrlPath + '/common/_head' ,{ baseUrl: baseUrlPath, page: json.pageData[pageData] }) %>
+
+<body>
+  <%- include(baseUrlPath + '/common/_header', {page: 'top'} ) %>
+  <main>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-grid' ) %></div>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-slide' ) %></div>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-table' ) %></div>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-faq' ) %></div>
+  </main>
+  <div class="l-footer"><%- include(baseUrlPath + '/common/_footer' ) %></div>
+</body>
+
+</html>

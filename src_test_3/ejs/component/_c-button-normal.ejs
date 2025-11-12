@@ -1,0 +1,10 @@
+<%# Parameters: text (button text), url (link destination), modifier (optional modifier class) %>
+<%
+  const buttonText = typeof text !== 'undefined' ? text : '+ INFO';
+  const buttonUrl = typeof url !== 'undefined' ? url : '#';
+  const modifierClass = typeof modifier !== 'undefined' && modifier ? ` c-button-normal--${modifier}` : '';
+%>
+
+<a href="<%= buttonUrl %>" class="c-button-normal<%= modifierClass %>">
+  <span class="c-button-normal__text"><%= buttonText %></span>
+</a>

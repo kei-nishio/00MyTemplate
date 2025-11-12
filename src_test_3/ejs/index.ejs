@@ -1,0 +1,20 @@
+<% baseUrlPath='.' ; ejsPath='.' ; pageData="top" %>
+<!DOCTYPE html>
+<html lang="ja">
+<%- include(baseUrlPath + '/common/_head' ,{ baseUrl: baseUrlPath, page: json.pageData[pageData] }) %>
+
+<body>
+  <%- include(baseUrlPath + '/common/_header', {page: 'top'} ) %>
+  <main>
+    <%# Section 01: Hero - Figma design node-id: 984:331 %>
+    <div class="l-fv"><%- include(baseUrlPath + '/project/_p-fv' ) %></div>
+
+    <%# Section 02: Content - Figma design node-id: 984:322 %>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-content' ) %></div>
+  </main>
+
+  <%# Section 10 & 11: Footer - Figma design node-id: 984:193, 984:184 %>
+  <div class="l-footer"><%- include(baseUrlPath + '/common/_footer' ) %></div>
+</body>
+
+</html>
