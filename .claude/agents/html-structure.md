@@ -9,6 +9,10 @@ color: red
 
 **section-orchestrator から渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
 
+## ⚠️ 重要: このファイル内のコード例について
+
+**すべてのコード例は参考例です。** テキスト内容、クラス名、構造は例示であり、実際はマニフェストのextractedValuesとsection-XX-layout.jsonから取得した実データのみを使用すること。推測や汎用テキストの使用は厳禁。
+
 ## 初期ファイルのクリーンアップ（最重要）
 
 すべてのHTML生成作業の前に、必ず初期ファイルのクリーンアップを実行する。
@@ -41,129 +45,16 @@ MCP デザインデータに書かれているテキストや画像 URL をそ�
 
 ## レイアウト生成方針（重要）
 
-### 絶対配置の最小化
+**詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
 
-MCPデザインデータは`position: absolute`で構成されているが、**保守性・レスポンシブ性の観点から、これを忠実に再現しない**。
+### 基本原則（要約）
 
-#### 基本原則
+1. **Flexbox/Grid優先** - モダンなレイアウト手法を最優先
+2. **Absolute最小化** - 背景・オーバーレイ・装飾要素のみ
+3. **値は保持** - フォントサイズ、色、間隔は厳密に保持
+4. **配置方法を変換** - 座標値をgap/margin/paddingに変換
 
-1. **Flexbox/Grid優先**: モダンなレイアウト手法を最優先
-2. **Absolute最小化**: 背景・オーバーレイ・装飾要素のみに限定
-3. **値は保持**: フォントサイズ、色、間隔の値は厳密に保持
-4. **配置方法を変換**: 座標値をgap/margin/paddingに変換
-
-### 座標からレイアウトへの変換ルール
-
-#### 1. ナビゲーション要素
-
-**❌ MCP の生データ（使用禁止）:**
-```html
-<div style="position: relative; height: 10px; width: 454px;">
-  <p style="position: absolute; left: 22px; top: 0;">HOME</p>
-  <p style="position: absolute; left: 120px; top: 1.5px;">PRODUCTS</p>
-  <p style="position: absolute; left: 231.5px; top: 0;">ABOUT US</p>
-  <p style="position: absolute; left: 338.5px; top: 0;">CONTACT</p>
-  <p style="position: absolute; left: 431px; top: 1.5px;">LOGIN</p>
-</div>
-```
-
-**✅ 変換後（推奨）:**
-```html
-<nav class="p-hero-header__nav" aria-label="Main navigation">
-  <ul class="p-hero-header__nav-list">
-    <li class="p-hero-header__nav-item p-hero-header__nav-item--active">
-      <a href="#home">HOME</a>
-    </li>
-    <li class="p-hero-header__nav-item">
-      <a href="#products">PRODUCTS</a>
-    </li>
-    <li class="p-hero-header__nav-item">
-      <a href="#about">ABOUT US</a>
-    </li>
-    <li class="p-hero-header__nav-item">
-      <a href="#contact">CONTACT</a>
-    </li>
-    <li class="p-hero-header__nav-item">
-      <a href="#login">LOGIN</a>
-    </li>
-  </ul>
-</nav>
-```
-
-対応するSCSS: `display: flex; gap: r(35~40);` (座標差分から計算)
-
-#### 2. センタリング要素
-
-**❌ MCP:**
-```html
-<p style="position: absolute; left: 601px; top: 166.5px; transform: translateX(-50%);">TITLE #1</p>
-```
-
-**✅ 変換後:**
-```html
-<h2 class="p-content-section__title">TITLE #1</h2>
-```
-
-対応するSCSS: `max-width: r(210); margin: 0 auto; text-align: center;`
-
-#### 3. カード/グリッド配置
-
-**❌ MCP（各カードが個別にabsolute）:**
-```html
-<div style="position: absolute; left: 100px; top: 200px;">カード1</div>
-<div style="position: absolute; left: 400px; top: 200px;">カード2</div>
-<div style="position: absolute; left: 700px; top: 200px;">カード3</div>
-```
-
-**✅ 変換後:**
-```html
-<div class="p-section__cards">
-  <div class="p-section__card">カード1</div>
-  <div class="p-section__card">カード2</div>
-  <div class="p-section__card">カード3</div>
-</div>
-```
-
-対応するSCSS: `display: grid; grid-template-columns: repeat(3, 1fr); gap: r(100);`
-
-#### 4. 重なりレイヤー（背景+コンテンツ）
-
-**✅ Absoluteが許容されるケース:**
-```html
-<section class="p-hero-header">
-  <%# 背景レイヤー（absolute許容） %>
-  <div class="p-hero-header__background">
-    <img src="..." alt="" class="p-hero-header__bg-image">
-  </div>
-
-  <%# オーバーレイ（absolute許容） %>
-  <div class="p-hero-header__overlay"></div>
-
-  <%# コンテンツ（通常フロー） %>
-  <div class="p-hero-header__content">
-    <nav>...</nav>
-    <h1>...</h1>
-  </div>
-</section>
-```
-
-#### 5. テキストブロック
-
-**❌ MCP:**
-```html
-<div style="position: absolute; left: 612px; top: 363px; width: 410px;">
-  <p>長い説明文...</p>
-</div>
-```
-
-**✅ 変換後:**
-```html
-<div class="p-content-section__description">
-  <p>長い説明文...</p>
-</div>
-```
-
-対応するSCSS: `max-width: r(410); margin: 0 auto;`
+**変換パターン（ナビゲーション、カードグリッド、センタリング等）の詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
 
 ### layout-converterからのデータ活用
 

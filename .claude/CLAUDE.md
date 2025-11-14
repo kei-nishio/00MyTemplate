@@ -122,115 +122,27 @@ URL 検出 → 即座にエージェント起動 → 自動処理開始
 - 推測による値の設定
 - マニフェストの `extractedValues` を無視した独自実装
 
-## MCP デザインデータの変換原則（重要）
-
-### レイアウト変換：Absolute配置からモダンレイアウトへ
+## レイアウト変換原則（重要）
 
 MCPデザインデータは座標ベースの`position: absolute`配置で返されるが、**保守性・レスポンシブ性・アクセシビリティの観点から、モダンなレイアウト手法に変換する**。
 
-#### 基本方針（全エージェント共通）
+**詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
+
+### 要約
 
 1. **値は保持、配置方法を変換**
    - フォントサイズ、色、テキスト内容、画像URLは厳密に保持
-   - 座標値（left, top）は、gap/margin/paddingに変換
-   - 要素間の距離を計算してレスポンシブ対応
+   - 座標値（left, top）→ gap/margin/paddingに変換
 
-2. **Flexbox/Grid優先**
+2. **Flexbox/Grid優先、Absolute最小化**
    - ナビゲーション → `display: flex; gap: X`
-   - カードグリッド → `display: grid; grid-template-columns: ...`
-   - センタリング → `margin: 0 auto` または flex center
+   - カードグリッド → `display: grid`
+   - 背景・オーバーレイ・装飾のみabsolute許可
 
-3. **Absolute最小化**
-   - 使用許容: 背景画像、オーバーレイ、装飾要素のみ
-   - 禁止: コンテンツ要素、テキスト、ボタン、ナビゲーション
+3. **Gap値を座標から計算**
+   - `gap = 次の要素の座標 - (現在の要素の座標 + サイズ)`
 
-#### 座標からレイアウトへの変換例
-
-**❌ MCP生データの忠実な再現（禁止）:**
-```html
-<div style="position: relative;">
-  <p style="position: absolute; left: 666px; top: 54px;">HOME</p>
-  <p style="position: absolute; left: 746px; top: 54px;">PRODUCTS</p>
-  <p style="position: absolute; left: 857px; top: 54px;">ABOUT US</p>
-</div>
-```
-
-**✅ 変換後（推奨）:**
-
-HTML:
-```html
-<nav class="nav" aria-label="Main navigation">
-  <ul class="nav__list">
-    <li class="nav__item"><a href="#home">HOME</a></li>
-    <li class="nav__item"><a href="#products">PRODUCTS</a></li>
-    <li class="nav__item"><a href="#about">ABOUT US</a></li>
-  </ul>
-</nav>
-```
-
-SCSS:
-```scss
-.nav__list {
-  display: flex;
-  gap: r(40);  // 746-666=80, 857-746=111 → 平均または意図を考慮
-  justify-content: flex-end;  // 右寄せ（MCPの配置から判断）
-}
-```
-
-#### 変換パターン一覧
-
-| MCPパターン | 変換方法 | 実装例 |
-|-----------|---------|-------|
-| **ナビゲーション** | 水平に並んだ要素 | `display: flex; gap: r(X)` |
-| **カードグリッド** | 同サイズ要素が格子状 | `display: grid; grid-template-columns: repeat(3, 1fr)` |
-| **センタリング** | `left: 50%; transform: translateX(-50%)` | `margin-inline: auto; text-align: center` |
-| **縦並び** | Y座標が異なる要素 | `display: flex; flex-direction: column; gap: r(X)` |
-| **背景+コンテンツ** | 重なり要素 | 親relative + 背景absolute + コンテンツrelative |
-
-#### Gap値の計算方法
-
-section-analyzerが座標から計算：
-
-```
-gap = 次の要素の座標 - (現在の要素の座標 + サイズ)
-```
-
-**水平方向:**
-```
-gap-horizontal = next.left - (current.left + current.width)
-```
-
-**垂直方向:**
-```
-gap-vertical = next.top - (current.top + current.height)
-```
-
-**例:**
-- 要素A: left: 666px, width: 45px
-- 要素B: left: 746px
-- gap = 746 - (666 + 45) = 35px → `gap: r(35)`
-
-#### Absoluteが許容されるケース
-- 背景画像
-- オーバーレイ
-- あしらい
-
-#### エージェント別の責務
-
-1. **section-analyzer**
-   - 座標からレイアウトパターンを識別
-   - gap値を計算
-   - `layoutStructure`をマニフェストに追加
-
-2. **html-structure**
-   - セマンティックHTML構造を生成
-   - `<nav>`, `<ul>`, `<section>` などを使用
-   - Absoluteベースの構造を生成しない
-
-3. **sass-flocss**
-   - Flexbox/Grid実装
-   - 計算されたgap値を適用
-   - Absolute使用は背景・オーバーレイのみ
+**変換パターン、実装例、禁止事項の詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
 
 ### 検証原則
 

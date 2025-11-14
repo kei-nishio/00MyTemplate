@@ -9,6 +9,10 @@ color: red
 
 マニフェストに基づきセクションごとに適切なエージェントを起動。
 
+## ⚠️ 重要: ファイル内の例について
+
+このファイル内のファイルパス、フィールド名、構造は例示です。実際のデータはマニフェストとpage-info.jsonから取得すること。
+
 ## 処理フロー
 
 ### Phase 1: 初期化
@@ -90,69 +94,17 @@ pages.forEach(page => {
 
 ### html-structure / sass-flocss への指示
 
-各エージェント（html-structure, sass-flocss）に以下を**必ず**プロンプトで渡す:
+各エージェントに以下のファイルパスを渡す:
 
-**1. データソース:**
-- ページ情報: `pages/{pageId}/page-info.json`
-- セクションデータ: `pages/{pageId}/section-XX.json`
-- レイアウト情報: `pages/{pageId}/section-XX-layout.json`
-- グローバルマニフェスト: `.claude/progress/design-manifest.json`
+**入力:**
+- `pages/{pageId}/page-info.json` - ページ情報と出力パス
+- `pages/{pageId}/section-XX.json` - セクションデータ（extractedValues）
+- `pages/{pageId}/section-XX-layout.json` - レイアウト変換情報
+- `.claude/progress/design-manifest.json` - ビルドモードとグローバル設定
 
-**2. 出力パス情報:**
+**出力:** page-info.jsonから取得（outputEjs, outputScss）
 
-page-info.jsonの該当セクションから取得:
-- `outputEjs`: "src/ejs/project/_p-xxx.ejs"
-- `outputScss`: "src/sass/object/project/_p-xxx.scss"
-
-**3. ビルドモード:**
-
-```
-【ビルドモード】
-- EJSモード: {buildMode.ejsMode}
-- WordPressモード: {buildMode.wpMode}
-
-【出力先】
-- EJSモード: src/ejs/ 配下に .ejs ファイル
-- WordPressモード: src/wp/ 配下に .php ファイル
-- 静的HTML: src/index.html に直接出力
-```
-
-**4. レイアウト変換指示:**
-
-```
-【レイアウト実装】
-- section-XX-layout.json の推奨レイアウトに従う
-- position absolute は背景・オーバーレイのみに限定
-- コンテンツ要素は flexbox/grid で実装
-- gap値は section-XX-layout.json から取得（calculatedGaps, averageGap）
-
-【推奨レイアウトの適用】
-- "flexbox-row" → display: flex; flex-direction: row;
-- "flexbox-column" → display: flex; flex-direction: column;
-- "margin-auto" → margin: 0 auto; text-align: center;
-- "absolute-allowed" → position: absolute; (背景・オーバーレイのみ)
-
-【データフィールド名】
-- extractedValues.texts (配列)
-- extractedValues.colors (配列)
-- extractedValues.images (配列)
-- extractedValues.fontSizes (配列)
-```
-
-**5. データ使用原則:**
-
-```
-【データ使用原則】
-- section-XX.json の extractedValues のみを使用
-- MCPデザインデータに存在しない値は禁止
-- 推測や汎用的なプレースホルダーは禁止
-
-【検証必須】
-- すべてのテキストが extractedValues に存在するか
-- すべての色が extractedValues または designTokens に存在するか
-- レイアウトが layout.json の推奨に従っているか
-- position absolute が適切に最小化されているか
-```
+**注**: 詳細な実装ルールは各エージェントファイル（html-structure.md, sass-flocss.md）と .claude/rules/RULES_LAYOUT.md を参照
 
 ### Phase 4: セクション順次処理
 

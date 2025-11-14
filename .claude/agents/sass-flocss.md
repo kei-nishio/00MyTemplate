@@ -9,6 +9,10 @@ color: red
 
 **section-orchestratorから渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_SCSS.md の規約に準拠した Sass を生成。
 
+## ⚠️ 重要: このファイル内のコード例について
+
+**すべてのコード例は参考例です。** クラス名、色、サイズ、gap値は例示であり、実際はマニフェストのextractedValuesとsection-XX-layout.jsonから取得した実データのみを使用すること。マジックナンバーや推測値の使用は厳禁。
+
 ## データ使用原則
 
 ### 必須ルール
@@ -68,193 +72,30 @@ MCPデザインデータに書かれている色やサイズをそのまま使�
 
 ## レイアウトスタイル生成方針（重要）
 
-### Flexbox/Grid優先、Absolute最小化
+**詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
 
-MCPデザインデータは`position: absolute`で構成されているが、**モダンなレイアウト手法を優先**し、保守性とレスポンシブ性を確保する。
+### 基本原則（要約）
 
-#### レイアウト手法の優先順位
+1. **Flexbox/Grid優先** - モダンなレイアウト手法を最優先
+2. **Absolute最小化** - 背景・オーバーレイ・装飾要素のみ
+3. **値は保持** - フォントサイズ、色、間隔は厳密に保持
+4. **配置方法を変換** - 座標値をgap/margin/paddingに変換
 
-1. **Flexbox** - 1次元レイアウト（ナビゲーション、縦/横並び）
-2. **CSS Grid** - 2次元レイアウト（カードグリッド、複雑な配置）
-3. **margin/padding** - 単純なスペーシング、センタリング
-4. **position: absolute** - 背景・オーバーレイ・装飾のみ（最終手段）
+**変換パターン（ナビゲーション、カードグリッド、センタリング等）の詳細は `.claude/rules/RULES_LAYOUT.md` を参照。**
 
-### 座標値からレイアウトプロパティへの変換
+### section-XX-layout.jsonからのGap値活用
 
-#### パターン1: ナビゲーション（水平リスト）
+layout-converterが計算したgap値を使用：
 
-**MCP座標データ:**
-```
-left: 22px   → HOME
-left: 120px  → PRODUCTS  (gap = 120 - 22 = 98px)
-left: 231px  → ABOUT US  (gap = 231 - 120 = 111px)
-left: 339px  → CONTACT   (gap = 339 - 231 = 108px)
-left: 431px  → LOGIN     (gap = 431 - 339 = 92px)
-```
-
-**✅ 変換後のSCSS:**
 ```scss
 .p-hero-header__nav-list {
   display: flex;
-  gap: r(40);  // 平均gap、またはデザイン意図を考慮
-  align-items: center;
-  justify-content: flex-end;  // 右寄せ（全体がright: 0に近い場合）
-}
-
-.p-hero-header__nav-item {
-  // 個別の配置不要（flexboxが自動配置）
+  gap: r(40);  // section-XX-layout.json の averageGap から取得
+  justify-content: flex-end;  // alignment.justify から取得
 }
 ```
 
-#### パターン2: センタリング
-
-**MCP座標データ:**
-```
-left: 601px
-transform: translateX(-50%)
-width: 210px
-```
-
-**✅ 変換後のSCSS:**
-```scss
-.p-content-section__title {
-  max-width: r(210);
-  margin: 0 auto;  // 中央寄せ
-  text-align: center;
-}
-```
-
-#### パターン3: カードグリッド
-
-**MCP座標データ:**
-```
-Card1: left: 100px, top: 200px, width: 300px
-Card2: left: 450px, top: 200px, width: 300px
-Card3: left: 800px, top: 200px, width: 300px
-```
-
-**✅ 変換後のSCSS:**
-```scss
-.p-section__cards {
-  display: grid;
-  grid-template-columns: repeat(3, r(300));
-  gap: r(50);  // 450 - (100 + 300) = 50
-  justify-content: center;
-}
-```
-
-#### パターン4: 重なりレイヤー（Absolute許容）
-
-**✅ 背景・オーバーレイのみAbsolute使用:**
-```scss
-.p-hero-header {
-  position: relative;
-  width: 100%;
-  height: r(802);
-
-  // 背景画像（absolute許容）
-  &__background {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  &__bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  // オーバーレイ（absolute許容）
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.5);
-    mix-blend-mode: multiply;
-  }
-
-  // コンテンツ（通常フロー）
-  &__content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: r(52) r(132);  // MCPのleft/topから取得
-  }
-}
-```
-
-#### パターン5: 垂直配置（Flexbox Column）
-
-**MCP座標データ:**
-```
-Title:    top: 166px
-Subtitle: top: 222px  (gap = 222 - 166 = 56px)
-Text:     top: 363px  (gap = 363 - 222 = 141px)
-Button:   top: 571px  (gap = 571 - 363 = 208px)
-```
-
-**✅ 変換後のSCSS:**
-```scss
-.p-content-section__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: r(56);  // 最小gapまたは平均
-  padding-top: r(166);  // 最初の要素のtop値
-}
-
-.p-content-section__title {
-  margin-bottom: 0;  // gapで制御
-}
-
-.p-content-section__subtitle {
-  margin-bottom: r(85);  // 141 - 56 = 追加margin
-}
-
-.p-content-section__button {
-  margin-top: r(152);  // 208 - 56 = 追加margin
-}
-```
-
-### Spacing値の抽出と適用
-
-#### Gap計算ロジック
-
-```
-要素間のgap = 次の要素の座標 - (現在の要素の座標 + サイズ)
-```
-
-**水平方向:**
-```scss
-gap-horizontal = next.left - (current.left + current.width)
-```
-
-**垂直方向:**
-```scss
-gap-vertical = next.top - (current.top + current.height)
-```
-
-#### Padding/Margin変換
-
-MCPの`left`, `top`値をコンテナの`padding`に変換：
-
-**MCP:**
-```
-要素の left: 132px, top: 321px
-```
-
-**変換後:**
-```scss
-.p-hero-header__content {
-  padding-top: r(321);
-  padding-left: r(132);
-}
-```
-
-### ホバー状態の実装
+### ホバー状態とレスポンシブ
 
 すべてのインタラクティブ要素に`@media (any-hover: hover)`を使用：
 
@@ -272,9 +113,7 @@ MCPの`left`, `top`値をコンテナの`padding`に変換：
 }
 ```
 
-### レスポンシブ対応
-
-`mq()`ミックスインを使用してブレークポイント対応：
+`mq()`ミックスインでブレークポイント対応：
 
 ```scss
 .p-hero-header__nav-list {
@@ -282,54 +121,9 @@ MCPの`left`, `top`値をコンテナの`padding`に変換：
   gap: r(40);
 
   @include mq(md, max) {
-    // タブレット以下
     flex-direction: column;
     gap: r(20);
   }
-}
-```
-
-### 禁止パターン
-
-**❌ 以下は使用禁止:**
-
-```scss
-// 絶対配置の忠実な再現（禁止）
-.p-hero-header__nav-item {
-  position: absolute;
-  left: r(120);
-  top: r(54);
-}
-
-// 固定幅の親要素（禁止）
-.p-section {
-  width: r(1200);  // max-widthを使用
-}
-
-// マジックナンバー（禁止）
-.element {
-  margin-top: r(50);  // MCPデータに存在しない値
-}
-```
-
-**✅ 推奨パターン:**
-
-```scss
-// Flexboxでの配置（推奨）
-.p-hero-header__nav-list {
-  display: flex;
-  gap: r(40);  // MCPから計算
-}
-
-// 最大幅の設定（推奨）
-.p-section {
-  max-width: r(1200);
-  margin: 0 auto;
-}
-
-// MCPデータに基づくmargin（推奨）
-.element {
-  margin-top: r(56);  // MCPのgap値から計算
 }
 ```
 

@@ -9,6 +9,10 @@ color: blue
 
 section-analyzerが抽出したセクションの座標データ（`pages/{pageId}/section-XX.json`）を読み込み、**機械的に**レイアウトパターンを識別し、flexbox/grid変換情報を生成する。
 
+## ⚠️ 重要: このファイル内のコード例について
+
+**すべてのコード例は参考例です。** テキスト内容（"HOME", "PRODUCTS"など）、座標値（left: 666pxなど）、要素名は例示であり、実際はsection-XX.jsonに存在する実データのみを使用すること。推測や要素の追加は厳禁。
+
 ## 入力
 
 - `.claude/progress/pages/{pageId}/section-XX.json`
@@ -394,3 +398,51 @@ layout.recommendedLayout = "flexbox-row";  // OK
 - ✅ シンプルなJSON構造
 - ✅ 必要最小限の情報のみ
 - ✅ html-structure/sass-flocssが必要とする情報に特化
+
+## ⚠️ 重要な制限事項
+
+このエージェントは以下を**絶対に出力してはいけない**:
+
+### ❌ 禁止: 具体的なCSSプロパティ
+
+- `display: flex`, `position: absolute`, `flex-direction: row` など
+- **理由:** これらは後続エージェント（html-structure, sass-flocss）が実装方法として決定する
+
+### ❌ 禁止: 絶対座標の指示
+
+- `top: r(54)`, `left: r(132)`, `right: 0` など
+- **理由:** モダンレイアウトへの変換は後続エージェントの責務
+
+### ❌ 禁止: HTML構造の提案
+
+- `<nav>`, `<ul>`, `<div>` などの具体的なタグ
+- クラス名 (`.p-hero-header__nav` など)
+- **理由:** HTML構造はhtml-structureエージェントの責務
+
+### ❌ 禁止: cssRecommendationオブジェクト
+
+```json
+// これは出力してはいけない
+"cssRecommendation": {
+  "display": "flex",
+  "position": "absolute",
+  "top": "r(54)"
+}
+```
+
+### ✅ 出力すべき情報（これだけで十分）
+
+1. **パターン識別** (`horizontal-group`, `vertical-group`, `centered`, `full-cover`)
+2. **推奨レイアウト** (`flexbox-row`, `flexbox-column`, `grid`, `margin-auto`)
+3. **Gap値** (`averageGap`, `minGap`, `maxGap`, `calculatedGaps`)
+4. **アライメント情報** (`justifyContent`, `alignItems` - 値のみ、CSSプロパティ名ではない)
+5. **背景レイヤーの識別** (`positioning: "absolute-allowed"` - 背景・オーバーレイのみ)
+
+### このエージェントの役割
+
+**機械的なパターン識別とgap計算のみ**
+
+- 座標データから数学的にパターンを識別する
+- 要素間の距離を計算する
+- 推奨レイアウト「方式」を提案する（実装方法は提案しない）
+- 後続エージェントが実装方法を決定できる情報を提供する

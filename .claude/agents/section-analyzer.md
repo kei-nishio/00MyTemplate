@@ -250,35 +250,6 @@ data-nameまたはフレーム名から自動生成:
 
 **重要**: `extractedValues` にはMCPデザインデータから抽出したすべての値を格納する。座標値（left, top, width, height）も必ず含める。
 
-### コーディング進捗チェックリストフォーマット
-
-`.claude/progress/section-checklist.md`:
-
-```markdown
-# コーディング進捗チェックリスト
-
-生成日時: {timestamp}
-プロジェクト: {projectName}
-
-## グローバルコンポーネント
-
-- [ ] c-button-normal (使用回数: 5)
-- [ ] c-card-post (使用回数: 3)
-
-## セクション一覧
-
-- [ ] fv (推定: 5000 tokens)
-- [ ] about (推定: 3000 tokens)
-- [ ] service (推定: 4000 tokens)
-
-## 進捗サマリー
-
-- 総セクション数: 10
-- 完了: 0
-- 残り: 10
-- 推定総トークン: 45000
-```
-
 ## 必須タスク
 
 1. **環境変数を読み取る**: `environments/.env.local` から `EJS_MODE` と `WP_MODE` を確認
