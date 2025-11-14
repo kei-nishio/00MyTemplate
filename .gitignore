@@ -15,3 +15,5 @@ dist
 distwp
 backup
 *.zip
+# claude code temporary files
+.claude/progress/
