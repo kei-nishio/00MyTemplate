@@ -191,17 +191,6 @@ BEM 構造のネストは基本的に禁止する。
 }
 ```
 
-### プロパティ順序
-
-以下の順序でプロパティを記述:
-
-1. **Position/Layout**: `position`, `top`, `left`, `z-index`, `display`, `grid`, `flex`
-2. **Sizing**: `width`, `height`, `max-width`, `aspect-ratio`
-3. **Spacing**: `margin`, `padding`, `gap`
-4. **Border/Background**: `border`, `border-radius`, `box-shadow`, `background`
-5. **Typography**: `font-size`, `font-weight`, `line-height`, `color`, `text-align`
-6. **Animation**: `transition`, `animation`
-
 ### 空セレクター残存
 
 将来のスタイル追加のため、空セレクターも残す。

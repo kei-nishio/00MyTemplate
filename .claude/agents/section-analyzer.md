@@ -174,9 +174,9 @@ data-nameまたはフレーム名から自動生成:
     {
       "id": "section-01",
       "name": "hero-header",
-      "figmaNodeId": "1:2691",
+      "nodeId": "1:2691",
       "dataFile": "pages/top/section-01.json",
-      "layoutFile": "pages/top/section-01-layout.json",
+      "screenshotFile": "pages/top/section-01-screenshot.png",
       "outputEjs": "src/ejs/project/_p-hero-header.ejs",
       "outputScss": "src/sass/object/project/_p-hero-header.scss",
       "estimatedTokens": 8000,
@@ -185,9 +185,9 @@ data-nameまたはフレーム名から自動生成:
     {
       "id": "section-02",
       "name": "content-section",
-      "figmaNodeId": "1:2703",
+      "nodeId": "1:2703",
       "dataFile": "pages/top/section-02.json",
-      "layoutFile": "pages/top/section-02-layout.json",
+      "screenshotFile": "pages/top/section-02-screenshot.png",
       "outputEjs": "src/ejs/project/_p-content-section.ejs",
       "outputScss": "src/sass/object/project/_p-content-section.scss",
       "estimatedTokens": 9000,
@@ -204,7 +204,7 @@ data-nameまたはフレーム名から自動生成:
   "pageId": "top",
   "sectionId": "section-01",
   "sectionName": "hero-header",
-  "figmaNodeId": "1:2691",
+  "nodeId": "1:2691",
   "extractedValues": {
     "texts": [
       {

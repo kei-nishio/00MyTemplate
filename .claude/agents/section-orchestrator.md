@@ -73,23 +73,27 @@ pages.forEach(page => {
 
 ## セクション処理時のデータ受け渡し
 
-### layout-converter への指示
+### スクショ取得
+
+各セクションの視覚的構造を取得するために、Figma MCPでスクショを取得:
 
 ```
-【入力ファイル】
-- pages/{pageId}/section-XX.json
+【ツール】
+mcp__figma__get_screenshot
 
-【処理内容】
-- 座標データを機械的に分析
-- position absolute → flexbox/grid 変換情報を生成
+【入力パラメータ】
+- nodeId: section-XX.json の nodeId フィールド
+- fileKey: マニフェストの figmaUrl から抽出
+- clientLanguages: "html,css,javascript"
+- clientFrameworks: "vanilla"
 
 【出力ファイル】
-- pages/{pageId}/section-XX-layout.json
+- pages/{pageId}/section-XX-screenshot.png
 
-【重要原則】
-- 推測禁止: MCPデータに存在する要素のみを対象
-- 要素追加禁止: 新しい要素を追加しない
-- 機械的判定のみ: 座標値から数学的に計算
+【目的】
+- レイアウト構造（flexbox/grid）の視覚的判断
+- 要素間の gap/margin 値の視覚的測定
+- 要素の配置（縦並び/横並び/重なり）の判断
 ```
 
 ### html-structure / sass-flocss への指示
@@ -98,13 +102,17 @@ pages.forEach(page => {
 
 **入力:**
 - `pages/{pageId}/page-info.json` - ページ情報と出力パス
-- `pages/{pageId}/section-XX.json` - セクションデータ（extractedValues）
-- `pages/{pageId}/section-XX-layout.json` - レイアウト変換情報
+- `pages/{pageId}/section-XX.json` - セクションデータ（extractedValues：テキスト・色・フォント情報）
+- `pages/{pageId}/section-XX-screenshot.png` - セクションスクリーンショット（レイアウト構造）
 - `.claude/progress/design-manifest.json` - ビルドモードとグローバル設定
 
 **出力:** page-info.jsonから取得（outputEjs, outputScss）
 
-**注**: 詳細な実装ルールは各エージェントファイル（html-structure.md, sass-flocss.md）と .claude/rules/RULES_LAYOUT.md を参照
+**データ使い分け:**
+- **Screenshot から**: レイアウト構造、要素配置、gap値
+- **JSON から**: テキスト内容、色値、フォント情報
+
+**注**: 詳細な実装ルールは各エージェントファイル（html-structure.md, sass-flocss.md）と .claude/rules/RULES_IMAGE_JSON_HYBRID.md を参照
 
 ### Phase 4: セクション順次処理
 
@@ -112,28 +120,55 @@ page-info.jsonの `sections` 配列をループ処理:
 
 ```
 sections.forEach(section => {
-  1. layout-converter を起動
-     入力: pages/{pageId}/section-XX.json
-     出力: pages/{pageId}/section-XX-layout.json
+  【STEP 1: スクショ取得 - CRITICAL】
 
-  2. html-structure を起動
-     入力: section-XX.json + section-XX-layout.json + page-info.json
-     出力: src/ejs/project/_p-xxx.ejs (またはWP/静的HTML)
+  ⚠️ このステップは必須です。スキップしないでください。
 
-  3. sass-flocss を起動
-     入力: section-XX.json + section-XX-layout.json
-     出力: src/sass/object/project/_p-xxx.scss
+  ツール: mcp__figma__get_screenshot
 
-  4. js-component を起動（必要時）
-     入力: section-XX.json + section-XX-layout.json
-     出力: src/assets/js/script.js に追加
+  入力パラメータ:
+  - nodeId: section.nodeId (例: "1:2691")
+  - fileKey: manifest.figmaFileKey (例: "8RgvtYxRNpz1L0ZoJWy7Bf")
+  - clientLanguages: "html,css,javascript"
+  - clientFrameworks: "vanilla"
 
-  5. 進捗更新（section-XX.json の status を "completed" に）
-  6. コンテキストクリア
+  出力ファイルパス:
+  - .claude/progress/pages/{pageId}/section-XX-screenshot.png
+
+  検証:
+  - [ ] スクリーンショットファイルが生成されたか確認
+  - [ ] ファイルサイズが0より大きいか確認
+  - [ ] エラーが発生していないか確認
+
+  エラー時:
+  - nodeId と fileKey が正しいか確認
+  - Figma アクセス権限を確認
+  - ユーザーに報告して中断
+
+  【STEP 2: html-structure を起動】
+  入力: section-XX.json (テキスト・色) + section-XX-screenshot.png (レイアウト) + page-info.json
+  出力: src/ejs/project/_p-xxx.ejs (またはWP/静的HTML)
+
+  【STEP 3: sass-flocss を起動】
+  入力: section-XX.json (正確な値) + section-XX-screenshot.png (レイアウト構造)
+  出力: src/sass/object/project/_p-xxx.scss
+
+  【STEP 4: js-component を起動（必要時）】
+  入力: section-XX.json + section-XX-screenshot.png
+  出力: src/assets/js/script.js に追加
+
+  【STEP 5: 進捗更新】
+  section-XX.json の status を "completed" に更新
+
+  【STEP 6: コンテキストクリア】
+  次のセクションのためにメモリを解放
 })
 ```
 
-**重要**: layout-converterは position absolute 問題を解決するための専任エージェント
+**重要**:
+- **STEP 1のスクショ取得は絶対にスキップしないこと**
+- スクショとJSONの両輪アプローチで position absolute 問題を解決
+- スクショが取得できない場合は処理を中断し、ユーザーに報告
 
 ### Phase 5: 完了処理
 
