@@ -55,4 +55,26 @@ $headerHeight-pc: 110px; // PCのヘッダー高さ
 :root {
   --color-white: #fff;
   --color-black: #000;
+
+  // Design token colors from manifest
+  --color-primary: #2C3E50;
+  --color-secondary: #3498DB;
+  --color-accent: #E74C3C;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+  --color-bg-light: #F8F9FA;
+  --color-bg-white: #FFFFFF;
+  --color-border: #E0E0E0;
+}
+
+////////////////////
+// スペーシング設定
+////////////////////
+
+:root {
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 48px;
+  --spacing-xl: 80px;
 }

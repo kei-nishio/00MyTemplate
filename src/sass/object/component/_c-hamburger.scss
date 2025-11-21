@@ -23,7 +23,7 @@ $hamburger-scale: calc(1 / cos($hamburger-rotate));
   width: 100%;
   height: $hamburger-border-height;
   border-radius: $hamburger-border-height;
-  background-color: black;
+  background-color: var(--color-text-primary);
   transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
 }
 

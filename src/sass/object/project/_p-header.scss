@@ -7,6 +7,8 @@
   left: 0;
   z-index: var(--zi-header);
   height: fluidRange($headerHeight-sp, $headerHeight-pc);
+  background-color: var(--color-bg-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: opacity 0.5s, visibility 0.5s;
 }
 .p-header.is-active {
@@ -65,7 +67,8 @@
     display: grid;
     place-items: center;
     height: inherit;
-    color: black;
+    color: var(--color-text-primary);
+    font-weight: 500;
   }
   span {
     position: relative;
@@ -81,7 +84,7 @@
     width: 100%;
     height: r(2);
     border-radius: r(2);
-    background-color: black;
+    background-color: var(--color-secondary);
     transition: transform 0.3s;
   }
 }

@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ! デバッグ用 ***********
+  document.querySelectorAll('*').forEach((el) => {
+    if (getComputedStyle(el).position === 'absolute') {
+      el.classList.add('is-absolute');
+    }
+    el.style.outline = '2px solid red';
+  });
+
   // ! 基本設定 ***********
   gsap.registerPlugin(ScrollTrigger); // ScrollTrigger
   gsap.registerPlugin(SplitText); // SplitText

@@ -6,12 +6,9 @@
 <body>
   <%- include(baseUrlPath + '/common/_header', {page: 'top'} ) %>
   <main>
-    <div class=""><%- include(baseUrlPath + '/project/_p-loading' ) %></div>
     <div class="l-fv"><%- include(baseUrlPath + '/project/_p-fv' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-grid' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-slide' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-table' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-faq' ) %></div>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-content-section' ) %></div>
+    <div class="l-section" id="contact"><%- include(baseUrlPath + '/project/_p-contact-section' ) %></div>
   </main>
   <div class="l-footer"><%- include(baseUrlPath + '/common/_footer' ) %></div>
 </body>
