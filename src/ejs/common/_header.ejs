@@ -2,8 +2,11 @@
 <% const isTopPage = page === validPage; %>
 <%
   const navItems = [
-    { link: "hoge.html", text: "hoge" },
-    { link: "fuga.html", text: "fuga" }
+    { link: "index.html", text: "HOME" },
+    { link: "#", text: "PRODUCTS" },
+    { link: "#", text: "ABOUT US" },
+    { link: "#", text: "CONTACT" },
+    { link: "#", text: "LOGIN" }
   ];
 %>
 <header class="p-header" data-header>
@@ -12,18 +15,18 @@
     <h1 class="p-header__logo"><% } else { %>
       <div class="p-header__logo"><% } %>
         <a href="index.html">
-          <img src="<%= baseUrlPath %>/assets/images/common/logo.svg" alt="" />
+          <span class="p-header__company-name">YOUR COMPANY</span>
         </a>
         <% if (!isTopPage) { %>
       </div>
       <% } else { %>
     </h1>
     <% } %>
-    <nav class="p-header__nav">
+    <nav class="p-header__nav" aria-label="メインナビゲーション">
       <ul class="p-header__list">
         <% navItems.forEach(item => { %>
         <li class="p-header__item">
-          <a href="<%= item.link %>">
+          <a href="<%= item.link %>" class="p-header__link">
             <span><%= item.text %></span>
           </a>
         </li>

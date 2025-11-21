@@ -1,74 +1,183 @@
 @use 'global' as *;
 
+// ============================================
+// Footer - Section 10: Footer Info
+// ============================================
+// Design values from manifest:
+// - Background: #3d4144 (dark gray)
+// - Background image: footer-background.jpg
+// - Company name: white, 6px, 3.2px tracking, uppercase
+// - Address/Email: #bebebe, 15px, 0.7px tracking
+// - Map placeholder: #c8c8c8, 18px
+// - Logo: 35x35px
+// ============================================
+
 .p-footer {
   position: relative;
+  background-color: var(--color-dark-background); // #3d4144
+  background-image: url('/assets/images/common/footer-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-block: r(60) r(40);
 }
 
 .p-footer__inner.l-inner {
+  max-width: 1200px;
 }
 
-.p-footer__logo {
+.p-footer__content {
   display: grid;
-  place-items: center;
+  grid-template-columns: 1fr;
+  gap: r(40);
 
-  a {
-    width: fit-content;
-    height: r(80);
-    padding-block: r(16);
-
-    img {
-      height: 100%;
-      object-fit: contain;
-      object-position: 50% 50%;
-    }
+  @include mq(md) {
+    grid-template-columns: 1fr 1fr;
+    gap: r(60);
   }
 }
 
-.p-footer__sns {
-  display: grid;
-  place-items: center;
-  margin-top: r(24);
-}
+// ============================================
+// Company Info Section
+// ============================================
 
-.p-footer__sns-list {
+.p-footer__info {
   display: flex;
-  gap: r(16);
-}
-
-.p-footer__sns-item {
-  a {
-    display: block;
-    width: r(30);
-    height: r(30);
-    aspect-ratio: 1;
-
-    img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: inherit;
-      object-fit: contain;
-      object-position: 50% 50%;
-    }
-  }
-}
-
-.p-footer__nav {
-  margin-top: r(24);
-}
-
-.p-footer__list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   gap: r(24);
 }
 
-.p-footer__item {
-  a {
+.p-footer__company {
+  display: flex;
+  align-items: center;
+  gap: r(12);
+}
+
+.p-footer__logo {
+  flex-shrink: 0;
+
+  img {
+    width: r(35);
+    height: r(35);
+    object-fit: contain;
   }
 }
 
-.p-footer__copy {
-  margin-top: r(64);
+.p-footer__company-name {
+  color: var(--color-white); // #ffffff
+  font-size: r(6);
+  letter-spacing: 0.2em; // 3.2px at base size
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.p-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: r(8);
+}
+
+.p-footer__address,
+.p-footer__email {
+  color: var(--color-footer-gray); // #bebebe
+  font-size: r(15);
+  letter-spacing: 0.047em; // 0.7px at 15px
+  font-family: 'Lato', sans-serif;
+  font-weight: 600; // SemiBold
+  line-height: 1.4;
+}
+
+// ============================================
+// Map Section
+// ============================================
+
+.p-footer__map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-footer__map-container {
+  position: relative;
+  width: 100%;
+  max-width: r(500);
+  aspect-ratio: 16 / 9;
+  background-color: rgba(200, 200, 200, 0.2);
+  border-radius: r(4);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.p-footer__map-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-map-gray); // #c8c8c8
+  font-size: r(18);
   text-align: center;
+  pointer-events: none;
+}
+
+// ============================================
+// Responsive adjustments
+// ============================================
+
+@include mq(lg) {
+  .p-footer {
+    padding-block: r(80) r(60);
+  }
+
+  .p-footer__content {
+    gap: r(80);
+  }
+
+  .p-footer__company-name {
+    font-size: r(8);
+  }
+
+  .p-footer__address,
+  .p-footer__email {
+    font-size: r(16);
+  }
+
+  .p-footer__map-placeholder {
+    font-size: r(20);
+  }
+}
+
+// ============================================
+// Copyright Section - Section 11
+// ============================================
+// Minimal copyright bar with image
+// Background: Inherits footer dark background
+// ============================================
+
+.p-footer__copyright {
+  background-color: var(--color-dark-background); // #3d4144
+  padding-block: r(20);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.p-footer__copyright-inner.l-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-footer__copyright-img {
+  max-width: 100%;
+  height: auto;
+  max-height: r(30);
+  object-fit: contain;
+
+  @include mq(md) {
+    max-height: r(40);
+  }
 }

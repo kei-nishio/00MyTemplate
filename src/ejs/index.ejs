@@ -6,13 +6,14 @@
 <body>
   <%- include(baseUrlPath + '/common/_header', {page: 'top'} ) %>
   <main>
-    <div class=""><%- include(baseUrlPath + '/project/_p-loading' ) %></div>
+    <%# Section 01: Hero - Figma design node-id: 984:331 %>
     <div class="l-fv"><%- include(baseUrlPath + '/project/_p-fv' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-grid' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-slide' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-section-table' ) %></div>
-    <div class="l-section"><%- include(baseUrlPath + '/project/_p-faq' ) %></div>
+
+    <%# Section 02: Content - Figma design node-id: 984:322 %>
+    <div class="l-section"><%- include(baseUrlPath + '/project/_p-content' ) %></div>
   </main>
+
+  <%# Section 10 & 11: Footer - Figma design node-id: 984:193, 984:184 %>
   <div class="l-footer"><%- include(baseUrlPath + '/common/_footer' ) %></div>
 </body>
 

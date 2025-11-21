@@ -7,6 +7,7 @@
   left: 0;
   z-index: var(--zi-header);
   height: fluidRange($headerHeight-sp, $headerHeight-pc);
+  background-color: transparent;
   transition: opacity 0.5s, visibility 0.5s;
 }
 .p-header.is-active {
@@ -19,23 +20,37 @@
 .p-header__inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: inherit;
-  padding-inline: r(15);
+  padding-inline: r(20);
+
+  @include mq('md') {
+    padding-inline: r(40);
+  }
 }
 
 .p-header__logo {
   display: grid;
   place-items: center;
   height: inherit;
-}
-.p-header__logo-link {
-  height: inherit;
-  padding-block: r(16);
 
-  img {
-    height: 100%;
-    object-fit: contain;
-    object-position: 50% 50%;
+  a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+  }
+}
+
+.p-header__company-name {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: r(16);
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  @include mq('md') {
+    font-size: r(20);
   }
 }
 
@@ -51,42 +66,54 @@
 .p-header__list {
   display: flex;
   align-items: center;
-  gap: r(16);
+  gap: r(24);
   height: inherit;
 
   @include mq('md') {
-    gap: r(48);
+    gap: r(40);
   }
 }
 
 .p-header__item {
   height: inherit;
-  a {
-    display: grid;
-    place-items: center;
-    height: inherit;
-    color: black;
-  }
+}
+
+.p-header__link {
+  display: grid;
+  place-items: center;
+  height: inherit;
+  font-family: 'Lato', sans-serif;
+  font-size: r(14);
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+
   span {
     position: relative;
   }
+
   span::after {
     content: '';
     display: block;
     position: absolute;
-    bottom: -4px;
+    bottom: r(-4);
     left: 0;
     transform: scale(0);
     transform-origin: center;
     width: 100%;
     height: r(2);
     border-radius: r(2);
-    background-color: black;
+    background-color: #f3491e;
     transition: transform 0.3s;
   }
+
+  &:first-child span::after {
+    transform: scale(1);
+  }
 }
+
 @media screen and (any-hover: hover) {
-  .p-header__item:hover span::after {
+  .p-header__link:hover span::after {
     transform: scale(1);
   }
 }

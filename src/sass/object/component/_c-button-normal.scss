@@ -1,34 +1,34 @@
 @use 'global' as *;
 
+// Button component - Design values from Section 02
+// Background: #f3491e (red)
+// Text: #ffffff (white)
+// Font size: 14px
+// Letter spacing: 1.35px
+
 .c-button-normal {
+  display: inline-block;
   position: relative;
-  border: 1px solid black;
-  border-radius: 100vmax;
-  box-shadow: 1px 1px 0 0 gray;
-  background-color: black;
-  transition: transform 0.2s, box-shadow 0.2s;
-  a,
-  input {
+  background-color: #f3491e;
+  background-image: url('../images/button-info-bg.png');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  font-size: r(14);
+  font-weight: 700;
+  letter-spacing: 0.135em;
+  text-align: center;
+  text-decoration: none;
+  padding: r(12) r(24);
+  transition: opacity 0.3s ease;
+
+  &__text {
     display: inline-block;
-    min-width: r(200);
-    padding-block: r(6);
-    padding-inline: r(32);
-    color: white;
-    text-align: center;
-  }
-}
-.c-button-normal.c-button-normal--white {
-  background-color: white;
-  a,
-  input {
-    color: black;
   }
 }
 
-@media screen and (any-hover: hover) {
+@media (any-hover: hover) {
   .c-button-normal:hover {
-    opacity: 1;
-    transform: translate(1px, 1px);
-    box-shadow: 0 0 0 0 gray;
+    opacity: 0.8;
   }
 }
