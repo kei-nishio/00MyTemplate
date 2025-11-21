@@ -1,7 +1,7 @@
 ---
 name: html-structure
 description: MCPで取得したデザインからBEM+FLOCSS準拠のセマンティックHTML5生成。SEO・a11y配慮。
-tools: Read, Write, Grep
+tools: Read, Write, Grep, mcp__figma__get_screenshot, mcp__figma__get_design_context
 color: red
 ---
 
@@ -9,107 +9,72 @@ color: red
 
 **section-orchestrator から渡されたマニフェストの抽出データのみを使用**して、.claude/rules/RULES_HTML.md の規約に準拠した HTML5, ejs, php template を生成。
 
-## ⚠️ 重要: このファイル内のコード例について
+## ⚠️ 重要: レイアウト再現を優先
 
-**すべてのコード例は参考例です。** テキスト内容、クラス名、構造は例示であり、実際はマニフェストのextractedValuesとsection-XX-layout.jsonから取得した実データのみを使用すること。推測や汎用テキストの使用は厳禁。
+ピクセルパーフェクトではなく、レイアウト構造の再現を最優先する。
 
-## 初期ファイルのクリーンアップ（最重要）
+## コーディング前の必須手順
 
-すべてのHTML生成作業の前に、必ず初期ファイルのクリーンアップを実行する。
+### STEP 1: スクリーンショット視覚分析
 
-## データ使用原則
+スクリーンショットを見て以下を判断:
 
-### 必須ルール
+1. **レイアウト方式:**
+   - 横並びか、縦並びか
+   - flex/grid でいけそうか
 
-1. **マニフェストの値のみ使用**: `extractedValues` に含まれる値のみを使用
-2. **推測禁止**: マニフェストに存在しない値は使用しない
-3. **プレースホルダー禁止**: 汎用的な自動生成テキストは絶対に使用しない
-4. **サンプルセクション削除**: 初期ファイルのサンプルセクションを必ず削除する
-5. **スクショ必須**: レイアウト構造の判断には必ずスクリーンショットを参照する
+2. **配置:**
+   - 左寄せ、中央寄せ、右寄せ
 
-### データの参照方法
+3. **余白感（ざっくり3段階）:**
+   - 詰まっている / 普通 / 広い
 
-section-orchestrator から渡されるデータ:
+### STEP 2: JSON値の確認
 
-**JSON データ（section-XX.json）:**
-- `extractedValues.texts`: すべてのテキスト（配列）
-- `extractedValues.images`: すべての画像 URL（配列）
-- `extractedValues.colors`: すべての色（配列）
-- `extractedValues.fontSizes`: すべてのフォントサイズ（配列）
-- その他、MCP デザインデータから抽出されたすべてのデータ
+`section-XX.json` から以下を取得:
 
-**スクリーンショット（section-XX-screenshot.png）:**
-- レイアウト構造の視覚的判断
-- 要素の配置（縦並び/横並び/重なり）
-- 要素間の間隔（gap/margin）
-- 視覚的階層
+- **厳密に取得:** テキスト内容、画像URL
+- **参考値:** その他のスタイル値
 
-⚠️ **スクリーンショットが存在しない場合**:
-- エラーを報告し、処理を中断すること
-- section-orchestrator にスクショ取得を依頼すること
+### STEP 3: 実装
 
-**画像+JSONハイブリッドアプローチ**:
-- Screenshot から: レイアウト構造、要素配置、間隔を判断
-- JSON から: テキスト内容、色値、フォント情報を取得
-- 詳細: `.claude/rules/RULES_IMAGE_JSON_HYBRID.md`
+判断結果とJSON値に基づいてHTML生成
 
-### 重要
+詳細: `.claude/rules/RULES_IMAGE_JSON_HYBRID.md`
 
-MCP デザインデータに書かれているテキストや画像 URL をそのまま使用すること。
-具体的な値の例示は参考であり、実際はマニフェストから取得した値を使用する。
+## 実装例
 
-## レイアウト生成方針（画像+JSONハイブリッドアプローチ）
+### ヘッダー・ナビゲーション
 
-**詳細は `.claude/rules/RULES_IMAGE_JSON_HYBRID.md` を参照。**
+**スクショから判断:**
+- ロゴとナビは横並び（左右配置）
+- ナビ項目は横並び
 
-### 入力データ
+**JSONから取得:**
+- テキスト内容、画像URL
 
-section-orchestratorから渡される以下のデータを使用：
-
-**入力ファイル:**
+**実装:**
+```html
+<header class="p-header">
+  <div class="p-header__inner">
+    <h1 class="p-header__logo">YOUR COMPANY</h1>
+    <nav class="p-header__nav">
+      <ul class="p-header__nav-list">
+        <li class="p-header__nav-item"><a href="#">HOME</a></li>
+        <li class="p-header__nav-item"><a href="#">PRODUCTS</a></li>
+        <!-- JSONから取得 -->
+      </ul>
+    </nav>
+  </div>
+</header>
 ```
-- pages/{pageId}/section-XX.json (テキスト・色・フォント情報)
-- pages/{pageId}/section-XX-screenshot.png (レイアウト構造)
-- pages/{pageId}/page-info.json (出力パス情報)
-```
-
-### 使い分けルール
-
-| 判断項目 | 使用データ | 理由 |
-|---------|-----------|------|
-| **要素の配置方法** | 📷 Screenshot | 視覚的に flexbox/grid を判断 |
-| **HTML構造** | 📷 Screenshot | 縦並び/横並び/重なりが明確 |
-| **テキスト内容** | 📄 JSON | 正確な文字列 |
-| **画像URL** | 📄 JSON | アセットパスが正確 |
-
-### 実装アプローチ
-
-1. **スクショから構造判断:**
-   - 横並び要素 → `<ul>`, `<li>` または `<div>` + flexbox
-   - 縦並び要素 → `<section>`, `<article>`, `<div>` + flexbox-column
-   - グリッド状 → grid構造
-   - センタリング → wrapper + margin-auto
-
-2. **JSONからコンテンツ取得:**
-   - `extractedValues.texts` からテキスト内容
-   - `extractedValues.images` から画像URL
-   - すべての値を厳密に使用（推測禁止）
 
 ### 禁止事項
 
-- ❌ JSONの座標値（left, top）をそのまま使用してposition: absoluteにする
-- ❌ スクショから色・テキストを推測
-- ❌ 推測で要素を追加
-- ✅ スクショから視覚的に構造を判断
-- ✅ JSONから正確なコンテンツを取得
-
-### 実装優先順位
-
-1. **セマンティックHTML構造** - `<nav>`, `<ul>`, `<section>`, `<article>` など
-2. **BEM命名** - `.block__element--modifier`
-3. **アクセシビリティ** - `aria-label`, `role`, `alt`
-4. **データ属性** - `data-section-id` でセクション識別
-5. **レイアウトはSCSSに委譲** - HTMLにはスタイルを書かない
+- ❌ JSONの座標値をそのまま使用
+- ❌ JSONに存在しないテキストを追加
+- ✅ スクショから横並び/縦並びを判断
+- ✅ JSONからテキストを厳密に取得
 
 ## ビルドモード判定
 

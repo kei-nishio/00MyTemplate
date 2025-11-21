@@ -1,7 +1,7 @@
 ---
 name: section-orchestrator
 description: セクション単位での段階的コード生成を調整。トークン効率化とコンテキスト管理。
-tools: Read, Write, Edit, Bash
+tools: Read, Write, Edit, Bash, mcp__figma__get_screenshot, mcp__figma__get_design_context
 color: red
 ---
 
@@ -71,127 +71,34 @@ pages.forEach(page => {
    - js-component agent で必要な JS 生成
 3. 完了後に次の Phase へ
 
-## セクション処理時のデータ受け渡し
-
-### スクショ取得
-
-各セクションの視覚的構造を取得するために、Figma MCPでスクショを取得:
-
-```
-【ツール】
-mcp__figma__get_screenshot
-
-【入力パラメータ】
-- nodeId: section-XX.json の nodeId フィールド
-- fileKey: マニフェストの figmaUrl から抽出
-- clientLanguages: "html,css,javascript"
-- clientFrameworks: "vanilla"
-
-【出力ファイル】
-- pages/{pageId}/section-XX-screenshot.png
-
-【目的】
-- レイアウト構造（flexbox/grid）の視覚的判断
-- 要素間の gap/margin 値の視覚的測定
-- 要素の配置（縦並び/横並び/重なり）の判断
-```
-
-### html-structure / sass-flocss への指示
-
-各エージェントに以下のファイルパスを渡す:
-
-**入力:**
-- `pages/{pageId}/page-info.json` - ページ情報と出力パス
-- `pages/{pageId}/section-XX.json` - セクションデータ（extractedValues：テキスト・色・フォント情報）
-- `pages/{pageId}/section-XX-screenshot.png` - セクションスクリーンショット（レイアウト構造）
-- `.claude/progress/design-manifest.json` - ビルドモードとグローバル設定
-
-**出力:** page-info.jsonから取得（outputEjs, outputScss）
-
-**データ使い分け:**
-- **Screenshot から**: レイアウト構造、要素配置、gap値
-- **JSON から**: テキスト内容、色値、フォント情報
-
-**注**: 詳細な実装ルールは各エージェントファイル（html-structure.md, sass-flocss.md）と .claude/rules/RULES_IMAGE_JSON_HYBRID.md を参照
-
 ### Phase 4: セクション順次処理
 
 page-info.jsonの `sections` 配列をループ処理:
 
 ```
 sections.forEach(section => {
-  【STEP 1: スクショ取得 - CRITICAL】
+  1. mcp__figma__get_screenshot を実行
+     - nodeId: section.nodeId
+     - fileKey: manifest.figmaFileKey
+     - clientLanguages: "html,css,javascript"
+     - clientFrameworks: "vanilla"
 
-  ⚠️ このステップは必須です。スキップしないでください。
+  2. html-structure を起動
+     - 入力: section-XX.json, page-info.json
+     - 出力: src/ejs/project/_p-xxx.ejs
 
-  ツール: mcp__figma__get_screenshot
+  3. sass-flocss を起動
+     - 入力: section-XX.json
+     - 出力: src/sass/object/project/_p-xxx.scss
 
-  入力パラメータ:
-  - nodeId: section.nodeId (例: "1:2691")
-  - fileKey: manifest.figmaFileKey (例: "8RgvtYxRNpz1L0ZoJWy7Bf")
-  - clientLanguages: "html,css,javascript"
-  - clientFrameworks: "vanilla"
+  4. js-component を起動（必要時）
+     - 入力: section-XX.json
+     - 出力: src/assets/js/script.js
 
-  出力ファイルパス:
-  - .claude/progress/pages/{pageId}/section-XX-screenshot.png
-
-  検証:
-  - [ ] スクリーンショットファイルが生成されたか確認
-  - [ ] ファイルサイズが0より大きいか確認
-  - [ ] エラーが発生していないか確認
-
-  エラー時:
-  - nodeId と fileKey が正しいか確認
-  - Figma アクセス権限を確認
-  - ユーザーに報告して中断
-
-  【STEP 2: html-structure を起動】
-  入力: section-XX.json (テキスト・色) + section-XX-screenshot.png (レイアウト) + page-info.json
-  出力: src/ejs/project/_p-xxx.ejs (またはWP/静的HTML)
-
-  【STEP 3: sass-flocss を起動】
-  入力: section-XX.json (正確な値) + section-XX-screenshot.png (レイアウト構造)
-  出力: src/sass/object/project/_p-xxx.scss
-
-  【STEP 4: js-component を起動（必要時）】
-  入力: section-XX.json + section-XX-screenshot.png
-  出力: src/assets/js/script.js に追加
-
-  【STEP 5: 進捗更新】
-  section-XX.json の status を "completed" に更新
-
-  【STEP 6: コンテキストクリア】
-  次のセクションのためにメモリを解放
+  5. section-XX.json の status を "completed" に更新
 })
 ```
 
-**重要**:
-- **STEP 1のスクショ取得は絶対にスキップしないこと**
-- スクショとJSONの両輪アプローチで position absolute 問題を解決
-- スクショが取得できない場合は処理を中断し、ユーザーに報告
-
 ### Phase 5: 完了処理
 
-- code-reviewer agent でレビュー
-  - **特に: MCPデザインデータとの一致性を検証**
-  - extractedValues に存在しない値が使われていないか確認
-  - 推測や汎用的なプレースホルダーが使われていないか確認
-- レビュー結果に基づいて修正
-- 最大2回までレビューと修正を実施
-
-## トークン管理
-
-- セクション完了後に詳細実装をコンテキストから削除
-- ファイルパスとマニフェストのみ保持
-
-## 進捗報告
-
-```
-処理開始: {section name} ({estimated token} tokens)
-完了: {section name} ({used token} tokens used)
-【進捗】 {current section number}/{sum sections number}
-```
-
-## 禁止
-
-- 全セクションを一度にメモリ展開しない
+code-reviewer agent でレビュー

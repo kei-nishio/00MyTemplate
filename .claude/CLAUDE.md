@@ -18,103 +18,79 @@ When ユーザーが以下のパターンでメッセージを送信した場合
 
 **実行シーケンス:**
 
-### 1. デザインデータ取得
+### 1. デザインデータ取得・保存
 
-When Figma/Zeplin URL を検出した場合、システムは MCP 経由でデザインデータを取得すること：
-- `mcp__figma__get_screenshot` でスクリーンショットを取得
-- `mcp__figma__get_design_context` でデザインコンテキストを取得
-- パラメータ: `clientLanguages="html,css,javascript"`, `clientFrameworks="vanilla"`
-- プロンプト: "Please generate in plain HTML + CSS format (not React)"
+Figma URL を検出した場合：
+
+1. `mcp__figma__get_design_context` でデザインコンテキストを取得
+2. 取得したデータを `.claude/progress/figma-design-data.txt` に保存
 
 ### 2. section-analyzer 起動
 
-システムは section-analyzer を起動し、以下を実行すること：
+保存されたデザインデータを解析し、マニフェスト・セクションデータを生成する。
+
 - `environments/.env.local` から `EJS_MODE` と `WP_MODE` を読み取る
+- `.claude/progress/figma-design-data.txt` を読み込む
 - MCPデザインデータを解析し、ページ構造を識別
-- 複数ページの場合、ページごとにディレクトリを分割
 - 各ページ内をセクション単位に分割
 - MCPデザインデータから抽出したすべての値を保存
 - ビルドモードをマニフェストに記録
 
-**出力ファイル:**
-- `.claude/progress/design-manifest.json` - プロジェクト全体総括
-- `.claude/progress/figma-design-data.txt` - MCPデータ全体
-- `.claude/progress/pages/{pageId}/page-info.json` - ページメタ情報
-- `.claude/progress/pages/{pageId}/section-XX.json` - セクション詳細（nodeId含む）
+出力:
+- `.claude/progress/design-manifest.json`
+- `.claude/progress/pages/{pageId}/section-XX.json`
 
 ### 3. design-tokens 起動
 
-システムは design-tokens を起動し、グローバル設定を反映すること：
-
-**カラー設定:**
-- マニフェストから `designTokens.colors` を読み込む
-- `src/sass/global/_setting.scss` に CSS変数を追加
-
-**フォント設定:**
-When ビルドモードに応じて、以下のファイルにフォント読み込みコードを追加すること：
-- EJSモード → `src/ejs/common/_head.ejs`
-- WordPressモード → `src/wp/functions-lib/f-0base_script.php`
-- 静的HTMLモード → `src/index.html`
+グローバル設定（カラー・フォント）を `src/sass/global/_setting.scss` と該当ファイルに反映する。
 
 ### 4. section-orchestrator 起動
 
-システムは section-orchestrator を起動し、ページ/セクションごとにコーディングを実行すること：
+section-orchestrator エージェントを起動し、セクションごとに段階的コード生成を実行する。
 
-**ページループ:**
-- マニフェストの `pages` 配列をループ処理
+**section-orchestrator が実行すること:**
 
-**セクションループ（各ページ内）:**
+```
+マニフェストの `pages` 配列をループ:
+  各ページの `sections` 配列をループ:
 
-#### 4.1 スクショ取得【CRITICAL - 必須ステップ】
+    【STEP 1: スクショ取得】
+    - mcp__figma__get_screenshot でスクショ取得
+    - nodeId: section.nodeId
+    - fileKey: manifest.figmaFileKey
 
-⚠️ **このステップは絶対にスキップしないこと**
+    【STEP 2: html-structure 起動】
+    - 入力: section-XX.json（テキスト・色情報）+ スクショ（レイアウト）
+    - スクショから：横並び/縦並び、配置、余白感を判断
+    - JSONから：テキスト内容・色値を厳密に取得
+    - 出力: src/ejs/project/_p-{sectionName}.ejs
 
-システムは各セクションのスクリーンショットを取得すること：
+    【STEP 3: sass-flocss 起動】
+    - 入力: section-XX.json（色・フォント情報）+ スクショ（レイアウト）
+    - スクショから：レイアウト構造、余白感を判断
+    - JSONから：色値を厳密に取得、フォントサイズは参考値
+    - gap値：想定値でOK、余白感を合わせる
+    - 出力: src/sass/object/project/_p-{sectionName}.scss
 
-- **ツール**: `mcp__figma__get_screenshot`
-- **入力パラメータ**:
-  - `nodeId`: `section-XX.json` の `nodeId` フィールド（例: "1:2691"）
-  - `fileKey`: マニフェストの `figmaFileKey` フィールド（例: "8RgvtYxRNpz1L0ZoJWy7Bf"）
-  - `clientLanguages`: "html,css,javascript"
-  - `clientFrameworks`: "vanilla"
-- **出力**: `.claude/progress/pages/{pageId}/section-XX-screenshot.png`
+    【STEP 4: 進捗報告（簡潔に）】
+    - 「Section XX 完了」とだけ報告
 
-**検証要件**:
-- [ ] スクリーンショットファイルが生成されたか
-- [ ] ファイルサイズが0バイトより大きいか
-- [ ] エラーが発生していないか
+    → 次のセクションへ
+```
 
-**エラー時の対応**:
-When スクショ取得に失敗した場合、システムは以下を実行すること：
-- nodeId と fileKey が正しいか確認
-- Figma アクセス権限を確認
-- ユーザーに報告して処理を中断
+**トークン分割:**
+- 各セクション処理は独立したサブエージェントで実行
+- サブエージェントのコンテキストは破棄されるため、幻覚リスクを軽減
 
-#### 4.2 html-structure 起動
-- 入力: `section-XX.json` (テキスト・色情報) + `section-XX-screenshot.png` (レイアウト)
-- Screenshot から: 要素の配置、間隔、視覚的階層を判断
-- JSON から: テキスト内容、色値、フォント情報を取得
-- 初期ファイルのサンプルセクションを削除
+**完了:**
 
-#### 4.3 sass-flocss 起動
-- 入力: `section-XX.json` (正確な値) + `section-XX-screenshot.png` (レイアウト構造)
-- Screenshot から: flexbox/grid構造、gap値を視覚的に判断
-- JSON から: 正確な色値、フォントサイズを取得
-
-#### 4.4 js-component 起動（必要時）
-
-#### 4.5 code-reviewer 起動
-- 品質チェックと修正を実施
-
-### 5. 完了
-
-When すべてのページ・セクションのコーディングが完了した場合、システムは処理を終了すること。
+すべてのセクション処理が完了したら、section-orchestrator から完了報告。
 
 ## データ使用原則
 
 **Ubiquitous 要件:**
 
-すべてのエージェント（section-analyzer, design-tokens, section-orchestrator, html-structure, sass-flocss, js-component, code-reviewer）は以下を遵守すること：
+すべてのエージェント（section-analyzer, design-tokens, section-orchestrator, html-structure, sass-flocss, js-component, code-reviewer）およびメインコンテキストは以下を遵守すること：
 
 ### データソース優先順位
 

@@ -11,9 +11,9 @@ color: red
 
 ## データソース
 
-- **入力**: `mcp__figma__get_design_context` で取得したMCPデザインデータ
+- **入力**: `.claude/progress/figma-design-data.txt`（メインコンテキストが事前保存）
 - **処理**: MCPデザインデータからすべてのデザイン値を抽出
-- **出力**: `.claude/progress/design-manifest.json` と `.claude/progress/figma-design-data.txt`
+- **出力**: `.claude/progress/design-manifest.json` と各 `section-XX.json`
 
 ## 必須ルール
 
@@ -253,7 +253,7 @@ data-nameまたはフレーム名から自動生成:
 ## 必須タスク
 
 1. **環境変数を読み取る**: `environments/.env.local` から `EJS_MODE` と `WP_MODE` を確認
-2. MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存
+2. **MCPデザインデータを読み込む**: `.claude/progress/figma-design-data.txt` からデータ取得
 3. MCPデザインデータからすべての値を抽出
 4. 抽出した値を `extractedValues` に格納
 5. **ビルドモードをマニフェストに記録**: 読み取った環境変数を `buildMode` に設定
@@ -270,7 +270,7 @@ data-nameまたはフレーム名から自動生成:
 
 マニフェスト生成後に確認:
 
-- [ ] MCPデザインデータを `.claude/progress/figma-design-data.txt` に保存したか
+- [ ] `.claude/progress/figma-design-data.txt` からデータを読み込んだか
 - [ ] すべての値がMCPデザインデータに存在するか
 - [ ] 推測で追加した値がないか
 - [ ] `extractedValues` にすべての抽出データが含まれているか
