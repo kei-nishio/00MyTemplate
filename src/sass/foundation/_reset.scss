@@ -51,7 +51,7 @@ a[href='#'] {
   outline: 4px dashed red;
 }
 a[tabindex='-1'] {
-  cursor: default !important;
+  cursor: not-allowed !important;
 }
 
 // input[type='checkbox'],
