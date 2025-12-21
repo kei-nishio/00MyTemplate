@@ -14,31 +14,6 @@
 .c-breadcrumb__container {
 }
 
-// ! aioseo_breadcrumbs 設定
-.c-breadcrumb {
-  .aioseo-breadcrumbs {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.2em;
-    align-items: baseline;
-  }
-  .aioseo-breadcrumb {
-    display: inline-block;
-    max-width: 10em;
-    overflow: hidden;
-    font-size: 12px;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    a {
-      color: #000000;
-    }
-  }
-  .aioseo-breadcrumb-separator {
-    display: inline-block;
-  }
-}
-
 // ! c-breadcrumb NavXT 設定
 .c-breadcrumb {
   .breadcrumb__container {
