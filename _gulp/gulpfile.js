@@ -37,6 +37,7 @@ import ejs from 'gulp-ejs'; // EJSをHTMLに変換
 import htmlbeautify from 'gulp-html-beautify'; // HTML整形
 import fs from 'fs'; // JSONファイル操作用
 // * SSHデプロイ
+import GulpSSH from 'gulp-ssh'; // SSH接続用
 import { exec } from 'child_process'; // コマンド実行用
 import { promisify } from 'util'; // Promise化用
 // * システム・その他のユーティリティ
