@@ -12,6 +12,9 @@ get_template_part('/functions-lib/f-0base_script');
 // ! テーマの基本機能を設定する
 get_template_part('/functions-lib/f-0base_set_up');
 
+// ! サイト設定（外部リンク管理）
+get_template_part('/functions-lib/f-0base_site_config');
+
 // * 以下オプション * //
 
 // ! ACFのフィールドグループをカスタムメニューに追加する
