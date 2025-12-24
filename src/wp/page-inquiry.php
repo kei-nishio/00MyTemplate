@@ -3,7 +3,6 @@
   <div class="l-lower-heading">
     <?php get_template_part('/parts/p-lower-heading', "", ["subtitle" => "contact", "title" => "お問い合わせ"]); ?>
   </div>
-  <?php echo do_shortcode('[aioseo_breadcrumbs]'); ?>
   <?php get_template_part('/parts/c-breadcrumb');  ?>
 
   <?php if (have_posts()) : ?>

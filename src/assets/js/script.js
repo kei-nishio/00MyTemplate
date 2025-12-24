@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return window.innerWidth < breakpoint;
   }
 
+  // ! ビューポート設定 ***********
+  const viewport = document.querySelector('meta[name="viewport"]');
+  const width = window.innerWidth;
+  if (width < 360) {
+    const scale = width / 360;
+    viewport.setAttribute('content', `width=360, initial-scale=${scale}`);
+  } else {
+    viewport.setAttribute('content', 'width=device-width, initial-scale=1');
+  }
+
   // ! タブ・クラス名トグル ***********
   class ToggleClass {
     constructor(tabDataAttr, contentDataAttr, openClass = 'is-open', exclusive = false, outsideClose = false) {

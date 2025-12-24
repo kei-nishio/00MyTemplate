@@ -26,6 +26,9 @@ get_template_part('/functions-lib/f-0base_set_up');
 // ! Breadcrumb NavXT で特定ページのパンくずをカスタムする
 // get_template_part('/functions-lib/f-breadcrumb-navxt');
 
+// ! Contact Form 7でセレクトボックスの値で送信先を変更する
+// get_template_part('/functions-lib/f-cf7_custom_mail');
+
 // ! Contact Form 7でセレクトボックスをカスタマイズする
 get_template_part('/functions-lib/f-cf7_custom_select');
 
@@ -61,6 +64,9 @@ get_template_part('/functions-lib/f-custom_post_slug');
 
 // ! カスタムタクソノミーのターム数を制限する
 // get_template_part('/functions-lib/f-custom_tax_limit');
+
+// ! Googleしごと検索用の構造化データ出力関数
+// get_template_part('/functions-lib/f-google_job_posting');
 
 // ! データをJavaScriptに引き渡す
 // get_template_part('/functions-lib/f-js_data');
