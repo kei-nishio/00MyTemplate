@@ -13,6 +13,7 @@
  * RewriteEngine On
  * RewriteCond %{REQUEST_URI} !/maintenance.html$
  * RewriteRule ^(.*)$ /maintenance.html [R=503,L]
+ * RewriteRule ^(.*)$ /maintenance.html [L] ＊サーバーによってはこっちを使う場合もあります
  * 
  */
 
