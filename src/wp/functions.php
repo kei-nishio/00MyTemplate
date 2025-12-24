@@ -74,6 +74,9 @@ get_template_part('/functions-lib/f-custom_post_slug');
 // ! WordPressログイン画面のロゴと遷移先を変更する
 get_template_part('/functions-lib/f-login_logo');
 
+// ! メンテナンスモード
+// get_template_part('/functions-lib/f-maintenance-mode');
+
 // ! 通常投稿タイプのラベルを変更する（例：「投稿」⇒「ブログ」）もしくは非表示にする
 get_template_part('/functions-lib/f-menu_post');
 
