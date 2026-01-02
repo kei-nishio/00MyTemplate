@@ -703,10 +703,8 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 0.4,
         scrollTrigger: {
           trigger: element,
-          start: 'top 90%',
-          end: 'bottom 80%',
+          start: 'top bottom-=70',
           // markers: true, // マーカー表示
-          scrub: true,
           once: true,
         },
       }
@@ -727,10 +725,8 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 0.4,
         scrollTrigger: {
           trigger: element,
-          start: 'top 90%',
-          end: 'bottom 80%',
+          start: 'top bottom-=70',
           // markers: true, // マーカー表示
-          scrub: true,
           once: true,
         },
       }
