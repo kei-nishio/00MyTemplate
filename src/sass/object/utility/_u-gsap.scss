@@ -1,0 +1,9 @@
+@use 'global' as *;
+
+[data-animation='clip-top-to-down'] {
+  clip-path: inset(0 0 100% 0);
+}
+
+[data-animation='clip-left-to-right'] {
+  clip-path: inset(0 100% 0 0);
+}

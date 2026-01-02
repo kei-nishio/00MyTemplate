@@ -690,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! Clip Path Animation ***********
   // * 上からClipPathでスライドイン
-  const clipDowns = document.querySelectorAll('[data-animation="clip-down"]');
+  const clipDowns = document.querySelectorAll('[data-animation="clip-top-to-down"]');
   clipDowns.forEach((element) => {
     gsap.fromTo(
       element,
@@ -700,6 +700,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         clipPath: 'inset(0 0 0 0)',
         ease: 'power1.inOut',
+        duration: 0.4,
         scrollTrigger: {
           trigger: element,
           start: 'top 90%',
@@ -713,7 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // * 左からClipPathでスライドイン
-  const clipRights = document.querySelectorAll('[data-animation="clip-right"]');
+  const clipRights = document.querySelectorAll('[data-animation="clip-left-to-right"]');
   clipRights.forEach((element) => {
     gsap.fromTo(
       element,
@@ -723,6 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         clipPath: 'inset(0 0 0 0)',
         ease: 'power1.inOut',
+        duration: 0.4,
         scrollTrigger: {
           trigger: element,
           start: 'top 90%',
