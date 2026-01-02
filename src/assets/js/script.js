@@ -410,8 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
   */
-  let swiperFvs = document.querySelectorAll('[data-animation="slide-fv"] .swiper');
-  if (swiperFvs.length > 0) {
+  const swiperFvEl = document.querySelector('[data-animation="slide-fv"] .swiper');
+  if (swiperFvEl) {
     const swiperFv = new Swiper('[data-animation="slide-fv"] .swiper', {
       direction: 'horizontal',
       effect: 'fade', // 'fade', 'cube', 'coverflow', 'flip'
@@ -433,12 +433,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // * TOPページで特定のSwiperを制御する
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-      if (swiperFv) {
-        swiperFv.autoplay.stop(); // 初回は自動再生を止めておく
-        setTimeout(() => {
-          swiperFv.autoplay.start(); // 1秒後に自動再生を開始
-        }, 1000);
-      }
+      swiperFv.autoplay.stop(); // 初回は自動再生を止めておく
+      setTimeout(() => {
+        swiperFv.autoplay.start(); // 1秒後に自動再生を開始
+      }, 1000);
     }
   }
 
@@ -454,8 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
   */
-  const swiperEl = document.querySelectorAll('[data-animation="slide-swiper"] .swiper');
-  if (swiperEl.length > 0) {
+  const swiperEl = document.querySelector('[data-animation="slide-swiper"] .swiper');
+  if (swiperEl) {
     const swiper = new Swiper('[data-animation="slide-swiper"] .swiper', {
       loop: true,
       speed: 600,
@@ -676,154 +674,139 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   */
   const parallaxImages = document.querySelectorAll('[data-animation="parallax-image"]');
-  if (parallaxImages.length > 0) {
-    parallaxImages.forEach((element) => {
-      gsap.to(element, {
-        yPercent: 20,
+  parallaxImages.forEach((element) => {
+    gsap.to(element, {
+      yPercent: 20,
+      ease: 'power1.inOut',
+      scrollTrigger: {
+        trigger: element,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5,
+        // markers: true,
+      },
+    });
+  });
+
+  // ! Clip Path Animation ***********
+  // * 上からClipPathでスライドイン
+  const clipDowns = document.querySelectorAll('[data-animation="clip-down"]');
+  clipDowns.forEach((element) => {
+    gsap.fromTo(
+      element,
+      {
+        clipPath: 'inset(0 0 100% 0)',
+      },
+      {
+        clipPath: 'inset(0 0 0 0)',
         ease: 'power1.inOut',
         scrollTrigger: {
           trigger: element,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
-          // markers: true,
+          start: 'top 90%',
+          end: 'bottom 80%',
+          // markers: true, // マーカー表示
+          scrub: true,
+          once: true,
         },
-      });
-    });
-  }
+      }
+    );
+  });
 
-  // ! Clip Path Animation ***********
   // * 左からClipPathでスライドイン
-  const clipDowns = document.querySelectorAll('[data-animation="clip-down"]');
-  if (clipDowns.length > 0) {
-    clipDowns.forEach((element) => {
-      gsap.fromTo(
-        element,
-        {
-          clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        },
-        {
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-          ease: 'power1.inOut',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 90%',
-            end: 'bottom 80%',
-            // markers: true, // マーカー表示
-            scrub: true,
-            once: true,
-          },
-        }
-      );
-    });
-  }
-
-  // * 右からClipPathでスライドイン
   const clipRights = document.querySelectorAll('[data-animation="clip-right"]');
-  if (clipRights.length > 0) {
-    clipRights.forEach((element) => {
-      gsap.fromTo(
-        element,
-        {
-          clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+  clipRights.forEach((element) => {
+    gsap.fromTo(
+      element,
+      {
+        clipPath: 'inset(0 100% 0 0)',
+      },
+      {
+        clipPath: 'inset(0 0 0 0)',
+        ease: 'power1.inOut',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 90%',
+          end: 'bottom 80%',
+          // markers: true, // マーカー表示
+          scrub: true,
+          once: true,
         },
-        {
-          clipPath: 'polygon(100% 0, 0 0, 0 100%, 100% 100%)',
-          ease: 'power1.inOut',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 90%',
-            end: 'bottom 80%',
-            // markers: true, // マーカー表示
-            scrub: true,
-            once: true,
-          },
-        }
-      );
-    });
-  }
+      }
+    );
+  });
 
   // ! Scroll data-scroll-status add ***********
   const scrollStatusElements = document.querySelectorAll('[data-scroll-status]');
-  if (scrollStatusElements.length > 0) {
-    scrollStatusElements.forEach((element) => {
-      ScrollTrigger.create({
-        trigger: element,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        onEnter: () => element.setAttribute('data-scroll-status', 'is-enter'),
-        // onLeave: () => element.setAttribute('data-scroll-status', 'is-leave'),
-        // onEnterBack: () => element.setAttribute('data-scroll-status', 'is-enter-back'),
-        // onLeaveBack: () => element.setAttribute('data-scroll-status', 'is-leave-back'),
-        markers: true,
-      });
+  scrollStatusElements.forEach((element) => {
+    ScrollTrigger.create({
+      trigger: element,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      onEnter: () => element.setAttribute('data-scroll-status', 'is-enter'),
+      // onLeave: () => element.setAttribute('data-scroll-status', 'is-leave'),
+      // onEnterBack: () => element.setAttribute('data-scroll-status', 'is-enter-back'),
+      // onLeaveBack: () => element.setAttribute('data-scroll-status', 'is-leave-back'),
+      markers: true,
     });
-  }
+  });
 
   // ! FadeIN Animation ***********
   // * その場でフェードイン
   const fadeIns = document.querySelectorAll('[data-animation="fade-in"]');
-  if (fadeIns.length > 0) {
-    fadeIns.forEach((element) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom-=70',
-          once: true,
-        },
-        duration: 0.5,
-        autoAlpha: 0,
-      });
+  fadeIns.forEach((element) => {
+    gsap.from(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: 'top bottom-=70',
+        once: true,
+      },
+      duration: 0.5,
+      autoAlpha: 0,
     });
-  }
+  });
   // * 右からフェードイン
   const fadeInRights = document.querySelectorAll('[data-animation="fade-in-right"]');
-  if (fadeInRights.length > 0) {
-    fadeInRights.forEach((element) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom-=70',
-          once: true,
-        },
-        duration: 0.5,
-        autoAlpha: 0,
-        x: 100,
-      });
+  fadeInRights.forEach((element) => {
+    gsap.from(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: 'top bottom-=70',
+        once: true,
+      },
+      duration: 0.5,
+      autoAlpha: 0,
+      x: 100,
     });
-  }
+  });
   // * 左からフェードイン
   const fadeInLefts = document.querySelectorAll('[data-animation="fade-in-left"]');
-  if (fadeInLefts.length > 0) {
-    fadeInLefts.forEach((element) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom-=70',
-          once: true,
-        },
-        duration: 0.5,
-        autoAlpha: 0,
-        x: -100,
-      });
+  fadeInLefts.forEach((element) => {
+    gsap.from(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: 'top bottom-=70',
+        once: true,
+      },
+      duration: 0.5,
+      autoAlpha: 0,
+      x: -100,
     });
-  }
+  });
   // * 下からフェードイン
   const fadeInBottoms = document.querySelectorAll('[data-animation="fade-in-bottom"]');
-  if (fadeInBottoms.length > 0) {
-    fadeInBottoms.forEach((element) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom-=70',
-          once: true,
-        },
-        duration: 0.5,
-        autoAlpha: 0,
-        y: 100,
-      });
+  fadeInBottoms.forEach((element) => {
+    gsap.from(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: 'top bottom-=70',
+        once: true,
+      },
+      duration: 0.5,
+      autoAlpha: 0,
+      y: 100,
     });
-  }
+  });
+
   // * 右から順番にフェードイン（ul/ol要素にクラスをつける）
   document.querySelectorAll('[data-animation="fade-in-right-staggers"]').forEach((group) => {
     const targets = group.querySelectorAll(':scope > *');
