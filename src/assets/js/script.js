@@ -743,6 +743,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ! Scroll data-scroll-status add ***********
+  const scrollStatusElements = document.querySelectorAll('[data-scroll-status]');
+  if (scrollStatusElements.length > 0) {
+    scrollStatusElements.forEach((element) => {
+      ScrollTrigger.create({
+        trigger: element,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        onEnter: () => element.setAttribute('data-scroll-status', 'is-enter'),
+        // onLeave: () => element.setAttribute('data-scroll-status', 'is-leave'),
+        // onEnterBack: () => element.setAttribute('data-scroll-status', 'is-enter-back'),
+        // onLeaveBack: () => element.setAttribute('data-scroll-status', 'is-leave-back'),
+        markers: true,
+      });
+    });
+  }
+
   // ! FadeIN Animation ***********
   // * その場でフェードイン
   const fadeIns = document.querySelectorAll('[data-animation="fade-in"]');
