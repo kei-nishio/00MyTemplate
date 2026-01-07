@@ -66,7 +66,7 @@ const srcEjsDir = process.env.SRC_EJS_DIR || '../src/ejs'; // ! EJSファイル�
 const siteTitle = process.env.SITE_TITLE || 'template'; // ! WordPress site title (project name)
 const themeName = process.env.THEME_NAME || 'templatetheme'; // ! WordPress theme file name
 const localSiteDomain = process.env.LOCAL_SITE_DOMAIN || 'template.local'; // ! WordPress Local Site Domain
-const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/wp-content/themes/${themeName}`;
+const wpDirectory = `${userHomeDir}/Local Sites/${siteTitle}/app/public/wp-content/themes/${themeName}`;
 const jpegQuality = parseInt(process.env.JPEG_QUALITY) || 80; // ! JPEG圧縮品質
 
 // * 本番サーバー設定
