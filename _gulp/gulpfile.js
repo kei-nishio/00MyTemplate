@@ -19,8 +19,7 @@ import sassGlob from 'gulp-sass-glob-use-forward'; // SCSSのインポートを�
 import mmq from 'gulp-merge-media-queries'; // メディアクエリをマージ
 import postcss from 'gulp-postcss'; // CSS変換処理
 import autoprefixer from 'autoprefixer'; // ベンダープレフィックスを自動的に追加
-import cssdeclsort from 'css-declaration-sorter'; // CSS宣言をソート（アルファベット順）
-import postcssSorting from 'postcss-sorting'; // CSSプロパティ順序を整形（カスタム順）
+import cssdeclsort from 'css-declaration-sorter'; // CSS宣言をソート（SMACSS順）
 import postcssPresetEnv from 'postcss-preset-env'; // 最新のCSS構文を使用可能に
 import cleanCSS from 'gulp-clean-css'; // css圧縮
 import sourcemaps from 'gulp-sourcemaps'; // ソースマップ作成
