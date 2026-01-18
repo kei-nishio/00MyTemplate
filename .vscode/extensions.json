@@ -1,12 +1,11 @@
 {
 	"recommendations": [
-		"esbenp.prettier-vscode", // Prettier：コードを自動整形（JS・CSS・HTMLなど）
-		"j69.ejs-beautify", // EJS Beautify：EJSテンプレートを整形
-		"dbaeumer.vscode-eslint", // ESLint：JavaScriptの文法・品質チェック
-		"formulahendry.auto-rename-tag", // Auto Rename Tag：開始タグと終了タグを同時に編集
-		"pranaygp.vscode-css-peek", // CSS Peek：HTMLクラス名からCSS定義へジャンプ
-		"streetsidesoftware.code-spell-checker", // Code Spell Checker：英語のスペルミスを警告
-		"christian-kohler.path-intellisense" // Path Intellisense：画像やファイルのパス補完
+		"esbenp.prettier-vscode",
+		"j69.ejs-beautify",
+		"dbaeumer.vscode-eslint",
+		"stylelint.vscode-stylelint",
+		"streetsidesoftware.code-spell-checker",
+		"christian-kohler.path-intellisense"
 	],
 	"unwantedRecommendations": []
 }
