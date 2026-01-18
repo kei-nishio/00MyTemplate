@@ -38,6 +38,7 @@ import htmlbeautify from 'gulp-html-beautify'; // HTML整形
 import fs from 'fs'; // JSONファイル操作用
 // * Lint
 import stylelint from 'gulp-stylelint-esm'; // StylelintのGulpプラグイン
+import eslint from 'gulp-eslint-new'; // ESLintのGulpプラグイン
 // * SSHデプロイ
 import GulpSSH from 'gulp-ssh'; // SSH接続用
 import { exec } from 'child_process'; // コマンド実行用
@@ -334,6 +335,42 @@ const lintScssBuild = () => {
   );
 };
 
+// * JS Lint（開発時：警告のみ、ビルド続行）
+const lintJsWatch = () => {
+  return src(srcPath.js)
+    .pipe(plumber({ errorHandler: notify.onError('ESLint Error: <%= error.message %>') }))
+    .pipe(eslint({ overrideConfigFile: './eslint.config.js' }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError().on('error', () => {})); // エラーでも続行
+};
+
+// * JS Lint（本番時：エラーでビルド停止）
+const lintJsBuild = () => {
+  return src(srcPath.js)
+    .pipe(eslint({ overrideConfigFile: './eslint.config.js' }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+};
+
+// * コードフォーマット（Prettier）
+const formatCode = async () => {
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('🎨 Prettierでコードをフォーマット中...');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  try {
+    const { stdout, stderr } = await execPromise(
+      'npx prettier --write "../src/**/*.{scss,js}" --config "../.prettierrc.json" --ignore-path "../.prettierignore"'
+    );
+    if (stdout) console.log(stdout);
+    if (stderr && !stderr.includes('unchanged')) console.warn(stderr);
+    console.log('✅ フォーマット完了！');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  } catch (error) {
+    console.error('❌ フォーマットエラー:', error.message);
+    throw error;
+  }
+};
+
 // * EJSのコンパイル
 export const ejsCompile = () => {
   if (ejsMode) {
@@ -449,7 +486,7 @@ const cleanWithoutImages = () => {
 // * ファイルの監視
 const watchFiles = () => {
   watch(srcPath.sass, series(lintScssWatch, cssSass, browserSyncReload));
-  watch(srcPath.js, series(jsBabel, browserSyncReload));
+  watch(srcPath.js, series(lintJsWatch, jsBabel, browserSyncReload));
   watch(srcPath.img, series(imgImageminWebpOnly, browserSyncReload));
   if (wpMode) {
     watch(srcPath.php, series(phpCopy, browserSyncReload)); // WordPressの場合
@@ -631,6 +668,7 @@ export default series(
 
 // ! 本番用ビルドタスク（webpのみ保存）
 export const build = series(
+  formatCode,
   clean,
   cssSass,
   cssCopy,
@@ -684,6 +722,8 @@ export { clean, cleanWithoutImages, cssSass, jsBabel, imgImageminWebpOnly, imgIm
 
 // ! Lintタスク
 export { lintScssWatch as 'lint-scss', lintScssBuild as 'lint-scss-build' };
+export { lintJsWatch as 'lint-js', lintJsBuild as 'lint-js-build' };
+export { formatCode as 'format' };
 
 // ! 自動デプロイ付き監視タスク（本番環境用）
 const watchDeploy = series(

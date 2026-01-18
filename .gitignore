@@ -3,11 +3,6 @@ _gulp/**/*
 !_gulp/gulpfile.js
 !_gulp/package.json
 !_gulp/eslint.config.js
-!_gulp/.stylelintrc.json
-!_gulp/.stylelintignore
-!_gulp/.prettierrc.json
-!_gulp/.prettierignore
-!_gulp/.htmlhintrc
 # .vscode
 .vscode/**/*
 !.vscode/settings.json
