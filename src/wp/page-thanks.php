@@ -6,22 +6,22 @@ $referrer_host = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFE
 // ドメイン部分がリファラに含まれているかどうかをチェック
 $referrer_valid = false;
 if ($referrer_host) {
-  foreach ($domain_parts as $part) {
-    if (strpos($referrer_host, $part) !== false) {
-      $referrer_valid = true;
-      break;
-    }
-  }
+	foreach ($domain_parts as $part) {
+		if (strpos($referrer_host, $part) !== false) {
+			$referrer_valid = true;
+			break;
+		}
+	}
 }
 // リファラが無効な場合はホームページにリダイレクト
 if (!$referrer_valid) {
-  wp_redirect(home_url('/'));
-  exit();
+	wp_redirect(home_url('/'));
+	exit();
 }
 ?>
 
 <?php get_header(); ?>
 <main class="main">
-  <h1>thank you</h1>
+	<h1>thank you</h1>
 </main>
 <?php get_footer(); ?>

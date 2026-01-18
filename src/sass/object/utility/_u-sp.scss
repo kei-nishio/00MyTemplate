@@ -1,16 +1,16 @@
 @use 'global' as *;
 
 @if $startFrom == sp {
-  .u-sp {
-    @include mq('md') {
-      display: none;
-    }
-  }
+	.u-sp {
+		@include mq('md') {
+			display: none;
+		}
+	}
 } @else {
-  .u-sp {
-    display: none;
-    @include mq('md') {
-      display: initial;
-    }
-  }
+	.u-sp {
+		display: none;
+		@include mq('md') {
+			display: initial;
+		}
+	}
 }

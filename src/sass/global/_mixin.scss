@@ -3,12 +3,12 @@
 @use 'function' as *;
 
 @mixin m-text {
-  padding-inline: 3%;
-  font-size: r(14);
-  line-height: calc(20 / 14);
-  @include mq('md') {
-    padding-inline: initial;
-    font-size: r(19);
-    line-height: calc(32 / 19);
-  }
+	padding-inline: 3%;
+	font-size: r(14);
+	line-height: calc(20 / 14);
+	@include mq('md') {
+		padding-inline: initial;
+		font-size: r(19);
+		line-height: calc(32 / 19);
+	}
 }

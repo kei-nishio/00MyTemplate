@@ -451,7 +451,7 @@ If Volta is installed, it will automatically use the correct versions.
 
 - Maintain uniform coding style across all files and languages
 - Follow established naming patterns and file structures
-- Use consistent indentation (2 spaces) throughout the project
+- Use consistent indentation (tabs) throughout the project
 
 **2. Maintainability**
 
@@ -509,7 +509,7 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 
 **Formatting:**
 
-- 2-space indentation
+- Tab indentation
 - Attribute order: `class` → `data-*` → others
 
 **EJS Syntax:**
@@ -533,7 +533,7 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 
 **Formatting:**
 
-- 2-space indentation
+- Tab indentation
 - Always use `<?php ?>` (long form, never short tags)
 - Omit closing tags in PHP-only files
 
@@ -563,7 +563,7 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 
 **Formatting:**
 
-- 2-space indentation
+- Tab indentation
 - Maximum 2-3 nesting levels
 - Single blank lines between sections
 
@@ -628,7 +628,7 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 
 | Aspect          | Convention                                        |
 | --------------- | ------------------------------------------------- |
-| Indentation     | 2 spaces (all files)                              |
+| Indentation     | Tabs (all files)                                  |
 | Component files | `_c-button.ejs`, `c-button.php`, `_c-button.scss` |
 | Project files   | `_p-header.ejs`, `p-header.php`, `_p-header.scss` |
 | BEM naming      | `block__element--modifier` (all languages)        |

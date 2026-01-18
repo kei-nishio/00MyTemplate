@@ -1,67 +1,67 @@
 @use 'global' as *;
 
 @keyframes slideLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
 }
 
 @keyframes flowing {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
 }
 
 @keyframes fuwafuwa {
-  0% {
-    transform: translate(0, 0) rotate(-7deg);
-  }
-  50% {
-    transform: translate(0, -7px) rotate(0deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(7deg);
-  }
+	0% {
+		transform: translate(0, 0) rotate(-7deg);
+	}
+	50% {
+		transform: translate(0, -7px) rotate(0deg);
+	}
+	100% {
+		transform: translate(0, 0) rotate(7deg);
+	}
 }
 
 @keyframes rinrin {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  51% {
-    transform: rotate(-10deg);
-  }
-  52% {
-    transform: rotate(0deg);
-  }
-  53% {
-    transform: rotate(-10deg);
-  }
-  54% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(0deg);
+	}
+	51% {
+		transform: rotate(-10deg);
+	}
+	52% {
+		transform: rotate(0deg);
+	}
+	53% {
+		transform: rotate(-10deg);
+	}
+	54% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
 }
 
 /* animation: left-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; */
 .element {
-  animation-name: fadeIn;
-  animation-duration: 0.5s;
-  animation-timing-function: ease-in-out; /* linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(x, y, x2, y2) */
-  animation-delay: 0.2s;
-  animation-iteration-count: infinite; /* 1, 2, 3, infinite */
-  animation-direction: alternate; /* normal, reverse, alternate, alternate-reverse */
-  animation-fill-mode: forwards; /* none, forwards, backwards, both */
-  animation-play-state: running; /* running, paused */
+	animation-name: fadeIn;
+	animation-duration: 0.5s;
+	animation-timing-function: ease-in-out; /* linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(x, y, x2, y2) */
+	animation-delay: 0.2s;
+	animation-iteration-count: infinite; /* 1, 2, 3, infinite */
+	animation-direction: alternate; /* normal, reverse, alternate, alternate-reverse */
+	animation-fill-mode: forwards; /* none, forwards, backwards, both */
+	animation-play-state: running; /* running, paused */
 }

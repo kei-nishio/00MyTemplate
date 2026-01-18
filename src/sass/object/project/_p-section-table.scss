@@ -7,47 +7,47 @@
 }
 
 .p-section-table__heading {
-  display: grid;
-  place-items: center;
+	display: grid;
+	place-items: center;
 }
 
 .p-section-table__content {
-  margin-top: r(40);
+	margin-top: r(40);
 }
 
 .p-section-table__table {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  padding: 1px;
-  background-color: gray;
-  thead,
-  tbody,
-  tfoot,
-  tr {
-    display: contents;
-  }
-  th,
-  td {
-    padding-inline: 2em;
-    padding-block: 0.5em;
-    background-color: white;
-    text-align: center;
-  }
-  tfoot > tr > th {
-    grid-column: span 2;
-  }
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1px;
+	padding: 1px;
+	background-color: gray;
+	thead,
+	tbody,
+	tfoot,
+	tr {
+		display: contents;
+	}
+	th,
+	td {
+		padding-inline: 2em;
+		padding-block: 0.5em;
+		background-color: white;
+		text-align: center;
+	}
+	tfoot > tr > th {
+		grid-column: span 2;
+	}
 }
 
 .p-section-table__item {
 }
 
 .p-section-table__button {
-  display: grid;
-  place-items: center;
-  margin-top: r(24);
+	display: grid;
+	place-items: center;
+	margin-top: r(24);
 
-  @include mq('md') {
-    margin-top: r(60);
-  }
+	@include mq('md') {
+		margin-top: r(60);
+	}
 }

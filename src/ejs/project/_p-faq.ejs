@@ -1,36 +1,36 @@
 <%
-  const cardItems = [
-    {
-      q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
-      a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
-    },
-    {
-      q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
-      a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
-    }
-  ];
+	const cardItems = [
+		{
+			q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
+			a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
+		},
+		{
+			q: 'ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。ここに質問が入ります。',
+			a: 'ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。ここに回答が入ります。'
+		}
+	];
 %>
 <section class="p-faq">
-  <div class="p-faq__inner l-inner">
-    <div class="p-faq__heading">
-      <%- include(ejsPath + './component/_c-section-title', {title: "よくある質問", subTitle: "FAQ"} ) %>
-    </div>
-    <div class="p-faq__content">
-      <dl class="p-faq__list">
-        <% for(let i = 0; i < cardItems.length; i++) { %>
-        <div class="p-faq__item" data-animation="slide-toggle">
-          <dt class="p-faq__q">
-            <span class="icon">Q</span>
-            <span class="text"><%- cardItems[i].q %></span>
-            <span class="button"></span>
-          </dt>
-          <dd class="p-faq__a">
-            <span class="icon">A</span>
-            <span class="text"><%- cardItems[i].a %></span>
-          </dd>
-        </div>
-        <% } %>
-      </dl>
-    </div>
-  </div>
+	<div class="p-faq__inner l-inner">
+		<div class="p-faq__heading">
+			<%- include(ejsPath + './component/_c-section-title', {title: "よくある質問", subTitle: "FAQ"} ) %>
+		</div>
+		<div class="p-faq__content">
+			<dl class="p-faq__list">
+				<% for(let i = 0; i < cardItems.length; i++) { %>
+				<div class="p-faq__item" data-animation="slide-toggle">
+					<dt class="p-faq__q">
+						<span class="icon">Q</span>
+						<span class="text"><%- cardItems[i].q %></span>
+						<span class="button"></span>
+					</dt>
+					<dd class="p-faq__a">
+						<span class="icon">A</span>
+						<span class="text"><%- cardItems[i].a %></span>
+					</dd>
+				</div>
+				<% } %>
+			</dl>
+		</div>
+	</div>
 </section>

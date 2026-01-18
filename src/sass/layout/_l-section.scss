@@ -1,8 +1,8 @@
 @use 'global' as *;
 
 .l-section {
-  margin-top: r(60);
-  @include mq('md') {
-    margin-top: r(120);
-  }
+	margin-top: r(60);
+	@include mq('md') {
+		margin-top: r(120);
+	}
 }

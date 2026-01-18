@@ -43,23 +43,27 @@
 
   // ----- 拡張子別設定 -----
   "[html]": {
-    "editor.tabSize": 2, // HTMLは2スペース
+    "editor.insertSpaces": false, // タブを使用
     "editor.detectIndentation": false, // 自動インデント検出を無効に
     "editor.defaultFormatter": "j69.ejs-beautify" // EJS対応のフォーマッターに指定
   },
   "[ejs]": {
+    "editor.insertSpaces": false, // タブを使用
     "editor.defaultFormatter": "j69.ejs-beautify" // EJSも同様
   },
   "[css]": {
-    "editor.tabSize": 2, // CSSは2スペース
+    "editor.insertSpaces": false, // タブを使用
     "editor.detectIndentation": false // インデント自動検出を無効化
   },
   "[scss]": {
-    "editor.tabSize": 2 // SCSSも2スペース
+    "editor.insertSpaces": false // タブを使用
+  },
+  "[javascript]": {
+    "editor.insertSpaces": false // タブを使用
   },
   "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client", // PHP整形ツール指定
-    "editor.tabSize": 2 // PHPも2スペース
+    "editor.insertSpaces": false, // タブを使用
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client" // PHP整形ツール指定
   },
 
   // ----- Git 操作補助 -----

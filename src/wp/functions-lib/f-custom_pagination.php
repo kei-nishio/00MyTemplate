@@ -9,7 +9,7 @@
 
 function custom_pagination($template)
 {
-  $template = '<div class="c-pagination">%3$s</div>';
-  return $template;
+	$template = '<div class="c-pagination">%3$s</div>';
+	return $template;
 }
 add_filter('navigation_markup_template', 'custom_pagination');

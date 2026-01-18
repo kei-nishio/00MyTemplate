@@ -1,45 +1,45 @@
 @use 'global' as *;
 
 .c-breadcrumb {
-  margin-top: r(12);
+	margin-top: r(12);
 
-  @include mq('md') {
-    margin-top: r(32);
-  }
+	@include mq('md') {
+		margin-top: r(32);
+	}
 }
 .c-breadcrumb__inner.l-inner {
-  @include mq('md') {
-  }
+	@include mq('md') {
+	}
 }
 .c-breadcrumb__container {
 }
 
 // ! c-breadcrumb NavXT 設定
 .c-breadcrumb {
-  .breadcrumb__container {
-    display: flex;
-    align-items: center;
-    align-self: stretch;
-    gap: 0.5em;
-  }
-  span[property='name'] {
-    display: block;
-    max-width: 10em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  span[property='name'].current-item {
-    color: red;
-  }
-  .separator {
-    display: block;
-    height: 1em;
-    aspect-ratio: 7 / 4;
-    background-color: black;
-    mask-image: url(../images/common/icon-arrow.svg);
-    mask-position: bottom;
-    mask-repeat: no-repeat;
-    mask-size: 70%;
-  }
+	.breadcrumb__container {
+		display: flex;
+		align-items: center;
+		align-self: stretch;
+		gap: 0.5em;
+	}
+	span[property='name'] {
+		display: block;
+		max-width: 10em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	span[property='name'].current-item {
+		color: red;
+	}
+	.separator {
+		display: block;
+		height: 1em;
+		aspect-ratio: 7 / 4;
+		background-color: black;
+		mask-image: url(../images/common/icon-arrow.svg);
+		mask-position: bottom;
+		mask-repeat: no-repeat;
+		mask-size: 70%;
+	}
 }

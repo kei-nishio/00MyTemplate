@@ -8,21 +8,21 @@ echo '<div class="c-pagination">';
 
 // ＜＜ (最初へ)
 if ($current > 1) {
-  echo '<a class="first-page page-numbers" href="' . esc_url(get_pagenum_link(1)) . '">＜＜</a>';
+	echo '<a class="first-page page-numbers" href="' . esc_url(get_pagenum_link(1)) . '">＜＜</a>';
 }
 
 echo paginate_links([
-  'mid_size'  => wp_is_mobile() ? 1 : 2,
-  'end_size'  => 1,
-  'prev_text' => '＜',
-  'next_text' => '＞',
-  'current'   => $current,
-  'total'     => $total,
+	'mid_size'  => wp_is_mobile() ? 1 : 2,
+	'end_size'  => 1,
+	'prev_text' => '＜',
+	'next_text' => '＞',
+	'current'   => $current,
+	'total'     => $total,
 ]);
 
 // ＞＞ (最後へ)
 if ($current < $total) {
-  echo '<a class="last-page page-numbers" href="' . esc_url(get_pagenum_link($total)) . '">＞＞</a>';
+	echo '<a class="last-page page-numbers" href="' . esc_url(get_pagenum_link($total)) . '">＞＞</a>';
 }
 
 echo '</div>';

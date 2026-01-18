@@ -21,5 +21,5 @@ define('SNS_FACEBOOK', '');
  */
 function get_link_or_hash($url)
 {
-  return !empty($url) ? $url : '#';
+	return !empty($url) ? $url : '#';
 }

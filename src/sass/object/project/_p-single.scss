@@ -8,40 +8,40 @@
 
 // * eye-catchは比率指定しない
 .p-single__eye-catch {
-  width: 100%;
-  object-fit: cover;
+	width: 100%;
+	object-fit: cover;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 50%;
-  }
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 50%;
+	}
 }
 
 .p-single__content {
 }
 
 .p-single__pagination {
-  display: flex;
-  justify-content: center;
-  gap: r(40);
-  margin-top: r(40);
-  .prev {
-  }
-  .index {
-  }
-  .next {
-  }
-  .hidden {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-  }
+	display: flex;
+	justify-content: center;
+	gap: r(40);
+	margin-top: r(40);
+	.prev {
+	}
+	.index {
+	}
+	.next {
+	}
+	.hidden {
+		visibility: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
 }
 
 .p-single__button {
-  display: grid;
-  place-items: center;
-  margin-top: r(200);
+	display: grid;
+	place-items: center;
+	margin-top: r(200);
 }

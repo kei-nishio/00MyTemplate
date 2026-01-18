@@ -1,8 +1,8 @@
 <?php
 // ! reCAPTCHAを問い合わせだけに表示させる
 add_action('wp_enqueue_scripts', function () {
-  if (is_page(array('contact', 'confirm', 'thanks'))) return;
-  wp_deregister_script('google-recaptcha');
+	if (is_page(array('contact', 'confirm', 'thanks'))) return;
+	wp_deregister_script('google-recaptcha');
 }, 100, 0);
 
 // ! reCAPTCHA バッジのz-indexを調整（サイドヘッダーがある場合の調整）

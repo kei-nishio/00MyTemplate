@@ -2,232 +2,232 @@
 <html lang="ja">
 
 <head>
-  <meta charset="utf-8" />
-  <title>サイトリニューアル中</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+	<meta charset="utf-8" />
+	<title>サイトリニューアル中</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="noindex,nofollow" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', 'Hiragino Sans',
-        'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-      background: #0a0a0a;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', 'Hiragino Sans',
+				'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+			background: #0a0a0a;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			position: relative;
+		}
 
-    body::before {
-      content: '';
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
-      animation: move 20s ease-in-out infinite;
-    }
+		body::before {
+			content: '';
+			position: absolute;
+			width: 200%;
+			height: 200%;
+			background: radial-gradient(circle at 30% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
+				radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+			animation: move 20s ease-in-out infinite;
+		}
 
-    @keyframes move {
+		@keyframes move {
 
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
+			0%,
+			100% {
+				transform: translate(0, 0);
+			}
 
-      50% {
-        transform: translate(-10%, -10%);
-      }
-    }
+			50% {
+				transform: translate(-10%, -10%);
+			}
+		}
 
-    main {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 700px;
-      width: 90%;
-      padding: 4rem 2rem;
-    }
+		main {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			max-width: 700px;
+			width: 90%;
+			padding: 4rem 2rem;
+		}
 
-    .logo {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 3rem;
-      position: relative;
-    }
+		.logo {
+			width: 60px;
+			height: 60px;
+			margin: 0 auto 3rem;
+			position: relative;
+		}
 
-    .logo::before,
-    .logo::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-    }
+		.logo::before,
+		.logo::after {
+			content: '';
+			position: absolute;
+			border-radius: 50%;
+		}
 
-    .logo::before {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      animation: pulse 4s ease-in-out infinite;
-    }
+		.logo::before {
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+			animation: pulse 4s ease-in-out infinite;
+		}
 
-    .logo::after {
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      border: 2px solid rgba(139, 92, 246, 0.3);
-      animation: pulse 4s ease-in-out infinite reverse;
-    }
+		.logo::after {
+			width: 120%;
+			height: 120%;
+			top: -10%;
+			left: -10%;
+			border: 2px solid rgba(139, 92, 246, 0.3);
+			animation: pulse 4s ease-in-out infinite reverse;
+		}
 
-    @keyframes pulse {
+		@keyframes pulse {
 
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
+			0%,
+			100% {
+				opacity: 1;
+				transform: scale(1);
+			}
 
-      50% {
-        opacity: 0.6;
-        transform: scale(1.1);
-      }
-    }
+			50% {
+				opacity: 0.6;
+				transform: scale(1.1);
+			}
+		}
 
-    h1 {
-      font-size: clamp(2rem, 6vw, 3rem);
-      color: #ffffff;
-      margin-bottom: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
+		h1 {
+			font-size: clamp(2rem, 6vw, 3rem);
+			color: #ffffff;
+			margin-bottom: 1rem;
+			font-weight: 600;
+			letter-spacing: -0.02em;
+			line-height: 1.2;
+		}
 
-    .company-name {
-      font-size: clamp(0.875rem, 2.5vw, 1rem);
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 2rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-    }
+		.company-name {
+			font-size: clamp(0.875rem, 2.5vw, 1rem);
+			color: rgba(255, 255, 255, 0.5);
+			margin-bottom: 2rem;
+			font-weight: 400;
+			letter-spacing: 0.05em;
+		}
 
-    .subtitle {
-      font-size: clamp(1rem, 3vw, 1.25rem);
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 3rem;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
+		.subtitle {
+			font-size: clamp(1rem, 3vw, 1.25rem);
+			color: rgba(255, 255, 255, 0.6);
+			margin-bottom: 3rem;
+			font-weight: 400;
+			letter-spacing: 0.02em;
+		}
 
-    .progress-container {
-      max-width: 400px;
-      margin: 0 auto;
-    }
+		.progress-container {
+			max-width: 400px;
+			margin: 0 auto;
+		}
 
-    .progress-bar {
-      height: 2px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-      overflow: hidden;
-      position: relative;
-    }
+		.progress-bar {
+			height: 2px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 2px;
+			overflow: hidden;
+			position: relative;
+		}
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      border-radius: 2px;
-      animation: progress 5s ease-in-out infinite;
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    }
+		.progress-fill {
+			height: 100%;
+			background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+			border-radius: 2px;
+			animation: progress 5s ease-in-out infinite;
+			box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+		}
 
-    @keyframes progress {
-      0% {
-        width: 0%;
-        opacity: 0.5;
-      }
+		@keyframes progress {
+			0% {
+				width: 0%;
+				opacity: 0.5;
+			}
 
-      50% {
-        width: 100%;
-        opacity: 1;
-      }
+			50% {
+				width: 100%;
+				opacity: 1;
+			}
 
-      100% {
-        width: 100%;
-        opacity: 0;
-      }
-    }
+			100% {
+				width: 100%;
+				opacity: 0;
+			}
+		}
 
-    .status {
-      margin-top: 1.5rem;
-      font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+		.status {
+			margin-top: 1.5rem;
+			font-size: 0.875rem;
+			color: rgba(255, 255, 255, 0.4);
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
 
-    .dots {
-      display: inline-block;
-      animation: dots 6s steps(4, end) infinite;
-    }
+		.dots {
+			display: inline-block;
+			animation: dots 6s steps(4, end) infinite;
+		}
 
-    @keyframes dots {
+		@keyframes dots {
 
-      0%,
-      20% {
-        content: '';
-      }
+			0%,
+			20% {
+				content: '';
+			}
 
-      40% {
-        content: '.';
-      }
+			40% {
+				content: '.';
+			}
 
-      60% {
-        content: '..';
-      }
+			60% {
+				content: '..';
+			}
 
-      80%,
-      100% {
-        content: '...';
-      }
-    }
+			80%,
+			100% {
+				content: '...';
+			}
+		}
 
-    .dots::after {
-      content: '';
-      animation: dots 6s steps(4, end) infinite;
-    }
+		.dots::after {
+			content: '';
+			animation: dots 6s steps(4, end) infinite;
+		}
 
-    @media (max-width: 480px) {
-      main {
-        padding: 3rem 1.5rem;
-      }
+		@media (max-width: 480px) {
+			main {
+				padding: 3rem 1.5rem;
+			}
 
-      .logo {
-        width: 50px;
-        height: 50px;
-      }
-    }
-  </style>
+			.logo {
+				width: 50px;
+				height: 50px;
+			}
+		}
+	</style>
 </head>
 
 <body>
-  <main>
-    <div class="logo"></div>
-    <h1>サイトリニューアル中</h1>
-    <p class="company-name">〇〇株式会社</p>
-    <p class="subtitle">リニューアルまで今しばらくお待ちください。</p>
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress-fill"></div>
-      </div>
-      <p class="status">Updating<span class="dots"></span></p>
-    </div>
-  </main>
+	<main>
+		<div class="logo"></div>
+		<h1>サイトリニューアル中</h1>
+		<p class="company-name">〇〇株式会社</p>
+		<p class="subtitle">リニューアルまで今しばらくお待ちください。</p>
+		<div class="progress-container">
+			<div class="progress-bar">
+				<div class="progress-fill"></div>
+			</div>
+			<p class="status">Updating<span class="dots"></span></p>
+		</div>
+	</main>
 </body>
 
 </html>

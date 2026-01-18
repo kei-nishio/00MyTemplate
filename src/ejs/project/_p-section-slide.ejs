@@ -1,36 +1,36 @@
 <% const list = ['item1', 'item2', 'item3', 'item4', 'item5', 'item6']; %>
 
 <section class="p-section-slide">
-  <div class="p-section-slide__inner l-inner">
-    <div class="p-section-slide__heading">
-      <%- include(ejsPath + './component/_c-section-title', {title: "スワイパー", subTitle: "fuga"} ) %>
-    </div>
-    <div class="p-section-slide__content">
-      <div class="p-section-slide__slide" data-animation="slide-swiper">
-        <div class="swiper">
-          <ul class="swiper-wrapper">
-            <% for (let i = 0; i < list.length; i++) { %>
-            <li class="swiper-slide">
-              <%- include(ejsPath + './component/_c-card', { 
-                modifier: json.cards[i].modifier, 
-                link: json.cards[i].link, 
-                title: json.cards[i].title, 
-                content: json.cards[i].content 
-            }) %>
-            </li>
-            <% } %>
-          </ul>
-        </div>
-        <div class="swiper-equipment">
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-scrollbar"></div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
-      <div class="p-section-slide__button">
-        <%- include(ejsPath + './component/_c-button-normal', {modifier: "", link: "fuga.html", text: "ボタン"} ) %>
-      </div>
-    </div>
-  </div>
+	<div class="p-section-slide__inner l-inner">
+		<div class="p-section-slide__heading">
+			<%- include(ejsPath + './component/_c-section-title', {title: "スワイパー", subTitle: "fuga"} ) %>
+		</div>
+		<div class="p-section-slide__content">
+			<div class="p-section-slide__slide" data-animation="slide-swiper">
+				<div class="swiper">
+					<ul class="swiper-wrapper">
+						<% for (let i = 0; i < list.length; i++) { %>
+						<li class="swiper-slide">
+							<%- include(ejsPath + './component/_c-card', { 
+								modifier: json.cards[i].modifier, 
+								link: json.cards[i].link, 
+								title: json.cards[i].title, 
+								content: json.cards[i].content 
+						}) %>
+						</li>
+						<% } %>
+					</ul>
+				</div>
+				<div class="swiper-equipment">
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-scrollbar"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			<div class="p-section-slide__button">
+				<%- include(ejsPath + './component/_c-button-normal', {modifier: "", link: "fuga.html", text: "ボタン"} ) %>
+			</div>
+		</div>
+	</div>
 </section>

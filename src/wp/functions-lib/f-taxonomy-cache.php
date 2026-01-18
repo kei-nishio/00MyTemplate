@@ -5,22 +5,22 @@
  * */
 function get_terms_with_cache($terms, $taxonomies, $args)
 {
-  if (is_admin() || empty($taxonomies[0])) {
-    return $terms; // 管理画面ではキャッシュを適用しない
-  }
+	if (is_admin() || empty($taxonomies[0])) {
+		return $terms; // 管理画面ではキャッシュを適用しない
+	}
 
-  $cache_key = 'terms_cache_' . $taxonomies[0];
+	$cache_key = 'terms_cache_' . $taxonomies[0];
 
-  // キャッシュが存在する場合はキャッシュを返す
-  if (($cached_terms = get_transient($cache_key)) !== false) {
-    return $cached_terms;
-  }
+	// キャッシュが存在する場合はキャッシュを返す
+	if (($cached_terms = get_transient($cache_key)) !== false) {
+		return $cached_terms;
+	}
 
-  // キャッシュがない場合は通常の get_terms() を実行し、キャッシュに保存
-  $terms = get_terms($args);
-  set_transient($cache_key, $terms, 30 * DAY_IN_SECONDS); // 30日間キャッシュ
+	// キャッシュがない場合は通常の get_terms() を実行し、キャッシュに保存
+	$terms = get_terms($args);
+	set_transient($cache_key, $terms, 30 * DAY_IN_SECONDS); // 30日間キャッシュ
 
-  return $terms;
+	return $terms;
 }
 
 // フィルターを適用し、get_terms() を自動的にキャッシュ化
@@ -29,7 +29,7 @@ add_filter('get_terms', 'get_terms_with_cache', 10, 3);
 // ! タクソノミーが変更されたときにキャッシュをクリア
 function clear_terms_cache($term_id, $taxonomy)
 {
-  delete_transient('terms_cache_' . $taxonomy);
+	delete_transient('terms_cache_' . $taxonomy);
 }
 
 // タクソノミーの変更（編集・作成・削除）時にキャッシュをクリア

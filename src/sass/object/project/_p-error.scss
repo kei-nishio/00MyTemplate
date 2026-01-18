@@ -7,35 +7,35 @@
 }
 
 .p-error__title {
-  font-size: r(20);
-  text-align: center;
+	font-size: r(20);
+	text-align: center;
 
-  @include mq('md') {
-    font-size: r(24);
-  }
+	@include mq('md') {
+		font-size: r(24);
+	}
 }
 
 .p-error__text {
-  margin-top: r(24);
-  font-size: r(14);
-  line-height: 2;
-  text-align: center;
+	margin-top: r(24);
+	font-size: r(14);
+	line-height: 2;
+	text-align: center;
 
-  @include mq('md') {
-    margin-top: r(48);
-    font-size: r(16);
-  }
-  span {
-    display: inline-block;
-  }
+	@include mq('md') {
+		margin-top: r(48);
+		font-size: r(16);
+	}
+	span {
+		display: inline-block;
+	}
 }
 
 .p-error__button {
-  display: grid;
-  place-items: center;
-  margin-top: r(60);
+	display: grid;
+	place-items: center;
+	margin-top: r(60);
 
-  @include mq('md') {
-    margin-top: r(100);
-  }
+	@include mq('md') {
+		margin-top: r(100);
+	}
 }

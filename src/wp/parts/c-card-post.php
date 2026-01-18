@@ -41,60 +41,60 @@ $description = wp_kses_post(get_the_author_meta('description'));
 // endforeach;
 ?>
 <a href="<?php the_permalink(); ?>" class="c-card-post">
-  <?php if (false): // eye catch 
-  ?>
-    <figure class="c-card-post__img">
-      <?php if (has_post_thumbnail()) : ?>
-        <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
-      <?php else : ?>
-        <img src="<?php echo esc_url($theme_uri . "/assets/images/common/noimage.webp"); ?>" alt="no image" />
-      <?php endif; ?>
-    </figure>
-  <?php endif; ?>
-  <?php if (true): // title 
-  ?>
-    <h3 class="c-card-post__title"><?php echo esc_html(mb_strimwidth(get_the_title(), 0, 18 * 2 + 3, '...')); ?></h3>
-  <?php endif; ?>
-  <?php if (true): // date 
-  ?>
-    <time class="c-card-post__date" datetime="<?php the_time("c"); ?>">
-      <?php the_time("Y.m.d"); ?>
-    </time>
-  <?php endif; ?>
-  <?php if (true): // taxonomy 
-  ?>
-    <?php if (!empty($terms) && !is_wp_error($terms)) : ?>
-      <ul class="c-card-post__term-list">
-        <?php if (true): // 複数のタームを出力する 
-        ?>
-          <?php if (true): // 全てのタームを出力する 
-          ?>
-            <?php foreach ($terms as $term) : ?>
-              <li class="c-card-post__term-item">
-                <p class="c-card-post__term"><?php echo  esc_html($term->name); ?></p>
-              </li>
-            <?php endforeach; ?>
-          <?php else:  // n個のタームを出力する 
-          ?>
-            <?php for ($i = 0; $i < 1; $i++): ?>
-              <li class="c-card-post__term-item">
-                <p class="c-card-post__term"><?php echo  esc_html($term[$i]->name); ?></p>
-              </li>
-            <?php endfor; ?>
-          <?php endif; ?>
-        <?php else: // 一番目のタームを出力する  
-        ?>
-          <p class="c-card-post__term"><?php echo  esc_html($term[0]->name); ?></p>
-        <?php endif; ?>
-      </ul>
-    <?php endif; ?>
-  <?php endif; ?>
-  <?php if (true): // excerpt 
-  ?>
-    <p class="c-card-post__excerpt"><?php echo wp_kses_post(get_the_excerpt()); ?></p>
-  <?php endif; ?>
-  <?php if (true): // content 
-  ?>
-    <p class="c-card-post__content"><?php echo wp_kses_post(mb_strimwidth(strip_tags(get_the_content()), 0, 100 * 2 + 3, '...')); ?></p>
-  <?php endif; ?>
+	<?php if (false): // eye catch 
+	?>
+		<figure class="c-card-post__img">
+			<?php if (has_post_thumbnail()) : ?>
+				<img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($thumbnail_alt); ?>">
+			<?php else : ?>
+				<img src="<?php echo esc_url($theme_uri . "/assets/images/common/noimage.webp"); ?>" alt="no image" />
+			<?php endif; ?>
+		</figure>
+	<?php endif; ?>
+	<?php if (true): // title 
+	?>
+		<h3 class="c-card-post__title"><?php echo esc_html(mb_strimwidth(get_the_title(), 0, 18 * 2 + 3, '...')); ?></h3>
+	<?php endif; ?>
+	<?php if (true): // date 
+	?>
+		<time class="c-card-post__date" datetime="<?php the_time("c"); ?>">
+			<?php the_time("Y.m.d"); ?>
+		</time>
+	<?php endif; ?>
+	<?php if (true): // taxonomy 
+	?>
+		<?php if (!empty($terms) && !is_wp_error($terms)) : ?>
+			<ul class="c-card-post__term-list">
+				<?php if (true): // 複数のタームを出力する 
+				?>
+					<?php if (true): // 全てのタームを出力する 
+					?>
+						<?php foreach ($terms as $term) : ?>
+							<li class="c-card-post__term-item">
+								<p class="c-card-post__term"><?php echo  esc_html($term->name); ?></p>
+							</li>
+						<?php endforeach; ?>
+					<?php else:  // n個のタームを出力する 
+					?>
+						<?php for ($i = 0; $i < 1; $i++): ?>
+							<li class="c-card-post__term-item">
+								<p class="c-card-post__term"><?php echo  esc_html($term[$i]->name); ?></p>
+							</li>
+						<?php endfor; ?>
+					<?php endif; ?>
+				<?php else: // 一番目のタームを出力する  
+				?>
+					<p class="c-card-post__term"><?php echo  esc_html($term[0]->name); ?></p>
+				<?php endif; ?>
+			</ul>
+		<?php endif; ?>
+	<?php endif; ?>
+	<?php if (true): // excerpt 
+	?>
+		<p class="c-card-post__excerpt"><?php echo wp_kses_post(get_the_excerpt()); ?></p>
+	<?php endif; ?>
+	<?php if (true): // content 
+	?>
+		<p class="c-card-post__content"><?php echo wp_kses_post(mb_strimwidth(strip_tags(get_the_content()), 0, 100 * 2 + 3, '...')); ?></p>
+	<?php endif; ?>
 </a>

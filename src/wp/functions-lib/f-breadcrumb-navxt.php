@@ -8,14 +8,14 @@
  */
 function my_custom_breadcrumbs($trail)
 {
-  if (is_page(array('confirm', 'thanks'))) {
-    $trail->breadcrumbs = []; // パンくずをリセット
+	if (is_page(array('confirm', 'thanks'))) {
+		$trail->breadcrumbs = []; // パンくずをリセット
 
-    // CONTACT パンくずアイテム（非リンク）
-    $trail->add(new bcn_breadcrumb('CONTACT', null, array('singular'), esc_url(home_url('contact/')), null, false));
+		// CONTACT パンくずアイテム（非リンク）
+		$trail->add(new bcn_breadcrumb('CONTACT', null, array('singular'), esc_url(home_url('contact/')), null, false));
 
-    // TOP パンくずアイテム（リンク）
-    $trail->add(new bcn_breadcrumb('TOP', null, array('home'), esc_url(home_url('/')), null, true));
-  }
+		// TOP パンくずアイテム（リンク）
+		$trail->add(new bcn_breadcrumb('TOP', null, array('home'), esc_url(home_url('/')), null, true));
+	}
 }
 add_action('bcn_after_fill', 'my_custom_breadcrumbs');

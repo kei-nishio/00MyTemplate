@@ -1,45 +1,45 @@
 <% const validPage = 'top'; %>
 <% const isTopPage = page === validPage; %>
 <%
-  const navItems = [
-    { link: "hoge.html", text: "hoge" },
-    { link: "fuga.html", text: "fuga" }
-  ];
+	const navItems = [
+		{ link: "hoge.html", text: "hoge" },
+		{ link: "fuga.html", text: "fuga" }
+	];
 %>
 <header class="p-header" data-header>
-  <div class="p-header__inner">
-    <% if (isTopPage) { %>
-    <h1 class="p-header__logo"><% } else { %>
-      <div class="p-header__logo"><% } %>
-        <a href="index.html">
-          <img src="<%= baseUrlPath %>/assets/images/common/logo.svg" alt="" />
-        </a>
-        <% if (!isTopPage) { %>
-      </div>
-      <% } else { %>
-    </h1>
-    <% } %>
-    <nav class="p-header__nav">
-      <ul class="p-header__list">
-        <% navItems.forEach(item => { %>
-        <li class="p-header__item">
-          <a href="<%= item.link %>">
-            <span><%= item.text %></span>
-          </a>
-        </li>
-        <% }) %>
-      </ul>
-    </nav>
+	<div class="p-header__inner">
+		<% if (isTopPage) { %>
+		<h1 class="p-header__logo"><% } else { %>
+			<div class="p-header__logo"><% } %>
+				<a href="index.html">
+					<img src="<%= baseUrlPath %>/assets/images/common/logo.svg" alt="" />
+				</a>
+				<% if (!isTopPage) { %>
+			</div>
+			<% } else { %>
+		</h1>
+		<% } %>
+		<nav class="p-header__nav">
+			<ul class="p-header__list">
+				<% navItems.forEach(item => { %>
+				<li class="p-header__item">
+					<a href="<%= item.link %>">
+						<span><%= item.text %></span>
+					</a>
+				</li>
+				<% }) %>
+			</ul>
+		</nav>
 
-    <%# hamburger %>
-    <div class="p-header__hamburger">
-      <button class="c-hamburger" type="button" aria-label="メニュー" aria-expanded="false" data-hamburger>
-        <span class="c-hamburger__border"></span>
-        <span class="c-hamburger__border"></span>
-        <span class="c-hamburger__border"></span>
-      </button>
-    </div>
-  </div>
+		<%# hamburger %>
+		<div class="p-header__hamburger">
+			<button class="c-hamburger" type="button" aria-label="メニュー" aria-expanded="false" data-hamburger>
+				<span class="c-hamburger__border"></span>
+				<span class="c-hamburger__border"></span>
+				<span class="c-hamburger__border"></span>
+			</button>
+		</div>
+	</div>
 </header>
 
 <%# drawer %>

@@ -7,18 +7,18 @@
 }
 
 .p-archive__list {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: r(40);
-  @include mq('md') {
-    grid-template-columns: repeat(3, 1fr);
-    gap: r(60) r(40);
-  }
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	gap: r(40);
+	@include mq('md') {
+		grid-template-columns: repeat(3, 1fr);
+		gap: r(60) r(40);
+	}
 }
 
 .p-archive__item {
 }
 
 .p-archive__pagination {
-  margin-top: r(80);
+	margin-top: r(80);
 }

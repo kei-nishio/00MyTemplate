@@ -1,15 +1,15 @@
 @use 'global' as *;
 
 body {
-  background-color: var(--color-white);
-  font-family: var(--font-jp);
-  font-size: r(16);
-  color: var(--color-black);
+	background-color: var(--color-white);
+	font-family: var(--font-jp);
+	font-size: r(16);
+	color: var(--color-black);
 
-  // background-image: url(../images/common/bg.webp);
-  // background-position: 50% top;
-  // background-size: 700px 700px;
-  // background-repeat: repeat;
+	// background-image: url(../images/common/bg.webp);
+	// background-position: 50% top;
+	// background-size: 700px 700px;
+	// background-repeat: repeat;
 }
 
 // GSAP挙動確認用

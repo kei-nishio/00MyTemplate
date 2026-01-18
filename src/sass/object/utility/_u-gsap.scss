@@ -1,11 +1,11 @@
 @use 'global' as *;
 
 [data-animation='clip-top-to-down'] {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.4s ease-out;
+	clip-path: inset(0 0 100% 0);
+	transition: clip-path 0.4s ease-out;
 }
 
 [data-animation='clip-left-to-right'] {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.4s ease-out;
+	clip-path: inset(0 100% 0 0);
+	transition: clip-path 0.4s ease-out;
 }

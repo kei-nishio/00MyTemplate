@@ -4,21 +4,21 @@
 }
 
 .p-column2__inner.l-inner {
-  @include mq('md') {
-    display: flex;
-    gap: 3%;
-  }
+	@include mq('md') {
+		display: flex;
+		gap: 3%;
+	}
 }
 
 .p-column2__sidebar {
-  @include mq('md') {
-    flex-shrink: 0;
-    width: 15%;
-  }
+	@include mq('md') {
+		flex-shrink: 0;
+		width: 15%;
+	}
 }
 
 .p-column2__main {
-  @include mq('md') {
-    width: 100%;
-  }
+	@include mq('md') {
+		width: 100%;
+	}
 }
