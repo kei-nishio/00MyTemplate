@@ -1,12 +1,16 @@
 # Build output
+
 dist/**
 distwp/**
 
 # Node modules
-_gulp/node_modules/**
+
+node_modules/\*\*
 
 # Foundation reset (external styles)
-src/sass/foundation/_reset.scss
+
+src/sass/foundation/\_reset.scss
 
 # Vendor files
-src/assets/css/**
+
+src/assets/css/\*\*

@@ -3,7 +3,7 @@ dist/
 distwp/
 
 # Node modules
-_gulp/node_modules/
+node_modules/
 
 # Minified files
 **/*.min.js

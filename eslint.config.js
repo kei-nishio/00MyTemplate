@@ -59,6 +59,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'distwp/**', '_gulp/**', '**/*.min.js'],
+    ignores: ['dist/**', 'distwp/**', '**/*.min.js'],
   },
 ];
