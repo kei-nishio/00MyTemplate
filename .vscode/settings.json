@@ -70,5 +70,6 @@
 	"git.autofetch": true, // リモートから自動フェッチ
 	"git.enableSmartCommit": true, // ステージ済みだけで即コミット
 	"git.confirmSync": false,
-	"liveServer.settings.port": 5501 // 同期時の確認を省略
+	"liveServer.settings.port": 5501,
+	"cSpell.words": ["distwp", "FLOCSS", "NISHIO"]
 }
