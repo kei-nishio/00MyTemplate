@@ -1,74 +1,74 @@
 {
-  // ================================
-  // VSCode プロジェクト共有設定（Web制作向け）
-  // ================================
+	// ================================
+	// VSCode プロジェクト共有設定（Web制作向け）
+	// ================================
 
-  // ----- フォーマッター / 整形ルール -----
-  // Prettierルール設定は .prettierrc.json で管理（プロジェクトルート）
-  "editor.formatOnSave": true, // 保存時に自動フォーマット
-  "editor.defaultFormatter": "esbenp.prettier-vscode", // Prettier をデフォルトに
-  "javascript.preferences.quoteStyle": "single", // JS補完もシングルクォートに
-  "diffEditor.ignoreTrimWhitespace": false, // 差分で空白も表示
+	// ----- フォーマッター / 整形ルール -----
+	// Prettierルール設定は .prettierrc.json で管理（プロジェクトルート）
+	"editor.formatOnSave": true, // 保存時に自動フォーマット
+	"editor.defaultFormatter": "esbenp.prettier-vscode", // Prettier をデフォルトに
+	"javascript.preferences.quoteStyle": "single", // JS補完もシングルクォートに
+	"diffEditor.ignoreTrimWhitespace": false, // 差分で空白も表示
 
-  // ----- 保存時 ESLint 自動修正 -----
-  // ESLint設定は _gulp/eslint.config.js で管理
-  "eslint.options": {
-    "overrideConfigFile": "_gulp/eslint.config.js"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit" // 保存時にESLintで自動修正
-  },
-  "eslint.validate": ["javascript", "javascriptreact"], // ESLint対象ファイルを明示
+	// ----- 保存時 ESLint 自動修正 -----
+	// ESLint設定は eslint.config.js で管理
+	"eslint.options": {
+		"overrideConfigFile": "eslint.config.js"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit" // 保存時にESLintで自動修正
+	},
+	"eslint.validate": ["javascript", "javascriptreact"], // ESLint対象ファイルを明示
 
-  // ----- Stylelint -----
-  // Stylelint設定は .stylelintrc.json で管理（プロジェクトルート）
-  "stylelint.validate": ["css", "scss"],
+	// ----- Stylelint -----
+	// Stylelint設定は .stylelintrc.json で管理（プロジェクトルート）
+	"stylelint.validate": ["css", "scss"],
 
-  // ----- 表示・操作補助 -----
-  "editor.wordWrap": "on", // 長文の自動折り返し
-  "editor.mouseWheelZoom": true, // Ctrl+ホイールで拡大縮小
-  "editor.linkedEditing": true, // タグ同時編集を有効化
-  "editor.minimap.enabled": false, // ミニマップを非表示
-  "editor.stickyScroll.enabled": false, // スクロール固定を無効化
-  "editor.unicodeHighlight.nonBasicASCII": false, // 全角記号の強調を無効化
-  "editor.accessibilitySupport": "off", // アクセシビリティ補助を無効化
+	// ----- 表示・操作補助 -----
+	"editor.wordWrap": "on", // 長文の自動折り返し
+	"editor.mouseWheelZoom": true, // Ctrl+ホイールで拡大縮小
+	"editor.linkedEditing": true, // タグ同時編集を有効化
+	"editor.minimap.enabled": false, // ミニマップを非表示
+	"editor.stickyScroll.enabled": false, // スクロール固定を無効化
+	"editor.unicodeHighlight.nonBasicASCII": false, // 全角記号の強調を無効化
+	"editor.accessibilitySupport": "off", // アクセシビリティ補助を無効化
 
-  // ----- Emmet / クイック補完 -----
-  "emmet.includeLanguages": {
-    "ejs": "html" // EJSでもHTML補完を有効に
-  },
-  "editor.quickSuggestions": {
-    "strings": "on" // 文字列内でも補完を有効に
-  },
+	// ----- Emmet / クイック補完 -----
+	"emmet.includeLanguages": {
+		"ejs": "html" // EJSでもHTML補完を有効に
+	},
+	"editor.quickSuggestions": {
+		"strings": "on" // 文字列内でも補完を有効に
+	},
 
-  // ----- 拡張子別設定 -----
-  "[html]": {
-    "editor.insertSpaces": false, // タブを使用
-    "editor.detectIndentation": false, // 自動インデント検出を無効に
-    "editor.defaultFormatter": "j69.ejs-beautify" // EJS対応のフォーマッターに指定
-  },
-  "[ejs]": {
-    "editor.insertSpaces": false, // タブを使用
-    "editor.defaultFormatter": "j69.ejs-beautify" // EJSも同様
-  },
-  "[css]": {
-    "editor.insertSpaces": false, // タブを使用
-    "editor.detectIndentation": false // インデント自動検出を無効化
-  },
-  "[scss]": {
-    "editor.insertSpaces": false // タブを使用
-  },
-  "[javascript]": {
-    "editor.insertSpaces": false // タブを使用
-  },
-  "[php]": {
-    "editor.insertSpaces": false, // タブを使用
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client" // PHP整形ツール指定
-  },
+	// ----- 拡張子別設定 -----
+	"[html]": {
+		"editor.insertSpaces": false, // タブを使用
+		"editor.detectIndentation": false, // 自動インデント検出を無効に
+		"editor.defaultFormatter": "j69.ejs-beautify" // EJS対応のフォーマッターに指定
+	},
+	"[ejs]": {
+		"editor.insertSpaces": false, // タブを使用
+		"editor.defaultFormatter": "j69.ejs-beautify" // EJSも同様
+	},
+	"[css]": {
+		"editor.insertSpaces": false, // タブを使用
+		"editor.detectIndentation": false // インデント自動検出を無効化
+	},
+	"[scss]": {
+		"editor.insertSpaces": false // タブを使用
+	},
+	"[javascript]": {
+		"editor.insertSpaces": false // タブを使用
+	},
+	"[php]": {
+		"editor.insertSpaces": false, // タブを使用
+		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client" // PHP整形ツール指定
+	},
 
-  // ----- Git 操作補助 -----
-  "git.autofetch": true, // リモートから自動フェッチ
-  "git.enableSmartCommit": true, // ステージ済みだけで即コミット
-  "git.confirmSync": false,
-  "liveServer.settings.port": 5501 // 同期時の確認を省略
+	// ----- Git 操作補助 -----
+	"git.autofetch": true, // リモートから自動フェッチ
+	"git.enableSmartCommit": true, // ステージ済みだけで即コミット
+	"git.confirmSync": false,
+	"liveServer.settings.port": 5501 // 同期時の確認を省略
 }

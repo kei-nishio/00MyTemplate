@@ -1,15 +1,12 @@
 {
-  "recommendations": [
-    "esbenp.prettier-vscode", // Prettier：コードを自動整形（JS・CSS・HTMLなど）
-    "j69.ejs-beautify", // EJS Beautify：EJSテンプレートを整形
-    "bmewburn.vscode-intelephense-client", // Intelephense：PHPの補完・構文チェック
-    "dbaeumer.vscode-eslint", // ESLint：JavaScriptの文法・品質チェック
-    "glenn2223.live-sass", // Live Sass Compiler：SCSSをリアルタイムでCSSに変換
-    "ritwickdey.liveserver", // Live Server：HTMLをローカルで即時プレビュー
-    "formulahendry.auto-rename-tag", // Auto Rename Tag：開始タグと終了タグを同時に編集
-    "ecmel.vscode-html-css", // HTML CSS Support：HTMLタグに対応するCSS補完
-    "pranaygp.vscode-css-peek", // CSS Peek：HTMLクラス名からCSS定義へジャンプ
-    "streetsidesoftware.code-spell-checker", // Code Spell Checker：英語のスペルミスを警告
-    "christian-kohler.path-intellisense" // Path Intellisense：画像やファイルのパス補完
-  ]
+	"recommendations": [
+		"esbenp.prettier-vscode", // Prettier：コードを自動整形（JS・CSS・HTMLなど）
+		"j69.ejs-beautify", // EJS Beautify：EJSテンプレートを整形
+		"dbaeumer.vscode-eslint", // ESLint：JavaScriptの文法・品質チェック
+		"formulahendry.auto-rename-tag", // Auto Rename Tag：開始タグと終了タグを同時に編集
+		"pranaygp.vscode-css-peek", // CSS Peek：HTMLクラス名からCSS定義へジャンプ
+		"streetsidesoftware.code-spell-checker", // Code Spell Checker：英語のスペルミスを警告
+		"christian-kohler.path-intellisense" // Path Intellisense：画像やファイルのパス補完
+	],
+	"unwantedRecommendations": []
 }
