@@ -35,7 +35,12 @@
   }
 }
 .p-fv__heading {
-  font-feature-settings: 'vert' 1, 'vrt2' 1, 'vkrn' 1, 'vpal' 1, 'vkna' 1;
+  font-feature-settings:
+    'vert' 1,
+    'vrt2' 1,
+    'vkrn' 1,
+    'vpal' 1,
+    'vkna' 1;
   writing-mode: vertical-rl;
 }
 .p-fv__letter {

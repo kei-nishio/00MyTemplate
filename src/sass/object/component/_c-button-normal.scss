@@ -6,7 +6,9 @@
   border-radius: 100vmax;
   box-shadow: 1px 1px 0 0 gray;
   background-color: black;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   a,
   input {
     display: inline-block;

@@ -16,7 +16,9 @@
     font-family: var(--font-en);
     font-size: r(14);
     color: black;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
     &.prev {
     }
     &.next {
