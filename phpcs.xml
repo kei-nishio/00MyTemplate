@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ruleset name="MyTemplate WordPress Theme">
+  <description>Custom ruleset for WordPress theme development</description>
+
+  <!-- What to scan -->
+  <file>./src/wp/</file>
+
+  <!-- Exclude patterns -->
+  <exclude-pattern>/vendor/*</exclude-pattern>
+  <exclude-pattern>/node_modules/*</exclude-pattern>
+  <exclude-pattern>/dist/*</exclude-pattern>
+  <exclude-pattern>/distwp/*</exclude-pattern>
+
+  <!-- How to scan -->
+  <arg value="sp"/>
+  <arg name="basepath" value="."/>
+  <arg name="colors"/>
+  <arg name="extensions" value="php"/>
+  <arg name="parallel" value="8"/>
+
+  <!-- Rules: WordPress Coding Standards -->
+  <rule ref="WordPress">
+    <!-- Exclude some rules for template files -->
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+    <exclude name="WordPress.NamingConventions.PrefixAllGlobals"/>
+    <exclude name="WordPress.WP.I18n"/>
+    <exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
+  </rule>
+
+  <!-- Minimum supported PHP version -->
+  <config name="testVersion" value="7.4-"/>
+
+  <!-- WordPress version -->
+  <config name="minimum_supported_wp_version" value="6.0"/>
+
+  <!-- Text domain for translations -->
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <property name="text_domain" type="array">
+        <element value="mytheme"/>
+      </property>
+    </properties>
+  </rule>
+
+  <!-- Indentation: Use tabs (WordPress standard) -->
+  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+
+  <!-- Line length -->
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="200"/>
+      <property name="absoluteLineLimit" value="0"/>
+    </properties>
+  </rule>
+</ruleset>

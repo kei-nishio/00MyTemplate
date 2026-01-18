@@ -72,6 +72,43 @@ npm audit fix          # Fix vulnerabilities (safe)
 npm audit fix --force  # Fix vulnerabilities (aggressive)
 ```
 
+**Lint / Formatter:**
+
+```bash
+cd _gulp
+
+# SCSS Lint
+npm run lint:scss              # Check SCSS files
+npm run lint:scss:fix          # Auto-fix SCSS issues
+
+# JavaScript Lint
+npm run lint:js                # Check JavaScript files
+npm run lint:js:fix            # Auto-fix JavaScript issues
+
+# All Lint
+npm run lint                   # Run all linters (SCSS + JS)
+npm run lint:fix               # Auto-fix all issues
+
+# HTML Lint (after build)
+npm run lint:html              # Check compiled HTML files
+
+# Format with Prettier
+npm run format                 # Format all files (SCSS + JS)
+npm run format:check           # Check formatting without changes
+
+# PHP Lint (requires Composer)
+npm run lint:php               # Check PHP files (WordPress)
+npm run lint:php:fix           # Auto-fix PHP issues
+```
+
+**PHP Lint Setup (optional):**
+
+```bash
+# Install Composer first, then:
+cd /path/to/project
+composer install
+```
+
 ## Project Architecture
 
 ### Directory Structure
@@ -149,6 +186,7 @@ Breakpoint values:
 - `xl: 1440px`
 
 **Sass Directory Structure:**
+
 ```
 src/sass/
 │
@@ -224,6 +262,7 @@ When `EJS_MODE=true`, the build system compiles `.ejs` files to HTML:
 Each JSON file becomes a namespace (filename without extension).
 
 **EJS Directory Structure:**
+
 ```
 src/ejs/
 │
@@ -271,6 +310,7 @@ When `WP_MODE=true`:
   - `f-scf_*`: Smart Custom Fields utilities
 
 **WordPress Directory Structure:**
+
 ```
 src/wp/
 │
@@ -408,22 +448,26 @@ If Volta is installed, it will automatically use the correct versions.
 ### Core Principles
 
 **1. Consistency**
+
 - Maintain uniform coding style across all files and languages
 - Follow established naming patterns and file structures
 - Use consistent indentation (2 spaces) throughout the project
 
 **2. Maintainability**
+
 - Write self-documenting code with clear naming
 - Keep components modular and single-purpose
 - Minimize nesting depth (max 2-3 levels)
 - Avoid high specificity in CSS selectors
 
 **3. Security**
+
 - Escape all dynamic output (WordPress: `esc_url()`, `esc_html()`, `esc_attr()`)
 - Use EJS escaping syntax `<%= %>` by default for user input
 - Never output raw user data without sanitization
 
 **4. Accessibility**
+
 - Use semantic HTML5 elements (`<header>`, `<nav>`, `<main>`, `<section>`)
 - Include ARIA attributes where necessary (`aria-label`, `aria-expanded`)
 - Maintain proper heading hierarchy
@@ -432,24 +476,28 @@ If Volta is installed, it will automatically use the correct versions.
 ### Naming Conventions (BEM + FLOCSS)
 
 **BEM Structure:**
+
 - **Block**: `prefix-block`
 - **Element**: `block__element`
 - **Modifier**: `block--modifier`
 - **State**: `.is-state`
 
 **FLOCSS Prefixes:**
+
 - `c-` = Component (reusable UI elements)
 - `p-` = Project (page/feature-specific)
 - `l-` = Layout (structural containers)
 - `u-` = Utility (single-purpose classes)
 
 **File Naming:**
+
 - EJS partials: `_prefix-name.ejs` (underscore = not compiled standalone)
 - PHP template parts: `prefix-name.php`
 - SCSS files: `_prefix-name.scss`
 - PHP functions: `f-category_description.php`
 
 **Example:**
+
 ```
 _c-button.ejs  →  c-button.php  →  _c-button.scss
 (Component button across all languages)
@@ -460,43 +508,52 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 #### HTML/EJS
 
 **Formatting:**
+
 - 2-space indentation
 - Attribute order: `class` → `data-*` → others
 
 **EJS Syntax:**
+
 - `<%= value %>` — Output with escaping (default)
 - `<%- include() %>` — Output without escaping (for partials)
 - `<% code %>` — Execute code without output
 - `<%# comment %>` — Non-rendered comments
 
 **Data Attributes:**
+
 - Use `data-*` for JavaScript hooks instead of classes
 - Example: `data-drawer`, `data-hamburger`
 
 **Template Includes:**
+
 - Document parameters with EJS comments: `<%# Parameters: title, link %>`
 - Pass data as object literals
 
 #### PHP (WordPress)
 
 **Formatting:**
+
 - 2-space indentation
 - Always use `<?php ?>` (long form, never short tags)
 - Omit closing tags in PHP-only files
 
 **Function Naming:**
+
 - Theme functions: `my_` prefix + snake_case
 - Include context in names: `custom_select_values_contact`
 
 **Template Syntax:**
+
 - Use alternative syntax for HTML blocks: `if():` / `endif;`
 - Declare variables at top of template
 
 **WordPress Hooks:**
+
 - Register hooks before function definitions
 - Use descriptive function names that indicate purpose
 
 **Security:**
+
 - Always escape output with appropriate functions
 - URLs: `esc_url()`
 - HTML text: `esc_html()`
@@ -505,11 +562,13 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 #### SCSS/Sass
 
 **Formatting:**
+
 - 2-space indentation
 - Maximum 2-3 nesting levels
 - Single blank lines between sections
 
 **Property Ordering (by category):**
+
 1. Position/Layout
 2. Sizing
 3. Spacing
@@ -518,28 +577,34 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 6. Animation
 
 **Module System:**
+
 - Use `@use` instead of `@import`
 - Import `@use 'global' as *;` at top of files
 - Use `@forward` in `_index.scss` for module exports
 
 **Responsive Design:**
+
 - Always use `mq()` mixin with breakpoint names (`sm`, `md`, `lg`, `xl`)
 - Never write raw media queries
 - Mobile-first approach by default
 
 **Sizing:**
+
 - Use `r()` function for all sizing (never raw `px` values except 1px borders)
 - Use `fluidRange()` for responsive sizing between breakpoints
 
 **Variables:**
+
 - Define CSS custom properties in `:root` within `_setting.scss`
 - Naming: `--category-name` (e.g., `--color-white`, `--zi-header`)
 - Use predefined z-index scale: `--zi-*`
 
 **Hover States:**
+
 - Wrap in `@media (any-hover: hover)` to prevent touch device issues
 
 **Specificity:**
+
 - Prefer single class selectors
 - Never use ID selectors in styles
 - Avoid `!important` except for third-party overrides
@@ -548,24 +613,26 @@ _c-button.ejs  →  c-button.php  →  _c-button.scss
 ### Comment Conventions
 
 **Markers (all languages):**
+
 - `// !` — Important/critical information
 - `// *` — Regular notes
 - `// ?` — Questions/clarifications
 
 **Documentation:**
+
 - EJS: `<%# component parameters %>` for template documentation
 - PHP: `/** @link ... */` for function documentation
 - SCSS: Multi-line `/* */` for section headers
 
 ### Cross-Language Consistency
 
-| Aspect | Convention |
-|--------|-----------|
-| Indentation | 2 spaces (all files) |
+| Aspect          | Convention                                        |
+| --------------- | ------------------------------------------------- |
+| Indentation     | 2 spaces (all files)                              |
 | Component files | `_c-button.ejs`, `c-button.php`, `_c-button.scss` |
-| Project files | `_p-header.ejs`, `p-header.php`, `_p-header.scss` |
-| BEM naming | `block__element--modifier` (all languages) |
-| State classes | `.is-active`, `.is-scrolled` (all languages) |
-| JS hooks | `data-*` attributes (HTML/EJS/PHP) |
+| Project files   | `_p-header.ejs`, `p-header.php`, `_p-header.scss` |
+| BEM naming      | `block__element--modifier` (all languages)        |
+| State classes   | `.is-active`, `.is-scrolled` (all languages)      |
+| JS hooks        | `data-*` attributes (HTML/EJS/PHP)                |
 
 This ensures easy navigation between related files and a maintainable codebase across all languages.

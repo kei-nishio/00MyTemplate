@@ -13,28 +13,30 @@
     border: 1px solid black;
     border-radius: 100%;
     background-color: transparent;
-    color: black;
-    font-size: r(14);
     font-family: var(--font-en);
-    transition: background-color 0.3s, color 0.3s;
+    font-size: r(14);
+    color: black;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
     &.prev {
     }
     &.next {
     }
     &.prev,
     &.next {
+      position: relative;
       border: 1px solid black;
       background-color: white;
-      position: relative;
     }
     &.prev::before,
     &.prev::after,
     &.next::before,
     &.next::after {
       content: '';
-      display: block;
       position: absolute;
       top: 50%;
+      display: block;
       width: r(6);
       height: 1px;
       border-radius: 1px;

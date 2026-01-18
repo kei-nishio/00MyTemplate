@@ -1,0 +1,13 @@
+# Build output
+dist/
+distwp/
+
+# Node modules
+_gulp/node_modules/
+
+# Minified files
+**/*.min.js
+**/*.min.css
+
+# Vendor files
+src/assets/css/

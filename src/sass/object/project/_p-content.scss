@@ -15,12 +15,12 @@
     }
     input[type='password'] {
       min-width: 10em;
-      padding-inline: r(16);
       padding-top: r(4);
       padding-bottom: r(4);
+      padding-inline: r(16);
       border: 1px solid red;
-      color: var(--color-white);
       letter-spacing: 0.3em;
+      color: var(--color-white);
     }
   }
 }
@@ -108,8 +108,8 @@
   table {
     display: block;
     width: 100%;
-    margin: 1em 0;
     overflow-x: auto;
+    margin: 1em 0;
     white-space: nowrap;
     border-collapse: collapse;
   }

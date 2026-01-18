@@ -24,7 +24,11 @@ $hamburger-scale: calc(1 / cos($hamburger-rotate));
   height: $hamburger-border-height;
   border-radius: $hamburger-border-height;
   background-color: black;
-  transition: transform 0.3s, opacity 0.1s, width 0.3s, height 0.3s;
+  transition:
+    transform 0.3s,
+    opacity 0.1s,
+    width 0.3s,
+    height 0.3s;
 }
 
 // * is-active

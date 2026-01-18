@@ -29,14 +29,19 @@
     width: 100%;
     height: 100%;
     aspect-ratio: inherit;
+    border-radius: inherit;
     object-fit: cover;
     object-position: 50% 50%;
-    border-radius: inherit;
   }
 }
 .p-fv__heading {
+  font-feature-settings:
+    'vert' 1,
+    'vrt2' 1,
+    'vkrn' 1,
+    'vpal' 1,
+    'vkna' 1;
   writing-mode: vertical-rl;
-  font-feature-settings: 'vert' 1, 'vrt2' 1, 'vkrn' 1, 'vpal' 1, 'vkna' 1;
 }
 .p-fv__letter {
   width: 100%;
