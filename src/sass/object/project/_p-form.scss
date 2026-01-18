@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'global' as *;
 
 // Contact Form 7 のスタイルリセット
@@ -151,7 +152,7 @@
 		&:active,
 		&:hover,
 		&:focus {
-			border: 1px solid darken(gray, 50%);
+			border: 1px solid color.adjust(gray, $lightness: -50%);
 		}
 		&::placeholder {
 			color: gray;
