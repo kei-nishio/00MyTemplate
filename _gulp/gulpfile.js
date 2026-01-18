@@ -36,6 +36,8 @@ import uglify from 'gulp-uglify'; // JavaScript圧縮
 import ejs from 'gulp-ejs'; // EJSをHTMLに変換
 import htmlbeautify from 'gulp-html-beautify'; // HTML整形
 import fs from 'fs'; // JSONファイル操作用
+// * Lint
+import stylelint from 'gulp-stylelint-esm'; // StylelintのGulpプラグイン
 // * SSHデプロイ
 import GulpSSH from 'gulp-ssh'; // SSH接続用
 import { exec } from 'child_process'; // コマンド実行用
@@ -310,6 +312,28 @@ const jsBabel = () => {
     .pipe(wpLocalMode && wpMode ? dest(destWpLocalPath.js) : through2.obj());
 };
 
+// * SCSS Lint（開発時：警告のみ、ビルド続行）
+const lintScssWatch = () => {
+  return src(srcPath.sass)
+    .pipe(plumber({ errorHandler: notify.onError('SCSS Lint Error: <%= error.message %>') }))
+    .pipe(
+      stylelint({
+        reporters: [{ formatter: 'string', console: true }],
+        failAfterError: false, // ビルドを停止しない
+      })
+    );
+};
+
+// * SCSS Lint（本番時：エラーでビルド停止）
+const lintScssBuild = () => {
+  return src(srcPath.sass).pipe(
+    stylelint({
+      reporters: [{ formatter: 'string', console: true }],
+      failAfterError: true, // エラーでビルド停止
+    })
+  );
+};
+
 // * EJSのコンパイル
 export const ejsCompile = () => {
   if (ejsMode) {
@@ -424,7 +448,7 @@ const cleanWithoutImages = () => {
 
 // * ファイルの監視
 const watchFiles = () => {
-  watch(srcPath.sass, series(cssSass, browserSyncReload));
+  watch(srcPath.sass, series(lintScssWatch, cssSass, browserSyncReload));
   watch(srcPath.js, series(jsBabel, browserSyncReload));
   watch(srcPath.img, series(imgImageminWebpOnly, browserSyncReload));
   if (wpMode) {
@@ -657,6 +681,9 @@ export { deployWithOriginal as 'deploy-with-original' };
 // ! ユーティリティタスク
 export const ssh_test = testSSHConnection;
 export { clean, cleanWithoutImages, cssSass, jsBabel, imgImageminWebpOnly, imgImageminWithOriginal };
+
+// ! Lintタスク
+export { lintScssWatch as 'lint-scss', lintScssBuild as 'lint-scss-build' };
 
 // ! 自動デプロイ付き監視タスク（本番環境用）
 const watchDeploy = series(

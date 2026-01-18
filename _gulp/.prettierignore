@@ -1,0 +1,13 @@
+# Build output
+../dist/
+../distwp/
+
+# Node modules
+node_modules/
+
+# Minified files
+**/*.min.js
+**/*.min.css
+
+# Vendor files
+../src/assets/css/

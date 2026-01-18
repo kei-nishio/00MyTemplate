@@ -1,0 +1,19 @@
+{
+  "name": "mytemplate/lint",
+  "description": "PHP CodeSniffer for WordPress theme development",
+  "type": "project",
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7",
+    "wp-coding-standards/wpcs": "^3.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "lint:php": "phpcs",
+    "lint:php:fix": "phpcbf"
+  }
+}
