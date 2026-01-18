@@ -26,20 +26,20 @@
     display: block;
     max-width: 10em;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
   span[property='name'].current-item {
     color: red;
   }
   .separator {
     display: block;
-    aspect-ratio: 7 / 4;
     height: 1em;
+    aspect-ratio: 7 / 4;
+    background-color: black;
     mask-image: url(../images/common/icon-arrow.svg);
     mask-position: bottom;
-    mask-size: 70%;
     mask-repeat: no-repeat;
-    background-color: black;
+    mask-size: 70%;
   }
 }

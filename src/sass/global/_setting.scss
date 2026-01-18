@@ -25,9 +25,9 @@ $headerHeight-pc: 110px; // PCのヘッダー高さ
 }
 
 @property --root-font-size {
-  syntax: '<length>';
   inherits: false;
   initial-value: 16px;
+  syntax: '<length>';
 }
 
 :root {

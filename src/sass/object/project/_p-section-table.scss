@@ -29,10 +29,10 @@
   }
   th,
   td {
+    padding-inline: 2em;
+    padding-block: 0.5em;
     background-color: white;
     text-align: center;
-    padding-block: 0.5em;
-    padding-inline: 2em;
   }
   tfoot > tr > th {
     grid-column: span 2;

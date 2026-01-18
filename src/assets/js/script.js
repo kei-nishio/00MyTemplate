@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! セレクトボックスからカテゴリーアーカイブに遷移する ***********
   window.redirectToUrl = function (select) {
-    let url = select.value;
+    const url = select.value;
     if (url) window.location.href = url;
-    /* 
+    /*
     参考：php側のコード
     <?php if (wp_is_mobile()): ?>
       <label for="select-hoge" style="display: none;">○○から探す</label>
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('[data-header]');
   if (header) {
     window.addEventListener('scroll', () => {
-      let scrollTop = document.documentElement.scrollTop;
+      const scrollTop = document.documentElement.scrollTop;
       // * scrollTop > window.innerHeight * 0.2 はスマホのバウンディング対応
       if (scrollTop > lastScrollTop && scrollTop > window.innerHeight * 0.2) {
         header.classList.add('is-scrolled');
@@ -250,14 +250,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ! トリガー要素以下で見えなくなるターゲット ***********
   if (false) {
-    let trigger = document.querySelector('[data-trigger]');
-    let target = document.querySelector('[data-target]');
+    const trigger = document.querySelector('[data-trigger]');
+    const target = document.querySelector('[data-target]');
     if (trigger && target) {
       // ビューポート上の位置＋現在のスクロール量
-      let triggerTop = trigger.getBoundingClientRect().top + window.scrollY;
+      const triggerTop = trigger.getBoundingClientRect().top + window.scrollY;
       window.addEventListener('scroll', function () {
         // フォームの上端が画面内に入ったかどうか
-        var scrolledIntoView = window.scrollY + window.innerHeight >= triggerTop;
+        const scrolledIntoView = window.scrollY + window.innerHeight >= triggerTop;
         if (scrolledIntoView) {
           target.style.opacity = '0';
           target.style.visibility = 'hidden';
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     const floatingButton = document.querySelector('[data-animation="floating-button"]');
     if (floatingButton) {
-      let tl = gsap.timeline({});
+      const tl = gsap.timeline({});
       tl.to(floatingButton, {
         scrollTrigger: {
           markers: true,
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.opacity = 0;
     }
     el.style.display = display;
-    let height = el.offsetHeight;
+    const height = el.offsetHeight;
     el.style.overflow = 'hidden';
     el.style.height = 0;
     el.style.paddingTop = 0;
@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ! FVアニメーション（Lottie）（lottie.min.js の読み込みが必要） ***********
   if (false) {
     const pageUrlNonLocate = pageUrl.replace(/\/en/g, ''); // 多言語設定がある場合は「/en」を削除
-    let ltAnimationFv = lottie.loadAnimation({
+    const ltAnimationFv = lottie.loadAnimation({
       container: document.getElementById('animation'),
       renderer: 'svg',
       loop: true,
