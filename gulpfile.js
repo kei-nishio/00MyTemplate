@@ -1,6 +1,6 @@
 // * 環境変数の読み込み
 import dotenv from 'dotenv';
-dotenv.config({ path: '../environments/.env.local' });
+dotenv.config({ path: './environments/.env.local' });
 
 // * 基本機能
 import { src, dest, watch, series, parallel } from 'gulp'; // Gulpの基本関数
@@ -65,7 +65,7 @@ const userHomeDir = os.homedir(); // ホームディレクトリを取得：C:\U
 const ejsMode = process.env.EJS_MODE === 'true'; // ! EJSの場合はtrueにする（静的コーディングのみの場合はfalse）
 const wpMode = process.env.WP_MODE === 'true'; // ! WordPressの場合はtrueにする（静的コーディングのみの場合はfalse）
 const wpLocalMode = process.env.WP_LOCAL_MODE === 'true'; // ! WordPressLocalの内容を上書きする場合はtrueにする
-const srcEjsDir = process.env.SRC_EJS_DIR || '../src/ejs'; // ! EJSファイルのディレクトリ
+const srcEjsDir = process.env.SRC_EJS_DIR || './src/ejs'; // ! EJSファイルのディレクトリ
 const siteTitle = process.env.SITE_TITLE || 'template'; // ! WordPress site title (project name)
 const themeName = process.env.THEME_NAME || 'templatetheme'; // ! WordPress theme file name
 const localSiteDomain = process.env.LOCAL_SITE_DOMAIN || 'template.local'; // ! WordPress Local Site Domain
@@ -83,37 +83,37 @@ const productionRemotePath = `${productionSiteRoot}/wp-content/themes/${themeNam
 
 // * 読み込み先
 const srcPath = {
-  sass: '../src/sass/**/*.scss',
-  css: '../src/assets/css/**/*',
-  js: '../src/assets/js/**/*',
-  img: '../src/assets/images/**/*',
-  others: ['../src/assets/**/*', '!../src/assets/images/**/*', '!../src/assets/js/**/*', '!../src/assets/css/**/*'],
-  ejs: '../src/ejs/**/*.ejs',
-  html: ['../src/**/*.html', '!./node_modules/**'],
-  php: ['../src/wp/**/*.php', '../src/wp/style.css', '../src/wp/screenshot.*', '../src/wp/**/*.json'],
+  sass: './src/sass/**/*.scss',
+  css: './src/assets/css/**/*',
+  js: './src/assets/js/**/*',
+  img: './src/assets/images/**/*',
+  others: ['./src/assets/**/*', '!./src/assets/images/**/*', '!./src/assets/js/**/*', '!./src/assets/css/**/*'],
+  ejs: './src/ejs/**/*.ejs',
+  html: ['./src/**/*.html', '!./node_modules/**'],
+  php: ['./src/wp/**/*.php', './src/wp/style.css', './src/wp/screenshot.*', './src/wp/**/*.json'],
 };
 
 // * html反映用
 const destPath = {
-  all: '../dist/**/*',
-  sass: '../dist/src/sass/',
-  css: '../dist/assets/css/',
-  js: '../dist/assets/js/',
-  img: '../dist/assets/images/',
-  others: '../dist/assets/',
-  html: '../dist/',
+  all: './dist/**/*',
+  sass: './dist/src/sass/',
+  css: './dist/assets/css/',
+  js: './dist/assets/js/',
+  img: './dist/assets/images/',
+  others: './dist/assets/',
+  html: './dist/',
 };
 
 // * WordPress反映用
 const destWpPath = {
-  base: `../distwp`,
-  all: `../distwp/**/*`,
-  sass: `../distwp/src/sass/`,
-  css: `../distwp/assets/css/`,
-  js: `../distwp/assets/js/`,
-  img: `../distwp/assets/images/`,
-  others: `../distwp/assets/`,
-  php: `../distwp/`,
+  base: `./distwp`,
+  all: `./distwp/**/*`,
+  sass: `./distwp/src/sass/`,
+  css: `./distwp/assets/css/`,
+  js: `./distwp/assets/js/`,
+  img: `./distwp/assets/images/`,
+  others: `./distwp/assets/`,
+  php: `./distwp/`,
 };
 
 // * WordPressLocal反映用
@@ -359,7 +359,7 @@ const formatCode = async () => {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   try {
     const { stdout, stderr } = await execPromise(
-      'npx prettier --write "../src/**/*.{scss,js}" --config "../.prettierrc.json" --ignore-path "../.prettierignore"'
+      'npx prettier --write "./src/**/*.{scss,js}" --config "./.prettierrc.json" --ignore-path "./.prettierignore"'
     );
     if (stdout) console.log(stdout);
     if (stderr && !stderr.includes('unchanged')) console.warn(stderr);
@@ -430,7 +430,7 @@ const browserSyncOption = {
 if (wpMode) {
   browserSyncOption.proxy = `http://${localSiteDomain}/`;
 } else {
-  browserSyncOption.server = '../dist/';
+  browserSyncOption.server = './dist/';
 }
 const browserSyncFunc = () => {
   browserSync.init(browserSyncOption);
@@ -454,18 +454,18 @@ const cleanWithoutImages = () => {
   // 画像以外のディレクトリとファイルを明示的に指定して削除
   const deleteTargets = [
     // dist配下
-    '../dist/assets/css/**',
-    '../dist/assets/js/**',
-    '../dist/src/**',
-    '../dist/**/*.html',
-    '../dist/**/*.php',
+    './dist/assets/css/**',
+    './dist/assets/js/**',
+    './dist/src/**',
+    './dist/**/*.html',
+    './dist/**/*.php',
     // distwp配下
-    '../distwp/assets/css/**',
-    '../distwp/assets/js/**',
-    '../distwp/src/**',
-    '../distwp/**/*.php',
-    '../distwp/**/*.json',
-    '../distwp/style.css',
+    './distwp/assets/css/**',
+    './distwp/assets/js/**',
+    './distwp/src/**',
+    './distwp/**/*.php',
+    './distwp/**/*.json',
+    './distwp/style.css',
   ];
 
   if (wpLocalMode) {

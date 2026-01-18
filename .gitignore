@@ -1,8 +1,5 @@
-# ._gulp
-_gulp/**/*
-!_gulp/gulpfile.js
-!_gulp/package.json
-!_gulp/eslint.config.js
+# node_modules
+node_modules
 # .vscode
 .vscode/**/*
 !.vscode/settings.json

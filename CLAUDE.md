@@ -30,14 +30,12 @@ All build settings are managed via environment variables in [environments/.env.l
 **Initial Setup:**
 
 ```bash
-cd _gulp
 npm i
 ```
 
 **Development:**
 
 ```bash
-cd _gulp
 npx gulp
 ```
 
@@ -46,7 +44,6 @@ Starts BrowserSync development server with file watching. Keep this running duri
 **Production Build:**
 
 ```bash
-cd _gulp
 npx gulp build
 ```
 
@@ -55,7 +52,6 @@ Cleans output directories and performs production build with optimizations.
 **Production Build (Skip Images):**
 
 ```bash
-cd _gulp
 npx gulp build_no_images
 ```
 
@@ -64,7 +60,6 @@ Same as `build` but skips image optimization (useful for faster rebuilds).
 **Package Management:**
 
 ```bash
-cd _gulp
 ncu                    # Check for outdated packages
 ncu -u                 # Update package.json to latest versions
 npm audit              # Check for vulnerabilities
@@ -75,8 +70,6 @@ npm audit fix --force  # Fix vulnerabilities (aggressive)
 **Lint / Formatter:**
 
 ```bash
-cd _gulp
-
 # SCSS Lint
 npm run lint:scss              # Check SCSS files
 npm run lint:scss:fix          # Auto-fix SCSS issues
@@ -142,12 +135,11 @@ src/                           # All source files (ONLY edit here)
 │   └─ images/                 # Source images (auto-optimized + WebP)
 │
 ├─ dist/                       # Output for static/EJS build (DO NOT EDIT)
-└─ distwp/                     # Output for WordPress build (DO NOT EDIT)
-
-_gulp/                         # Gulp build system
+├─ distwp/                     # Output for WordPress build (DO NOT EDIT)
 │
 ├─ gulpfile.js                 # Gulp task definitions
-└─ package.json                # Dependencies + Node.js version pinning (Volta)
+├─ package.json                # Dependencies + Node.js version pinning (Volta)
+└─ eslint.config.js            # ESLint configuration
 ```
 
 ### Sass Architecture
@@ -398,7 +390,7 @@ function isSP() {
 
 ### Gulp Tasks (gulpfile.js:336-367)
 
-The Gulp build system is defined in [\_gulp/gulpfile.js](_gulp/gulpfile.js):
+The Gulp build system is defined in [gulpfile.js](gulpfile.js):
 
 - **Default task** (`npx gulp`): Development mode with BrowserSync and file watching
 - **build**: Production build with full optimization and directory cleanup
@@ -419,7 +411,7 @@ The Gulp build system is defined in [\_gulp/gulpfile.js](_gulp/gulpfile.js):
 ## Development Workflow
 
 1. Configure build mode in [environments/.env.local](environments/.env.local)
-2. Run `cd _gulp && npm i` (first time only)
+2. Run `npm i` (first time only)
 3. Run `npx gulp` to start development server
 4. Edit files in `src/` directory only
 5. Changes automatically compile and reload browser
@@ -429,14 +421,14 @@ The Gulp build system is defined in [\_gulp/gulpfile.js](_gulp/gulpfile.js):
 
 - **Never edit** files in `dist/` or `distwp/` - they are auto-generated
 - **Never modify** files in `base/` directory (if present)
-- Delete `_gulp/node_modules/` before sharing project (reinstall with `npm i`)
+- Delete `node_modules/` before sharing project (reinstall with `npm i`)
 - Ensure Sass partials (files starting with `_`) are properly imported
 - When using WordPress mode, ensure Local by Flywheel site name matches `SITE_TITLE` in .env
 - The `style.scss` file uses Sass module system (`@use`) with glob patterns for automatic imports
 
 ## Node.js Version Management
 
-This project uses **Volta** for Node.js version pinning (defined in [\_gulp/package.json](_gulp/package.json)):
+This project uses **Volta** for Node.js version pinning (defined in [package.json](package.json)):
 
 - Node.js: `20.18.1`
 - npm: `11.0.0`

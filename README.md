@@ -24,10 +24,9 @@
 ## 使い方および操作方法
 
 1. ターミナルを開く。
-2. `cd _gulp`をターミナルに入力。（cd と\_gulp の間には半角スペース要）
-3. `npm i`をターミナルへ入力。
-4. 必要なパッケージファイルのダウンロードが始まります。
-5. `npx gulp`でタスクランナーが起動します
+2. `npm i`をターミナルへ入力。
+3. 必要なパッケージファイルのダウンロードが始まります。
+4. `npx gulp`でタスクランナーが起動します
 
 ### - npm i コマンドでダウンロードが始まる仕組み
 
@@ -36,9 +35,9 @@
 
 ### - Gulp の使い方
 
-- `gulpfile.js`のパス設定をしてください。
-  - ejs の場合は、`ejsMode`を`true`にして、`wpMode`と`wpLocalMode`を`false`にしてください。
-  - php(WordPress)の場合は、`ejsMode`を`false`にして、`wpMode`を`true`にしてください。また、local wheel で作成した Local データ内のテーマを上書きする場合は、`wpLocalMode`を`true`にしてください。`siteTitle`などは Local wheel に合わせてください。
+- `environments/.env.local`のパス設定をしてください。
+  - ejs の場合は、`EJS_MODE`を`true`にして、`WP_MODE`と`WP_LOCAL_MODE`を`false`にしてください。
+  - php(WordPress)の場合は、`EJS_MODE`を`false`にして、`WP_MODE`を`true`にしてください。また、Local by Flywheel で作成した Local データ内のテーマを上書きする場合は、`WP_LOCAL_MODE`を`true`にしてください。`SITE_TITLE`などは Local by Flywheel に合わせてください。
 - `npx gulp` ないしは `gulp` でタスクランナーが起動します。
   - コーディング中はずっと動かしたままにしてください。
 - `npx gulp build`でフォルダ内を整理することができます。
@@ -57,8 +56,8 @@
 ## 注意点
 
 - `base`は変更を加えないでください。
-- ほかの方に共有する場合は、`_gulp`内の`node_modules`を削除してください（重いため）。
-- コーディング完了時はは`npx gulp build`コマンドを入力し、フォルダ内を整理してください。
+- ほかの方に共有する場合は、`node_modules`を削除してください（重いため）。
+- コーディング完了時は`npx gulp build`コマンドを入力し、フォルダ内を整理してください。
 
 ## gulp と package.json
 
