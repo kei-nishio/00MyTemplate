@@ -59,6 +59,16 @@ export default [
     },
   },
   {
+    files: ['gulpfile.js', '*.config.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
     ignores: ['dist/**', 'distwp/**', '**/*.min.js'],
   },
 ];
