@@ -1,0 +1,14 @@
+name: PR Notification to Discord
+on:
+  pull_request:
+    types: [opened, reopened]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: stegzilla/discord-notify@v2
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          title: 'New Pull Request in ${{ github.repository }}'
+          message: "**${{ github.event.pull_request.title }}** by *${{ github.event.pull_request.user.login }}*\n${{ github.event.pull_request.html_url }}"
+          include_image: true

@@ -1,0 +1,351 @@
+name: PR → Discord thread notify
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 必要なシークレットの検証
+      - name: Validate required secrets
+        run: |
+          if [ -z "${{ secrets.DISCORD_CHANNEL_ID }}" ]; then
+            echo "Error: DISCORD_CHANNEL_ID secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.DISCORD_BOT_TOKEN }}" ]; then
+            echo "Error: DISCORD_BOT_TOKEN secret is not set"
+            exit 1
+          fi
+      # jqのインストール
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      # ユーザーマッピングの読み込み
+      - name: Load user mapping
+        run: |
+          echo "Loading user mapping from Gist..."
+          if ! curl -L -s --fail \
+            "https://gist.githubusercontent.com/kei-nishio/fa1ed0f2f7e410bde57b8fac87c4e938/raw/usermap.json" \
+            -o usermap.json; then
+            echo "Warning: Failed to load user mapping. Creating empty mapping."
+            echo '{}' > usermap.json
+          fi
+          
+          echo "User mapping loaded:"
+          jq '.' usermap.json
+      # PR情報の抽出
+      - name: Extract PR information
+        id: pr_info
+        run: |
+          # 作成者
+          echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
+          
+          # タイトル（Discordのスレッド名制限100文字に対応）
+          TITLE="${{ github.event.pull_request.title }}"
+          if [ ${#TITLE} -gt 100 ]; then
+            TITLE="${TITLE:0:97}..."
+            echo "Note: Title truncated to 100 characters for Discord thread name limit"
+          fi
+          echo "TITLE<<EOF" >> $GITHUB_OUTPUT
+          echo "$TITLE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          # URL
+          echo "URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_OUTPUT
+          
+          # PR番号
+          echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+      # レビュアーとアサイニーの抽出
+      - name: Extract reviewers and assignees
+        id: users
+        run: |
+          # レビュアーの抽出
+          reviewers=$(echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq -r '.[].login // empty')
+          if [ -z "$reviewers" ]; then
+            reviewers=""
+          fi
+          {
+            echo 'REVIEWERS<<EOF'
+            echo "$reviewers"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+          
+          # アサイニーの抽出
+          assignees=$(echo '${{ toJson(github.event.pull_request.assignees) }}' | jq -r '.[].login // empty')
+          if [ -z "$assignees" ]; then
+            assignees=""
+          fi
+          {
+            echo 'ASSIGNEES<<EOF'
+            echo "$assignees"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+      # メンションの解決
+      - name: Resolve Discord mentions
+        id: mention
+        run: |
+          # メンション取得用の関数
+          get_discord_id() {
+            local github_username="$1"
+            local discord_id=$(jq -r --arg k "$github_username" '.[$k] // "null"' usermap.json)
+            if [ "$discord_id" != "null" ] && [ -n "$discord_id" ]; then
+              echo "$discord_id"
+            fi
+          }
+          
+          mentions=""
+          
+          # 作成者のメンション
+          author="${{ steps.pr_info.outputs.AUTHOR }}"
+          author_id=$(get_discord_id "$author")
+          if [ -n "$author_id" ]; then
+            mentions="<@$author_id>"
+          fi
+          
+          # レビュアーのメンション
+          while IFS= read -r reviewer; do
+            [ -z "$reviewer" ] && continue
+            reviewer_id=$(get_discord_id "$reviewer")
+            if [ -n "$reviewer_id" ]; then
+              [ -n "$mentions" ] && mentions="$mentions "
+              mentions="${mentions}<@$reviewer_id>"
+            fi
+          done <<< "${{ steps.users.outputs.REVIEWERS }}"
+          
+          {
+            echo 'MENTIONS<<EOF'
+            echo "$mentions"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+          
+          echo "Resolved mentions: $mentions"
+      # Discord APIコール用の関数定義
+      - name: Setup Discord API functions
+        run: |
+          cat << 'SCRIPT' > discord_api.sh
+          #!/bin/bash
+          set -e
+          
+          # Discord APIコール関数
+          discord_api_call() {
+            local method="$1"
+            local endpoint="$2"
+            local data="$3"
+            local output_file="$4"
+            
+            echo "Calling Discord API: $method $endpoint"
+            
+            response=$(curl -s -w "\n%{http_code}" -X "$method" \
+              "https://discord.com/api/v10/$endpoint" \
+              -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+              -H "Content-Type: application/json" \
+              ${data:+-d "$data"})
+            
+            http_code=$(echo "$response" | tail -n1)
+            response_body=$(echo "$response" | sed '$d')
+            
+            echo "$response_body" > "$output_file"
+            
+            # HTTPステータスコードの確認
+            if [ "$http_code" -lt 200 ] || [ "$http_code" -ge 300 ]; then
+              echo "Error: Discord API returned HTTP $http_code"
+              echo "Response: $response_body"
+              return 1
+            fi
+            
+            echo "Success: HTTP $http_code"
+            return 0
+          }
+          
+          export -f discord_api_call
+          SCRIPT
+          
+          chmod +x discord_api.sh
+          source discord_api.sh
+      # メインメッセージの投稿
+      - name: Post main message to Discord
+        id: main_message
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          source discord_api.sh
+          
+          # メッセージ内容の準備
+          message_text=$(printf "PRができましたよ！早く見に来てください〜！\n%s\n<%s>" \
+            "${{ steps.pr_info.outputs.TITLE }}" \
+            "${{ steps.pr_info.outputs.URL }}")
+          
+          # JSONペイロードの作成
+          payload=$(jq -n \
+            --arg content "$message_text" \
+            '{content: $content}')
+          
+          # APIコール
+          if ! discord_api_call "POST" "channels/$DISCORD_CHANNEL_ID/messages" "$payload" "main_message.json"; then
+            echo "Failed to post main message to Discord"
+            exit 1
+          fi
+          
+          # メッセージIDの取得
+          MESSAGE_ID=$(jq -r '.id' main_message.json)
+          if [ -z "$MESSAGE_ID" ] || [ "$MESSAGE_ID" = "null" ]; then
+            echo "Error: Failed to get message ID"
+            exit 1
+          fi
+          
+          echo "MESSAGE_ID=$MESSAGE_ID" >> $GITHUB_OUTPUT
+          echo "Main message posted successfully. ID: $MESSAGE_ID"
+
+      # スレッドの作成
+      - name: Create Discord thread
+        id: thread
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          source discord_api.sh
+          
+          # スレッド名の準備
+          thread_name="${{ steps.pr_info.outputs.TITLE }}"
+          
+          # JSONペイロードの作成
+          payload=$(jq -n \
+            --arg name "$thread_name" \
+            '{name: $name, auto_archive_duration: 1440}')
+          
+          # APIコール
+          if ! discord_api_call "POST" \
+            "channels/$DISCORD_CHANNEL_ID/messages/${{ steps.main_message.outputs.MESSAGE_ID }}/threads" \
+            "$payload" \
+            "thread.json"; then
+            echo "Failed to create Discord thread"
+            exit 1
+          fi
+          
+          # スレッドIDの取得
+          THREAD_ID=$(jq -r '.id' thread.json)
+          if [ -z "$THREAD_ID" ] || [ "$THREAD_ID" = "null" ]; then
+            echo "Error: Failed to get thread ID"
+            exit 1
+          fi
+          
+          echo "THREAD_ID=$THREAD_ID" >> $GITHUB_OUTPUT
+          echo "Thread created successfully. ID: $THREAD_ID"
+      # スレッドメッセージの投稿
+      - name: Post detailed message to thread
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: |
+          source discord_api.sh
+          
+          # 作成者情報
+          author_info="- ${{ steps.pr_info.outputs.AUTHOR }}"
+          author_discord_id=$(jq -r --arg k "${{ steps.pr_info.outputs.AUTHOR }}" '.[$k] // "null"' usermap.json)
+          if [ "$author_discord_id" != "null" ]; then
+            author_info="${author_info}（<@$author_discord_id>）"
+          fi
+          
+          # レビュアーリストの作成
+          reviewer_list=""
+          if [ -n "${{ steps.users.outputs.REVIEWERS }}" ]; then
+            while IFS= read -r reviewer; do
+              [ -z "$reviewer" ] && continue
+              reviewer_item="- $reviewer"
+              reviewer_discord_id=$(jq -r --arg k "$reviewer" '.[$k] // "null"' usermap.json)
+              if [ "$reviewer_discord_id" != "null" ]; then
+                reviewer_item="${reviewer_item}（<@$reviewer_discord_id>）"
+              fi
+              [ -n "$reviewer_list" ] && reviewer_list="${reviewer_list}\n"
+              reviewer_list="${reviewer_list}${reviewer_item}"
+            done <<< "${{ steps.users.outputs.REVIEWERS }}"
+          fi
+          [ -z "$reviewer_list" ] && reviewer_list="- なし"
+          
+          # アサイニーリストの作成
+          assignee_list=""
+          if [ -n "${{ steps.users.outputs.ASSIGNEES }}" ]; then
+            while IFS= read -r assignee; do
+              [ -z "$assignee" ] && continue
+              assignee_item="- $assignee"
+              assignee_discord_id=$(jq -r --arg k "$assignee" '.[$k] // "null"' usermap.json)
+              if [ "$assignee_discord_id" != "null" ]; then
+                assignee_item="${assignee_item}（<@$assignee_discord_id>）"
+              fi
+              [ -n "$assignee_list" ] && assignee_list="${assignee_list}\n"
+              assignee_list="${assignee_list}${assignee_item}"
+            done <<< "${{ steps.users.outputs.ASSIGNEES }}"
+          fi
+          [ -z "$assignee_list" ] && assignee_list="- なし"
+          
+          # メンション部分の準備
+          mentions_text=""
+          if [ -n "${{ steps.mention.outputs.MENTIONS }}" ]; then
+            mentions_text="${{ steps.mention.outputs.MENTIONS }}"
+          fi
+          
+          # メッセージの組み立て
+          thread_message=$(printf "＝＝＝＝＝＝＝＝＝＝\n■ 作成者：\n%s\n\n■ レビュアー（Reviewers）：\n%b\n\n■ 担当者（Assignees）：\n%b\n\n■ PR URL：\n%s\n\n■ ローカルでのチェックアウト方法：\n\`\`\`\ngit switch main && git branch -D pr-test | echo pr-test branch is deleted! \ngit fetch origin pull/%s/head:pr-test\ngit switch pr-test\n\`\`\`\n\n＝＝＝＝＝＝＝＝＝＝\n\n早くレビューしないと月に帰っちゃいますよ？\n\n%s" \
+            "$author_info" \
+            "$reviewer_list" \
+            "$assignee_list" \
+            "${{ steps.pr_info.outputs.URL }}" \
+            "${{ steps.pr_info.outputs.PR_NUMBER }}" \
+            "$mentions_text")
+          
+          # JSONペイロードの作成
+          payload=$(jq -n \
+            --arg content "$thread_message" \
+            '{content: $content}')
+          
+          # APIコール
+          if ! discord_api_call "POST" \
+            "channels/${{ steps.thread.outputs.THREAD_ID }}/messages" \
+            "$payload" \
+            "thread_message.json"; then
+            echo "Warning: Failed to post thread message, but main notification was sent"
+            # スレッドメッセージの失敗は警告として扱い、ワークフローは失敗させない
+          else
+            echo "Thread message posted successfully"
+          fi
+
+      # 完了メッセージ
+      - name: Summary
+        run: |
+          echo "## 📢 Discord Notification Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR Title**: ${{ steps.pr_info.outputs.TITLE }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR URL**: ${{ steps.pr_info.outputs.URL }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Author**: ${{ steps.pr_info.outputs.AUTHOR }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 👥 People" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reviewers**:" >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ steps.users.outputs.REVIEWERS }}" ]; then
+            while IFS= read -r reviewer; do
+              [ -z "$reviewer" ] && continue
+              echo "  - $reviewer" >> $GITHUB_STEP_SUMMARY
+            done <<< "${{ steps.users.outputs.REVIEWERS }}"
+          else
+            echo "  - None" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- **Assignees**:" >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ steps.users.outputs.ASSIGNEES }}" ]; then
+            while IFS= read -r assignee; do
+              [ -z "$assignee" ] && continue
+              echo "  - $assignee" >> $GITHUB_STEP_SUMMARY
+            done <<< "${{ steps.users.outputs.ASSIGNEES }}"
+          else
+            echo "  - None" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Discord IDs" >> $GITHUB_STEP_SUMMARY
+          echo "- **Discord Channel**: ${{ secrets.DISCORD_CHANNEL_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Message ID**: ${{ steps.main_message.outputs.MESSAGE_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Thread ID**: ${{ steps.thread.outputs.THREAD_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Notification sent successfully!" >> $GITHUB_STEP_SUMMARY
