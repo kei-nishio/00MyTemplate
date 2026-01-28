@@ -1,0 +1,50 @@
+name: 汎用テンプレート (General Issue)
+description: 質問、タスク、改善提案など、何でもこちらへ
+title: '[Gen]: '
+labels: ['triage']
+
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: カテゴリ
+      description: どのような内容か選択してください
+      options:
+        - 質問 (Question)
+        - タスク (Task)
+        - 改善提案 (Enhancement)
+        - その他 (Other)
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 「何を実現したいか」「何に困っているか」を1〜2行で教えてください
+      placeholder: 例：○○の機能を使いやすくしたい、△△の使い方がわからない
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: 詳細
+      description: 背景や具体的な内容を詳しく記載してください。コードや画像も大歓迎です
+      placeholder: |
+        ### 背景
+        現状は〜〜となっている。
+
+        ### 提案・相談内容
+        具体的には〜〜したい。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 事前確認
+      options:
+        - label: 関連する既存の Issue がないか確認しました
+          required: true
+        - label: (あれば) ログやスクリーンショットを添付しました

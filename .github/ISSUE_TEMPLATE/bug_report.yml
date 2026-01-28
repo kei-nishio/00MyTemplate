@@ -1,0 +1,60 @@
+name: バグ報告フォーム
+description: 問題が発生している場合に報告してください
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ご報告ありがとうございます！正確な修正のため、詳細の記入をお願いします。
+
+  - type: input
+    id: version
+    attributes:
+      label: バージョン
+      placeholder: 例: v1.0.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 実行環境 (OS)
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - iOS/Android
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 何をした時に問題が起きたか書いてください。
+      placeholder: |
+        1. ○○を開く
+        2. △△をクリックする
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: 実際の挙動
+      description: 何が起きたか（エラー内容など）を記載してください。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 確認事項
+      options:
+        - label: 最新バージョンを利用していますか？
+          required: true
+        - label: 同様のイシューが既にないか確認しましたか？
+          required: true
