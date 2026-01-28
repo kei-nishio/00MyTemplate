@@ -12,6 +12,8 @@ Frontend development template supporting multiple build targets:
 
 Stack: Gulp, Sass (Dart Sass), Babel, BrowserSync
 
+**Requirements**: Node.js 20.18.1+, npm 11.0.0+ (managed via [Volta](https://volta.sh/))
+
 ## Common Commands
 
 ```bash
@@ -20,6 +22,7 @@ npx gulp                      # Development server with file watching
 npx gulp build                # Production build (WebP images only)
 npx gulp build-with-original  # Production build (original + WebP images)
 npx gulp build-without-images # Build without image processing
+npx gulp clean                # Delete build output (dist/distwp)
 
 npm run lint                  # Lint SCSS + JS
 npm run lint:fix              # Auto-fix lint issues
@@ -30,7 +33,9 @@ npm run format                # Format SCSS + JS with Prettier
 
 ## Build Configuration
 
-Edit `environments/.env.local` (copy from `.env.sample`):
+Setup: `cp environments/.env.sample environments/.env.local`
+
+Edit `environments/.env.local`:
 
 | Variable        | Values         | Description                     |
 | --------------- | -------------- | ------------------------------- |
@@ -129,14 +134,24 @@ State classes: `is-*`, `has-*`
 
 When a Figma URL is provided, the workflow auto-executes:
 
-1. Fetch design via MCP
-2. `section-analyzer` parses structure → generates manifest
+1. Fetch design via MCP (`get_design_context`, `get_screenshot`)
+2. `section-analyzer` parses structure → generates manifest in `.claude/progress/`
 3. `section-orchestrator` generates code per section
 4. Output: HTML, SCSS, JS following project conventions
 
-See `.claude/CLAUDE.md` for MCP workflow details and agent configurations.
+Agent configurations: `.claude/agents/`
 
 ## Detailed Rules
 
 - **HTML/EJS/PHP**: `.claude/rules/RULES_HTML.md`
 - **SCSS**: `.claude/rules/RULES_SCSS.md`
+
+## Deploy Commands (WordPress only)
+
+```bash
+npx gulp ssh_test             # Test SSH connection
+npx gulp deploy               # Build + deploy to production
+npx gulp deploy-with-original # Build (with original images) + deploy
+npx gulp deploy_only          # Deploy without rebuild
+npx gulp watch-deploy         # Auto-deploy on file save (⚠️ production)
+```
