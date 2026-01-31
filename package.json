@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "type": "module",
   "scripts": {
+    "dev": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npm run lint:scss && npm run lint:js",
     "lint:scss": "stylelint './src/sass/**/*.scss' --config './.stylelintrc.json' --config-basedir .",

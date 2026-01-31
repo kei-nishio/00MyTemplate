@@ -48,7 +48,7 @@ cp environments/.env.sample environments/.env.local
 # 3. .env.local を編集してビルドモードを設定
 
 # 4. 開発サーバー起動
-npx gulp
+npm run dev
 ```
 
 ---
@@ -95,8 +95,11 @@ LOCAL_SITE_DOMAIN=your-site.local
 
 | コマンド                | 説明                                            |
 | ----------------------- | ----------------------------------------------- |
-| `npx gulp`              | 開発サーバー起動＆ファイル監視                  |
+| `npm run dev`           | 開発サーバー起動＆ファイル監視                  |
+| `npx gulp`              | 開発サーバー起動＆ファイル監視（同上）          |
 | `npx gulp watch-deploy` | 自動デプロイ付き監視（⚠️ 本番直接反映・要注意） |
+
+> **Tip:** [@antfu/ni](https://github.com/antfu-collective/ni) を使用している場合は `nr dev` でも起動できます。
 
 ### ビルド
 

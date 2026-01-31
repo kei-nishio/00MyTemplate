@@ -18,7 +18,7 @@ Stack: Gulp, Sass (Dart Sass), Babel, BrowserSync
 
 ```bash
 npm i                         # Install dependencies
-npx gulp                      # Development server with file watching
+npm run dev                   # Development server with file watching (or: npx gulp)
 npx gulp build                # Production build (WebP images only)
 npx gulp build-with-original  # Production build (original + WebP images)
 npx gulp build-without-images # Build without image processing
